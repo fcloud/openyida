@@ -9,7 +9,7 @@
 
   git clone https://github.com/openyida/openyida.git
 
-# 2. 使用代码编辑器打开项目，打开自己的 AI 编程工具，输入：执行安装脚本，等待 Skills 安装完成（[yida-skills](https://github.com/openyida/yida-skills)）
+# 2. 使用代码编辑器打开项目，打开自己的 AI 编程工具，输入：执行安装脚本，等待 Skills 安装完成
 # 3. 一句话生成应用：帮我搭建一个生日祝福小游戏应用
 # 4. 根据需求文档生成应用：帮我搭建个人薪资计算器应用
 
@@ -50,7 +50,7 @@ AI 生成灯谜图片，用户猜答案，猜错了有 AI 幽默提示。
 
 ---
 
-## 常用问法
+## 常用问法([yida-skills](https://github.com/openyida/yida-skills))
 1. 帮我搭建一个 xxx 应用
 2. 根据需求文档生成应用
 3. 帮我创建一个 xxx 表单页面
