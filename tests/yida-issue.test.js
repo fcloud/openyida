@@ -5,7 +5,7 @@ const path = require("path");
 
 const SCRIPT_PATH = path.resolve(
   __dirname,
-  "../../.claude/skills/yida-issue/scripts/create-issue.js"
+  "../.claude/skills/yida-issue/scripts/create-issue.js"
 );
 
 function runScript(args = []) {
