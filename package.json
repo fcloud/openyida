@@ -5,11 +5,27 @@
   "bin": {
     "yida": "./bin/yida.js"
   },
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
   "keywords": ["yida", "aliwork", "dingtalk", "cli", "openyida"],
   "author": "OpenYida Contributors",
   "license": "MIT",
   "dependencies": {
     "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov"
+    ]
   },
   "engines": {
     "node": ">=16"
