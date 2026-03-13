@@ -8,7 +8,7 @@
 # 1. 克隆仓库（含 Skills 子模块）
 git clone --recurse-submodules https://github.com/openyida/openyida.git
 
-# 2. 安装 Skills（无需 Node 环境）
+# 2. 安装 Skills（无需 Node 环境，自动检测网络，国内自动使用加速源）
 # Mac / Linux：
 bash install-skills.sh
 # Windows（PowerShell）：
@@ -25,6 +25,12 @@ bash install-skills.sh
 > # 然后再运行安装脚本：
 > bash install-skills.sh        # Mac / Linux
 > .\install-skills.ps1          # Windows（PowerShell）
+> ```
+
+> **国内网络访问 GitHub 较慢？** 安装脚本会自动检测并切换加速源，也可手动指定：
+> ```bash
+> bash install-skills.sh --cn   # Mac / Linux 强制使用国内加速源
+> .\install-skills.ps1 --cn     # Windows 强制使用国内加速源
 > ```
 
 

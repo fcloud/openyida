@@ -18,16 +18,27 @@ git clone git@github.com:your-username/openyida.git
 cd openyida
 
 # 安装 Skills（无需 Node 环境）
-# Mac / Linux：
+# Mac / Linux（自动检测网络，国内自动使用加速源）：
 bash install-skills.sh
-# Windows（PowerShell）：
+# Mac / Linux（强制使用国内加速源）：
+bash install-skills.sh --cn
+# Windows（PowerShell，自动检测网络）：
 # .\install-skills.ps1
+# Windows（强制使用国内加速源）：
+# .\install-skills.ps1 --cn
 
 # 安装 Python 依赖
-pip install playwright && playwright install chromium
+# 国内用户推荐使用阿里云镜像加速：
+pip install playwright -i https://mirrors.aliyun.com/pypi/simple/
+playwright install chromium
+# 海外用户：
+# pip install playwright && playwright install chromium
 
 # 安装 Node 依赖（发布页面时需要）
-cd .claude/skills/skills/yida-publish-page/scripts && npm install
+# 国内用户推荐使用淘宝镜像加速：
+cd .claude/skills/skills/yida-publish-page/scripts && npm install --registry https://registry.npmmirror.com
+# 海外用户：
+# cd .claude/skills/skills/yida-publish-page/scripts && npm install
 ```
 
 ## Submitting Changes
