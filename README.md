@@ -9,9 +9,11 @@ npm install -g openyida
 安装后可使用 `openyida` 或 `yida` 命令：
 
 ```bash
-openyida doctor   # 检查环境依赖
-openyida login    # 扫码登录宜搭
+openyida doctor   # 检查环境依赖（任意目录可用）
+openyida login    # 扫码登录宜搭（需在项目目录下运行）
 ```
+
+> 💡 `login`、`publish` 等依赖 Skills 的命令，需要在第二步克隆的项目目录下运行。
 
 ### 第二步：安装 Skills
 
