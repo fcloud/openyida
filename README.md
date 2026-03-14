@@ -1,28 +1,15 @@
 ## 快速开始
 
-### 第一步：安装 CLI 工具
-
-```bash
-npm install -g openyida
-```
-
-安装后可使用 `openyida` 或 `yida` 命令：
-
-```bash
-openyida doctor   # 检查环境依赖（任意目录可用）
-openyida login    # 扫码登录宜搭（需在项目目录下运行）
-```
-
-> 💡 `login`、`publish` 等依赖 Skills 的命令，需要在第二步克隆的项目目录下运行。
-
-### 第二步：安装 Skills
-
-克隆项目并安装 yida-skills（AI 技能包）。脚本会**自动检测并安装**缺少的 Node.js / Python，国内网络自动切换阿里云加速源。
+### 第一步：克隆仓库
 
 ```bash
 git clone https://github.com/openyida/openyida.git
 cd openyida
 ```
+
+### 第二步：安装 Skills
+
+脚本会**自动检测并安装**缺少的 Node.js / Python，国内网络自动切换阿里云加速源。
 
 **Mac / Linux：**
 ```bash
@@ -59,6 +46,16 @@ bash install-skills.sh
 | Node.js | ≥ 16 | yida-publish、yida-create-* 系列脚本 |
 | Python | ≥ 3.10 | yida-login、yida-logout |
 | Playwright | latest | 登录态管理 |
+
+### CLI 工具（可选）
+
+如需在任意目录使用 `openyida` / `yida` 命令（如 `openyida doctor` 检查环境），可通过 npm 全局安装：
+
+```bash
+npm install -g openyida
+```
+
+> 💡 `login`、`publish` 等依赖 Skills 的命令，仍需在克隆的项目目录下运行。
 ---
 
 ## DEMO 展示
