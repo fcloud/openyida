@@ -5,8 +5,8 @@
  * 安装：npm install -g openyida
  * 用法：yida <命令> [参数]
  *
- * 通过调用 .claude/skills/ 下的脚本复用 yida-skills 的能力。
- * Skills 安装位置：<项目根目录>/.claude/skills/
+ * 通过调用 .claude/skills/skills/ 下的脚本复用 yida-skills 的能力。
+ * Skills 安装位置：<项目根目录>/.claude/skills/skills/
  */
 
 "use strict";
@@ -22,7 +22,7 @@ const program = new Command();
 
 /**
  * 查找项目根目录（向上查找 config.json 或 .git）
- * CLI 在项目目录内运行时，需要定位到包含 .claude/skills 的根目录
+ * CLI 在项目目录内运行时，需要定位到包含 .claude/skills/skills 的根目录
  */
 function findProjectRoot() {
   let currentDir = process.cwd();
@@ -43,15 +43,15 @@ function findProjectRoot() {
  */
 function getSkillScript(skillName, scriptFile) {
   const projectRoot = findProjectRoot();
-  const scriptPath = path.join(projectRoot, ".claude", "skills", skillName, "scripts", scriptFile);
+  const scriptPath = path.join(projectRoot, ".claude", "skills", "skills", skillName, "scripts", scriptFile);
 
   if (!fs.existsSync(scriptPath)) {
     console.error(`\n❌ 未找到 skill 脚本：${scriptPath}`);
     console.error(`\n请先运行安装脚本：`);
-    console.error(`  bash install-skills.sh`);
-    console.error(`\n或手动克隆 skills：`);
-    console.error(`  git clone https://github.com/openyida/yida-skills.git .cache/yida-skills`);
-    console.error(`  mv .cache/yida-skills/skills .claude/skills`);
+    console.error(`  Mac/Linux：bash install-skills.sh`);
+    console.error(`  Windows：  .\\install-skills.ps1`);
+    console.error(`\n或手动克隆 yida-skills：`);
+    console.error(`  git clone --branch main --depth 1 https://github.com/openyida/yida-skills.git .claude/skills`);
     process.exit(1);
   }
 
@@ -327,7 +327,7 @@ program
     }
 
     // 检查 skills 安装
-    const skillsPath = path.join(projectRoot, ".claude", "skills");
+    const skillsPath = path.join(projectRoot, ".claude", "skills", "skills");
     console.log("");
     if (fs.existsSync(skillsPath)) {
       const skills = fs.readdirSync(skillsPath).filter((name) =>
@@ -488,7 +488,7 @@ function runDoctorCheck(repair) {
   const projectRoot = findProjectRoot();
   const configPath = path.join(projectRoot, "config.json");
   const cookiePath = path.join(projectRoot, ".cache", "cookies.json");
-  const skillsPath = path.join(projectRoot, ".claude", "skills");
+  const skillsPath = path.join(projectRoot, ".claude", "skills", "skills");
 
   console.log("🔍 检查 OpenYida 环境依赖...\n");
 
