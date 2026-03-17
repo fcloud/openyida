@@ -1,5 +1,3 @@
----
-
 ## 快速开始
 
 ### 第一步：安装技能
@@ -62,7 +60,9 @@ AI 生成灯谜图片，用户猜答案，猜错了有 AI 幽默提示。
 
 ---
 
-## 常用问法([openyida-skills](https://github.com/openyida/openyida-skills))
+## 常用问法
+
+> 技能定义详见 [openyida-skills](https://github.com/openyida/openyida-skills) 仓库
 
 1. 帮我搭建一个 xxx 应用
 2. 根据需求文档生成应用
@@ -78,20 +78,7 @@ AI 生成灯谜图片，用户猜答案，猜错了有 AI 幽默提示。
 
 ```
 openyida/
-├── openyida-skills/      # AI Skills 定义
-│   ├── SKILL.md          # 总入口技能（宜搭 AI 应用开发指南）
-│   ├── skills/           # 子技能目录
-│   │   ├── yida-login/         # 登录态管理
-│   │   ├── yida-logout/        # 退出登录
-│   │   ├── yida-create-app/    # 创建应用
-│   │   ├── yida-create-page/   # 创建自定义页面
-│   │   ├── yida-create-form-page/ # 创建/更新表单
-│   │   ├── yida-get-schema/    # 获取表单 Schema
-│   │   ├── yida-custom-page/   # 自定义页面代码规范
-│   │   ├── yida-publish-page/  # 发布页面
-│   │   └── yida-page-config/   # 页面访问配置
-│   └── reference/        # API 参考文档
-├── openyida-cli/         # CLI 工具源码（npm 包 yidacli）
+├── yida-cli/         # CLI 工具源码（npm 包 @openyida/yidacli）
 │   ├── src/              # 核心逻辑
 │   ├── bin/              # 可执行入口
 │   ├── scripts/          # 构建 / 发布脚本
