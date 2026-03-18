@@ -1,67 +1,64 @@
 ## 快速开始
 
-### 第一步：克隆仓库
-
 ```bash
-git clone https://github.com/openyida/openyida.git
-cd openyida
+npm install -g openyida
 ```
 
-### 第二步：安装 Skills
+**安装即用，零配置。** 安装后在 Claude Code / OpenCode / Aone Copilot 中直接对话：
 
-用 VS Code 等代码编辑器打开项目，启动 AI 编程工具后直接对话：
-
-- `帮我安装技能`
-
-**或使用命令行**
-
-**Mac / Linux：**
-```bash
-bash install-skills.sh
-```
-
-**Windows（PowerShell）：**
-```powershell
-.\install-skills.ps1
-```
-脚本会**自动检测并安装**缺少的 Node.js / Python，国内网络自动切换阿里云加速源。
-
-> 💡 **国内网络访问 GitHub 较慢？** 可手动强制使用国内加速源：
-> ```bash
-> bash install-skills.sh --cn    # Mac / Linux
-> .\install-skills.ps1 --cn      # Windows
-> ```
-
-### 第三步：开始使用
-
-用 VS Code 等代码编辑器打开项目，启动 AI 编程工具后直接对话：
-
-- `帮我创建一个访客系统应用`
-- `帮我搭建一个生日祝福小游戏应用`
+- `帮我用宜搭创建一个 IPD 系统，需要管理芯片生产全流程`
+- `帮我搭建一个 CRM`
 - `帮我搭建个人薪资计算器应用`
+
+---
+
+## 支持的 AI 编程工具
+
+- [Claude Code](https://claude.ai/code)
+- [OpenCode](https://opencode.ai)
+- [Aone Copilot](https://copilot.code.alibaba-inc.com)
+- [Cursor](https://cursor.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+---
+
+## 与其他 AI 搭建平台的区别
+
+| 维度 | OpenYida | 其他 AI 搭建平台 |
+|------|----------|------------------|
+| 目标用户 | 开发者（懂代码的人） | 业务人员（非开发者） |
+| 交互方式 | 自然语言 + AI 对话 | 可视化拖拽 + 配置面板 |
+| 产出物 | 宜搭应用（可二次编辑，支持完备低代码能力） | 配置（黑盒运行） |
+| 部署方式 | 宜搭平台 | SaaS 平台绑定 |
+| AI 模型 | 按需选择，选择最适合的模型 | 平台指定，无法更换 |
+| 安全合规 | 宜搭具备完善的安全和合规能力 | 依赖平台能力（纯代码应用需重新审查） |
 
 ---
 
 ## 依赖环境
 
-> 安装脚本会自动处理以下依赖，通常无需手动安装。
-
 | 依赖 | 版本要求 | 用途 |
 |------|----------|------|
-| Git | 任意版本 | 克隆仓库、安装 Skills |
-| Node.js | ≥ 16 | yida-publish、yida-create-* 系列脚本 |
-| Python | ≥ 3.10 | yida-login、yida-logout |
-| Playwright | latest | 登录态管理 |
+| Node.js | ≥ 16 | CLI 运行、页面发布 |
 
-### CLI 工具（可选）
-
-如需在任意目录使用 `openyida` / `yida` 命令（如 `openyida doctor` 检查环境），可通过 npm 全局安装：
+### CLI 命令一览
 
 ```bash
-npm install -g openyida
+openyida env                  # 检测当前 AI 工具环境和登录态
+openyida login                # 登录宜搭（优先缓存，否则扫码）
+openyida logout               # 退出登录 / 切换账号
+openyida copy                 # 初始化 project 工作目录到当前 AI 工具环境
+openyida create-app           # 创建宜搭应用
+openyida create-page          # 创建自定义展示页面
+openyida create-form          # 创建 / 更新表单页面
+openyida get-schema           # 获取表单 Schema
+openyida publish              # 编译并发布自定义页面
+openyida verify-short-url     # 验证短链接 URL 是否可用
+openyida save-share-config    # 保存公开访问 / 分享配置
+openyida get-page-config      # 查询页面公开访问 / 分享配置
+openyida update-form-config   # 更新表单配置
 ```
 
-> 💡 `login`、`publish` 等依赖 Skills 的命令，仍需在克隆的项目目录下运行。
 ---
 
 ## DEMO 展示
@@ -94,7 +91,7 @@ AI 生成灯谜图片，用户猜答案，猜错了有 AI 幽默提示。
 
 ---
 
-## 常用问法([yida-skills](https://github.com/openyida/yida-skills))
+## 常用问法
 
 1. 帮我搭建一个 xxx 应用
 2. 根据需求文档生成应用
@@ -108,9 +105,9 @@ AI 生成灯谜图片，用户猜答案，猜错了有 AI 幽默提示。
 
 ---
 
-## OpenClaw / Claude Code
+## OpenClaw
 
-通过 [yida-app](https://clawhub.ai/nicky1108/yida-app) 在 OpenClaw / Claude Code 中使用。
+通过 [yida-app](https://clawhub.ai/nicky1108/yida-app) 在 OpenClaw 中使用。
 
 安装：
 ```bash
@@ -131,7 +128,7 @@ npx clawhub@latest install nicky1108/yida-app
 
 ### 贡献者
 <p align="left">
-  <a href="https://github.com/yize"><img src="https://avatars.githubusercontent.com/u/1011681?v=4&s=48" width="48" height="48" alt="yize" title="yize"/></a> <a href="https://github.com/alex-mm"><img src="https://avatars.githubusercontent.com/u/3302053?v=4&s=48" width="48" height="48" alt="alex-mm" title="alex-mm"/></a> <a href="https://github.com/nicky1108"><img src="https://avatars.githubusercontent.com/u/4279283?v=4&s=48" width="48" height="48" alt="nicky1108" title="nicky1108"/></a>
+  <a href="https://github.com/yize"><img src="https://avatars.githubusercontent.com/u/1578814?v=4&s=48" width="48" height="48" alt="yize" title="yize"/></a> <a href="https://github.com/alex-mm"><img src="https://avatars.githubusercontent.com/u/3302053?v=4&s=48" width="48" height="48" alt="alex-mm" title="alex-mm"/></a> <a href="https://github.com/nicky1108"><img src="https://avatars.githubusercontent.com/u/4279283?v=4&s=48" width="48" height="48" alt="nicky1108" title="nicky1108"/></a>
 </p>
 
 ## License
