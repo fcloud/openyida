@@ -32,7 +32,7 @@ jobs:
           const path = require('path');
 
           const requiredDirs = ['bin', 'lib', 'project', 'yida-skills', 'scripts'];
-          const requiredFiles = ['bin/yida.js', 'package.json', 'config.json'];
+          const requiredFiles = ['bin/yida.js', 'package.json', 'project/config.json'];
 
           for (const dir of requiredDirs) {
             if (!fs.existsSync(dir)) {
