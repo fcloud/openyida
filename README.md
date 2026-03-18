@@ -1,3 +1,21 @@
+<div align="center">
+
+# 🚀 OpenYida
+
+**Build Yida low-code apps with AI — zero config, instant deploy.**
+
+[快速开始](#快速开始) · [CLI 命令](#cli-命令一览) · [Demo](#demo-展示) · [贡献指南](./CONTRIBUTING.md) · [更新日志](./CHANGELOG.md)
+
+[![npm version](https://img.shields.io/npm/v/openyida?color=brightgreen&label=npm)](https://www.npmjs.com/package/openyida)
+[![npm downloads](https://img.shields.io/npm/dm/openyida?color=blue)](https://www.npmjs.com/package/openyida)
+[![CI](https://github.com/openyida/openyida/actions/workflows/ci.yml/badge.svg)](https://github.com/openyida/openyida/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Node.js ≥16](https://img.shields.io/badge/node-%3E%3D16-brightgreen)](https://nodejs.org)
+
+</div>
+
+---
+
 ## 快速开始
 
 ```bash
@@ -6,21 +24,25 @@ npm install -g openyida
 
 **安装即用，零配置。** 安装后在 Claude Code / OpenCode / Aone Copilot 中直接对话：
 
-- `帮我用宜搭创建一个 IPD 系统，需要管理芯片生产全流程`
-- `帮我搭建一个 CRM`
-- `帮我搭建个人薪资计算器应用`
+```
+帮我用宜搭创建一个 IPD 系统，需要管理芯片生产全流程
+帮我搭建一个 CRM
+帮我搭建个人薪资计算器应用
+```
 
 ---
 
 ## 支持的 AI 编程工具
 
-- [Claude Code](https://claude.ai/code)
-- [OpenCode](https://opencode.ai)
-- [Aone Copilot](https://copilot.code.alibaba-inc.com)
-- [Cursor](https://cursor.com/)
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Qoder](https://qoder.com)
-- [悟空](https://dingtalk.com/wukong)
+| 工具 | 支持状态 |
+|------|----------|
+| [Claude Code](https://claude.ai/code) | ✅ 完整支持 |
+| [Aone Copilot](https://copilot.code.alibaba-inc.com) | ✅ 完整支持 |
+| [OpenCode](https://opencode.ai) | ✅ 完整支持 |
+| [Cursor](https://cursor.com/) | ✅ 完整支持 |
+| [Visual Studio Code](https://code.visualstudio.com/) | ✅ 完整支持 |
+| [Qoder](https://qoder.com) | ✅ 完整支持 |
+| [悟空](https://dingtalk.com/wukong) | ✅ 完整支持 |
 
 ---
 
@@ -43,7 +65,9 @@ npm install -g openyida
 |------|----------|------|
 | Node.js | ≥ 16 | CLI 运行、页面发布 |
 
-### CLI 命令一览
+---
+
+## CLI 命令一览
 
 ```bash
 openyida env                  # 检测当前 AI 工具环境和登录态
@@ -63,75 +87,78 @@ openyida update-form-config   # 更新表单配置
 
 ---
 
-## DEMO 展示
+## Demo 展示
 
-### 业务系统 - IPD/CRM
+### 🏢 业务系统 — IPD / CRM
+
+一句话描述需求，AI 自动生成完整的多表单业务系统。
 
 ![IPD](https://img.alicdn.com/imgextra/i2/O1CN01YBEMa929J7sD9v8U1_!!6000000008046-2-tps-3840-3366.png)
 
 ![CRM](https://img.alicdn.com/imgextra/i3/O1CN01kn0Vcn1H5OkbQaizA_!!6000000000706-2-tps-3840-2168.png)
 
-### 💰 小工具 - 个人薪资计算器
+### 💰 小工具 — 个人薪资计算器
 
 ![薪资计算器](https://gw.alicdn.com/imgextra/i2/O1CN017TeJuE1reVH2Dj7b7_!!6000000005656-2-tps-5114-2468.png)
 
----
-
-### 🌐  Landing Page - 智联协同
+### 🌐 Landing Page — 智联协同
 
 企业级产品介绍页，一句话生成完整 Landing Page。
 
 ![智联协同](https://gw.alicdn.com/imgextra/i1/O1CN01EZtvfs1cxXV00UaXi_!!6000000003667-2-tps-5118-2470.png)
 
----
-
-### 🏮 运营场景 - 看图猜灯谜
+### 🏮 运营场景 — 看图猜灯谜
 
 AI 生成灯谜图片，用户猜答案，猜错了有 AI 幽默提示。
 
-![看图猜灯谜-2](https://img.alicdn.com/imgextra/i3/O1CN01dCoscP25jSAtAB9o3_!!6000000007562-2-tps-2144-1156.png)
+![看图猜灯谜](https://img.alicdn.com/imgextra/i3/O1CN01dCoscP25jSAtAB9o3_!!6000000007562-2-tps-2144-1156.png)
 
 ---
 
 ## 常用问法
 
-1. 帮我搭建一个 xxx 应用
-2. 根据需求文档生成应用
-3. 帮我创建一个 xxx 表单页面
-4. 帮我给 xxx 页面添加一个 xxx 字段，字段名称：字段类型 xxx
-5. 帮我给 xxx 页面 xxx 字段改为必填
-6. 帮我发布 xxx 页面
-7. 帮我把页面发布为公开访问
-8. 重新登录
-9. 退出登录
+```
+帮我搭建一个 xxx 应用
+根据需求文档生成应用
+帮我创建一个 xxx 表单页面
+帮我给 xxx 页面添加一个 xxx 字段，字段名称：字段类型 xxx
+帮我给 xxx 页面 xxx 字段改为必填
+帮我发布 xxx 页面
+帮我把页面发布为公开访问
+重新登录 / 退出登录
+```
 
 ---
 
-## OpenClaw
+## OpenClaw 集成
 
-通过 [yida-app](https://clawhub.ai/nicky1108/yida-app) 在 OpenClaw 中使用。
+通过 [yida-app](https://clawhub.ai/nicky1108/yida-app) 在 OpenClaw 中使用：
 
-安装：
 ```bash
 npx clawhub@latest install nicky1108/yida-app
 ```
 
 ---
 
-## OpenYida 社区
+## 社区
 
-钉钉扫描加入 OpenYida 社区
+钉钉扫码加入 OpenYida 用户群，获取最新动态和技术支持。
 
 ![扫描加入 OpenYida 社区](https://img.alicdn.com/imgextra/i4/O1CN01RAlxmO1qF1cxRguyj_!!6000000005465-2-tps-350-356.png)
 
+---
+
 ## 贡献者
 
-感谢所有为 OpenYida 做出贡献的开发者！
+感谢所有为 OpenYida 做出贡献的开发者！欢迎阅读 [贡献指南](./CONTRIBUTING.md) 参与共建。
 
-### 贡献者
 <p align="left">
-  <a href="https://github.com/yize"><img src="https://avatars.githubusercontent.com/u/1578814?v=4&s=48" width="48" height="48" alt="yize" title="yize"/></a> <a href="https://github.com/alex-mm"><img src="https://avatars.githubusercontent.com/u/3302053?v=4&s=48" width="48" height="48" alt="alex-mm" title="alex-mm"/></a> <a href="https://github.com/nicky1108"><img src="https://avatars.githubusercontent.com/u/4279283?v=4&s=48" width="48" height="48" alt="nicky1108" title="nicky1108"/></a>
+  <a href="https://github.com/yize"><img src="https://avatars.githubusercontent.com/u/1578814?v=4&s=48" width="48" height="48" alt="yize" title="yize"/></a>
+  <a href="https://github.com/alex-mm"><img src="https://avatars.githubusercontent.com/u/3302053?v=4&s=48" width="48" height="48" alt="alex-mm" title="alex-mm"/></a>
+  <a href="https://github.com/nicky1108"><img src="https://avatars.githubusercontent.com/u/4279283?v=4&s=48" width="48" height="48" alt="nicky1108" title="nicky1108"/></a>
 </p>
+
+---
 
 ## License
 
