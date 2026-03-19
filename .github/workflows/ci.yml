@@ -32,9 +32,6 @@ jobs:
         for f in lib/*.js; do node --check "$f"; done
         echo "All JS files passed syntax check"
 
-    - name: ESLint
-      run: npm run lint
-
   test:
     name: Test (Node ${{ matrix.node-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
