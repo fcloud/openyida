@@ -8,40 +8,40 @@ const _customState = {
   activeTab: 'tableA', // 当前激活的 Tab
 };
 
-export function getCustomState(key) {
+function getCustomState(key) {
   if (key) {
     return _customState[key];
   }
   return { ..._customState };
 }
 
-export function setCustomState(newState) {
+function setCustomState(newState) {
   Object.keys(newState).forEach(function(key) {
     _customState[key] = newState[key];
   });
   this.forceUpdate();
 }
 
-export function forceUpdate() {
+function forceUpdate() {
   this.setState({ timestamp: new Date().getTime() });
 }
 
-export function didMount() {
+function didMount() {
   // 初始化逻辑
 }
 
-export function didUnmount() {
+function didUnmount() {
   // 清理逻辑
 }
 
 /**
  * 下拉选项变更处理
  */
-export function handleTypeChange(value) {
+function handleTypeChange(value) {
   this.setCustomState({ selectedType: value });
 }
 
-export function renderJsx() {
+function renderJsx() {
   const { timestamp } = this.state;
   const selectedType = _customState.selectedType;
 
