@@ -1,6 +1,6 @@
 {
   "name": "openyida",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "OpenYida CLI - 宜搭低代码 AI 开发工具（安装即用，零配置）",
   "bin": {
     "openyida": "./bin/yida.js",
@@ -22,7 +22,17 @@
     "lint:fix": "eslint bin/ lib/ scripts/ --ext .js --fix",
     "postinstall": "node scripts/postinstall.js"
   },
-  "keywords": ["yida", "aliwork", "dingtalk", "cli", "openyida", "low-code", "ai", "qoder", "wukong"],
+  "keywords": [
+    "yida",
+    "aliwork",
+    "dingtalk",
+    "cli",
+    "openyida",
+    "low-code",
+    "ai",
+    "qoder",
+    "wukong"
+  ],
   "author": "OpenYida Contributors",
   "license": "MIT",
   "dependencies": {

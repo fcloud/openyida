@@ -53,15 +53,38 @@ openyida create-app "考勤管理" "员工考勤打卡系统" "xian-daka" "#00B8
 ```bash
 openyida create-app <appName> [description] [icon] [iconColor]
 ```
-
 **参数说明**：
 
 | 参数 | 必填 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | `appName` | 是 | — | 应用名称 |
 | `description` | 否 | 同 appName | 应用描述 |
-| `icon` | 否 | `xian-yingyong` | 图标标识 |
-| `iconColor` | 否 | `#0089FF` | 图标颜色 |
+| `icon` | 否 | `xian-yingyong` | 图标标识（见文末图标列表） |
+| `iconColor` | 否 | `#0089FF` | 图标背景色（见文末色值列表） |
+| `colour` | 否 | `deepBlue` | 主题色（见下方主题色说明） |
+| `navTheme` | 否 | `dark` | 导航风格：`dark`（深色）/ `light`（浅色） |
+| `layoutDirection` | 否 | `slide` | 导航布局：`slide`（侧边栏）/ `ver`（L 型顶导） |
+
+**主题色（colour）可选值**：
+
+| 值 | 颜色 | 适合场景 |
+| --- | --- | --- |
+| `deepBlue` | 深蓝 | 政务、金融、法律、企业管理、正式场合 |
+| `podBlue` | 蓝色 | 科技、教育、通用办公、SaaS 应用 |
+| `royalBlue` | 皇家蓝 | 高端商务、专业服务、企业级应用、信任感强 |
+| `lightBlue` | 浅蓝 | 清新简约、云服务、通讯社交、年轻化应用 |
+| `teal` | 青色 | 医疗健康、环保、清新简洁类应用 |
+| `podGreen` | 绿色 | 农业、环保、健康、生态、可持续发展 |
+| `deepPurple` | 深紫 | 创意设计、艺术、高端品牌、奢侈品 |
+| `purple` | 紫色 | 女性用户、美妆、时尚、创新科技 |
+| `podOrange` | 橙色 | 活力、电商、餐饮、娱乐、社交 |
+| `yellow` | 黄色 | 儿童教育、阳光活力、警示提醒类应用 |
+| `magenta` | 玫红色 | 时尚、创意、社交、娱乐类应用 |
+| `red` | 红色 | 党建、政务、新闻、紧急类应用 |
+| `greyBlue` | 灰蓝 | 稳重商务、工业制造、技术工程、专业工具 |
+| `coffee` | 咖啡 | 传统行业、文化教育、复古风格、温馨舒适 |
+| `black` | 黑色 | 极简设计、奢侈品牌、科技前沿、高端定制 |
+
 
 **示例**：
 
@@ -69,8 +92,14 @@ openyida create-app <appName> [description] [icon] [iconColor]
 # 最简用法
 openyida create-app "考勤管理"
 
-# 完整参数
+# 自定义图标
 openyida create-app "考勤管理" "员工考勤打卡系统" "xian-daka" "#00B853"
+
+# 完整参数（含主题色、导航风格、布局）
+openyida create-app "考勤管理" "员工考勤打卡系统" "xian-daka" "#00B853" "deepBlue" "dark" "slide"
+
+# 党建应用示例（红色主题 + 浅色导航）
+openyida create-app "党建管理" "党员信息管理系统" "xian-zhengfu" "#FF4D4F" "red" "light" "ver"
 ```
 
 **输出**：日志输出到 stderr，JSON 结果输出到 stdout：
