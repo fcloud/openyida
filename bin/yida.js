@@ -8,8 +8,14 @@
  * 命令列表：
  *   openyida env                                        检测当前 AI 工具环境和登录态
  *   openyida copy [--force]                             复制 project 工作目录到当前 AI 工具环境
- *   openyida login                                      登录态管理
+ *   openyida login [--qr]                               登录态管理（--qr 使用终端二维码扫码）
  *   openyida logout                                     退出登录
+ *   openyida auth status                                查看当前登录状态
+ *   openyida auth login                                 执行登录
+ *   openyida auth refresh                               刷新登录态
+ *   openyida auth logout                                退出登录
+ *   openyida org list                                   列出可访问的组织
+ *   openyida org switch --corp-id <corpId>              切换组织（无需重新登录）
  *   openyida create-app "<名称>" [desc] [icon] [color]  创建应用
  *   openyida create-page <appType> "<页面名>"            创建自定义页面
  *   openyida create-form create <appType> "<表单名>" <字段JSON>  创建表单页面
@@ -21,12 +27,15 @@
  *   openyida get-page-config <appType> <formUuid>       查询页面公开访问/分享配置
  *   openyida update-form-config <appType> <formUuid> <isRenderNav> <title>  更新表单配置
  *   openyida doctor [选项]                              检查环境依赖，诊断应用问题
+ *   openyida export <appType> [output]                  导出应用所有表单 Schema（生成迁移包）
+ *   openyida import <file> [name]                       导入迁移包，在目标环境重建应用
  */
 
 "use strict";
 
 const { checkUpdate } = require('../lib/check-update');
 const { version: currentVersion } = require('../package.json');
+const { t } = require('../lib/i18n');
 
 // 异步检查更新，fire-and-forget，不阻塞主流程
 const updateCheckPromise = checkUpdate(currentVersion);
@@ -87,10 +96,84 @@ openyida - 宜搭命令行工具
   openyida doctor --create-voc                    创建 VOC
   openyida doctor --auto-submit                   自动判断并提交
 `);
+  console.log(t('cli.help'));
+}
+
+/**
+ * 检测是否首次运行（安装后第一次执行 openyida 命令）。
+ * 通过 ~/.openyida/first-run-done 标记文件判断。
+ * 若是首次运行，打印新手引导并写入标记文件。
+ */
+function handleFirstRunGuide() {
+  const os = require('os');
+  const path = require('path');
+  const fs = require('fs');
+
+  const OPENYIDA_DIR = path.join(os.homedir(), '.openyida');
+  const FIRST_RUN_FLAG = path.join(OPENYIDA_DIR, 'first-run-done');
+
+  // 已运行过，跳过引导
+  if (fs.existsSync(FIRST_RUN_FLAG)) return;
+
+  // 写入标记，避免重复展示
+  try {
+    fs.mkdirSync(OPENYIDA_DIR, { recursive: true });
+    fs.writeFileSync(FIRST_RUN_FLAG, new Date().toISOString(), 'utf8');
+  } catch {
+    // 写入失败不影响主流程
+  }
+
+  const RESET   = '\x1b[0m';
+  const BOLD    = '\x1b[1m';
+  const DIM     = '\x1b[2m';
+  const CYAN    = '\x1b[36m';
+  const GREEN   = '\x1b[32m';
+  const YELLOW  = '\x1b[33m';
+  const BLUE    = '\x1b[34m';
+  const MAGENTA = '\x1b[35m';
+  const BG_CYAN = '\x1b[46m';
+  const WHITE   = '\x1b[37m';
+
+  const SEP = `${DIM}${'─'.repeat(60)}${RESET}`;
+
+  console.log('');
+  console.log(`${BG_CYAN}${WHITE}${BOLD}${t('cli.first_run_title')}${RESET}`);
+  console.log(SEP);
+  console.log(t('cli.first_run_welcome', `${GREEN}${BOLD}`, RESET));
+  console.log('');
+  console.log(`${BOLD}${CYAN}${t('cli.first_run_way1_title')}${RESET}`);
+  console.log(t('cli.first_run_way1_desc'));
+  console.log('');
+  console.log(`  ${YELLOW}${t('cli.first_run_prompt1')}${RESET}`);
+  console.log(`  ${YELLOW}${t('cli.first_run_prompt2')}${RESET}`);
+  console.log(`  ${YELLOW}${t('cli.first_run_prompt3')}${RESET}`);
+  console.log('');
+  console.log(`${BOLD}${CYAN}${t('cli.first_run_way2_title')}${RESET}`);
+  console.log('');
+  console.log(`  ${YELLOW}${t('cli.first_run_prompt4')}${RESET}`);
+  console.log('');
+  console.log(`${BOLD}${CYAN}${t('cli.first_run_examples_title')}${RESET}`);
+  console.log('');
+  console.log(`  ${MAGENTA}•${RESET} ${t('cli.first_run_examples')}`);
+  console.log('');
+  console.log(SEP);
+  console.log(`${BOLD}${BLUE}${t('cli.first_run_tips_title')}${RESET}`);
+  console.log('');
+  console.log(t('cli.first_run_tip1', CYAN, RESET));
+  console.log(t('cli.first_run_tip2', CYAN, RESET));
+  console.log(t('cli.first_run_tip3'));
+  console.log('');
+  console.log(SEP);
+  console.log(`  ${DIM}${t('cli.first_run_footer1')}${RESET}`);
+  console.log(`  ${DIM}${t('cli.first_run_footer2')}${RESET}`);
+  console.log('');
+  console.log(`  ${DIM}${t('cli.first_run_footer3')}${RESET}`);
+  console.log('');
 }
 
 async function main() {
   if (!command || command === '--help' || command === '-h') {
+    handleFirstRunGuide();
     printHelp();
     process.exit(0);
   }
@@ -118,6 +201,10 @@ async function main() {
       if (args[0] === '--check-only') {
         const result = checkLoginOnly();
         console.log(JSON.stringify(result, null, 2));
+      } else if (args[0] === '--qr') {
+        const { qrLogin } = require('../lib/qr-login');
+        const result = await qrLogin();
+        console.log(JSON.stringify(result));
       } else {
         const result = ensureLogin();
         console.log(JSON.stringify(result));
@@ -128,6 +215,62 @@ async function main() {
     case 'logout': {
       const { logout } = require('../lib/login');
       logout();
+      break;
+    }
+
+    case 'auth': {
+      const subCommand = args[0];
+      const { authStatus, authLogin, authRefresh, authLogout } = require('../lib/auth');
+
+      if (subCommand === 'status') {
+        authStatus();
+      } else if (subCommand === 'login') {
+        authLogin({ type: 'qrcode' });
+      } else if (subCommand === 'refresh') {
+        authRefresh();
+      } else if (subCommand === 'logout') {
+        authLogout();
+      } else {
+        console.error(t('cli.auth_usage'));
+        console.error(t('cli.auth_example'));
+        process.exit(1);
+      }
+      break;
+    }
+
+    case 'org': {
+      const subCommand = args[0];
+      const { listOrganizations, switchOrganization, interactiveSwitch } = require('../lib/org');
+      const { loadCookieData } = require('../lib/utils');
+
+      if (subCommand === 'list') {
+        const cookieData = loadCookieData();
+        if (!cookieData || !cookieData.cookies) {
+          console.error(t('org.no_login'));
+          process.exit(1);
+        }
+        await listOrganizations(cookieData);
+      } else if (subCommand === 'switch') {
+        const cookieData = loadCookieData();
+        if (!cookieData || !cookieData.cookies) {
+          console.error(t('org.no_login'));
+          process.exit(1);
+        }
+
+        // 解析 --corp-id 参数
+        const corpIdIndex = args.indexOf('--corp-id');
+        if (corpIdIndex !== -1 && args[corpIdIndex + 1]) {
+          const targetCorpId = args[corpIdIndex + 1];
+          await switchOrganization(targetCorpId, cookieData);
+        } else {
+          // 交互式选择
+          await interactiveSwitch(cookieData);
+        }
+      } else {
+        console.error(t('cli.org_usage'));
+        console.error(t('cli.org_example'));
+        process.exit(1);
+      }
       break;
     }
 
@@ -160,8 +303,8 @@ async function main() {
       // 参数顺序：<源文件路径> <appType> <formUuid>
       // publish.js 内部读取顺序：argv[2]=appType, argv[3]=formUuid, argv[4]=sourceFile
       if (args.length < 3) {
-        console.error('用法: openyida publish <源文件路径> <appType> <formUuid>');
-        console.error('示例: openyida publish pages/src/home.jsx APP_XXX FORM-XXX');
+        console.error(t('cli.publish_usage'));
+        console.error(t('cli.publish_example'));
         process.exit(1);
       }
       const [sourceFile, appType, formUuid] = args;
@@ -172,8 +315,8 @@ async function main() {
 
     case 'verify-short-url': {
       if (args.length < 3) {
-        console.error('用法: openyida verify-short-url <appType> <formUuid> <url>');
-        console.error('示例: openyida verify-short-url APP_XXX FORM-XXX /o/myapp');
+        console.error(t('cli.verify_usage'));
+        console.error(t('cli.verify_example'));
         process.exit(1);
       }
       process.argv = [process.argv[0], process.argv[1], ...args];
@@ -183,8 +326,8 @@ async function main() {
 
     case 'save-share-config': {
       if (args.length < 4) {
-        console.error('用法: openyida save-share-config <appType> <formUuid> <url> <isOpen> [openAuth]');
-        console.error('示例: openyida save-share-config APP_XXX FORM-XXX /o/myapp y n');
+        console.error(t('cli.share_usage'));
+        console.error(t('cli.share_example'));
         process.exit(1);
       }
       process.argv = [process.argv[0], process.argv[1], ...args];
@@ -194,8 +337,8 @@ async function main() {
 
     case 'get-page-config': {
       if (args.length < 2) {
-        console.error('用法: openyida get-page-config <appType> <formUuid>');
-        console.error('示例: openyida get-page-config APP_XXX FORM-XXX');
+        console.error(t('cli.page_config_usage'));
+        console.error(t('cli.page_config_example'));
         process.exit(1);
       }
       process.argv = [process.argv[0], process.argv[1], ...args];
@@ -205,8 +348,8 @@ async function main() {
 
     case 'update-form-config': {
       if (args.length < 4) {
-        console.error('用法: openyida update-form-config <appType> <formUuid> <isRenderNav> <title>');
-        console.error('示例: openyida update-form-config APP_XXX FORM-XXX false "页面标题"');
+        console.error(t('cli.form_config_usage'));
+        console.error(t('cli.form_config_example'));
         process.exit(1);
       }
       process.argv = [process.argv[0], process.argv[1], ...args];
@@ -217,12 +360,51 @@ async function main() {
     case 'doctor': {
       const { run } = require('../lib/doctor');
       await run(args);
+    case 'export': {
+      if (args.length < 1) {
+        console.error(t('cli.export_usage'));
+        console.error(t('cli.export_example1'));
+        console.error(t('cli.export_example2'));
+        process.exit(1);
+      }
+      const { run: runExport } = require('../lib/export-app');
+      await runExport(args);
+      break;
+    }
+
+    case 'import': {
+      if (args.length < 1) {
+        console.error(t('cli.import_usage'));
+        console.error(t('cli.import_example1'));
+        console.error(t('cli.import_example2'));
+        process.exit(1);
+      }
+      const { run: runImport } = require('../lib/import-app');
+      await runImport(args);
+      break;
+    }
+
+    case 'cdn-config': {
+      const { run: runCdnConfig } = require('../lib/cdn-config-cmd');
+      await runCdnConfig(args);
+      break;
+    }
+
+    case 'cdn-upload': {
+      const { run: runCdnUpload } = require('../lib/cdn-upload');
+      await runCdnUpload(args);
+      break;
+    }
+
+    case 'cdn-refresh': {
+      const { run: runCdnRefresh } = require('../lib/cdn-refresh');
+      await runCdnRefresh(args);
       break;
     }
 
     default: {
-      console.error(`未知命令: ${command}`);
-      console.error('运行 openyida --help 查看帮助');
+      console.error(t('cli.unknown_command', command));
+      console.error(t('cli.run_help'));
       process.exit(1);
     }
   }
@@ -231,7 +413,7 @@ async function main() {
 main()
   .then(() => updateCheckPromise)
   .catch((err) => {
-    console.error(`\n❌ 执行失败: ${err.message}`);
+    console.error(t('cli.exec_failed', err.message));
     process.exit(1);
   });
 
