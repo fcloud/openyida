@@ -360,6 +360,9 @@ async function main() {
     case 'doctor': {
       const { run } = require('../lib/doctor');
       await run(args);
+      break;
+    }
+
     case 'export': {
       if (args.length < 1) {
         console.error(t('cli.export_usage'));
