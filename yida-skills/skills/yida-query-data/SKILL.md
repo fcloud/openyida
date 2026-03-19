@@ -55,14 +55,14 @@ python3 yida-query-data/scripts/query-data.py <appType> <formUuid> [options]
 
 #### 示例 1：查询所有数据
 ```bash
-python3 yida-query-data/scripts/query-data.py \
+python3 scripts/query-data.py \
   "APP_CQ2P5NRFI5L1D6PB8Q7J" \
   "FORM-E7E63583C4C143AE95F8C218D443B6CAC157"
 ```
 
 #### 示例 2：分页查询
 ```bash
-python3 yida-query-data/scripts/query-data.py \
+python3 scripts/query-data.py \
   "APP_CQ2P5NRFI5L1D6PB8Q7J" \
   "FORM-E7E63583C4C143AE95F8C218D443B6CAC157" \
   --page 1 \
@@ -72,13 +72,13 @@ python3 yida-query-data/scripts/query-data.py \
 #### 示例 3：条件搜索
 ```bash
 # 单行文本精确匹配
-python3 yida-query-data/scripts/query-data.py \
+python3 scripts/query-data.py \
   "APP_CQ2P5NRFI5L1D6PB8Q7J" \
   "FORM-E7E63583C4C143AE95F8C218D443B6CAC157" \
   --search-json '[{"key":"textField_w2805e7u","value":"测试2","type":"TEXT","operator":"eq","componentName":"TextField"}]'
 
 # 数值范围查询
-python3 yida-query-data/scripts/query-data.py \
+python3 scripts/query-data.py \
   "APP_CQ2P5NRFI5L1D6PB8Q7J" \
   "FORM-E7E63583C4C143AE95F8C218D443B6CAC157" \
   --search-json '[{"key":"numberField_xxx","value":[10,100],"type":"DOUBLE","operator":"between","componentName":"NumberField"}]'
@@ -86,7 +86,7 @@ python3 yida-query-data/scripts/query-data.py \
 
 #### 示例 4：查询指定实例详情
 ```bash
-python3 yida-query-data/scripts/query-data.py \
+python3 scripts/query-data.py \
   "APP_CQ2P5NRFI5L1D6PB8Q7J" \
   "FORM-E7E63583C4C143AE95F8C218D443B6CAC157" \
   --inst-id "FINST-B5G66KD1F824XFCKLRFC9CSOVN592M0TLBUMM219"
