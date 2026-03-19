@@ -577,3 +577,24 @@ openyida publish <源文件路径> <appType> <formUuid>
    - `requiredAttribution`（是否需要署名）
    - `sourceUrl`（原始链接）
 3. **做多源兜底**：同一关键词并行查 2-3 个库，失败自动切换；对外链下载做缓存
+
+### Icon 素材库
+
+> 优先使用 npm 包本地化方案，比在线拉取更稳定、更快。
+
+| 站点 | 地址 | 风格 | 本地化 |
+|------|------|------|--------|
+| **Font Awesome Free** | https://fontawesome.com | 覆盖面广、风格统一，适合产品级 UI | ✅ npm 包 |
+| **Iconfont（阿里）** | https://www.iconfont.cn | 国内访问最稳定，支持按项目管理、下载 SVG/字体，适合企业内场景 | ✅ 下载缓存 |
+| **Material Icons** | https://fonts.google.com/icons | 数量大、体系化强，适合中后台与工具类产品 | ✅ npm 包 |
+| **Remix Icon** | https://remixicon.com | 开源、风格现代，覆盖常用业务图标，适合按名称自动映射 | ✅ npm 包 |
+| **Bootstrap Icons** | https://icons.getbootstrap.com | 开源、SVG 为主，轻量且与 Web UI 适配好 | ✅ npm 包 |
+| **Heroicons** | https://heroicons.com | 开源、线性/实心两套，现代极简风，适合 Web 应用 | ✅ npm 包 |
+| **Tabler Icons** | https://tabler.io/icons | 开源、数量大、线性风格统一，适合产品级"图标一致性"诉求 | ✅ npm 包 |
+| **Feather Icons** | https://feathericons.com | 开源、极简线性，适合轻量产品与工具页 | ✅ npm 包 |
+
+**AI 自动取 Icon 的实践建议：**
+
+1. **优先 npm 包本地化**：Font Awesome / Material / Remix / Bootstrap / Tabler / Heroicons 均支持，比在线拉取更稳更快
+2. **准备语义→图标名映射表**：例如 `search → magnifying-glass`、`settings → gear`，避免模型随机挑选导致风格混乱
+3. **统一输出 SVG 格式**：便于调色、缩放、暗黑模式适配，并在构建时打包进产物
