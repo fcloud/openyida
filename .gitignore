@@ -42,6 +42,9 @@ coverage/
 !.claude/CLAUDE.md
 
 # ── openyida 用户工作区 ────────────────────────────
+# 根目录临时缓存（AI 生成的中间文件，不入库）
+.cache/
+
 # 登录态 & Schema 缓存（敏感信息，不入库）
 project/.cache/*
 !project/.cache/.gitkeep
