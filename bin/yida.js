@@ -50,9 +50,9 @@
 
 "use strict";
 
-const { checkUpdate } = require('../lib/check-update');
+const { checkUpdate } = require('../lib/core/check-update');
 const { version: currentVersion } = require('../package.json');
-const { t } = require('../lib/i18n');
+const { t } = require('../lib/core/i18n');
 
 // 异步检查更新，fire-and-forget，不阻塞主流程
 const updateCheckPromise = checkUpdate(currentVersion);
@@ -234,24 +234,24 @@ async function main() {
 
   switch (command) {
     case 'env': {
-      const { run } = require('../lib/env');
+      const { run } = require('../lib/core/env');
       run();
       break;
     }
 
     case 'copy': {
-      const { run } = require('../lib/copy');
+      const { run } = require('../lib/core/copy');
       run();
       break;
     }
 
     case 'login': {
-      const { ensureLogin, checkLoginOnly } = require('../lib/login');
+      const { ensureLogin, checkLoginOnly } = require('../lib/auth/login');
       if (args[0] === '--check-only') {
         const result = checkLoginOnly();
         console.log(JSON.stringify(result, null, 2));
       } else if (args[0] === '--qr') {
-        const { qrLogin } = require('../lib/qr-login');
+        const { qrLogin } = require('../lib/auth/qr-login');
         const result = await qrLogin();
         console.log(JSON.stringify(result));
       } else {
@@ -262,14 +262,14 @@ async function main() {
     }
 
     case 'logout': {
-      const { logout } = require('../lib/login');
+      const { logout } = require('../lib/auth/login');
       logout();
       break;
     }
 
     case 'auth': {
       const subCommand = args[0];
-      const { authStatus, authLogin, authRefresh, authLogout } = require('../lib/auth');
+      const { authStatus, authLogin, authRefresh, authLogout } = require('../lib/auth/auth');
 
       if (subCommand === 'status') {
         authStatus();
@@ -289,8 +289,8 @@ async function main() {
 
     case 'org': {
       const subCommand = args[0];
-      const { listOrganizations, switchOrganization, interactiveSwitch } = require('../lib/org');
-      const { loadCookieData } = require('../lib/utils');
+      const { listOrganizations, switchOrganization, interactiveSwitch } = require('../lib/auth/org');
+      const { loadCookieData } = require('../lib/core/utils');
 
       if (subCommand === 'list') {
         const cookieData = loadCookieData();
@@ -324,13 +324,13 @@ async function main() {
     }
 
     case 'create-app': {
-      const { run } = require('../lib/create-app');
+      const { run } = require('../lib/app/create-app');
       await run(args);
       break;
     }
 
     case 'create-page': {
-      const { run } = require('../lib/create-page');
+      const { run } = require('../lib/app/create-page');
       await run(args);
       break;
     }
@@ -338,12 +338,12 @@ async function main() {
     case 'create-form': {
       // create-form.js 通过 process.argv.slice(2) 读取参数，注入子命令及其参数
       process.argv = [process.argv[0], process.argv[1], ...args];
-      require('../lib/create-form');
+      require('../lib/app/create-form');
       break;
     }
 
     case 'get-schema': {
-      const { run } = require('../lib/get-schema');
+      const { run } = require('../lib/app/get-schema');
       await run(args);
       break;
     }
@@ -358,7 +358,7 @@ async function main() {
       }
       const [sourceFile, appType, formUuid] = args;
       process.argv = [process.argv[0], process.argv[1], appType, formUuid, sourceFile];
-      require('../lib/publish');
+      require('../lib/app/publish');
       break;
     }
 
@@ -369,7 +369,7 @@ async function main() {
         process.exit(1);
       }
       process.argv = [process.argv[0], process.argv[1], ...args];
-      require('../lib/verify-short-url');
+      require('../lib/page-config/verify-short-url');
       break;
     }
 
@@ -380,7 +380,7 @@ async function main() {
         process.exit(1);
       }
       process.argv = [process.argv[0], process.argv[1], ...args];
-      require('../lib/save-share-config');
+      require('../lib/page-config/save-share-config');
       break;
     }
 
@@ -391,7 +391,7 @@ async function main() {
         process.exit(1);
       }
       process.argv = [process.argv[0], process.argv[1], ...args];
-      require('../lib/get-page-config');
+      require('../lib/page-config/get-page-config');
       break;
     }
 
@@ -402,12 +402,12 @@ async function main() {
         process.exit(1);
       }
       process.argv = [process.argv[0], process.argv[1], ...args];
-      require('../lib/update-form-config');
+      require('../lib/app/update-form-config');
       break;
     }
 
     case 'doctor': {
-      const { run } = require('../lib/doctor');
+      const { run } = require('../lib/core/doctor');
       await run(args);
       break;
     }
@@ -419,7 +419,7 @@ async function main() {
         console.error(t('cli.export_example2'));
         process.exit(1);
       }
-      const { run: runExport } = require('../lib/export-app');
+      const { run: runExport } = require('../lib/app/export-app');
       await runExport(args);
       break;
     }
@@ -431,7 +431,7 @@ async function main() {
         console.error(t('cli.import_example2'));
         process.exit(1);
       }
-      const { run: runImport } = require('../lib/import-app');
+      const { run: runImport } = require('../lib/app/import-app');
       await runImport(args);
       break;
     }
@@ -442,7 +442,7 @@ async function main() {
         console.error(t('cli.get_permission_example'));
         process.exit(1);
       }
-      const { run: runGetPermission } = require('../lib/get-permission');
+      const { run: runGetPermission } = require('../lib/permission/get-permission');
       await runGetPermission(args);
       break;
     }
@@ -453,7 +453,7 @@ async function main() {
         console.error(t('cli.save_permission_example'));
         process.exit(1);
       }
-      const { run: runSavePermission } = require('../lib/save-permission');
+      const { run: runSavePermission } = require('../lib/permission/save-permission');
       await runSavePermission(args);
       break;
     }
@@ -464,7 +464,7 @@ async function main() {
         console.error(t('cli.configure_process_example'));
         process.exit(1);
       }
-      const { run: runConfigureProcess } = require('../lib/configure-process');
+      const { run: runConfigureProcess } = require('../lib/process/configure-process');
       await runConfigureProcess(args);
       break;
     }
@@ -475,13 +475,13 @@ async function main() {
         console.error(t('cli.create_process_example'));
         process.exit(1);
       }
-      const { run: runCreateProcess } = require('../lib/create-process');
+      const { run: runCreateProcess } = require('../lib/process/create-process');
       await runCreateProcess(args);
       break;
     }
 
     case 'create-report': {
-      const { run } = require('../lib/create-report');
+      const { run } = require('../lib/report/create-report');
       await run(args);
       break;
     }
@@ -493,19 +493,19 @@ async function main() {
     }
 
     case 'cdn-config': {
-      const { run: runCdnConfig } = require('../lib/cdn-config-cmd');
+      const { run: runCdnConfig } = require('../lib/cdn/cdn-config-cmd');
       await runCdnConfig(args);
       break;
     }
 
     case 'cdn-upload': {
-      const { run: runCdnUpload } = require('../lib/cdn-upload');
+      const { run: runCdnUpload } = require('../lib/cdn/cdn-upload');
       await runCdnUpload(args);
       break;
     }
 
     case 'cdn-refresh': {
-      const { run: runCdnRefresh } = require('../lib/cdn-refresh');
+      const { run: runCdnRefresh } = require('../lib/cdn/cdn-refresh');
       await runCdnRefresh(args);
       break;
     }
@@ -515,19 +515,19 @@ async function main() {
       const subArgs = args.slice(1);
 
       const connectorSubCommands = {
-        'list':              '../lib/connector-list',
-        'create':            '../lib/connector-create',
-        'detail':            '../lib/connector-detail',
-        'delete':            '../lib/connector-delete',
-        'add-action':        '../lib/connector-add-action',
-        'list-actions':      '../lib/connector-list-actions',
-        'delete-action':     '../lib/connector-delete-action',
-        'test':              '../lib/connector-test',
-        'list-connections':  '../lib/connector-list-connections',
-        'create-connection': '../lib/connector-create-connection',
-        'smart-create':      '../lib/connector-smart-create',
-        'parse-api':         '../lib/connector-parse-api',
-        'gen-template':      '../lib/connector-gen-template',
+        'list':              '../lib/connector/connector-list',
+        'create':            '../lib/connector/connector-create',
+        'detail':            '../lib/connector/connector-detail',
+        'delete':            '../lib/connector/connector-delete',
+        'add-action':        '../lib/connector/connector-add-action',
+        'list-actions':      '../lib/connector/connector-list-actions',
+        'delete-action':     '../lib/connector/connector-delete-action',
+        'test':              '../lib/connector/connector-test',
+        'list-connections':  '../lib/connector/connector-list-connections',
+        'create-connection': '../lib/connector/connector-create-connection',
+        'smart-create':      '../lib/connector/connector-smart-create',
+        'parse-api':         '../lib/connector/connector-parse-api',
+        'gen-template':      '../lib/connector/connector-gen-template',
       };
 
       if (!subCommand || subCommand === '--help' || subCommand === '-h') {
@@ -571,7 +571,7 @@ async function main() {
         console.error('用法：openyida query-data <appType> <formUuid> [--page N] [--size N] [--search-json JSON] [--inst-id ID]');
         process.exit(1);
       }
-      const { run: runQueryData } = require('../lib/query-data');
+      const { run: runQueryData } = require('../lib/core/query-data');
       await runQueryData(args);
       break;
     }
