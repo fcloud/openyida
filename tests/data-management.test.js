@@ -205,7 +205,7 @@ describe("data-management.js structure", () => {
     ];
 
     for (const [action, resource] of expectedCombinations) {
-      expect(sourceCode).toContain(`"${action}" && resource === "${resource}"`);
+      expect(sourceCode).toContain(`'${action}' && resource === '${resource}'`);
     }
   });
 
