@@ -49,8 +49,18 @@ if (fs.existsSync(skillsDir)) {
   console.log('yida-skills sub-skills: ' + skills.length);
 }
 
-const libFiles = fs.readdirSync('lib').filter(function(f) {
-  return f.endsWith('.js');
-});
-console.log('lib/ modules: ' + libFiles.length);
+function countJsFiles(dir) {
+  var count = 0;
+  var entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (var i = 0; i < entries.length; i++) {
+    var entry = entries[i];
+    if (entry.isDirectory()) {
+      count += countJsFiles(path.join(dir, entry.name));
+    } else if (entry.name.endsWith('.js')) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log('lib/ modules: ' + countJsFiles('lib'));
 console.log('Project structure OK');
