@@ -36,8 +36,8 @@ jobs:
     - name: Validate i18n completeness
       run: node scripts/validate-i18n.js
 
-    - name: Validate relative path dependencies
-      run: node scripts/validate-deps.js
+    - name: Lint (includes unresolved path detection)
+      run: npm run lint
 
     - name: Check JavaScript syntax
       run: |
