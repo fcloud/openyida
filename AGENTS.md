@@ -18,7 +18,7 @@ openyida/
 │   ├── core/                # 核心基础模块
 │   │   ├── utils.js         # 公共工具函数（Cookie、HTTP、路径等）
 │   │   ├── i18n.js          # 国际化支持
-│   │   ├── locales/         # 语言包（zh-CN、en-US）
+│   │   ├── locales/         # 语言包（zh、en、ja、ko、fr、de、es、pt、vi、hi、ar、zh-TW）
 │   │   ├── env.js           # 检测 AI 工具环境（Claude/Cursor/Copilot 等）
 │   │   ├── copy.js          # 初始化 project 工作目录
 │   │   ├── check-update.js  # 版本检测（每天一次）
@@ -63,6 +63,8 @@ openyida/
 │   │   ├── connector-smart-create.js
 │   │   ├── connector-parse-api.js
 │   │   └── connector-gen-template.js
+│   ├── data-management/     # 统一数据管理模块
+│   │   └── index.js               # 数据查询/操作入口（表单/流程/任务/子表单）
 │   ├── cdn/                 # CDN / OSS 管理
 │   │   ├── cdn-config.js          # CDN 配置读写
 │   │   ├── cdn-config-cmd.js      # CDN 配置命令
@@ -83,7 +85,9 @@ openyida/
 │   ├── skills/              # 子技能目录
 │   └── reference/           # 宜搭 API 参考文档
 └── scripts/
-    └── postinstall.js       # 安装后脚本（环境检测 + 配置注入）
+    ├── postinstall.js       # 安装后脚本（环境检测 + 配置注入）
+    ├── validate-structure.js # CI：项目结构校验
+    └── validate-i18n.js     # CI：国际化完整性校验（key 一致性 + 硬编码检测）
 ```
 
 ## 关键约定
@@ -109,13 +113,36 @@ openyida/
 - 发布前通过 `lib/babel-transform/` 进行 Babel 编译
 - 编译产物输出到 `project/pages/dist/`
 
+### 国际化（i18n）
+- 所有面向用户的文本必须通过 `lib/core/i18n.js` 的 `t()` 函数输出
+- 支持 12 种语言：zh、en、ja、ko、fr、de、es、pt、vi、hi、ar、zh-TW
+- 语言包位于 `lib/core/locales/`，以 `zh.js` 为基准翻译
+- 新增文本时，先在 `zh.js` 添加 key，再同步到所有其他语言包
+- 翻译 key 使用点号分隔的嵌套路径，如 `cli.help`、`create_app.success`
+- **CI 校验**：`scripts/validate-i18n.js` 在每次 PR 时自动检查：
+  - 语言包文件完整性（12 个文件是否齐全）
+  - key 一致性（各语言包 key 是否与 `zh.js` 基准一致，默认为 warning，`--strict` 模式为 error）
+  - 硬编码中文检测（`bin/yida.js` 中是否有未通过 `t()` 的中文字符串）
+  - 翻译值非空检测
+
+### 数据管理
+- `lib/data-management/` 提供统一的数据查询/操作接口
+- 支持表单数据、流程实例、任务、子表单等资源类型
+- 通过 `openyida data <action> <resource> [args]` 命令调用
+
+### 报表管理
+- `lib/report/` 提供宜搭报表的创建和图表追加功能
+- `create-report.js` 为入口，`chart-builder.js` 负责构建图表 Schema
+- 支持通过 JSON 文件或内联 JSON 定义图表
+
 ## 开发注意事项
 
 1. **不要修改 `yida-skills/` 下的文档**，除非是在更新技能描述
-2. **新增 CLI 命令**时，同步更新 `README.md` 的命令一览表
-3. **登录态**存储在本地缓存，不要在代码中硬编码任何凭证
-4. **测试**：运行 `npm test` 执行 `tests/` 下的单元测试
-5. **JS 语法检查**：`node --check <file>` 验证语法正确性
+2. **新增 CLI 命令**时，同步更新 `README.md` 的命令一览表和 `bin/yida.js` 路由
+3. **新增面向用户的文本**时，必须使用 `t()` 函数国际化，并同步更新所有 12 个语言包
+4. **登录态**存储在本地缓存，不要在代码中硬编码任何凭证
+5. **测试**：运行 `npm test` 执行 `tests/` 下的单元测试
+6. **JS 语法检查**：`node --check <file>` 验证语法正确性
 
 ## 常见任务示例
 

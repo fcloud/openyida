@@ -33,6 +33,9 @@ jobs:
     - name: Validate project structure
       run: node scripts/validate-structure.js
 
+    - name: Validate i18n completeness
+      run: node scripts/validate-i18n.js
+
     - name: Check JavaScript syntax
       run: |
         node --check bin/yida.js

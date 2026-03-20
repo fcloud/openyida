@@ -62,92 +62,6 @@ const command = process.argv[2];
 const args = process.argv.slice(3);
 
 function printHelp() {
-  console.log(`
-openyida - 宜搭命令行工具
-
-用法：
-  openyida <命令> [参数...]（别名：yida）
-
-命令：
-  env                                                          检测当前 AI 工具环境和登录态
-  copy [--force]                                               复制 project 工作目录到当前 AI 工具环境
-  login                                                        登录态管理（优先缓存，否则扫码）
-  logout                                                       退出登录 / 切换账号
-  create-app "<名称>" [描述] [图标] [颜色] [主题色]             创建应用，输出 appType
-  create-page <appType> "<页面名>"                             创建自定义页面，输出 pageId
-  create-form create <appType> "<表单名>" <字段JSON> [--layout <布局>] [--theme <主题>] [--label-align <对齐>]  创建表单页面
-  create-form update <appType> <formUuid> <修改JSON>           更新表单页面
-  get-schema <appType> <formUuid>                              获取表单 Schema
-  publish <源文件路径> <appType> <formUuid>                    编译并发布自定义页面
-  verify-short-url <appType> <formUuid> <url>                  验证短链接 URL 是否可用
-  save-share-config <appType> <formUuid> <url> <isOpen> [auth] 保存公开访问/分享配置
-  get-page-config <appType> <formUuid>                         查询页面公开访问/分享配置
-  update-form-config <appType> <formUuid> <isRenderNav> <title> 更新表单配置
-  data <action> <resource> [args]                              统一数据管理（表单/流程/任务/子表单）
-  doctor [选项]                                                检查环境依赖，诊断应用问题
-    --fix / --repair                                           诊断并自动修复
-    --production --app <appId>                                 线上应用诊断
-    --monitor                                                  启动实时健康度监控
-    --report <format>                                          生成诊断报告（json | markdown | html）
-    --create-ticket                                            根据诊断结果创建工单
-    --create-voc                                               创建 VOC（需求反馈）
-    --auto-submit                                              自动判断并提交工单或 VOC
-  auth status                                                  查看当前登录状态
-  auth login                                                   执行登录
-  auth refresh                                                 刷新登录态
-  auth logout                                                  退出登录
-  org list                                                     列出可访问的组织
-  org switch --corp-id <corpId>                                切换组织（无需重新登录）
-  get-permission <appType> <formUuid>                          查询表单权限配置
-  save-permission <appType> <formUuid> [--data-permission <json>] [--action-permission <json>]  保存表单权限配置
-  configure-process <appType> <formUuid> <processDefinitionFile> [processCode]  配置并发布流程
-  create-process <appType> <formTitle> <fieldsJsonFile> <processDefinitionFile>  创建流程表单（一体化）
-  create-process <appType> --formUuid <formUuid> <processDefinitionFile>         复用已有表单创建流程
-  connector list [选项]                                          列出 HTTP 连接器
-  connector create "名称" "域名" --operations <file> [选项]      创建连接器
-  connector detail <connector-id>                               查看连接器详情
-  connector delete <connector-id> [--force]                     删除连接器
-  connector add-action --operations <file> --connector-id <id>  添加执行动作到连接器
-  connector list-actions <connector-id>                         列出执行动作
-  connector delete-action <connector-id> <operation-id>         删除执行动作
-  connector test --connector-id <id> --action <actionId>        测试执行动作
-  connector list-connections <connector-id>                     列出鉴权账号
-  connector create-connection <connector-id> <name> [选项]      创建鉴权账号
-  connector smart-create --curl "curl命令" [选项]               智能创建连接器
-  connector parse-api [选项]                                    解析接口信息
-  connector gen-template [输出路径]                              生成接口文档模板
-  create-report <appType> "<报表名称>" <图表定义JSON或文件路径>   创建宜搭报表
-  append-chart <appType> <reportId> <图表定义JSON或文件路径>      向已有报表追加图表
-
-示例：
-  openyida login
-  openyida logout
-  openyida create-app "考勤管理"
-  openyida create-app "考勤管理" "员工考勤系统" "xian-daka" "#00B853" "red"
-  openyida create-page APP_XXX "游戏主页"
-  openyida create-form create APP_XXX "员工信息" fields.json
-  openyida create-form update APP_XXX FORM-XXX '[{"action":"add","field":{"type":"TextField","label":"备注"}}]'
-  openyida get-schema APP_XXX FORM-XXX
-  openyida publish pages/src/home.jsx APP_XXX FORM-XXX
-  openyida verify-short-url APP_XXX FORM-XXX /o/myapp
-  openyida save-share-config APP_XXX FORM-XXX /o/myapp y n
-  openyida get-page-config APP_XXX FORM-XXX
-  openyida update-form-config APP_XXX FORM-XXX false "页面标题"
-  openyida data query form APP_XXX FORM-XXX --page 1 --size 20
-  openyida create-report APP_XXX "销售报表" charts.json
-  openyida append-chart APP_XXX REPORT-XXX charts.json
-  openyida configure-process APP_XXX FORM-YYY process-def.json
-  openyida create-process APP_XXX "订单处理表" fields.json process-def.json
-  openyida create-process APP_XXX --formUuid FORM-YYY process-def.json
-  openyida doctor                                 完整诊断
-  openyida doctor --fix                           诊断并自动修复
-  openyida doctor --production --app APP_XXX      线上应用诊断
-  openyida doctor --monitor                       实时监控
-  openyida doctor --report markdown               生成 Markdown 报告
-  openyida doctor --create-ticket                 创建工单
-  openyida doctor --create-voc                    创建 VOC
-  openyida doctor --auto-submit                   自动判断并提交
-`);
   console.log(t('cli.help'));
 }
 
@@ -411,8 +325,8 @@ async function main() {
 
     case 'data': {
       if (args.length < 2) {
-        console.error('用法: openyida data <action> <resource> [args] [options]');
-        console.error('示例: openyida data query form APP_XXX FORM_XXX --page 1 --size 20');
+        console.error(t('cli.data_usage'));
+        console.error(t('cli.data_example'));
         process.exit(1);
       }
       const { run: runDataManagement } = require('../lib/data-management');
@@ -545,33 +459,14 @@ async function main() {
       };
 
       if (!subCommand || subCommand === '--help' || subCommand === '-h') {
-        console.log(`
-用法: openyida connector <子命令> [参数]
-
-子命令:
-  list                                         列出 HTTP 连接器
-  create "名称" "域名" --operations <file>      创建连接器
-  detail <connector-id>                        查看连接器详情
-  delete <connector-id> [--force]              删除连接器
-  add-action --operations <file> --connector-id <id>  添加执行动作
-  list-actions <connector-id>                  列出执行动作
-  delete-action <connector-id> <operation-id>  删除执行动作
-  test --connector-id <id> --action <actionId> 测试执行动作
-  list-connections <connector-id>              列出鉴权账号
-  create-connection <connector-id> <name>      创建鉴权账号
-  smart-create --curl "curl命令"               智能创建连接器
-  parse-api [选项]                             解析接口信息
-  gen-template [输出路径]                       生成接口文档模板
-
-使用 openyida connector <子命令> --help 查看详细帮助
-`);
+        console.log(t('cli.connector_help'));
         break;
       }
 
       const modulePath = connectorSubCommands[subCommand];
       if (!modulePath) {
-        console.error(`未知的 connector 子命令: ${subCommand}`);
-        console.error('使用 openyida connector --help 查看可用子命令');
+        console.error(t('cli.connector_unknown', subCommand));
+        console.error(t('cli.connector_help_hint'));
         process.exit(1);
       }
 
@@ -582,7 +477,7 @@ async function main() {
 
     case 'query-data': {
       if (args.length < 2) {
-        console.error('用法：openyida query-data <appType> <formUuid> [--page N] [--size N] [--search-json JSON] [--inst-id ID]');
+        console.error(t('cli.query_data_usage'));
         process.exit(1);
       }
       const { run: runQueryData } = require('../lib/core/query-data');
