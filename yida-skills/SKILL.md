@@ -206,32 +206,11 @@ openyida copy
 ---
 
 ## 常见问题
-**Q：发布时提示登录失效？**
 
-重新登录后再发布：
-```bash
-openyida login
-openyida publish <源文件路径> <appType> <formUuid>
-```
+**Q：发布时提示登录失效？** 执行 `openyida login` 重新登录后再发布。
 
-**Q：如何查看已有表单的字段 ID？**
+**Q：如何查看已有表单的字段 ID？** 使用 `openyida get-schema <appType> <formUuid>` 获取 Schema，详见 `yida-get-schema` 技能。
 
-使用 `yida-get-schema` 技能获取表单 Schema，从中读取各字段的 `fieldId`：
-```bash
-openyida get-schema <appType> <formUuid>
-```
+**Q：如何更新已有表单字段？** 使用 `yida-create-form-page` 的 update 模式，详见 `skills/yida-create-form-page/SKILL.md`。
 
-**Q：如何更新已有表单字段？**
-
-使用 `yida-create-form-page` 的 update 模式，详见 `skills/yida-create-form-page/SKILL.md`：
-```bash
-openyida create-form update <appType> <formUuid> '[{"action":"add","field":{"type":"TextField","label":"新字段"}}]'
-```
-
-**Q：发布时提示 corpId 不匹配？**
-
-询问用户是否在当前组织创建新应用发布，或重新登录到正确组织：
-```bash
-openyida logout
-openyida login
-```
+**Q：发布时提示 corpId 不匹配？** 询问用户是否重新登录到正确组织（`openyida logout` → `openyida login`），或在当前组织新建应用。
