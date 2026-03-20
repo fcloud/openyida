@@ -9,7 +9,9 @@
   "files": [
     "bin/",
     "lib/",
-    "project/",
+    "project/config.json",
+    "project/pages/src/demo-*.js",
+    "project/prd/demo-*.md",
     "yida-skills/",
     "scripts/",
     "README.md",
