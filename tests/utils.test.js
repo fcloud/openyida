@@ -216,6 +216,8 @@ describe("detectActiveTool", () => {
   });
 
   test("CLAUDE_CODE 环境变量时检测为 Claude Code", () => {
+    delete process.env.QODER_IDE;
+    delete process.env.QODER_AGENT;
     process.env.CLAUDE_CODE = "1";
     const result = detectActiveTool();
     expect(result).not.toBeNull();
@@ -224,6 +226,8 @@ describe("detectActiveTool", () => {
   });
 
   test("OPENCODE 环境变量时检测为 OpenCode", () => {
+    delete process.env.QODER_IDE;
+    delete process.env.QODER_AGENT;
     delete process.env.CLAUDE_CODE;
     process.env.OPENCODE = "1";
     const result = detectActiveTool();
