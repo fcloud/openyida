@@ -68,42 +68,6 @@ function setNestedValue(obj, keyPath, value) {
   current[parts[parts.length - 1]] = value;
 }
 
-/**
- * 将对象序列化为 JS module.exports 格式的字符串
- */
-function serializeToModule(obj, fileHeader) {
-  const jsonStr = JSON.stringify(obj, null, 2);
-
-  // 将 JSON 转为 JS 对象字面量格式
-  let jsStr = jsonStr
-    // 将 JSON key 的双引号去掉（如果 key 是合法标识符）
-    .replace(/"([a-zA-Z_$][a-zA-Z0-9_$]*)"\s*:/g, '$1:')
-    // 保留含特殊字符的 key 的双引号（如 zh-TW）
-    // 将值中的双引号字符串改为单引号（简单字符串）
-    .replace(/: "((?:[^"\\]|\\.)*)"/g, function(match, content) {
-      // 如果内容包含单引号，保持双引号
-      if (content.includes("'")) {
-        return ': "' + content + '"';
-      }
-      // 如果内容包含 \n（实际换行转义），使用模板字符串
-      if (content.includes('\\n')) {
-        const unescaped = content
-          .replace(/\\n/g, '\n')
-          .replace(/\\"/g, '"');
-        return ': `' + unescaped + '`';
-      }
-      return ": '" + content + "'";
-    });
-
-  // 处理多行模板字符串值（已经是反引号包裹的）
-  // JSON.stringify 会把模板字符串中的换行转为 \n，需要还原
-  jsStr = jsStr.replace(/: `([^`]*)`/g, function(match, content) {
-    return ': `' + content + '`';
-  });
-
-  return fileHeader + 'module.exports = ' + jsStr + ';\n';
-}
-
 // ── 主逻辑 ───────────────────────────────────────────
 
 console.log('📦 语言包同步工具');
