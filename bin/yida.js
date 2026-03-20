@@ -473,6 +473,19 @@ async function main() {
       await runCreateProcess(args);
       break;
     }
+
+    case 'create-report': {
+      const { run } = require('../lib/create-report');
+      await run(args);
+      break;
+    }
+
+    case 'append-chart': {
+      const { run } = require('../lib/report/append');
+      await run(args);
+      break;
+    }
+
     case 'cdn-config': {
       const { run: runCdnConfig } = require('../lib/cdn-config-cmd');
       await runCdnConfig(args);
