@@ -164,7 +164,9 @@ jobs:
           print(f"\n✅ 共更新 {len(updated_files)} 个 README 文件")
           PYEOF
 
-      - name: Commit and push if changed
+      - name: Create Pull Request if changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -174,7 +176,28 @@ jobs:
             exit 0
           fi
 
+          # 创建新分支
+          BRANCH_NAME="update-contributors-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH_NAME"
+
           git add "README*.md"
           git commit -m "chore: 自动更新 README contributors [skip ci]"
-          git push origin main
-          echo "🚀 已推送更新到 main 分支"
+          git push origin "$BRANCH_NAME"
+
+          # 创建 PR
+          gh pr create \
+            --title "chore: 自动更新 README contributors" \
+            --body "🤖 由 GitHub Actions 自动生成
+
+          此 PR 自动更新所有 README 文件中的贡献者列表。
+
+          ### 更新内容
+          - 同步 GitHub contributors API 中的新贡献者
+          - 更新所有语言版本的 README 文件
+
+          ---
+          *此 PR 由 \`.github/workflows/update-contributors.yml\` 工作流自动创建*" \
+            --base main \
+            --head "$BRANCH_NAME"
+
+          echo "🚀 已创建 PR: update-contributors"
