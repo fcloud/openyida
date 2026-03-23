@@ -57,105 +57,22 @@ metadata:
 
 ### 文件结构
 
-**一个完整的宜搭自定义页面源文件必须包含（且全部必须以 `export function` 导出，缺少 `export` 会直接导致页面白屏报 ReferenceError）：**
-- `_customState` 模块级变量，无需导出
-- `export function getCustomState`
-- `export function setCustomState`
-- `export function forceUpdate`
-- `export function didMount`
-- `export function didUnmount`
-- `export function renderJsx`
-
-> ⚠️ **关键约束：`renderJsx` 的每个 `return` 分支都必须包含 `<div style={{ display: 'none' }}>{this.state.timestamp}</div>`**，否则 `forceUpdate` 调用 `this.setState({ timestamp })` 后，React 无法检测到输出变化，`renderJsx` 不会被重新执行，页面将无法更新。这是宜搭渲染引擎触发重渲染的核心机制。
-
-以下是一个完整自定义页面示例，包含状态管理、生命周期钩子、渲染函数
-
-```jsx
-// ============================================================
-// 状态管理
-// ============================================================
-
+**一个完整的宜搭自定义页面必须定义以下 6 个 export 导出的方法和一个全局变量：**
+- `export function getCustomState () {}` — 读取自定义状态，传入 key 返回单个值，不传返回全部状态的浅拷贝
+- `export function setCustomState () {}` — 合并更新状态并自动触发重新渲染（内部调用 `forceUpdate`）
+- `export function forceUpdate () {}` — 通过更新 `timestamp` 强制触发 React 重渲染
+- `export function didMount () {}` — 组件挂载后执行（等同于 `componentDidMount`），用于初始化数据、启动定时器
+- `export function didUnmount () {}` — 组件卸载时执行，用于清理定时器、解绑事件，防止内存泄漏
+- `export function renderJsx () {}` — 页面渲染入口（等同于 `render`），返回 JSX。⚠️ **每个 `return` 分支都必须包含 `<div style={{ display: 'none' }}>{this.state.timestamp}</div>`**，否则 `forceUpdate` 调用 `this.setState({ timestamp })` 后 React 无法检测到输出变化，页面将无法更新。
+- 全局变量：
+``` js
 const _customState = {
   // 在此定义所有业务状态的初始值
   count: 0,
   loading: false,
 };
-
-/**
- * 获取状态
- * @param {string} [key] - 传入 key 返回单个值，不传返回全部状态的浅拷贝
- */
-export function getCustomState(key) {
-  if (key) {
-    return _customState[key];
-  }
-  return { ..._customState };
-}
-
-/**
- * 设置状态（合并更新，自动触发重新渲染）
- * @param {Object} newState - 需要更新的状态键值对
- */
-export function setCustomState(newState) {
-  Object.keys(newState).forEach(function(key) {
-    _customState[key] = newState[key];
-  });
-  this.forceUpdate();
-}
-
-/**
- * 强制重新渲染（通过更新 timestamp 触发 React 重渲染）
- */
-export function forceUpdate() {
-  this.setState({ timestamp: new Date().getTime() });
-}
-
-// ============================================================
-// 生命周期
-// ============================================================
-
-/**
- * 组件挂载到 DOM 后（等同于 componentDidMount）
- * 用于：初始化数据、启动定时器、绑定事件等
- */
-export function didMount() {
-  // 初始化逻辑
-}
-
-/**
- * 页面卸载时调用
- * 用于：清理定时器、解绑事件、释放资源等
- */
-export function didUnmount() {
-  // 清理逻辑
-}
-
-export function handleSubmit(e) {
-  this.setCustomState({ submitted: true });
-  this.utils.toast({ title: '提交成功', type: 'success' });
-}
-// ============================================================
-// 渲染
-// ============================================================
-
-/**
- * 页面渲染函数（等同于 React 类组件的 render 方法）
- * 注意：必须包含隐藏的 timestamp div 以支持 forceUpdate 机制
- */
-export function renderJsx() {
-  const { timestamp } = this.state;
-
-  return (
-    <div>
-      {/* 必须保留：用于触发重新渲染 */}
-      <div style={{ display: "none" }}>{timestamp}</div>
-
-      {/* 页面内容写在这里 */}
-      <div onClick={(e) => { this.handleSubmit(e) }}>提交</div>
-    </div>
-  );
-}
 ```
+> 🚨 **强制要求：生成代码前必须完整阅读 [`./examples/yida-custom-page.js`](./examples/yida-custom-page.js)，所有生成的代码必须以该示例为基础进行扩展，禁止从零自行构造页面骨架。**
 
 ### 状态管理使用方式
 
@@ -252,10 +169,10 @@ this.forceUpdate();
 9. **输入框使用非受控组件**：在宜搭环境中，`<input>` 的 `value` 属性绑定状态后会触发重渲染导致输入异常。**正确做法**：使用 `defaultValue`，在 `onChange` 中更新 `_customState` 而不调用 `setCustomState`：
    ```javascript
    // ❌ 错误：受控组件，每次输入都触发重渲染导致无法输入
-   <input value={userAnswer} onChange={function(e) { this.setCustomState({ userAnswer: e.target.value }); }} />
+   <input value={userAnswer} onChange={(e) => { this.setCustomState({ userAnswer: e.target.value }); }} />
 
    // ✅ 正确：非受控组件，仅静默更新状态，不触发重渲染
-   <input id="my-input" defaultValue="" onChange={function(e) { _customState.userAnswer = e.target.value; }} />
+   <input id="my-input" defaultValue="" onChange={(e) => { _customState.userAnswer = e.target.value; }} />
 
    // 需要清空时通过 DOM 操作
    var inputEl = document.getElementById("my-input");
@@ -324,62 +241,59 @@ this.forceUpdate();
     - Tab 内容区使用 `display: none` 而非条件渲染，保留 DOM 避免 iframe 重复加载
     - 所有 Tab 均被隐藏时展示兜底提示，提升用户体验
 
-    完整示例代码见：[`examples/tabs-visibility-control.js`](./examples/tabs-visibility-control.js)
-
-
 16. 字段 ID 语义化别名约定
 
-宜搭表单字段 ID 通常是随机字符串（如 `textField_k8j2n3m4`），直接在代码中使用可读性差、维护困难。**推荐在文件顶部统一定义字段别名常量**，在代码中始终使用别名引用字段 ID。
+    宜搭表单字段 ID 通常是随机字符串（如 `textField_k8j2n3m4`），直接在代码中使用可读性差、维护困难。**推荐在文件顶部统一定义字段别名常量**，在代码中始终使用别名引用字段 ID。
 
-**约定规范**：
+    **约定规范**：
 
-```javascript
-// ✅ 推荐：在文件顶部统一定义字段别名
-// 字段 ID 来自 openyida get-schema 的输出，或 .cache/<项目名>-schema.json
-var FIELDS = {
-  userName: 'textField_k8j2n3m4',       // 姓名
-  department: 'selectField_a3b9c1d2',    // 部门
-  applyDate: 'dateField_x7y2z5w1',       // 申请日期
-  amount: 'numberField_p4q8r3s6',        // 金额
-  status: 'radioField_m1n5o9p3',         // 审批状态
-  remark: 'textareaField_v2w6x1y4',      // 备注
-};
+    ```javascript
+    // ✅ 推荐：在文件顶部统一定义字段别名
+    // 字段 ID 来自 openyida get-schema 的输出，或 .cache/<项目名>-schema.json
+    var FIELDS = {
+      userName: 'textField_k8j2n3m4',       // 姓名
+      department: 'selectField_a3b9c1d2',    // 部门
+      applyDate: 'dateField_x7y2z5w1',       // 申请日期
+      amount: 'numberField_p4q8r3s6',        // 金额
+      status: 'radioField_m1n5o9p3',         // 审批状态
+      remark: 'textareaField_v2w6x1y4',      // 备注
+    };
 
-// ✅ 使用别名引用字段，代码清晰易读
-this.utils.yida.searchFormDatas({
-  formUuid: 'FORM-XXX',
-  searchFieldJson: JSON.stringify({
-    [FIELDS.department]: '研发部',
-    [FIELDS.status]: '待审批',
-  }),
-  currentPage: 1,
-  pageSize: 20,
-});
+    // ✅ 使用别名引用字段，代码清晰易读
+    this.utils.yida.searchFormDatas({
+      formUuid: 'FORM-XXX',
+      searchFieldJson: JSON.stringify({
+        [FIELDS.department]: '研发部',
+        [FIELDS.status]: '待审批',
+      }),
+      currentPage: 1,
+      pageSize: 20,
+    });
 
-// ✅ 构建提交数据时使用别名
-var formDataJson = {};
-formDataJson[FIELDS.userName] = _customState.inputName;
-formDataJson[FIELDS.department] = _customState.selectedDept;
-formDataJson[FIELDS.amount] = _customState.inputAmount;
-```
+    // ✅ 构建提交数据时使用别名
+    var formDataJson = {};
+    formDataJson[FIELDS.userName] = _customState.inputName;
+    formDataJson[FIELDS.department] = _customState.selectedDept;
+    formDataJson[FIELDS.amount] = _customState.inputAmount;
+    ```
 
-**❌ 避免的写法**：
+    **❌ 避免的写法**：
 
-```javascript
-// ❌ 直接在业务逻辑中散落字段 ID，难以维护
-this.utils.yida.searchFormDatas({
-  formUuid: 'FORM-XXX',
-  searchFieldJson: JSON.stringify({
-    selectField_a3b9c1d2: '研发部',   // 这是什么字段？
-    radioField_m1n5o9p3: '待审批',    // 完全看不懂
-  }),
-});
-```
+    ```javascript
+    // ❌ 直接在业务逻辑中散落字段 ID，难以维护
+    this.utils.yida.searchFormDatas({
+      formUuid: 'FORM-XXX',
+      searchFieldJson: JSON.stringify({
+        selectField_a3b9c1d2: '研发部',   // 这是什么字段？
+        radioField_m1n5o9p3: '待审批',    // 完全看不懂
+      }),
+    });
+    ```
 
-**AI 生成代码时的规则**：
-1. 获取表单 Schema 后，**必须先在文件顶部定义 `FIELDS` 常量**，将所有用到的字段 ID 映射为语义化名称
-2. 后续所有代码中**禁止直接写字段 ID 字符串**，统一通过 `FIELDS.xxx` 引用
-3. `FIELDS` 的 key 使用 camelCase 命名，与字段的中文含义对应
+    **AI 生成代码时的规则**：
+    1. 获取表单 Schema 后，**必须先在文件顶部定义 `FIELDS` 常量**，将所有用到的字段 ID 映射为语义化名称
+    2. 后续所有代码中**禁止直接写字段 ID 字符串**，统一通过 `FIELDS.xxx` 引用
+    3. `FIELDS` 的 key 使用 camelCase 命名，与字段的中文含义对应
 
 ---
 
@@ -429,117 +343,8 @@ openyida compile <源文件路径>
 
 ## ⚠️ JSX 编译错误自查清单（发布前必读）
 
-> **遇到 JSX 编译错误时，按以下顺序逐项排查**，90% 的编译错误都由以下原因引起：
-
-### 🔴 第 1 优先级：禁止使用的语法（绝对红线）
-
-| 语法 | 错误代码 | 正确代码 | 说明 |
-|------|---------|---------|------|
-| ❌ 类属性声明 | `class App { state = {} }` | 必须使用 `_customState` 全局变量 | Babel 编译不过 |
-| ❌ Class Fields 语法 | `count = 0` | `var count = 0` | React 16 不支持 |
-| ❌ `import` 语句 | `import React from 'react'` | 禁止使用 import | 三方包引入需用 `loadScript` |
-| ❌ `export default` | `export default function` | 使用 `export function` | export default 编译后无法正确挂载 |
-| ❌ Optional Chaining | `obj?.prop` | `obj && obj.prop` | 部分版本 Babel 不支持 |
-| ❌ Nullish Coalescing | `a ?? b` | `a !== null ? a : b` | 同上 |
-| ❌ 装饰器语法 | `@decorator class X` | 禁止使用装饰器 | 需要额外 Babel 插件 |
-
-### 🟡 第 2 优先级：极易出错的地方
-
-#### 2.1 事件绑定（最容易出错）
-
-```javascript
-// ❌ 错误：直接传方法引用，this 丢失
-<button onClick={this.handleClick}>点击</button>
-
-// ❌ 错误：使用 .bind()，不符合规范
-<button onClick={function() { this.handleClick(); }.bind(this)}>点击</button>
-
-// ✅ 正确：箭头函数包裹
-<button onClick={(e) => { this.handleClick(e); }}>点击</button>
-
-// ✅ 正确：如果是简单调用（仅修改状态）
-<button onClick={() => { this.setCustomState({ count: 1 }); }}>点击</button>
-```
-
-#### 2.2 JSX 中的 style 属性
-
-```javascript
-// ❌ 错误：CSS 属性名使用 kebab-case
-<div style={{ "background-color": "red" }}></div>
-
-// ❌ 错误：数字值未加引号
-<div style={{ width: 100 }}></div>  // 会变成 "100px" 但某些情况有问题
-
-// ✅ 正确：JS 写法（camelCase + 字符串值）
-<div style={{ backgroundColor: 'red', width: '100%' }}></div>
-
-// ✅ 正确：带单位用字符串
-<div style={{ padding: '12px', marginTop: '8px' }}></div>
-```
-
-#### 2.3 箭头函数 vs 普通函数
-
-```javascript
-// ❌ 错误：在需要 this 的地方用箭头函数
-const handleClick = () => {
-  this.utils.toast({ title: 'hi' });  // this 丢失
-};
-
-// ✅ 正确：需要 this 的方法必须用 export function
-export function handleClick() {
-  this.utils.toast({ title: 'hi' });
-}
-```
-
-### 🟢 第 3 优先级：常见小问题
-
-#### 3.1 标签必须闭合
-
-```javascript
-// ❌ 错误：自闭合标签缺少斜线
-<input type="text">
-<br>
-
-// ✅ 正确
-<input type="text" />
-<br />
-```
-
-#### 3.2 className 而非 class
-
-```javascript
-// ❌ 错误
-<div class="container">...</div>
-
-// ✅ 正确
-<div className="container">...</div>
-```
-
-#### 3.3 注释语法
-
-```javascript
-// ✅ JSX 内只能使用这种注释
-<div>
-  {/* 这是注释 */}
-  <span>内容</span>
-</div>
-
-// ❌ 不要用 HTML 注释（可能编译出错）
-// <div>...</div>
-```
-
-#### 3.4 三元表达式陷阱
-
-```javascript
-// ❌ 错误：三元表达式返回 null/undefined 可能导致白屏
-{condition && null}  // 某些情况下编译有问题
-
-// ✅ 正确：确保返回有效 JSX
-{condition && <div>内容</div>}
-
-// ✅ 更好：显式处理
-{condition ? <div>内容</div> : <span />}
-```
+> 详细的编译错误排查规则、禁止语法、事件绑定规范等，请完整阅读：
+> **[→ jsx-compile-checklist.md](./jsx-compile-checklist.md)**
 
 ---
 
