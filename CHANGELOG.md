@@ -8,17 +8,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## [2026.03.24] - 2026-03-24
+## [2026.03.23-5] - 2026-03-23
+
+### Fixed
+- 修复 `create-page` 命令：`response.content` 为对象时 `pageId` 解析错误，导致后续 `.trim()` 报错
+- 修复 `create-page` 命令：`--datasource` 注入提示文字硬编码中文，替换为 `t()` 调用，同步 12 个语言包
+
+## [2026.03.23-1] - 2026-03-23
 
 ### Added
-- 新增登录和 Cookie 存储 Mock 测试 (`tests/login.test.js`)
-  - 25 个测试用例覆盖 Cookie 解析、加载、保存逻辑
-  - 测试多 AI 工具环境检测（Qoder/Wukong/Claude Code/OpenCode）
-  - 测试项目根目录解析逻辑
-  - 验证 Cookie 存储路径兼容性
+- 新增 `openyida compile` 命令：仅编译 JSX 源码，不发布，产物输出到 `pages/dist/`
+
+### Fixed
+- 修复 `compile` 命令成功提示重复打印两次的问题
+- 修复 `compile.js` 中 `compiledPath` 变量定义但未使用（dead code）
+- 修复 `integration-create.js` 全文 47 处硬编码中文，替换为 `t()` 调用，同步 12 个语言包
+- 修复 `yida-custom-page` SKILL.md 拼写错误（`exprot` → `export`）
 
 ### Changed
-- 更新 Jest 到 `^29.7.0`
+- 优化 `AGENTS.md`：修正路径错误（`lib/env.js` → `lib/core/env.js`、`lib/login.js` → `lib/auth/login.js`），补充 `babel-transform/` 子文件说明，修正命令导出格式，完善报表模块和 Cookie 缓存路径描述
 
 ## [2026.03.22-2] - 2026-03-22
 
