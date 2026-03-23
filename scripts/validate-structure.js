@@ -49,18 +49,31 @@ if (fs.existsSync(skillsDir)) {
   console.log('yida-skills sub-skills: ' + skills.length);
 }
 
-function countJsFiles(dir) {
-  let count = 0;
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (let i = 0; i < entries.length; i++) {
-    const entry = entries[i];
+function countSourceFiles(dir) {
+  var count = 0;
+  if (!fs.existsSync(dir)) return count;
+  var entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (var i = 0; i < entries.length; i++) {
+    var entry = entries[i];
     if (entry.isDirectory()) {
-      count += countJsFiles(path.join(dir, entry.name));
-    } else if (entry.name.endsWith('.js')) {
+      count += countSourceFiles(path.join(dir, entry.name));
+    } else if (entry.name.endsWith('.ts') || entry.name.endsWith('.js')) {
       count++;
     }
   }
   return count;
 }
-console.log('lib/ modules: ' + countJsFiles('lib'));
+// Count TypeScript sources (src/) or compiled JS (lib/) — whichever exists
+var srcCount = countSourceFiles('src');
+var libCount = countSourceFiles('lib');
+if (srcCount > 0) {
+  console.log('src/ modules (TypeScript): ' + srcCount);
+}
+if (libCount > 0) {
+  console.log('lib/ modules (compiled): ' + libCount);
+}
+if (srcCount === 0 && libCount === 0) {
+  console.error('No source modules found in src/ or lib/');
+  process.exit(1);
+}
 console.log('Project structure OK');
