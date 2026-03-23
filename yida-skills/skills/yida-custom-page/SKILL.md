@@ -58,6 +58,8 @@ metadata:
 ### 代码结构
 
 **一个完整的宜搭自定义页面必须定义一个全局变量和 6 个 export 导出的方法**
+
+> 🚨 **`_customState` 是全局变量，绝对不能写成 `export function _customState() {}`！必须写成 `const _customState = { ... }` 的变量形式。**
 - 全局变量：
   ``` js
   const _customState = {
