@@ -111,6 +111,7 @@ openyida copy
           配置流程 → 读取 skills/yida-create-process/SKILL.md → openyida create-process / configure-process
               ↓
 [Step 5] 编写自定义页面代码 → yida-custom-page 规范 → pages/src/<项目名>.js
+              ↓  （⚠️ 列表/表格类页面：参考 yida-density 技能选择合适的信息密度）
               ↓
 [Step 6] （可选）预检语法 → openyida compile <源文件路径>   # 仅编译，不发布，快速验证语法
               ↓
@@ -135,7 +136,7 @@ openyida copy
 | `yida-create-page` | `skills/yida-create-page/SKILL.md` | 创建自定义页面，获取 formUuid | `openyida create-page <appType> "<页面名>" [--datasource <json>]` |
 | `yida-create-form-page` | `skills/yida-create-form-page/SKILL.md` | 创建/更新表单页面 | `openyida create-form create <appType> "<表单名>" <字段JSON> [--datasource <json>]` |
 | `yida-get-schema` | `skills/yida-get-schema/SKILL.md` | 获取表单 Schema，确认字段 ID | `openyida get-schema <appType> <formUuid>` |
-| `yida-custom-page` | `skills/yida-custom-page/SKILL.md` | 编写自定义页面 JSX 代码规范 | **必须完整学习 `skills/yida-custom-page/` 目录下的所有文件** |
+| `yida-custom-page` | `skills/yida-custom-page/SKILL.md` | 编写自定义页面 JSX 代码规范。子目录包含：`SKILL.md`（编译规范）、`yida-assets-guide.md`（素材资源）、`examples/`（示例代码） | **必须完整学习 `skills/yida-custom-page/` 目录下的所有文件** |
 | `yida-compile` | `skills/yida-custom-page/SKILL.md` | 仅编译 JSX 源码（Babel + UglifyJS），不发布，无需登录，用于本地预检语法 | `openyida compile <源文件路径>` |
 | `yida-publish-page` | `skills/yida-publish-page/SKILL.md` | 编译并发布自定义页面 | `openyida publish <源文件路径> <appType> <formUuid>` |
 | `yida-page-config` | `skills/yida-page-config/SKILL.md` | 页面公开访问/组织内分享配置 | `openyida verify-short-url <appType> <formUuid> <url>` |
@@ -143,7 +144,13 @@ openyida copy
 | `yida-data-management` | `skills/yida-data-management/SKILL.md` | 数据管理（表单实例/流程实例/任务中心的查询、新增、更新） | `openyida data query form <appType> <formUuid>` |
 | `yida-create-report` | `skills/yida-create-report/SKILL.md` | 创建报表页面，支持 9 种图表和筛选器联动 | `openyida create-report <appType> "<报表名>" <图表JSON>` |
 | `yida-connector` | `skills/yida-connector/SKILL.md` | 宜搭 HTTP 连接器管理（创建/编辑/测试/智能生成） | `openyida connector list` |
-| `yida-ppt-slider` | `skills/yida-ppt-slider/SKILL.md` | PPT 幻灯片页面开发（演讲/路演/培训） | 详见技能文档 |
+| `yida-app` | `skills/yida-app/SKILL.md` | 完整应用开发全流程（从零到一，含创建/表单/页面/发布） | 详见技能文档 |
+| `yida-chart` | `skills/yida-chart/SKILL.md` | ECharts 高级可视化大屏（依赖 yida-report 作为数据源） | 详见技能文档 |
+| `yida-density` | `skills/yida-density/SKILL.md` | 自定义页面信息密度规范（紧凑/舒适/宽松三种模式） | 详见技能文档 |
+| `yida-integration` | `skills/yida-integration/SKILL.md` | 集成&自动化（逻辑流）：表单事件触发 → 消息通知/数据操作 | `openyida integration create <appType> <formUuid> "<名称>"` |
+| `yida-process-rule` | `skills/yida-process-rule/SKILL.md` | 为已有流程表单配置审批流程规则（条件分支/嵌套分支/字段权限） | `openyida configure-process <appType> <formUuid> <定义文件>` |
+| `yida-table-form` | `skills/yida-table-form/SKILL.md` | 表格形式批量表单提交（动态增删行/Excel 粘贴导入/批量提交） | 详见技能文档 |
+| `yida-ppt-slider` | `skills/yida-ppt-slider/SKILL.md` | PPT 幻灯片页面开发（演讲/路演/培训，仅限宜搭平台内） | 详见技能文档 |
 
 ---
 
