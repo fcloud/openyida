@@ -57,21 +57,21 @@ metadata:
 
 ### 代码结构
 
-**一个完整的宜搭自定义页面必须定义以下 6 个 export 导出的方法和一个全局变量：**
+**一个完整的宜搭自定义页面必须定义一个全局变量和 6 个 export 导出的方法**
+- 全局变量：
+  ``` js
+  const _customState = {
+    count: 0,
+    loading: false,
+  };
+  ```
 - `export function getCustomState () {}` — 读取自定义状态，传入 key 返回单个值，不传返回全部状态的浅拷贝
 - `export function setCustomState () {}` — 合并更新状态并自动触发重新渲染（内部调用 `forceUpdate`）
 - `export function forceUpdate () {}` — 通过更新 `timestamp` 强制触发 React 重渲染
 - `export function didMount () {}` — 组件挂载后执行（等同于 `componentDidMount`），用于初始化数据、启动定时器
 - `export function didUnmount () {}` — 组件卸载时执行，用于清理定时器、解绑事件，防止内存泄漏
 - `export function renderJsx () {}` — 页面渲染入口（等同于 `render`），返回 JSX。⚠️ **每个 `return` 分支都必须包含 `<div style={{ display: 'none' }}>{this.state.timestamp}</div>`**，否则 `forceUpdate` 调用 `this.setState({ timestamp })` 后 React 无法检测到输出变化，页面将无法更新。
-- 全局变量：
-``` js
-const _customState = {
-  // 在此定义所有业务状态的初始值
-  count: 0,
-  loading: false,
-};
-```
+
 > 🚨 **强制要求：生成代码前必须完整阅读 [`./examples/yida-custom-page.js`](./examples/yida-custom-page.js)，所有生成的代码必须以该示例为基础进行扩展，禁止从零自行构造页面骨架。**
 
 ### 状态管理使用方式
