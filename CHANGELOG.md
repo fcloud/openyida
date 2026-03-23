@@ -8,6 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2026.03.23-1] - 2026-03-23
+
+### Added
+- 新增 `openyida compile` 命令：仅编译 JSX 源码，不发布，产物输出到 `pages/dist/`
+
+### Fixed
+- 修复 `compile` 命令成功提示重复打印两次的问题
+- 修复 `compile.js` 中 `compiledPath` 变量定义但未使用（dead code）
+- 修复 `integration-create.js` 全文 47 处硬编码中文，替换为 `t()` 调用，同步 12 个语言包
+- 修复 `yida-custom-page` SKILL.md 拼写错误（`exprot` → `export`）
+
+### Changed
+- 优化 `AGENTS.md`：修正路径错误（`lib/env.js` → `lib/core/env.js`、`lib/login.js` → `lib/auth/login.js`），补充 `babel-transform/` 子文件说明，修正命令导出格式，完善报表模块和 Cookie 缓存路径描述
+
 ## [2026.03.22-2] - 2026-03-22
 
 ### Changed
