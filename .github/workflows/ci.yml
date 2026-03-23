@@ -33,11 +33,11 @@ jobs:
     - name: Validate project structure
       run: node scripts/validate-structure.js
 
-    - name: Check JavaScript syntax
-      run: |
-        node --check bin/yida.js
-        find lib -name "*.js" | while read f; do node --check "$f"; done
-        echo "All JS files passed syntax check"
+    - name: Build TypeScript
+      run: npm run build
+
+    - name: Check JavaScript syntax (bin)
+      run: node --check bin/yida.js
 
   test:
     name: Test (Node ${{ matrix.node-version }}, ${{ matrix.os }})
