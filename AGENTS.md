@@ -23,7 +23,7 @@ openyida/
 │   │   ├── copy.js          # 初始化 project 工作目录
 │   │   ├── check-update.js  # 版本检测（每天一次）
 │   │   ├── doctor.js        # 环境诊断与自动修复
-│   │   ├── query-data.js    # 查询表单实例数据
+│   │   ├── query-data.js    # 统一数据管理（表单/流程/任务/子表单的增删改查）
 │   │   └── babel-transform/ # Babel 编译器（用于自定义页面）
 │   ├── auth/                # 登录认证模块
 │   │   ├── login.js         # 宜搭登录（Cookie 缓存 + 扫码）
@@ -63,8 +63,6 @@ openyida/
 │   │   ├── connector-smart-create.js
 │   │   ├── connector-parse-api.js
 │   │   └── connector-gen-template.js
-│   ├── data-management/     # 统一数据管理模块
-│   │   └── index.js               # 数据查询/操作入口（表单/流程/任务/子表单）
 │   ├── cdn/                 # CDN / OSS 管理
 │   │   ├── cdn-config.js          # CDN 配置读写
 │   │   ├── cdn-config-cmd.js      # CDN 配置命令
@@ -126,7 +124,7 @@ openyida/
   - 翻译值非空检测
 
 ### 数据管理
-- `lib/data-management/` 提供统一的数据查询/操作接口
+- `lib/core/query-data.js` 提供统一的数据查询/操作接口
 - 支持表单数据、流程实例、任务、子表单等资源类型
 - 通过 `openyida data <action> <resource> [args]` 命令调用
 

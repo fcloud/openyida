@@ -342,7 +342,7 @@ async function main() {
         console.error(t('cli.data_example'));
         process.exit(1);
       }
-      const { run: runDataManagement } = require('../lib/data-management');
+      const { run: runDataManagement } = require('../lib/core/query-data');
       await runDataManagement(args);
       break;
     }
@@ -485,16 +485,6 @@ async function main() {
 
       const { run: runConnector } = require(modulePath);
       await runConnector(subArgs);
-      break;
-    }
-
-    case 'query-data': {
-      if (args.length < 2) {
-        console.error(t('cli.query_data_usage'));
-        process.exit(1);
-      }
-      const { run: runQueryData } = require('../lib/core/query-data');
-      await runQueryData(args);
       break;
     }
 
