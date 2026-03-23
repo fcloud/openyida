@@ -21,6 +21,7 @@
  *   openyida create-form create <appType> "<表单名>" <字段JSON> [--layout <布局>] [--theme <主题>] [--label-align <对齐>]  创建表单页面
  *   openyida create-form update <appType> <formUuid> <修改JSON>  更新表单页面
  *   openyida get-schema <appType> <formUuid>            获取表单 Schema
+ *   openyida compile <源文件路径>                        仅编译自定义页面（不发布，产物输出到 pages/dist/）
  *   openyida publish <源文件路径> <appType> <formUuid>   编译并发布自定义页面
  *   openyida verify-short-url <appType> <formUuid> <url>           验证短链接 URL 是否可用
  *   openyida save-share-config <appType> <formUuid> <url> <isOpen> [openAuth]  保存公开访问/分享配置
@@ -262,6 +263,18 @@ async function main() {
     case 'get-schema': {
       const { run } = require('../lib/app/get-schema');
       await run(args);
+      break;
+    }
+
+    case 'compile': {
+      // 参数顺序：<源文件路径>
+      if (args.length < 1) {
+        console.error(t('cli.compile_usage'));
+        console.error(t('cli.compile_example'));
+        process.exit(1);
+      }
+      const { run: runCompile } = require('../lib/app/compile');
+      await runCompile(args);
       break;
     }
 

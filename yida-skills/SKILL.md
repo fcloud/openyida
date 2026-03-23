@@ -38,7 +38,7 @@ metadata:
 
 | 依赖 | 版本 | 用途 |
 |------|------|------|
-| Node.js | ≥ 18 | 运行 openyida |
+| Node.js | ≥ 16 | 运行 openyida |
 
 ```bash
 # 安装 openyida（首次使用前执行）
@@ -112,9 +112,11 @@ openyida copy
               ↓
 [Step 5] 编写自定义页面代码 → yida-custom-page 规范 → pages/src/<项目名>.js
               ↓
-[Step 6] 发布页面 → openyida publish
+[Step 6] （可选）预检语法 → openyida compile <源文件路径>   # 仅编译，不发布，快速验证语法
               ↓
-[Step 7] 输出访问链接，用系统浏览器打开
+[Step 7] 发布页面 → openyida publish <源文件路径> <appType> <formUuid>
+              ↓
+[Step 8] 输出访问链接，用系统浏览器打开
 ```
 
 > ⚠️ **公开访问配置不在主流程中**：若用户明确要求配置公开访问或组织内分享，再执行 `openyida verify-short-url` / `save-share-config`，详见 `skills/yida-page-config/SKILL.md`。
@@ -134,13 +136,13 @@ openyida copy
 | `yida-create-form-page` | `skills/yida-create-form-page/SKILL.md` | 创建/更新表单页面 | `openyida create-form create <appType> "<表单名>" <字段JSON> [--datasource <json>]` |
 | `yida-get-schema` | `skills/yida-get-schema/SKILL.md` | 获取表单 Schema，确认字段 ID | `openyida get-schema <appType> <formUuid>` |
 | `yida-custom-page` | `skills/yida-custom-page/SKILL.md` | 编写自定义页面 JSX 代码规范 | **必须完整学习 `skills/yida-custom-page/` 目录下的所有文件** |
+| `yida-compile` | `skills/yida-custom-page/SKILL.md` | 仅编译 JSX 源码（Babel + UglifyJS），不发布，无需登录，用于本地预检语法 | `openyida compile <源文件路径>` |
 | `yida-publish-page` | `skills/yida-publish-page/SKILL.md` | 编译并发布自定义页面 | `openyida publish <源文件路径> <appType> <formUuid>` |
 | `yida-page-config` | `skills/yida-page-config/SKILL.md` | 页面公开访问/组织内分享配置 | `openyida verify-short-url <appType> <formUuid> <url>` |
 | `yida-form-permission` | `skills/yida-form-permission/SKILL.md` | 表单权限配置（字段/数据/操作权限） | `openyida get-permission <appType> <formUuid>` |
 | `yida-data-management` | `skills/yida-data-management/SKILL.md` | 数据管理（表单实例/流程实例/任务中心的查询、新增、更新） | `openyida data query form <appType> <formUuid>` |
 | `yida-create-report` | `skills/yida-create-report/SKILL.md` | 创建报表页面，支持 9 种图表和筛选器联动 | `openyida create-report <appType> "<报表名>" <图表JSON>` |
 | `yida-connector` | `skills/yida-connector/SKILL.md` | 宜搭 HTTP 连接器管理（创建/编辑/测试/智能生成） | `openyida connector list` |
-| `yida-report` | `skills/yida-report/SKILL.md` | 创建宜搭报表、追加图表 | `openyida create-report APP_XXX "报表名" charts.json` |
 | `yida-ppt-slider` | `skills/yida-ppt-slider/SKILL.md` | PPT 幻灯片页面开发（演讲/路演/培训） | 详见技能文档 |
 
 ---
