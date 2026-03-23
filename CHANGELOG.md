@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2026.03.23-3] - 2026-03-23
+
+### Fixed
+- 修复 `create-page` 命令：`response.content` 为对象时 `pageId` 解析错误，导致后续 `.trim()` 报错
+- 修复 `create-page` 命令：`--datasource` 注入提示文字硬编码中文，替换为 `t()` 调用，同步 12 个语言包
+
 ## [2026.03.23-1] - 2026-03-23
 
 ### Added
