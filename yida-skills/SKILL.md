@@ -126,7 +126,7 @@ openyida copy
 
 ## 子技能速查
 
-> 每个子技能均有独立的 SKILL.md，执行前请读取对应文档获取详细参数说明。
+> 每个子技能均有独立的 SKILL.md，执行前请仔细读取对应文档获取详细参数说明。
 
 | 技能 | SKILL.md 路径 | 用途 | 典型命令 |
 |------|--------------|------|---------|
@@ -136,7 +136,7 @@ openyida copy
 | `yida-create-page` | `skills/yida-create-page/SKILL.md` | 创建自定义页面，获取 formUuid | `openyida create-page <appType> "<页面名>" [--datasource <json>]` |
 | `yida-create-form-page` | `skills/yida-create-form-page/SKILL.md` | 创建/更新表单页面 | `openyida create-form create <appType> "<表单名>" <字段JSON> [--datasource <json>]` |
 | `yida-get-schema` | `skills/yida-get-schema/SKILL.md` | 获取表单 Schema，确认字段 ID | `openyida get-schema <appType> <formUuid>` |
-| `yida-custom-page` | `skills/yida-custom-page/SKILL.md` | 编写自定义页面 JSX 代码规范。子目录包含：`SKILL.md`（编译规范）、`yida-assets-guide.md`（素材资源）、`examples/`（示例代码） | **必须完整学习 `skills/yida-custom-page/` 目录下的所有文件** |
+| `yida-custom-page` | `skills/yida-custom-page/SKILL.md` | 编写自定义页面 JSX 代码规范。子目录包含：`SKILL.md`（编译规范）、`yida-assets-guide.md`（素材资源）、`examples/`（示例代码） | **必须完整学习 `skills/yida-custom-page/SKILL.md`** |
 | `yida-compile` | `skills/yida-custom-page/SKILL.md` | 仅编译 JSX 源码（Babel + UglifyJS），不发布，无需登录，用于本地预检语法 | `openyida compile <源文件路径>` |
 | `yida-publish-page` | `skills/yida-publish-page/SKILL.md` | 编译并发布自定义页面 | `openyida publish <源文件路径> <appType> <formUuid>` |
 | `yida-page-config` | `skills/yida-page-config/SKILL.md` | 页面公开访问/组织内分享配置 | `openyida verify-short-url <appType> <formUuid> <url>` |
@@ -156,33 +156,22 @@ openyida copy
 
 ## 关键规则
 
-### 0. 编写代码前必须学习 JSX 编译规范（最重要）
-
-> **发布前必读**：遇到 JSX 编译错误时，90% 是因为代码中使用了禁止的语法。请务必在编写代码前完整阅读 `skills/yida-custom-page/SKILL.md` 中的「⚠️ JSX 编译错误自查清单」章节。
-
-**绝对禁止的语法**：
-- ❌ Class Fields 语法（`count = 0`）
-- ❌ `import` 语句
-- ❌ `export default`
-- ❌ Optional Chaining（`obj?.prop`）
-- ❌ Nullish Coalescing（`a ?? b`）
-
-**极易出错的地方**：
-- ⚠️ 事件绑定必须用箭头函数：`onClick={(e) => { this.handle(e); }}`
-- ⚠️ style 属性必须用 camelCase：`style={{ backgroundColor: 'red' }}`
-
 ### 1. 执行子技能前必须完整的读取其 SKILL.md
 
 每个子技能的详细参数、注意事项、示例均在其 SKILL.md 中。**执行任何子技能前，必须先完整的读取对应的 SKILL.md**，不要凭记忆猜测参数格式。
 
-### 2. corpId 一致性检查（必须遵守）
+### 2. 编写自定义页面代码前必须完整学习 `skills/yida-custom-page/SKILL.md`
+
+### 3. 生成表单 schema 前必须完整学习 `skills/yida-create-form-page/SKILL.md`
+
+### 4. corpId 一致性检查（必须遵守）
 
 在创建页面前，**必须对比 prd 文档中的 corpId 与 `.cache/cookies.json` 中的 corpId 是否一致**：
 
 - **一致** → 继续执行
 - **不一致** → 询问用户：重新登录到正确组织，还是在当前组织新建应用？
 
-### 3. 配置信息分两处存储
+### 5. 配置信息分两处存储
 
 | 信息类型 | 存储位置 | 内容示例 |
 |---------|---------|---------|
@@ -191,28 +180,9 @@ openyida copy
 
 > **prd 文档不记录 `formUuid`、`fieldId` 等 ID**，这些写入 `.cache/` 临时文件。
 
-### 4. 临时文件规范
+### 6. 临时文件规范
 
 所有临时文件（cookies、schema 缓存等）**必须写在项目根目录的 `.cache/` 文件夹中**，不要写在系统其他位置。
-
-### 5. Session 启动时引导用户选择组件库
-
-**在新 Session 的第一次对话中**，如果用户提出了宜搭页面开发需求，AI 应主动询问是否需要加载官方组件库文档：
-
-> 是否需要加载宜搭官方组件库文档？
-> - ✅ **是，加载官方组件库** — 生成的组件样式将统一规范，推荐用于企业级应用
-> - ⬜ **否，不加载** — 完全自定义实现，适合个性化页面
-
-**根据用户选择执行**：
-
-| 用户选择 | AI 行为 |
-| --- | --- |
-| **是** | 读取 `skills/yida-custom-page/SKILL.md` 中的「设计规范」章节，后续生成代码时优先参考官方组件规范（间距、色彩、字体等） |
-| **否** | 跳过，完全根据需求自行实现，不受官方组件库约束 |
-
-**何时触发**：
-- 用户首次在本 Session 提出「创建页面」「开发自定义页面」「写页面代码」等需求时
-- 若用户已明确说明使用自定义样式或指定了 UI 框架，则跳过询问
 
 ---
 
