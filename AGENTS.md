@@ -35,7 +35,9 @@ openyida/
 │   │   ├── create-page.js   # 创建自定义展示页面
 │   │   ├── create-form.js   # 创建 / 更新表单页面
 │   │   ├── get-schema.js    # 获取表单 Schema
+│   │   ├── compile.js       # 仅编译自定义页面（不发布，产物输出到 pages/dist/）
 │   │   ├── publish.js       # 编译并发布自定义页面（Babel 转译）
+│   │   ├── datasource-utils.js  # 连接器数据源工具函数（构建 fit 函数等）
 │   │   ├── export-app.js    # 导出应用（生成迁移包）
 │   │   ├── import-app.js    # 导入迁移包，重建应用
 │   │   └── update-form-config.js  # 更新表单配置
@@ -49,20 +51,32 @@ openyida/
 │   ├── process/             # 流程管理
 │   │   ├── configure-process.js   # 配置并发布流程规则
 │   │   └── create-process.js      # 创建流程表单（一体化）
+│   ├── integration/         # 集成&自动化管理
+│   │   ├── integration-create.js        # 创建集成&自动化（主入口）
+│   │   ├── integration-api.js           # 集成&自动化相关宜搭 API 调用封装
+│   │   ├── integration-process-builder.js  # 构建逻辑流执行引擎节点定义（processJson）
+│   │   ├── integration-view-builder.js  # 构建逻辑流画布 Schema（viewJson）
+│   │   └── integration-node-ids.js      # 逻辑流节点 ID 常量
 │   ├── connector/           # HTTP 连接器管理
-│   │   ├── connector-list.js
-│   │   ├── connector-create.js
-│   │   ├── connector-detail.js
-│   │   ├── connector-delete.js
-│   │   ├── connector-add-action.js
-│   │   ├── connector-list-actions.js
-│   │   ├── connector-delete-action.js
-│   │   ├── connector-test.js
-│   │   ├── connector-list-connections.js
-│   │   ├── connector-create-connection.js
-│   │   ├── connector-smart-create.js
-│   │   ├── connector-parse-api.js
-│   │   └── connector-gen-template.js
+│   │   ├── connector-list.js            # 列出连接器
+│   │   ├── connector-create.js          # 创建连接器
+│   │   ├── connector-detail.js          # 查看连接器详情
+│   │   ├── connector-delete.js          # 删除连接器
+│   │   ├── connector-add-action.js      # 添加执行动作
+│   │   ├── connector-list-actions.js    # 列出执行动作
+│   │   ├── connector-delete-action.js   # 删除执行动作
+│   │   ├── connector-test.js            # 测试执行动作
+│   │   ├── connector-list-connections.js   # 列出鉴权账号
+│   │   ├── connector-create-connection.js  # 创建鉴权账号
+│   │   ├── connector-smart-create.js    # 智能创建连接器（解析 curl 命令）
+│   │   ├── connector-parse-api.js       # 解析接口信息
+│   │   ├── connector-gen-template.js    # 生成接口文档模板
+│   │   ├── api.js                       # 连接器 HTTP 请求封装
+│   │   ├── action-generator.js          # 执行动作 Schema 生成工具
+│   │   ├── curl-parser.js               # curl 命令解析工具
+│   │   ├── desc-generator.js            # 连接器描述生成工具
+│   │   ├── doc-parser.js                # 接口文档解析工具
+│   │   └── response-parser.js           # 响应结构解析工具
 │   ├── cdn/                 # CDN / OSS 管理
 │   │   ├── cdn-config.js          # CDN 配置读写
 │   │   ├── cdn-config-cmd.js      # CDN 配置命令
@@ -108,8 +122,11 @@ openyida/
 
 ### 自定义页面
 - 源码位于 `project/pages/src/`，使用 React + 宜搭 SDK
-- 发布前通过 `lib/babel-transform/` 进行 Babel 编译
+- 发布前通过 `lib/core/babel-transform/` 进行 Babel 编译，再经 UglifyJS 压缩
 - 编译产物输出到 `project/pages/dist/`
+- `openyida compile <源文件>` — 仅编译不发布，用于本地调试验证
+- `openyida publish <源文件> <appType> <formUuid>` — 编译后直接发布到宜搭
+- 编译逻辑统一在 `lib/app/publish.js` 的 `compileSource()` 中，`compile.js` 复用此函数
 
 ### 国际化（i18n）
 - 所有面向用户的文本必须通过 `lib/core/i18n.js` 的 `t()` 函数输出
@@ -154,6 +171,15 @@ openyida/
 - 检查 `lib/login.js` 中的 Cookie 缓存逻辑
 - 使用 `openyida env` 确认当前环境检测是否正确
 - 悟空环境使用 CDP 协议，其他环境使用扫码登录
+
+### 调试自定义页面编译问题
+- 先用 `openyida compile <源文件>` 验证编译是否通过，不要直接 publish
+- 编译逻辑在 `lib/app/publish.js` 的 `compileSource()`，`compile.js` 复用此函数
+- JSX 编译错误参考 `yida-skills/skills/yida-custom-page/jsx-compile-checklist.md`
+
+### 创建集成&自动化
+- 使用 `openyida integration create` 命令
+- 核心逻辑在 `lib/integration/`：`integration-create.js` 为主入口，`integration-process-builder.js` 构建执行引擎，`integration-view-builder.js` 构建画布 Schema
 
 ### 更新贡献者
 - 运行 `npm run contributors` 自动更新所有 README 文件中的贡献者列表
