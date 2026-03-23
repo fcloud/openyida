@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## [2026.03.23-3] - 2026-03-23
+## [2026.03.23-5] - 2026-03-23
 
 ### Fixed
 - 修复 `create-page` 命令：`response.content` 为对象时 `pageId` 解析错误，导致后续 `.trim()` 报错
