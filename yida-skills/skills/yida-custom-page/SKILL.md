@@ -55,7 +55,7 @@ metadata:
 | **禁止使用 `this.setState` 管理业务状态** | `this.setState` 已被覆盖，使用 `this.setCustomState` |
 | **`this` 上下文** | 只有使用了 export 声明的函数中才能使用 `this` |
 
-### 文件结构
+### 代码结构
 
 **一个完整的宜搭自定义页面必须定义以下 6 个 export 导出的方法和一个全局变量：**
 - `export function getCustomState () {}` — 读取自定义状态，传入 key 返回单个值，不传返回全部状态的浅拷贝

@@ -25,6 +25,8 @@ openyida/
 │   │   ├── doctor.js        # 环境诊断与自动修复
 │   │   ├── query-data.js    # 统一数据管理（表单/流程/任务/子表单的增删改查）
 │   │   └── babel-transform/ # Babel 编译器（用于自定义页面）
+│   │       ├── index.js       # Babel 编译入口（JSX → ES5）
+│   │       └── jsx-utils.js   # JSX 工具函数
 │   ├── auth/                # 登录认证模块
 │   │   ├── login.js         # 宜搭登录（Cookie 缓存 + 扫码）
 │   │   ├── auth.js          # 登录态管理（status/login/refresh/logout）
@@ -107,8 +109,8 @@ openyida/
 ### 命令实现规范
 - 每个 CLI 命令对应 `lib/` 下一个独立的 `.js` 文件
 - 所有命令通过 `bin/yida.js` 统一路由，新增命令需在此注册
-- 命令函数导出为 `module.exports = async function commandName(args) {}`
-- 错误处理：使用 `process.exit(1)` 退出，错误信息输出到 `stderr`
+- 命令函数统一导出为 `module.exports = { run }` 或 `module.exports = { run: main }`，`run` 接收 `args` 数组
+- 错误处理：使用 `process.exit(1)` 退出，错误信息输出到 `stderr`，结构化结果输出到 `stdout`（`console.log(JSON.stringify(...))`）
 
 ### 宜搭 API 调用
 - 所有宜搭 API 调用需携带 Cookie（从 `login.js` 获取缓存）
@@ -116,7 +118,7 @@ openyida/
 - 参考 `yida-skills/reference/yida-api.md` 了解完整 API 列表
 
 ### 环境检测
-- `lib/env.js` 负责检测当前运行的 AI 工具环境
+- `lib/core/env.js` 负责检测当前运行的 AI 工具环境
 - 支持环境：Claude Code、Aone Copilot、Cursor、OpenCode、Qoder、悟空
 - 不同环境的 Cookie 提取方式不同（CDP 协议 / 文件读取 / 扫码）
 
@@ -147,8 +149,9 @@ openyida/
 
 ### 报表管理
 - `lib/report/` 提供宜搭报表的创建和图表追加功能
-- `create-report.js` 为入口，`chart-builder.js` 负责构建图表 Schema
-- 支持通过 JSON 文件或内联 JSON 定义图表
+- `create-report.js` 为 CLI 入口（转发到 `index.js`），`index.js` 为主流程，`chart-builder.js` 负责构建图表 Schema
+- `append.js` 负责向已有报表追加图表，`http.js` 封装报表相关 HTTP 请求
+- 支持通过 JSON 文件或内联 JSON 定义图表；支持筛选器（`filters`）与图表联动配置
 
 ## 开发注意事项
 
@@ -168,9 +171,10 @@ openyida/
 4. 在 `yida-skills/SKILL.md` 中更新技能描述
 
 ### 调试登录问题
-- 检查 `lib/login.js` 中的 Cookie 缓存逻辑
-- 使用 `openyida env` 确认当前环境检测是否正确
+- 检查 `lib/auth/login.js` 中的 Cookie 缓存逻辑
+- 使用 `openyida env` 确认当前环境检测是否正确（`lib/core/env.js`）
 - 悟空环境使用 CDP 协议，其他环境使用扫码登录
+- Cookie 缓存文件位于项目根目录下的 `.cache/cookies.json`（由 `findProjectRoot()` 动态定位）
 
 ### 调试自定义页面编译问题
 - 先用 `openyida compile <源文件>` 验证编译是否通过，不要直接 publish
