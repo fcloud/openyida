@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>以"竹"为名"连接"一切 - 悟空 AI-Native Work Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (THEME)
+           Electric Studio - Clean, professional, high contrast
+           =========================================== */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-white: #ffffff;
+            --bg-cream: #faf9f7;
+            --accent-blue: #4361ee;
+            --accent-teal: #00c9a7;
+            --accent-orange: #ff6b35;
+            --accent-purple: #c084fc;
+            --text-dark: #0a0a0a;
+            --text-light: #ffffff;
+            --text-gray: #666666;
+            --text-muted: #999999;
+
+            --font-display: 'Manrope', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            
+            --title-size: clamp(2rem, 6vw, 5rem);
+            --subtitle-size: clamp(0.875rem, 2vw, 1.25rem);
+            --body-size: clamp(0.75rem, 1.2vw, 1rem);
+            
+            --slide-padding: clamp(1.5rem, 4vw, 4rem);
+            --content-gap: clamp(1rem, 2vw, 2rem);
+            
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.6s;
+        }
+
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            font-family: var(--font-body);
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        /* Typography */
+        :root {
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+            --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+            --small-size: clamp(0.65rem, 1vw, 0.875rem);
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+        }
+
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        .feature-list, .bullet-list {
+            gap: clamp(0.4rem, 1vh, 1rem);
+        }
+
+        .feature-list li, .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots, .keyboard-hint, .decorative {
+                display: none;
+            }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.25rem, 7vw, 2.5rem);
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .reveal:nth-child(5) { transition-delay: 0.5s; }
+        .reveal:nth-child(6) { transition-delay: 0.6s; }
+
+        /* ===========================================
+           ELECTRIC STUDIO - SLIDE STYLES
+           =========================================== */
+
+        /* Cover Slide */
+        .slide-cover {
+            background: var(--bg-white);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .slide-cover .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--slide-padding);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .slide-cover .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 var(--slide-padding);
+        }
+
+        .slide-cover h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.1;
+            margin-bottom: var(--content-gap);
+        }
+
+        .slide-cover h1 span {
+            display: block;
+            color: var(--accent-teal);
+        }
+
+        .slide-cover .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--text-gray);
+            font-weight: 500;
+            max-width: 600px;
+        }
+
+        .slide-cover .bottom-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--slide-padding);
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+        }
+
+        .slide-cover .accent-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-teal);
+        }
+
+        /* TOC Slide */
+        .slide-toc {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .slide-toc .toc-header {
+            font-size: var(--small-size);
+            color: var(--accent-teal);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: var(--content-gap);
+        }
+
+        .slide-toc h2 {
+            font-size: var(--title-size);
+            font-weight: 800;
+            margin-bottom: var(--content-gap);
+        }
+
+        .slide-toc .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--content-gap);
+        }
+
+        .slide-toc .toc-item {
+            border-left: 2px solid rgba(255,255,255,0.2);
+            padding-left: var(--element-gap);
+            transition: all 0.3s ease;
+        }
+
+        .slide-toc .toc-item:hover {
+            border-left-color: var(--accent-teal);
+        }
+
+        .slide-toc .toc-num {
+            font-size: var(--h3-size);
+            font-weight: 700;
+            color: var(--accent-teal);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-toc .toc-title {
+            font-size: var(--h3-size);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .slide-toc .toc-desc {
+            font-size: var(--body-size);
+            color: var(--text-muted);
+        }
+
+        /* Chapter Slide */
+        .slide-chapter {
+            background: var(--bg-cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-chapter .chapter-tag {
+            font-size: var(--small-size);
+            color: var(--accent-teal);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: var(--element-gap);
+        }
+
+        .slide-chapter h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.1;
+            margin-bottom: var(--content-gap);
+        }
+
+        .slide-chapter .chapter-subtitle {
+            font-size: var(--h3-size);
+            color: var(--text-gray);
+            max-width: 600px;
+        }
+
+        .slide-chapter .chapter-desc {
+            font-size: var(--body-size);
+            color: var(--text-muted);
+            margin-top: var(--element-gap);
+            max-width: 500px;
+        }
+
+        /* Key Points Slide */
+        .slide-keypoints {
+            background: var(--bg-white);
+        }
+
+        .slide-keypoints .kp-header {
+            font-size: var(--small-size);
+            color: var(--accent-teal);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: var(--element-gap);
+        }
+
+        .slide-keypoints h2 {
+            font-size: var(--h2-size);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-keypoints .kp-subtitle {
+            font-size: var(--body-size);
+            color: var(--text-gray);
+            margin-bottom: var(--content-gap);
+        }
+
+        .slide-keypoints .points-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--content-gap);
+        }
+
+        .slide-keypoints .point-card {
+            background: var(--bg-cream);
+            padding: var(--content-gap);
+            border-radius: 8px;
+        }
+
+        .slide-keypoints .point-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-keypoints .point-label {
+            font-size: var(--h3-size);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-keypoints .point-desc {
+            font-size: var(--body-size);
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* Image Text Slide */
+        .slide-imagetext {
+            background: var(--bg-white);
+        }
+
+        .slide-imagetext .it-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--content-gap);
+            align-items: center;
+            height: 100%;
+        }
+
+        .slide-imagetext .it-header {
+            font-size: var(--small-size);
+            color: var(--accent-teal);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: var(--element-gap);
+        }
+
+        .slide-imagetext h2 {
+            font-size: var(--h2-size);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-imagetext .it-subtitle {
+            font-size: var(--body-size);
+            color: var(--text-gray);
+            margin-bottom: var(--content-gap);
+        }
+
+        .slide-imagetext .it-body {
+            font-size: var(--body-size);
+            color: var(--text-dark);
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .slide-imagetext .it-image {
+            width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* Scene Slide */
+        .slide-scene {
+            background: var(--bg-cream);
+        }
+
+        .slide-scene .scene-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--content-gap);
+            align-items: start;
+            height: 100%;
+        }
+
+        .slide-scene .scene-header {
+            display: flex;
+            gap: var(--element-gap);
+            margin-bottom: var(--element-gap);
+            align-items: center;
+        }
+
+        .slide-scene .scene-chapter {
+            font-size: var(--small-size);
+            color: var(--accent-blue);
+        }
+
+        .slide-scene .scene-badge {
+            font-size: var(--small-size);
+            padding: 0.25rem 0.75rem;
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+            color: var(--text-gray);
+        }
+
+        .slide-scene .scene-tag {
+            font-size: var(--small-size);
+            padding: 0.25rem 0.75rem;
+            background: var(--accent-blue);
+            color: white;
+            border-radius: 4px;
+        }
+
+        .slide-scene h2 {
+            font-size: var(--h2-size);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-scene .scene-subtitle {
+            font-size: var(--body-size);
+            color: var(--text-gray);
+            margin-bottom: var(--content-gap);
+        }
+
+        .slide-scene .scene-body {
+            font-size: var(--body-size);
+            color: var(--text-dark);
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .slide-scene .scene-image {
+            width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* Navigation */
+        .nav-dots {
+            position: fixed;
+            right: 2vw;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1vh;
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-teal);
+            transform: scale(1.3);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent-teal);
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Edit Mode Toggle */
+        .edit-hotzone {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 80px;
+            z-index: 10000;
+            cursor: pointer;
+        }
+
+        .edit-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 10001;
+        }
+
+        .edit-toggle.show,
+        .edit-toggle.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        [contenteditable="true"] {
+            outline: 2px dashed var(--accent-teal);
+            outline-offset: 4px;
+        }
+
+        .edit-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10002;
+        }
+
+        .edit-hint.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="nav-dots" id="navDots"></div>
+    
+    <!-- Edit Mode UI -->
+    <div class="edit-hotzone" id="editHotzone"></div>
+    <button class="edit-toggle" id="editToggle" title="Edit mode (E)">✏️</button>
+    <div class="edit-hint" id="editHint">点击文本编辑，按 Ctrl+S 保存</div>
+
+    <main id="deck">
+        <!-- Slides will be injected by JavaScript -->
+    </main>
+
+    <script>
+        // ===========================================
+        // SLIDE DATA - Complete content from original
+        // ===========================================
+        const SLIDES = [
+            // 1. Cover
+            {
+                type: 'cover',
+                eyebrow: '2026 AI Agent 实战分享',
+                title: '以"竹"为名<span>"连接"一切</span>',
+                subtitle: '悟空 AI-Native Work Platform',
+                meta: '杭远 · 钉钉华中区域解决方案总经理 · 2026.03'
+            },
+            // 2. TOC
+            {
+                type: 'toc',
+                title: '今日分享',
+                items: [
+                    { num: '01', title: '什么是 AI Agent', desc: '从概念到实践，理解 Agent 的本质' },
+                    { num: '02', title: 'OpenClaw 龙虾', desc: '开源 Agent 框架，三周超越 Linux 三十年' },
+                    { num: '03', title: '安全与企业级', desc: '机遇与风险并存，国家怎么看龙虾' },
+                    { num: '04', title: '悟空', desc: '阿里企业 AI 原生工作平台，重新定义人机协作' }
+                ]
+            },
+            // 3. Speaker
+            {
+                type: 'keypoints',
+                chapter: '演讲者介绍',
+                title: '杭远',
+                subtitle: '钉钉华中区域解决方案总经理',
+                points: [
+                    { icon: '🏢', label: '钉钉华中区域解决方案总经理', desc: '负责钉钉在华中区域的企业数字化解决方案，推动 AI 与企业管理深度融合' },
+                    { icon: '🤖', label: '企业 AI 实践者', desc: '深度参与企业智能场景落地，探索 AI Agent 在企业服务中的创新应用' },
+                    { icon: '🦞', label: 'OpenYida + 宜搭 CLI 推动者', desc: '让 AI 驱动低代码，让每个企业都能快速构建智能化应用' }
+                ]
+            },
+            // 4. Vibe Coding
+            {
+                type: 'imagetext',
+                chapter: '开发方式',
+                title: '这个 PPT，是在悟空上做的',
+                subtitle: 'Vibe Coding：用 AI 对话驱动开发，随时随地',
+                body: '通过悟空平台 + OpenYida 技能，对话式完成了整套演讲 PPT 的开发和发布。\n\n这就是 AI Agent 的力量——不是未来，是现在。',
+                imageUrl: 'https://img.alicdn.com/imgextra/i2/O1CN01TB05pI1HpekqOi75D_!!6000000000807-2-tps-2190-1470.png',
+                imageLabel: '悟空 Vibe Coding'
+            },
+            // 5. Part 1 Chapter
+            {
+                type: 'chapter',
+                partNum: 'PART 01',
+                title: '什么是 AI Agent？',
+                subtitle: '从"问答机器"到"自主执行者"的进化'
+            },
+            // 6. Agent Definition
+            {
+                type: 'keypoints',
+                chapter: 'PART 01 · 什么是 AI Agent',
+                title: 'Agent = 感知 + 规划 + 执行',
+                subtitle: '不只是聊天，而是真正帮你把事情做完',
+                points: [
+                    { icon: '👁️', label: '感知 Perceive', desc: '理解你的意图、读取上下文、分析当前状态' },
+                    { icon: '🧠', label: '规划 Plan', desc: '拆解任务、制定步骤、选择合适的工具' },
+                    { icon: '⚡', label: '执行 Act', desc: '调用 API、操作系统、生成内容、完成交付' },
+                    { icon: '🔄', label: '反思 Reflect', desc: '检查结果、发现错误、自动修正重试' }
+                ]
+            },
+            // 7. Part 2 Chapter
+            {
+                type: 'chapter',
+                partNum: 'PART 02',
+                title: 'OpenClaw 龙虾',
+                subtitle: '开放的 AI Agent，让每个人都能用上超级助手',
+                desc: '从个人效率到团队协作，龙虾正在改变工作方式'
+            },
+            // 8. OpenClaw Timeline
+            {
+                type: 'keypoints',
+                chapter: 'PART 02 · OpenClaw 龙虾',
+                title: 'OpenClaw 是怎么火起来的？',
+                subtitle: '从一个开源项目，到改变世界的软件——只用了三周',
+                points: [
+                    { icon: '🛠️', label: '2025 年 11 月 · 诞生', desc: '一位独立开发者发布 OpenClaw，一个让 AI 真正操控电脑的开源 Agent 框架。Logo 是只龙虾，中文圈戏称"养龙虾"' },
+                    { icon: '🚀', label: '2026 年 3 月 6 日 · 引爆', desc: '腾讯云在深圳腾讯大厦门前广场组织现场排队安装活动，"养龙虾"话题席卷全网，全民跟风入局' },
+                    { icon: '📈', label: '3 周内 · 超越 Linux', desc: 'GitHub Stars 60 天斩获 28 万，下载量在三周内超越 Linux 三十年的积累——史上增长最快的开源项目' },
+                    { icon: '🏆', label: '黄仁勋 GTC 大会 · 封神', desc: '英伟达 CEO 黄仁勋在 GTC 大会上高度评价："这是我们这个时代最重要的软件发布，每家公司都需要制定龙虾战略"' }
+                ]
+            },
+            // 9. Scene 1: Mac Mini
+            {
+                type: 'scene',
+                chapter: 'PART 02 · OpenClaw 龙虾',
+                sceneNum: 'SCENE 01',
+                title: 'Mac Mini M4：最佳本地 AI 实验平台',
+                subtitle: '低成本、低功耗、高性能，7×24 小时在线',
+                body: '在部署龙虾的过程中，我尝试了云服务器、Windows PC、Linux 主机，最终发现 Mac Mini M4 是最优解：\n\n• 38 TOPS ANE 算力 → 7B-13B 模型推理 19-20 tokens/s\n• 待机仅 3-6W，年电费不足 50 元，静音被动散热\n• 16GB 统一内存，实际可用性接近传统 PC 的 32GB\n\nMac Mini M4 + 龙虾 = 完美的本地 AI 实验平台。',
+                imageUrl: 'https://img.alicdn.com/imgextra/i3/O1CN014yYsDR1jS7dzzVtin_!!6000000004546-0-tps-1320-2231.jpg',
+                imageLabel: 'Mac Mini M4 本地 AI 工作站',
+                tag: '🖥️ 本地部署'
+            },
+            // 10. Scene 2: SAP Migration
+            {
+                type: 'scene',
+                chapter: 'PART 02 · OpenClaw 龙虾',
+                sceneNum: 'SCENE 02',
+                title: '用 OpenYida 复刻 SAP 系统',
+                subtitle: 'AI 自动学习 SAP 架构，宜搭快速复刻 + 数据迁移',
+                body: '企业用了十几年的 SAP，想换但迁移成本太高？\n\nOpenYida 自动分析 SAP 系统架构和业务逻辑 → 在宜搭上快速复刻对应的表单、流程和权限体系 → 历史数据一键迁移 → 通过 HTTP 连接器与 SAP 保持实时数据连接\n\n不是推倒重来，而是平滑过渡——新系统上线，旧系统数据不丢失。',
+                imageUrl: 'https://img.alicdn.com/imgextra/i2/O1CN01fs5WhH1m1VTW9ZMhK_!!6000000004894-0-tps-1320-2051.jpg',
+                imageLabel: 'SAP → 宜搭系统迁移',
+                tag: '🏗️ 系统迁移'
+            },
+            // 11. Scene 3: Auto Requirements
+            {
+                type: 'scene',
+                chapter: 'PART 02 · OpenClaw 龙虾',
+                sceneNum: 'SCENE 03',
+                title: 'Agent 自动提需求',
+                subtitle: '从"用户反馈"到"需求工单"全自动',
+                body: 'Agent 持续监控用户反馈渠道：\n\n聚类相似问题 → 分析优先级 → 生成标准需求文档 → 自动创建工单\n\n产品经理从"整理反馈"中解放出来。',
+                imageUrl: 'https://img.alicdn.com/imgextra/i4/O1CN01YgmZx126P8DjenDGD_!!6000000007653-0-tps-1320-1160.jpg',
+                imageLabel: 'Agent 自动提需求工单',
+                tag: '📋 流程自动化'
+            },
+            // 12. Scene 4: Xiaohongshu
+            {
+                type: 'scene',
+                chapter: 'PART 02 · OpenClaw 龙虾',
+                sceneNum: 'SCENE 04',
+                title: '一键生成小红书笔记',
+                subtitle: '输入主题，输出爆款格式内容',
+                body: '告诉 Agent 你想分享什么，它自动：\n\n分析爆款结构 → 生成标题 + 正文 + 标签 → 配图建议 → 发布时间推荐\n\n内容创作效率提升 10 倍。',
+                imageUrl: 'https://img.alicdn.com/imgextra/i2/O1CN01BS7oDq1haFRJB7PoG_!!6000000004293-0-tps-1076-2103.jpg',
+                imageLabel: '小红书内容自动生成',
+                tag: '✍️ 内容创作'
+            },
+            // 13. Scene 5: WeChat NotebookLM
+            {
+                type: 'scene',
+                chapter: 'PART 02 · OpenClaw 龙虾',
+                sceneNum: 'SCENE 05',
+                title: '把公众号当 NotebookLM 用',
+                subtitle: '让 OpenClaw 帮你消化所有订阅内容',
+                body: '关注了几百个公众号，但根本看不完？\n\nOpenClaw 自动抓取订阅公众号的最新文章 → 提炼核心观点 → 建立个人知识库 → 随时问随时答\n\n就像 NotebookLM，但内容来源是你精心挑选的公众号。\n\n"帮我总结今天 AI 领域的公众号更新" → 一句话搞定。',
+                imageUrl: 'https://img.alicdn.com/imgextra/i1/O1CN01Rie0TX1Q22O4coira_!!6000000001917-0-tps-1320-2168.jpg',
+                imageLabel: '公众号内容知识库',
+                tag: '📚 知识管理'
+            },
+            // 14. Part 3 Chapter
+            {
+                type: 'chapter',
+                partNum: 'PART 03',
+                title: '但是……安全呢？',
+                subtitle: '开放的 Agent 能力越强，企业级顾虑越多',
+                desc: '数据安全、权限管控、合规审计——这些是企业无法绕过的门槛'
+            },
+            // 15. Impossible Triangle
+            {
+                type: 'keypoints',
+                chapter: 'PART 03 · 安全与企业级',
+                title: '企业级 Agent 的"不可能三角"',
+                subtitle: '"权限管不住、操作查不到、成本算不清" — 无招',
+                points: [
+                    { icon: '🔓', label: '权限失控', desc: '龙虾为了完成任务，可能顺着内网爬取 CFO 电脑里的核心财务报表，机密数据发给未知第三方模型' },
+                    { icon: '🕳️', label: '黑盒不可审计', desc: 'Meta 安全总监亲测：安装龙虾后，200 多封重要邮件瞬间被删得干干净净，找都找不回来' },
+                    { icon: '💸', label: '成本算不清', desc: 'Agent 陷入死循环，不断发起万次无效 API 请求，月底云计算账单老板根本搞不清钱花在哪' },
+                    { icon: '⚠️', label: '企业的结论', desc: '大厂 IT 部门和合规团队正在下达死命令：严禁任何员工在真实业务系统中接入龙虾' }
+                ]
+            },
+            // 16. AI Security
+            {
+                type: 'keypoints',
+                chapter: 'PART 03 · 安全与企业级',
+                title: 'AI 安全：不可忽视的红线',
+                subtitle: '自主执行能力越强，风险管控越重要',
+                points: [
+                    { icon: '🔑', label: '权限最小化原则', desc: 'Agent 只能访问完成任务所必需的最小权限范围，员工看不了的数据，他的 Agent 也绝对碰不到' },
+                    { icon: '📋', label: '操作全链路可审计', desc: '每一步操作都有完整日志记录，出了问题可以精确溯源，不再是黑盒' },
+                    { icon: '🛑', label: '关键步骤人工确认', desc: '涉及删除、转账、外发等高风险操作，必须人工二次确认，不允许 Agent 自主执行' },
+                    { icon: '⚡', label: '异常自动熔断', desc: '检测到死循环、异常调用频率或可疑行为时，立即中断 Agent 执行，保护系统安全' }
+                ]
+            },
+            // 17. National Policy
+            {
+                type: 'keypoints',
+                chapter: 'PART 03 · 安全与企业级',
+                title: '国家怎么看"龙虾"？',
+                subtitle: '鼓励与警惕并行，监管正在跟上',
+                points: [
+                    { icon: '🏛️', label: '深圳龙岗"龙虾十条"', desc: '鼓励推出"龙虾服务区"，免费提供 OpenClaw 部署服务，最高补贴 500 万元——地方政府率先入场' },
+                    { icon: '⚠️', label: '工信部发出安全警示', desc: '工信部网络安全平台监测发现：OpenClaw 部分实例在默认或不当配置下存在严重安全风险，提醒警惕' },
+                    { icon: '🔒', label: 'CNNVD：82 个漏洞，12 个超危', desc: '国家信息安全漏洞库统计，2026 年 1-3 月 OpenClaw 已发现漏洞 82 个，其中超危 12 个、高危 21 个' },
+                    { icon: '🚫', label: '国企和政府机关：非必要不部署', desc: '多家央企、国企 IT 部门下达禁令，严禁员工在真实业务系统中接入龙虾，合规压力倒逼企业级方案' }
+                ]
+            },
+            // 18. Part 4 Chapter
+            {
+                type: 'chapter',
+                partNum: 'PART 04',
+                title: '悟空：企业级 AI Agent',
+                subtitle: '龙虾是"野生 Agent"，悟空是"正规军"',
+                desc: '阿里巴巴出品，专为企业场景设计——安全、可控、算得清账'
+            },
+            // 19. Wuzhao Quotes
+            {
+                type: 'keypoints',
+                chapter: 'PART 04 · 悟空',
+                title: '阿里无招说',
+                subtitle: '悟空发布会现场金句',
+                points: [
+                    { icon: '💥', label: '"今天，我们把钉钉打碎，用 AI 重建，炼出悟空。"', desc: '2026.03.17 悟空发布会开场' },
+                    { icon: '🔮', label: '"过去是人用钉钉来工作，未来是 AI 用钉钉来工作。"', desc: '重新定义人机协作的底层逻辑' },
+                    { icon: '🦞', label: '"龙虾关在主机里，是因为我们还没准备好放生它。"', desc: '解释为何悟空晚于龙虾发布' },
+                    { icon: '🛡️', label: '"宁愿晚生，也要把安全做到极致。"', desc: '悟空安全设计理念' }
+                ]
+            },
+            // 20. ATH Group
+            {
+                type: 'keypoints',
+                chapter: 'PART 04 · 悟空',
+                title: 'ATH 事业群：阿里 AI 战略全面升级',
+                subtitle: '2026 年 3 月 16 日，吴泳铭直接挂帅，Token 成为新型"水电煤"',
+                points: [
+                    { icon: '🧬', label: '通义实验室', desc: '创造领先的多模态模型，追求基础模型能力上限' },
+                    { icon: '☁️', label: 'MaaS 业务线', desc: '构建高效开放的模型服务平台，支撑全行业 AI 生态' },
+                    { icon: '👤', label: '千问事业部', desc: '打造最好的个人 AI 助手（To C），面向亿级用户' },
+                    { icon: '🏢', label: '悟空事业部', desc: '打造 B 端 AI 原生工作平台（To B），覆盖 2000 万企业' }
+                ]
+            },
+            // 21. Wukong Security
+            {
+                type: 'keypoints',
+                chapter: 'PART 04 · 悟空',
+                title: '悟空的三重安全防线',
+                subtitle: '企业级 Agent 的安全基石',
+                points: [
+                    { icon: '🔐', label: '原生权限继承', desc: 'Agent 自动继承员工在钉钉/宜搭中的现有权限，员工看不了的数据，Agent 也绝对碰不到' },
+                    { icon: '📜', label: '全链路审计', desc: '每一步操作都有完整日志记录，支持精确溯源和责任认定' },
+                    { icon: '⚙️', label: 'CLI 化底层重构', desc: '通过命令行接口实现细粒度权限控制，确保企业数据绝对可控' }
+                ]
+            },
+            // 22. End
+            {
+                type: 'cover',
+                eyebrow: '谢谢观看',
+                title: 'Q&A',
+                subtitle: '让我们一起迎接 AI Agent 时代',
+                meta: '杭远 · 钉钉华中区域解决方案总经理'
+            }
+        ];
+
+        // ===========================================
+        // RENDER FUNCTIONS
+        // ===========================================
+        function renderSlide(slide, index) {
+            const content = renderSlideContent(slide);
+            return `<section class="slide slide-${slide.type}" id="slide-${index}" data-index="${index}">${content}</section>`;
+        }
+
+        function renderSlideContent(slide) {
+            switch(slide.type) {
+                case 'cover': return renderCover(slide);
+                case 'toc': return renderToc(slide);
+                case 'keypoints': return renderKeyPoints(slide);
+                case 'imagetext': return renderImageText(slide);
+                case 'chapter': return renderChapter(slide);
+                case 'scene': return renderScene(slide);
+                default: return '';
+            }
+        }
+
+        function renderCover(slide) {
+            return `
+                <div class="top-bar reveal">
+                    <span>${slide.eyebrow}</span>
+                    <span>悟空 AI-Native</span>
+                </div>
+                <div class="main-content reveal">
+                    <h1>${slide.title}</h1>
+                    <p class="subtitle">${slide.subtitle}</p>
+                </div>
+                <div class="bottom-bar reveal">
+                    <span>${slide.meta}</span>
+                    <span>→</span>
+                </div>
+                <div class="accent-line"></div>
+            `;
+        }
+
+        function renderToc(slide) {
+            return `
+                <div class="slide-content">
+                    <span class="toc-header reveal">Contents</span>
+                    <h2 class="reveal">${slide.title}</h2>
+                    <div class="toc-grid">
+                        ${slide.items.map((item, i) => `
+                            <div class="toc-item reveal" style="transition-delay: ${0.1 * (i + 1)}s">
+                                <span class="toc-num">${item.num}</span>
+                                <div class="toc-title">${item.title}</div>
+                                <div class="toc-desc">${item.desc}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderKeyPoints(slide) {
+            return `
+                <div class="slide-content">
+                    <span class="kp-header reveal">${slide.chapter}</span>
+                    <h2 class="reveal">${slide.title}</h2>
+                    <p class="kp-subtitle reveal">${slide.subtitle}</p>
+                    <div class="points-grid">
+                        ${slide.points.map((point, i) => `
+                            <div class="point-card reveal" style="transition-delay: ${0.1 * (i + 1)}s">
+                                <div class="point-icon">${point.icon}</div>
+                                <div class="point-label">${point.label}</div>
+                                <div class="point-desc">${point.desc}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderImageText(slide) {
+            return `
+                <div class="slide-content">
+                    <div class="it-layout">
+                        <div class="it-text">
+                            <span class="it-header reveal">${slide.chapter}</span>
+                            <h2 class="reveal">${slide.title}</h2>
+                            <p class="it-subtitle reveal">${slide.subtitle}</p>
+                            <p class="it-body reveal">${slide.body}</p>
+                        </div>
+                        <div class="it-media reveal">
+                            <img src="${slide.imageUrl}" alt="${slide.imageLabel}" class="it-image" referrerpolicy="no-referrer" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderChapter(slide) {
+            const descHtml = slide.desc ? `<p class="chapter-desc reveal">${slide.desc}</p>` : '';
+            return `
+                <div class="slide-content" style="align-items: center; text-align: center;">
+                    <span class="chapter-tag reveal">${slide.partNum}</span>
+                    <h1 class="reveal">${slide.title}</h1>
+                    <p class="chapter-subtitle reveal">${slide.subtitle}</p>
+                    ${descHtml}
+                </div>
+            `;
+        }
+
+        function renderScene(slide) {
+            return `
+                <div class="slide-content">
+                    <div class="scene-layout">
+                        <div class="scene-text">
+                            <div class="scene-header reveal">
+                                <span class="scene-chapter">${slide.chapter}</span>
+                                <span class="scene-badge">${slide.sceneNum}</span>
+                                <span class="scene-tag">${slide.tag}</span>
+                            </div>
+                            <h2 class="reveal">${slide.title}</h2>
+                            <p class="scene-subtitle reveal">${slide.subtitle}</p>
+                            <p class="scene-body reveal">${slide.body}</p>
+                        </div>
+                        <div class="scene-media reveal">
+                            <img src="${slide.imageUrl}" alt="${slide.imageLabel}" class="scene-image" referrerpolicy="no-referrer" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===========================================
+        // SLIDE PRESENTATION CONTROLLER
+        // ===========================================
+        class SlidePresentation {
+            constructor() {
+                this.slides = [];
+                this.currentSlide = 0;
+                this.isEditMode = false;
+                this.init();
+            }
+
+            init() {
+                this.renderSlides();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+                this.setupEditMode();
+            }
+
+            renderSlides() {
+                const deck = document.getElementById('deck');
+                deck.innerHTML = SLIDES.map((slide, index) => renderSlide(slide, index)).join('');
+                this.slides = document.querySelectorAll('.slide');
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            this.currentSlide = parseInt(entry.target.dataset.index);
+                            this.updateNavDots();
+                            this.updateProgressBar();
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (this.isEditMode && e.target.getAttribute('contenteditable')) return;
+                    
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                        e.preventDefault();
+                        this.nextSlide();
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        this.prevSlide();
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        this.goToSlide(0);
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        this.goToSlide(this.slides.length - 1);
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let touchStartY = 0;
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                });
+                document.addEventListener('touchend', (e) => {
+                    const touchEndY = e.changedTouches[0].clientY;
+                    const diff = touchStartY - touchEndY;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) this.nextSlide();
+                        else this.prevSlide();
+                    }
+                });
+            }
+
+            setupProgressBar() {
+                this.progressBar = document.getElementById('progressBar');
+            }
+
+            setupNavDots() {
+                const navDots = document.getElementById('navDots');
+                navDots.innerHTML = SLIDES.map((_, i) => 
+                    `<div class="nav-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>`
+                ).join('');
+
+                navDots.querySelectorAll('.nav-dot').forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        this.goToSlide(parseInt(dot.dataset.index));
+                    });
+                });
+            }
+
+            setupEditMode() {
+                const hotzone = document.getElementById('editHotzone');
+                const toggle = document.getElementById('editToggle');
+                const hint = document.getElementById('editHint');
+                let hideTimeout = null;
+
+                const showToggle = () => {
+                    clearTimeout(hideTimeout);
+                    toggle.classList.add('show');
+                };
+
+                const hideToggle = () => {
+                    hideTimeout = setTimeout(() => {
+                        if (!this.isEditMode) toggle.classList.remove('show');
+                    }, 400);
+                };
+
+                hotzone.addEventListener('mouseenter', showToggle);
+                hotzone.addEventListener('mouseleave', hideToggle);
+                toggle.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+                toggle.addEventListener('mouseleave', hideToggle);
+                hotzone.addEventListener('click', () => this.toggleEditMode());
+                toggle.addEventListener('click', () => this.toggleEditMode());
+
+                document.addEventListener('keydown', (e) => {
+                    if ((e.key === 'e' || e.key === 'E') && !e.target.getAttribute('contenteditable')) {
+                        this.toggleEditMode();
+                    }
+                    if (e.key === 's' && e.ctrlKey && this.isEditMode) {
+                        e.preventDefault();
+                        this.saveContent();
+                    }
+                });
+
+                this.editHint = hint;
+            }
+
+            toggleEditMode() {
+                this.isEditMode = !this.isEditMode;
+                const toggle = document.getElementById('editToggle');
+                toggle.classList.toggle('active', this.isEditMode);
+                this.editHint.classList.toggle('visible', this.isEditMode);
+
+                document.querySelectorAll('.slide h1, .slide h2, .slide p, .slide .point-label, .slide .point-desc, .slide .toc-title, .slide .toc-desc').forEach(el => {
+                    el.setAttribute('contenteditable', this.isEditMode);
+                });
+            }
+
+            saveContent() {
+                const content = {};
+                document.querySelectorAll('[contenteditable="true"]').forEach((el, i) => {
+                    content[i] = el.innerText;
+                });
+                localStorage.setItem('slideContent', JSON.stringify(content));
+                alert('内容已保存到本地存储');
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.slides.length - 1) {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            prevSlide() {
+                if (this.currentSlide > 0) {
+                    this.goToSlide(this.currentSlide - 1);
+                }
+            }
+
+            goToSlide(index) {
+                if (index >= 0 && index < this.slides.length) {
+                    this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            updateNavDots() {
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            updateProgressBar() {
+                const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                this.progressBar.style.width = `${progress}%`;
+            }
+        }
+
+        // Initialize
+        new SlidePresentation();
+    </script>
+</body>
+</html>

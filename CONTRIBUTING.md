@@ -1,59 +1,109 @@
-# Contributing to OpenYiDA
+# Contributing to OpenYida
 
-Welcome! We're excited that you're interested in contributing. Please read this guide to get started.
+Welcome to OpenYida! 🎉 Thank you for your interest in contributing.
+
+## Quick Links
+
+- **GitHub:** https://github.com/openyida/openyida
+- **Issues:** https://github.com/openyida/openyida/issues
+- **npm:** https://www.npmjs.com/package/openyida
+
+## Maintainers
+
+- **九神 (yize)** — Core architecture, CLI design
+  GitHub: [@yize](https://github.com/yize)
+- **alex-mm** — Feature development, testing
+  GitHub: [@alex-mm](https://github.com/alex-mm)
+- **nicky1108** — OpenClaw integration, skill extensions
+  GitHub: [@nicky1108](https://github.com/nicky1108)
 
 ## Ways to Contribute
 
-- **Report bugs** - Open an issue with details about the problem
-- **Suggest features** - Share your ideas in the issue tracker
-- **Improve documentation** - Help make the docs clearer and more complete
-- **Add new skills** - Extend the skill package for more capabilities
-- **Submit code changes** - Fix bugs or add new features
+1. **Report a Bug** → Open an Issue with reproduction steps and environment info
+2. **Suggest a Feature** → Start a Discussion or Issue first, then implement
+3. **Improve Docs** → PRs for documentation are always welcome
+4. **Add Skills** → Extend the skill pack under `yida-skills/`
+5. **Fix Bugs / New Features** → Follow the development workflow below
 
 ## Development Setup
 
 ```bash
-# Fork and clone the repository
+# 1. Fork and clone the repo
 git clone git@github.com:your-username/openyida.git
 cd openyida
 
-# 安装 Skills（无需 Node 环境，自动检测网络，国内自动使用加速源）
-# Mac / Linux：
-bash install-skills.sh
-# Mac / Linux（强制使用国内加速源）：
-# bash install-skills.sh --cn
-# Windows（PowerShell）：
-# .\install-skills.ps1
-# Windows（强制使用国内加速源）：
-# .\install-skills.ps1 --cn
+# 2. Install dependencies
+npm install
 
-# 安装 Python 依赖
-# 国内用户推荐使用阿里云镜像加速：
-pip install playwright -i https://mirrors.aliyun.com/pypi/simple/
-playwright install chromium
-# 海外用户：
-# pip install playwright && playwright install chromium
+# 3. Install Playwright (required for login)
+npx playwright install chromium
 
-# 安装 Node 依赖（发布页面时需要）
-# 国内用户推荐使用淘宝镜像加速：
-cd .claude/skills/skills/yida-publish-page/scripts && npm install --registry https://registry.npmmirror.com
-# 海外用户：
-# cd .claude/skills/skills/yida-publish-page/scripts && npm install
+# 4. Link globally for local debugging
+npm link
+
+# 5. Run tests
+npm test
 ```
 
-## Submitting Changes
+## PR Checklist
 
-1. Create a feature branch: `git checkout -b feature/your-feature`
-2. Make your changes and commit: `git commit -m "Add your feature"`
-3. Push to your fork: `git push origin feature/your-feature`
-4. Open a Pull Request
+- [ ] Tested the relevant feature with a real Yida account locally
+- [ ] All tests pass: `npm test`
+- [ ] JS syntax check passes: `node --check bin/yida.js && for f in lib/*.js lib/locales/*.js; do node --check "$f"; done`
+- [ ] PR description clearly explains what changed and why
+- [ ] Screenshots or recordings attached if there are UI/behavior changes
+
+## PR Guidelines
+
+- **One PR, one thing** — don't mix unrelated changes
+- **PR title** format: `feat: add xxx` / `fix: fix xxx` / `docs: update xxx`
+- **Description** should cover: what, why, and how to test
+- If the PR closes an Issue, add `Closes #123` in the description
+
+## Commit Convention
+
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat: add export-app command
+fix: fix get-page-config path error
+docs: update CLI command reference
+refactor: refactor login module
+test: add utils unit tests
+chore: upgrade dependencies
+```
 
 ## Code Style
 
-- Follow existing code conventions in the project
-- Keep changes focused and minimal
-- Write clear commit messages
+- Follow the existing code style (CommonJS modules, prefer Node.js native APIs)
+- Use meaningful English names for variables and functions; avoid abbreviations
+- Handle errors completely — don't silently swallow exceptions
+- When adding a new command, update the CLI command table in `README.md`
+
+## Project Structure
+
+```
+openyida/
+├── bin/yida.js          # CLI entry point, command routing
+├── lib/                 # Command implementation modules
+│   ├── env.js           # Environment detection
+│   ├── login.js         # Login management
+│   ├── create-app.js    # Create application
+│   └── ...
+├── project/             # User workspace template
+│   ├── config.json      # App configuration
+│   └── pages/           # Custom page templates
+├── yida-skills/         # AI skill pack (read by MCP/Claude/Cursor etc.)
+│   ├── SKILL.md         # Skill entry document
+│   └── skills/          # Sub-skill directories
+└── scripts/             # Build and publish scripts
+```
+
+## AI / Vibe-Coded PRs Welcome! 🤖
+
+PRs assisted by Claude Code, Cursor, Aone Copilot, or any other AI tool are fully welcome!
+Please mention which AI tool you used in the PR description.
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
+By contributing, you agree to license your contribution under the [MIT License](./LICENSE).

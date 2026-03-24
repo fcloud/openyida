@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Preview - Creative Voltage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0066ff;
+            --bg-dark: #1a1a2e;
+            --accent-neon: #d4ff00;
+            --text-light: #ffffff;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-primary);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 55% 45%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(1rem, 4vw, 4rem);
+            position: relative;
+        }
+
+        .panel-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 50%, rgba(212, 255, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .panel-right {
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(1rem, 4vw, 4rem);
+            position: relative;
+        }
+
+        .panel-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .script-accent {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--accent-neon);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 6vw, 5rem);
+            font-weight: 800;
+            color: var(--text-light);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-neon);
+            color: var(--bg-dark);
+            padding: 0.5rem 1rem;
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            color: rgba(255,255,255,0.8);
+            font-size: clamp(0.75rem, 1.2vw, 1rem);
+            line-height: 2;
+        }
+
+        .feature-list li::before {
+            content: '>';
+            color: var(--accent-neon);
+            margin-right: 1rem;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: clamp(1rem, 4vw, 4rem);
+            left: clamp(1rem, 4vw, 4rem);
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            color: rgba(255,255,255,0.5);
+        }
+
+        .nav-corner {
+            position: absolute;
+            top: clamp(1rem, 4vw, 4rem);
+            right: clamp(1rem, 4vw, 4rem);
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            color: rgba(255,255,255,0.5);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide > * {
+            animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .panel-left { animation-delay: 0.1s; }
+        .panel-right { animation-delay: 0.2s; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="panel-left">
+            <span class="script-accent">AI-Native Platform</span>
+            <h1>以"竹"为名<br>"连接"一切</h1>
+            <span class="badge">悟空</span>
+        </div>
+        
+        <div class="panel-right">
+            <ul class="feature-list">
+                <li>感知 Perceive</li>
+                <li>规划 Plan</li>
+                <li>执行 Act</li>
+                <li>反思 Reflect</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            杭远 · 钉钉华中区域解决方案总经理
+        </div>
+        
+        <div class="nav-corner">
+            01 / 04
+        </div>
+    </div>
+</body>
+</html>

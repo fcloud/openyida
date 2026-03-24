@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Preview - Bold Signal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            --card-bg: #FF5722;
+            --text-primary: #ffffff;
+            --text-on-card: #1a1a1a;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-gradient);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            padding: clamp(1rem, 4vw, 4rem);
+            position: relative;
+        }
+
+        .nav-top {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.1em;
+        }
+
+        .nav-breadcrumbs span {
+            margin-right: 2rem;
+            opacity: 0.3;
+        }
+
+        .nav-breadcrumbs span.active {
+            opacity: 1;
+        }
+
+        .content-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 2rem;
+        }
+
+        .section-num {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            color: var(--card-bg);
+            line-height: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: clamp(0.75rem, 1.5vw, 1.125rem);
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .card-right {
+            background: var(--card-bg);
+            border-radius: clamp(1rem, 3vw, 2rem);
+            padding: clamp(1.5rem, 4vw, 3rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-left: 2rem;
+        }
+
+        .card-tag {
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            color: var(--text-on-card);
+            opacity: 0.6;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(1.25rem, 3vw, 2.5rem);
+            color: var(--text-on-card);
+            line-height: 1.2;
+        }
+
+        .footer {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            color: rgba(255,255,255,0.4);
+            margin-top: 2rem;
+        }
+
+        .slide-indicator {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .dot.active {
+            background: var(--card-bg);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide > * {
+            animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .nav-top { animation-delay: 0.1s; }
+        .content-left { animation-delay: 0.2s; }
+        .card-right { animation-delay: 0.3s; }
+        .footer { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="nav-top">
+            <span>悟空 AI-Native Platform</span>
+            <div class="nav-breadcrumbs">
+                <span class="active">01</span>
+                <span>02</span>
+                <span>03</span>
+                <span>04</span>
+            </div>
+        </div>
+        
+        <div class="content-left">
+            <div class="section-num">01</div>
+            <h1>什么是 AI Agent</h1>
+            <p>从概念到实践，理解 Agent 的本质。感知、规划、执行、反思——不只是聊天，而是真正帮你把事情做完。</p>
+        </div>
+        
+        <div class="card-right">
+            <span class="card-tag">Concept</span>
+            <div class="card-title">感知 + 规划<br>+ 执行 + 反思</div>
+        </div>
+        
+        <div class="footer">
+            <span>杭远 · 钉钉华中区域解决方案总经理</span>
+            <div class="slide-indicator">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FY26 销售排兵布阵沙盘</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: #0a1628;
+      color: #e0e8f0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* ── 顶部标题栏 ── */
+    .header {
+      background: linear-gradient(135deg, #0d2137 0%, #1a3a5c 100%);
+      border-bottom: 2px solid #1e5fa8;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      box-shadow: 0 2px 20px rgba(30,95,168,0.4);
+      gap: 12px;
+    }
+    .header-left { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+    .header-title {
+      font-size: 18px; font-weight: 700;
+      background: linear-gradient(90deg, #4fc3f7, #81d4fa, #b3e5fc);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
+    .header-subtitle { font-size: 11px; color: #7eb8d8; }
+
+    .header-center { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .hdr-btn {
+      padding: 5px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;
+      border: 1px solid; transition: all 0.2s; font-weight: 600; white-space: nowrap;
+    }
+    .hdr-btn-save   { background: rgba(79,195,247,0.15); border-color: #4fc3f7; color: #4fc3f7; }
+    .hdr-btn-save:hover { background: rgba(79,195,247,0.3); }
+    .hdr-btn-ver    { background: rgba(255,193,7,0.15); border-color: #ffc107; color: #ffc107; }
+    .hdr-btn-ver:hover { background: rgba(255,193,7,0.3); }
+    .hdr-btn-reset  { background: rgba(239,83,80,0.15); border-color: #ef5350; color: #ef5350; }
+    .hdr-btn-reset:hover { background: rgba(239,83,80,0.3); }
+
+    /* ── 主体布局 ── */
+    .main-container { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── 地图区域 ── */
+    .map-wrapper { flex: 1; position: relative; overflow: hidden; background: #060f1e; }
+    #map-chart { width: 100%; height: 100%; }
+
+    /* 地图加载遮罩 */
+    .map-loading {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: #060f1e; z-index: 50; gap: 12px;
+      color: #4fc3f7; font-size: 14px;
+    }
+    .map-loading.hidden { display: none; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(79,195,247,0.2);
+      border-top-color: #4fc3f7; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .map-error { color: #ef5350; text-align: center; line-height: 1.8; }
+    .retry-btn {
+      margin-top: 8px; padding: 6px 18px;
+      background: rgba(239,83,80,0.15); border: 1px solid #ef5350;
+      border-radius: 8px; color: #ef5350; cursor: pointer; font-size: 13px;
+    }
+
+    /* ── 战区人员卡片（绑定地图，不可拖动） ── */
+    .zone-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 10; }
+    .zone-card {
+      position: absolute;
+      background: rgba(8,18,35,0.92);
+      border-radius: 8px; padding: 6px 8px;
+      min-width: 118px; max-width: 170px;
+      pointer-events: all;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.6);
+      transition: box-shadow 0.2s;
+    }
+    .zone-card:hover { box-shadow: 0 4px 24px rgba(79,195,247,0.2); }
+    .zone-card.drag-over { box-shadow: 0 0 0 2px #ffc107, 0 0 24px rgba(255,193,7,0.4) !important; }
+
+    .zone-card-title {
+      font-size: 11px; font-weight: 700;
+      padding-bottom: 4px; margin-bottom: 4px;
+      text-align: center; letter-spacing: 1px;
+      border-bottom-width: 1px; border-bottom-style: solid;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      cursor: default;
+    }
+    /* 战区设置按钮 */
+    .zone-settings-btn {
+      cursor: pointer; opacity: 0.5; font-size: 10px;
+      transition: opacity 0.2s; padding: 0 2px;
+    }
+    .zone-card:hover .zone-settings-btn { opacity: 1; }
+
+    .zone-persons { display: flex; flex-direction: column; gap: 2px; }
+    .zone-empty { font-size: 10px; color: #2a4a6a; text-align: center; padding: 3px 0; border: 1px dashed #1a3a5a; border-radius: 4px; }
+    .zone-person {
+      display: flex; align-items: center; gap: 4px;
+      padding: 2px 3px; border-radius: 3px; font-size: 11px;
+      transition: background 0.15s;
+    }
+    .zone-person:hover { background: rgba(255,255,255,0.05); }
+    .role-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .person-name-text { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .remove-btn {
+      cursor: pointer; color: #ef5350; font-size: 11px;
+      line-height: 1; opacity: 0; transition: opacity 0.15s; flex-shrink: 0; padding: 0 1px;
+    }
+    .zone-person:hover .remove-btn { opacity: 1; }
+
+    /* ── 右侧人员面板 ── */
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(180deg, #0d2137 0%, #0a1a2e 100%);
+      border-left: 2px solid #1e5fa8;
+      display: flex; flex-direction: column;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .sidebar-header { padding: 10px 12px 6px; border-bottom: 1px solid rgba(30,95,168,0.5); flex-shrink: 0; }
+    .sidebar-title { font-size: 13px; font-weight: 700; color: #4fc3f7; letter-spacing: 1px; }
+    .sidebar-hint { font-size: 10px; color: #4a7a9a; margin-top: 2px; }
+
+    .sidebar-search { padding: 6px 10px; border-bottom: 1px solid rgba(30,95,168,0.3); flex-shrink: 0; }
+    .search-input {
+      width: 100%; padding: 5px 10px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(79,195,247,0.2);
+      border-radius: 6px; color: #d0e8f8; font-size: 12px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input::placeholder { color: #3a6a8a; }
+    .search-input:focus { border-color: rgba(79,195,247,0.5); }
+
+    .sidebar-content { flex: 1; overflow-y: auto; padding: 6px; }
+    .sidebar-content::-webkit-scrollbar { width: 3px; }
+    .sidebar-content::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-content::-webkit-scrollbar-thumb { background: #1e5fa8; border-radius: 2px; }
+
+    /* ── 角色分组 ── */
+    .role-group { margin-bottom: 8px; }
+    .role-group-header {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 8px; border-radius: 6px; margin-bottom: 4px; cursor: pointer;
+    }
+    .role-group-header.manager  { background: rgba(255,193,7,0.1);   border: 1px solid rgba(255,193,7,0.25); }
+    .role-group-header.bd       { background: rgba(33,150,243,0.1);  border: 1px solid rgba(33,150,243,0.25); }
+    .role-group-header.sa       { background: rgba(76,175,80,0.1);   border: 1px solid rgba(76,175,80,0.25); }
+    .role-group-header.ai_sa    { background: rgba(156,39,176,0.1);  border: 1px solid rgba(156,39,176,0.25); }
+    .role-group-header.zhongtai { background: rgba(255,152,0,0.1);   border: 1px solid rgba(255,152,0,0.25); }
+
+    .role-icon { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex-shrink: 0; }
+    .role-icon.manager  { background: #ffc107; color: #1a1a1a; }
+    .role-icon.bd       { background: #2196f3; color: #fff; }
+    .role-icon.sa       { background: #4caf50; color: #fff; }
+    .role-icon.ai_sa    { background: #9c27b0; color: #fff; }
+    .role-icon.zhongtai { background: #ff9800; color: #fff; }
+
+    .role-label { font-size: 12px; font-weight: 600; flex: 1; }
+    .role-label.manager  { color: #ffc107; }
+    .role-label.bd       { color: #64b5f6; }
+    .role-label.sa       { color: #81c784; }
+    .role-label.ai_sa    { color: #ce93d8; }
+    .role-label.zhongtai { color: #ffcc80; }
+
+    .role-count { font-size: 10px; color: #4a7a9a; }
+    .role-toggle { font-size: 9px; color: #4a7a9a; transition: transform 0.2s; }
+    .role-toggle.collapsed { transform: rotate(-90deg); }
+
+    /* 新增人员按钮 */
+    .add-person-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 4px 8px; margin: 2px 2px 4px;
+      background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.15);
+      border-radius: 6px; cursor: pointer; font-size: 11px; color: #4a7a9a;
+      transition: all 0.2s;
+    }
+    .add-person-btn:hover { background: rgba(79,195,247,0.08); border-color: rgba(79,195,247,0.3); color: #4fc3f7; }
+
+    /* ── 人员卡片 ── */
+    .person-list { display: flex; flex-direction: column; gap: 3px; padding-left: 2px; }
+    .person-list.collapsed { display: none; }
+
+    .person-card {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 7px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px; cursor: grab; transition: all 0.18s;
+    }
+    .person-card:hover { background: rgba(79,195,247,0.08); border-color: rgba(79,195,247,0.35); transform: translateX(-2px); }
+    .person-card:active { cursor: grabbing; }
+    .person-card.dragging { opacity: 0.35; }
+    .person-card.placed { opacity: 0.3; background: rgba(255,255,255,0.01); border-color: rgba(255,255,255,0.04); }
+    .person-card.hidden-by-search { display: none; }
+
+    .person-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+    .person-avatar.manager  { background: linear-gradient(135deg,#ffc107,#ff8f00); color: #1a1a1a; }
+    .person-avatar.bd       { background: linear-gradient(135deg,#2196f3,#0d47a1); color: #fff; }
+    .person-avatar.sa       { background: linear-gradient(135deg,#4caf50,#1b5e20); color: #fff; }
+    .person-avatar.ai_sa    { background: linear-gradient(135deg,#9c27b0,#4a148c); color: #fff; }
+    .person-avatar.zhongtai { background: linear-gradient(135deg,#ff9800,#e65100); color: #fff; }
+
+    .person-info { flex: 1; min-width: 0; }
+    .person-realname { font-size: 11px; font-weight: 600; color: #d0e8f8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .person-codename { font-size: 10px; color: #4a7a9a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .person-zone-tag { font-size: 9px; padding: 1px 4px; border-radius: 8px; background: rgba(79,195,247,0.1); color: #4fc3f7; white-space: nowrap; flex-shrink: 0; border: 1px solid rgba(79,195,247,0.2); }
+
+    /* 人员删除按钮 */
+    .person-del-btn {
+      cursor: pointer; color: #ef5350; font-size: 12px;
+      opacity: 0; transition: opacity 0.15s; flex-shrink: 0; padding: 0 2px;
+    }
+    .person-card:hover .person-del-btn { opacity: 1; }
+
+    /* ── 底部状态栏 ── */
+    .statusbar {
+      background: #050d1a; border-top: 1px solid #1a3a5a;
+      padding: 4px 16px; display: flex; align-items: center; gap: 16px;
+      font-size: 11px; color: #4a7a9a; flex-shrink: 0;
+    }
+    .stat-item { display: flex; align-items: center; gap: 4px; }
+    .stat-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .stat-num { font-weight: 700; color: #d0e8f8; }
+    .version-label { margin-left: auto; font-size: 11px; color: #4a7a9a; }
+    .version-name { color: #4fc3f7; font-weight: 600; }
+
+    /* ── 地图缩放控制按钮（右下角） ── */
+    .map-zoom-ctrl {
+      position: absolute; right: 14px; bottom: 14px;
+      display: flex; flex-direction: column; gap: 4px;
+      z-index: 20; pointer-events: all;
+    }
+    .zoom-btn {
+      width: 32px; height: 32px;
+      background: rgba(8,18,35,0.88);
+      border: 1px solid rgba(79,195,247,0.35);
+      border-radius: 6px; color: #4fc3f7;
+      font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      user-select: none;
+    }
+    .zoom-btn:hover { background: rgba(79,195,247,0.2); border-color: #4fc3f7; }
+    .zoom-btn:active { transform: scale(0.92); }
+    .zoom-reset-btn {
+      width: 32px; height: 20px; font-size: 10px; font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    /* ── 拖拽幽灵 ── */
+    #drag-ghost {
+      position: fixed; pointer-events: none; z-index: 9999;
+      background: rgba(8,18,35,0.95); border: 2px solid #4fc3f7;
+      border-radius: 8px; padding: 5px 12px;
+      font-size: 12px; font-weight: 600; color: #4fc3f7;
+      box-shadow: 0 8px 32px rgba(79,195,247,0.4);
+      display: none; white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════
+       弹窗通用样式
+    ══════════════════════════════════ */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .modal-backdrop.hidden { display: none; }
+    .modal {
+      background: #0d2137; border: 1px solid #1e5fa8;
+      border-radius: 12px; padding: 20px 24px;
+      min-width: 320px; max-width: 520px; width: 90%;
+      box-shadow: 0 16px 64px rgba(0,0,0,0.8);
+      max-height: 80vh; display: flex; flex-direction: column;
+    }
+    .modal-title {
+      font-size: 15px; font-weight: 700; color: #4fc3f7;
+      margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 1px solid rgba(30,95,168,0.4);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-close { cursor: pointer; color: #4a7a9a; font-size: 18px; line-height: 1; }
+    .modal-close:hover { color: #ef5350; }
+    .modal-body { flex: 1; overflow-y: auto; }
+    .modal-footer { margin-top: 16px; display: flex; gap: 8px; justify-content: flex-end; }
+
+    /* 表单控件 */
+    .form-row { margin-bottom: 12px; }
+    .form-label { font-size: 12px; color: #7eb8d8; margin-bottom: 4px; display: block; }
+    .form-input, .form-select {
+      width: 100%; padding: 7px 10px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(79,195,247,0.2);
+      border-radius: 6px; color: #d0e8f8; font-size: 13px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus { border-color: rgba(79,195,247,0.5); }
+    .form-select option { background: #0d2137; }
+    .color-row { display: flex; align-items: center; gap: 10px; }
+    .color-picker { width: 40px; height: 32px; border: none; border-radius: 6px; cursor: pointer; background: none; padding: 0; }
+
+    .btn { padding: 7px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 1px solid; font-weight: 600; transition: all 0.2s; }
+    .btn-primary { background: rgba(79,195,247,0.15); border-color: #4fc3f7; color: #4fc3f7; }
+    .btn-primary:hover { background: rgba(79,195,247,0.3); }
+    .btn-danger  { background: rgba(239,83,80,0.15); border-color: #ef5350; color: #ef5350; }
+    .btn-danger:hover  { background: rgba(239,83,80,0.3); }
+    .btn-ghost   { background: transparent; border-color: rgba(255,255,255,0.15); color: #7eb8d8; }
+    .btn-ghost:hover   { border-color: rgba(255,255,255,0.3); }
+
+    /* ── 战区设置弹窗 ── */
+    .city-tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .city-tag {
+      display: flex; align-items: center; gap: 4px;
+      padding: 3px 8px; border-radius: 12px;
+      background: rgba(79,195,247,0.1); border: 1px solid rgba(79,195,247,0.3);
+      font-size: 11px; color: #4fc3f7;
+    }
+    .city-tag-remove { cursor: pointer; color: #ef5350; font-size: 11px; }
+    .city-add-row { display: flex; gap: 6px; margin-top: 8px; }
+    .city-add-input {
+      flex: 1; padding: 5px 8px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(79,195,247,0.2);
+      border-radius: 6px; color: #d0e8f8; font-size: 12px; outline: none;
+    }
+    .city-add-input:focus { border-color: rgba(79,195,247,0.5); }
+    .city-add-btn {
+      padding: 5px 12px; background: rgba(79,195,247,0.15);
+      border: 1px solid #4fc3f7; border-radius: 6px;
+      color: #4fc3f7; font-size: 12px; cursor: pointer;
+    }
+
+    /* ── 版本管理弹窗 ── */
+    .version-list { display: flex; flex-direction: column; gap: 8px; }
+    .version-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.2s;
+    }
+    .version-item:hover { background: rgba(79,195,247,0.06); border-color: rgba(79,195,247,0.2); }
+    .version-item.active { background: rgba(79,195,247,0.1); border-color: rgba(79,195,247,0.4); }
+    .version-item-name { flex: 1; font-size: 13px; font-weight: 600; color: #d0e8f8; }
+    .version-item-time { font-size: 10px; color: #4a7a9a; }
+    .version-item-actions { display: flex; gap: 6px; }
+    .ver-btn {
+      padding: 3px 10px; border-radius: 4px; font-size: 11px; cursor: pointer;
+      border: 1px solid; transition: all 0.2s;
+    }
+    .ver-btn-load { border-color: #4fc3f7; color: #4fc3f7; background: rgba(79,195,247,0.1); }
+    .ver-btn-load:hover { background: rgba(79,195,247,0.25); }
+    .ver-btn-del  { border-color: #ef5350; color: #ef5350; background: rgba(239,83,80,0.1); }
+    .ver-btn-del:hover  { background: rgba(239,83,80,0.25); }
+    .no-versions { text-align: center; color: #4a7a9a; padding: 24px; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<!-- 顶部标题 -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-title">📌 钉钉CDS排兵布阵沙盘</div>
+  </div>
+  <div class="header-center">
+    <div class="legend-item"><div class="legend-dot" style="background:#ffc107"></div><span style="color:#ffc107">区域经理</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2196f3"></div><span style="color:#64b5f6">BD</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4caf50"></div><span style="color:#81c784">SA</span></div>
+  </div>
+  <div class="header-right">
+    <button class="hdr-btn hdr-btn-save" onclick="openSaveModal()">💾 保存版本</button>
+    <button class="hdr-btn hdr-btn-ver"  onclick="openVersionModal()">📋 版本管理</button>
+    <button class="hdr-btn hdr-btn-reset" onclick="resetAll()">🔄 重置</button>
+  </div>
+</div>
+
+<!-- 主体 -->
+<div class="main-container">
+  <div class="map-wrapper" id="map-wrapper">
+    <div id="map-chart"></div>
+    <div class="map-loading" id="map-loading">
+      <div class="spinner"></div>
+      <span>正在加载中国地图数据…</span>
+    </div>
+    <div class="zone-overlay" id="zone-overlay"></div>
+
+    <!-- 右下角缩放控制 -->
+    <div class="map-zoom-ctrl">
+      <div class="zoom-btn" title="放大" onclick="mapZoom(1.3)">＋</div>
+      <div class="zoom-btn" title="缩小" onclick="mapZoom(0.77)">－</div>
+      <div class="zoom-btn zoom-reset-btn" title="重置视图" onclick="mapZoomReset()">复位</div>
+    </div>
+  </div>
+
+  <!-- 右侧人员面板 -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">📋 人员名单</div>
+      <div class="sidebar-hint">拖拽人员到地图战区 · 悬停可删除</div>
+    </div>
+    <div class="sidebar-search">
+      <input class="search-input" type="text" placeholder="搜索姓名或代号…" oninput="filterPersons(this.value)" />
+    </div>
+    <div class="sidebar-content" id="sidebar-content"></div>
+  </div>
+</div>
+
+<!-- 底部状态栏 -->
+<div class="statusbar">
+  <div class="stat-item"><div class="stat-dot" style="background:#ffc107"></div><span>经理 <span class="stat-num" id="stat-manager">0</span></span></div>
+  <div class="stat-item"><div class="stat-dot" style="background:#2196f3"></div><span>BD <span class="stat-num" id="stat-bd">0</span></span></div>
+  <div class="stat-item"><div class="stat-dot" style="background:#4caf50"></div><span>SA <span class="stat-num" id="stat-sa">0</span></span></div>
+  <div class="stat-item"><div class="stat-dot" style="background:#9c27b0"></div><span>AI SA <span class="stat-num" id="stat-ai_sa">0</span></span></div>
+  <div class="stat-item"><div class="stat-dot" style="background:#ff9800"></div><span>中台 <span class="stat-num" id="stat-zhongtai">0</span></span></div>
+  <span style="color:#2a4a6a">已布阵 <span class="stat-num" id="stat-total">0</span> 人</span>
+  <div class="version-label">当前版本：<span class="version-name" id="current-version-name">未保存</span></div>
+</div>
+
+<!-- 拖拽幽灵 -->
+<div id="drag-ghost"></div>
+
+<!-- ══ 弹窗：战区设置 ══ -->
+<div class="modal-backdrop hidden" id="zone-settings-modal">
+  <div class="modal" style="min-width:380px">
+    <div class="modal-title">
+      <span id="zone-settings-title">战区设置</span>
+      <span class="modal-close" onclick="closeModal('zone-settings-modal')">✕</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label class="form-label">战区名称</label>
+        <input class="form-input" id="zs-name" type="text" />
+      </div>
+      <div class="form-row">
+        <label class="form-label">战区颜色</label>
+        <div class="color-row">
+          <input class="color-picker" id="zs-color" type="color" />
+          <span style="font-size:12px;color:#7eb8d8">选择战区在地图上的高亮颜色（影响地图城市着色）</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">包含城市/地区（点击 ✕ 移除，下方输入添加）</label>
+        <div class="city-tag-list" id="zs-city-list"></div>
+        <div class="city-add-row">
+          <input class="city-add-input" id="zs-city-input" type="text" placeholder="输入城市名，如：杭州市" />
+          <button class="city-add-btn" onclick="addCityToZone()">+ 添加</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('zone-settings-modal')">取消</button>
+      <button class="btn btn-primary" onclick="saveZoneSettings()">保存设置</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 弹窗：新增人员 ══ -->
+<div class="modal-backdrop hidden" id="add-person-modal">
+  <div class="modal">
+    <div class="modal-title">
+      <span>新增人员</span>
+      <span class="modal-close" onclick="closeModal('add-person-modal')">✕</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label class="form-label">真实姓名 *</label>
+        <input class="form-input" id="ap-name" type="text" placeholder="如：张三" />
+      </div>
+      <div class="form-row">
+        <label class="form-label">代号（花名）</label>
+        <input class="form-input" id="ap-codename" type="text" placeholder="如：青山" />
+      </div>
+      <div class="form-row">
+        <label class="form-label">角色 *</label>
+        <select class="form-select" id="ap-role">
+          <option value="manager">区域经理</option>
+          <option value="bd">BD</option>
+          <option value="sa">SA</option>
+          <option value="ai_sa">AI SA</option>
+          <option value="zhongtai">中台</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">默认战区</label>
+        <select class="form-select" id="ap-zone"></select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('add-person-modal')">取消</button>
+      <button class="btn btn-primary" onclick="confirmAddPerson()">确认新增</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 弹窗：保存版本 ══ -->
+<div class="modal-backdrop hidden" id="save-modal">
+  <div class="modal">
+    <div class="modal-title">
+      <span>💾 保存版本</span>
+      <span class="modal-close" onclick="closeModal('save-modal')">✕</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label class="form-label">版本名称 *</label>
+        <input class="form-input" id="save-name" type="text" placeholder="如：第一轮布阵 2026-03" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('save-modal')">取消</button>
+      <button class="btn btn-primary" onclick="confirmSave()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 弹窗：版本管理 ══ -->
+<div class="modal-backdrop hidden" id="version-modal">
+  <div class="modal" style="min-width:420px">
+    <div class="modal-title">
+      <span>📋 版本管理</span>
+      <span class="modal-close" onclick="closeModal('version-modal')">✕</span>
+    </div>
+    <div class="modal-body">
+      <div class="version-list" id="version-list"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('version-modal')">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ═══════════════════════════════════════════════════════════
+// 初始数据
+// ═══════════════════════════════════════════════════════════
+
+// 战区配置（可被用户修改）
+let ZONES = [
+  {
+    id: 'hz1', name: '杭州一区',
+    color: '#1565c0', borderColor: '#1565c0', titleColor: '#90caf9',
+    coords: [119.3, 30.4],
+    cities: ['余杭区', '临安区', '富阳区', '桐庐县', '淳安县'],
+  },
+  {
+    id: 'hz2', name: '杭州二区',
+    color: '#0288d1', borderColor: '#0288d1', titleColor: '#b3e5fc',
+    coords: [120.3, 30.2],
+    cities: ['上城区', '拱墅区', '西湖区', '滨江区', '萧山区', '钱塘区', '建德市'],
+  },
+  {
+    id: 'nb', name: '宁波区域',
+    color: '#283593', borderColor: '#283593', titleColor: '#c5cae9',
+    coords: [121.5, 29.9],
+    cities: ['宁波市', '绍兴市', '舟山市', '嘉兴市', '湖州市'],
+  },
+  {
+    id: 'wz', name: '温州区域',
+    color: '#6a1b9a', borderColor: '#6a1b9a', titleColor: '#e1bee7',
+    coords: [120.6, 27.9],
+    cities: ['温州市', '台州市', '金华市', '丽水市', '衢州市'],
+  },
+  {
+    id: 'fz', name: '福州区域',
+    color: '#880e4f', borderColor: '#880e4f', titleColor: '#f8bbd0',
+    coords: [117.8, 26.2],
+    cities: ['福州市', '厦门市', '泉州市', '漳州市', '莆田市', '三明市', '南平市', '龙岩市', '宁德市',
+             '南昌市', '九江市', '上饶市', '抚州市', '宜春市', '吉安市', '赣州市', '景德镇市', '萍乡市', '新余市', '鹰潭市'],
+  },
+  {
+    id: 'hefei', name: '合肥区域',
+    color: '#1b5e20', borderColor: '#1b5e20', titleColor: '#c8e6c9',
+    coords: [117.2, 31.8],
+    cities: ['合肥市', '芜湖市', '蚌埠市', '淮南市', '马鞍山市', '淮北市', '铜陵市', '安庆市', '黄山市', '滁州市', '阜阳市', '宿州市', '六安市', '亳州市', '池州市', '宣城市'],
+  },
+  {
+    id: 'zhengzhou', name: '郑州区域',
+    color: '#bf360c', borderColor: '#bf360c', titleColor: '#ffccbc',
+    coords: [113.6, 34.7],
+    cities: ['郑州市', '开封市', '洛阳市', '平顶山市', '安阳市', '鹤壁市', '新乡市', '焦作市', '濮阳市', '许昌市', '漯河市', '三门峡市', '南阳市', '商丘市', '信阳市', '周口市', '驻马店市', '济源市'],
+  },
+];
+
+// 人员数据
+let PERSONS = [
+  // 区域经理
+  { id: 'mgr-1', name: '扶澜',   codename: '', role: 'manager', defaultZone: 'hz1' },
+  { id: 'mgr-2', name: '芋橙',   codename: '', role: 'manager', defaultZone: 'nb' },
+  { id: 'mgr-3', name: '严颜',   codename: '', role: 'manager', defaultZone: 'wz' },
+  { id: 'mgr-4', name: '孙鹏',   codename: '', role: 'manager', defaultZone: 'fz' },
+  { id: 'mgr-5', name: '炎御',   codename: '', role: 'manager', defaultZone: 'zhengzhou' },
+  { id: 'mgr-6', name: '张自由', codename: '', role: 'manager', defaultZone: 'hefei' },
+  // BD
+  { id: 'bd-1',  name: '徐宁',   codename: '云菱', role: 'bd', defaultZone: 'hz1' },
+  { id: 'bd-2',  name: '蒋泽骏', codename: '居方', role: 'bd', defaultZone: 'hz1' },
+  { id: 'bd-3',  name: '费建峰', codename: '一成', role: 'bd', defaultZone: 'hz2' },
+  { id: 'bd-4',  name: '陈思施', codename: '思斯', role: 'bd', defaultZone: 'hz2' },
+  { id: 'bd-5',  name: '陈得雨', codename: '庐瑜', role: 'bd', defaultZone: 'hefei' },
+  { id: 'bd-6',  name: '李宸',   codename: '励尘', role: 'bd', defaultZone: 'hefei' },
+  { id: 'bd-7',  name: '王鑫',   codename: '沧南', role: 'bd', defaultZone: 'zhengzhou' },
+  { id: 'bd-8',  name: '郑少杰', codename: '正反', role: 'bd', defaultZone: 'zhengzhou' },
+  { id: 'bd-9',  name: '胡哲平', codename: '久阅', role: 'bd', defaultZone: 'nb' },
+  { id: 'bd-10', name: '杨焘',   codename: '希忘', role: 'bd', defaultZone: 'nb' },
+  { id: 'bd-11', name: '聂钢',   codename: '正能', role: 'bd', defaultZone: 'wz' },
+  { id: 'bd-12', name: '张佳琪', codename: '张可', role: 'bd', defaultZone: 'wz' },
+  { id: 'bd-13', name: '胡俊平', codename: '扶赣', role: 'bd', defaultZone: 'fz' },
+  { id: 'bd-14', name: '黄为华', codename: '赣橙', role: 'bd', defaultZone: 'fz' },
+  { id: 'bd-15', name: '阮克程', codename: '御虎', role: 'bd', defaultZone: 'fz' },
+  { id: 'bd-16', name: '兰强',   codename: '萧蓝', role: 'bd', defaultZone: 'hz1', tag: 'SA杭州中心' },
+  // SA
+  { id: 'sa-1', name: '马骁尧', codename: '舞罗', role: 'sa', defaultZone: 'hz1' },
+  { id: 'sa-2', name: '李博',   codename: '晨甫', role: 'sa', defaultZone: 'hz2' },
+  { id: 'sa-3', name: '方海兵', codename: '花田', role: 'sa', defaultZone: 'hefei' },
+  { id: 'sa-4', name: '任奕澄', codename: '昶通', role: 'sa', defaultZone: 'zhengzhou' },
+  { id: 'sa-5', name: '兰强',   codename: '萧蓝', role: 'sa', defaultZone: 'wz' },
+  { id: 'sa-6', name: '程燕',   codename: '呈紫', role: 'sa', defaultZone: 'nb' },
+  { id: 'sa-7', name: '欧建辉', codename: '思危', role: 'sa', defaultZone: 'fz' },
+];
+
+const ROLE_CONFIG = {
+  manager:  { label: '区域经理', icon: '👑', cls: 'manager',  dotColor: '#ffc107' },
+  bd:       { label: 'BD',       icon: '🎯', cls: 'bd',       dotColor: '#2196f3' },
+  sa:       { label: 'SA',       icon: '🔧', cls: 'sa',       dotColor: '#4caf50' },
+  ai_sa:    { label: 'AI SA',    icon: '🤖', cls: 'ai_sa',    dotColor: '#9c27b0' },
+  zhongtai: { label: '中台',     icon: '🏛️', cls: 'zhongtai', dotColor: '#ff9800' },
+};
+
+// ═══════════════════════════════════════════════════════════
+// 运行时状态
+// ═══════════════════════════════════════════════════════════
+
+// zoneId -> Set<personId>
+const zoneAssignments = {};
+ZONES.forEach(z => { zoneAssignments[z.id] = new Set(); });
+
+// personId -> zoneId | null
+const personCurrentZone = {};
+PERSONS.forEach(p => { personCurrentZone[p.id] = null; });
+
+let currentVersionName = '未保存';
+let editingZoneId = null;  // 当前正在编辑的战区 id
+
+// ═══════════════════════════════════════════════════════════
+// ECharts 地图
+// ═══════════════════════════════════════════════════════════
+
+let mapChart = null;
+// 省级 GeoJSON（用于底图渲染）
+let chinaGeoJson = null;
+// 地级市 GeoJSON features 集合（用于城市着色）
+let cityFeaturesMap = {}; // name -> feature，方便查找
+
+// 从 GeoJSON feature 的坐标点计算 bbox 中心
+function featureBboxCenter(feature) {
+  const coords = feature.geometry && feature.geometry.coordinates;
+  if (!coords) return null;
+  const flattenCoords = (c) => {
+    if (typeof c[0] === 'number') return [c];
+    return c.flatMap(sub => flattenCoords(sub));
+  };
+  const pts = flattenCoords(coords);
+  if (pts.length === 0) return null;
+  const lons = pts.map(p => p[0]);
+  const lats = pts.map(p => p[1]);
+  return [
+    (Math.min(...lons) + Math.max(...lons)) / 2,
+    (Math.min(...lats) + Math.max(...lats)) / 2,
+  ];
+}
+
+// 根据已加载的 cityFeaturesMap 自动计算每个战区的地理中心坐标
+function computeZoneCoords() {
+  ZONES.forEach(zone => {
+    const centers = [];
+    zone.cities.forEach(cityName => {
+      const feature = cityFeaturesMap[cityName];
+      if (!feature) return;
+      const center = featureBboxCenter(feature);
+      if (center) centers.push(center);
+    });
+
+    if (centers.length === 0) return; // 保留原始 coords
+
+    // 取所有城市中心的平均值
+    const avgLon = centers.reduce((sum, c) => sum + c[0], 0) / centers.length;
+    const avgLat = centers.reduce((sum, c) => sum + c[1], 0) / centers.length;
+    zone.coords = [avgLon, avgLat];
+  });
+
+  // 杭州一区和二区：GeoJSON 只有地级市级别，两者都对应杭州市
+  // 手动设置偏移坐标，让两张卡片分别显示在杭州市的西北和东南
+  const hz1 = ZONES.find(z => z.id === 'hz1');
+  const hz2 = ZONES.find(z => z.id === 'hz2');
+  const hangzhouFeature = cityFeaturesMap['杭州市'];
+  if (hangzhouFeature) {
+    const center = featureBboxCenter(hangzhouFeature);
+    if (center && hz1) hz1.coords = [center[0] - 0.55, center[1] + 0.25]; // 偏西北
+    if (center && hz2) hz2.coords = [center[0] + 0.35, center[1] - 0.15]; // 偏东南
+  }
+}
+
+// 需要加载地级市数据的省份 adcode
+const PROVINCE_ADCODES = {
+  '浙江省': '330000',
+  '福建省': '350000',
+  '江西省': '360000',
+  '安徽省': '340000',
+  '河南省': '410000',
+};
+
+async function loadMap() {
+  const loadingEl = document.getElementById('map-loading');
+  loadingEl.innerHTML = '<div class="spinner"></div><span>正在加载地图数据…</span>';
+  loadingEl.classList.remove('hidden');
+
+  try {
+    // 1. 加载省级底图
+    const chinaRes = await fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000.json');
+    if (!chinaRes.ok) throw new Error(`省级地图 HTTP ${chinaRes.status}`);
+    chinaGeoJson = await chinaRes.json();
+
+    // 2. 并行加载各省地级市 GeoJSON
+    loadingEl.querySelector('span').textContent = '正在加载各省城市数据…';
+    const provinceEntries = Object.entries(PROVINCE_ADCODES);
+    const cityResults = await Promise.all(
+      provinceEntries.map(([, adcode]) =>
+        fetch(`https://geo.datav.aliyun.com/areas_v3/bound/${adcode}_full.json`)
+          .then(r => r.ok ? r.json() : null)
+          .catch(() => null)
+      )
+    );
+
+    // 3. 合并地级市 features，建立 name -> feature 索引
+    cityFeaturesMap = {};
+    cityResults.forEach(geoJson => {
+      if (!geoJson || !geoJson.features) return;
+      geoJson.features.forEach(feature => {
+        const name = feature.properties && feature.properties.name;
+        if (name) cityFeaturesMap[name] = feature;
+      });
+    });
+
+  } catch (err) {
+    loadingEl.innerHTML = `
+      <div class="map-error">⚠️ 地图数据加载失败<br><small>${err.message}</small></div>
+      <button class="retry-btn" onclick="loadMap()">重新加载</button>
+    `;
+    return;
+  }
+
+  // 4. 构建合并地图：省级底图 + 地级市 features
+  // 用省级底图注册 china，用包含地级市的合并 GeoJSON 注册 china-city
+  const mergedGeoJson = {
+    type: 'FeatureCollection',
+    features: [
+      ...chinaGeoJson.features,
+      ...Object.values(cityFeaturesMap),
+    ],
+  };
+  echarts.registerMap('china', mergedGeoJson);
+
+  // 5. 从 GeoJSON 自动计算每个战区的地理中心坐标（作为默认锚点）
+  computeZoneCoords();
+
+  // 6. 从 localStorage 恢复用户手动设置的经纬度锚点（覆盖默认值）
+  loadZoneCoordsFromStorage();
+
+  mapChart = echarts.init(document.getElementById('map-chart'));
+  applyMapOption();
+
+  // 地图缩放/平移时，根据经纬度锚点重新定位所有卡片
+  mapChart.on('georoam', () => {
+    const option = mapChart.getOption();
+    if (option && option.geo && option.geo[0]) {
+      currentMapZoom = option.geo[0].zoom || currentMapZoom;
+    }
+    repositionZoneCards();
+  });
+  window.addEventListener('resize', () => { mapChart.resize(); repositionZoneCards(); });
+
+  loadingEl.classList.add('hidden');
+
+  // 初始化卡片，等 ECharts 渲染完成后定位
+  mapChart.one('finished', () => {
+    initZoneCards();
+  });
+}
+
+// 浙江省下属城市集合（用于显示城市名称）
+const ZHEJIANG_CITIES = new Set([
+  '杭州市','宁波市','温州市','嘉兴市','湖州市','绍兴市','金华市','衢州市','舟山市','台州市','丽水市',
+  // 杭州区县
+  '余杭区','临安区','富阳区','桐庐县','淳安县','上城区','拱墅区','西湖区','滨江区','萧山区','钱塘区','建德市',
+]);
+
+function buildMapRegions() {
+  // 收集所有战区城市 -> 颜色映射
+  const cityColorMap = {};
+  ZONES.forEach(zone => {
+    zone.cities.forEach(city => {
+      cityColorMap[city] = zone.color;
+    });
+  });
+
+  const regions = [];
+
+  // 省级底色先放（会被地级市着色覆盖）
+  // 注意：ECharts geo.regions 后面的条目会覆盖前面的，所以省级底色必须在地级市着色之前
+  const provinceBaseColors = {
+    '浙江省': '#0a2040', '福建省': '#200a30', '江西省': '#200a30',
+    '安徽省': '#0a2015', '河南省': '#2a1005',
+  };
+  Object.entries(provinceBaseColors).forEach(([name, color]) => {
+    regions.push({
+      name,
+      itemStyle: { areaColor: color, borderColor: '#1a4a7a', borderWidth: 1 },
+      label: { show: false },
+    });
+  });
+
+  // 地级市着色后放，覆盖省级底色
+  Object.keys(cityFeaturesMap).forEach(name => {
+    const baseColor = cityColorMap[name];
+    if (!baseColor) return;
+    const showLabel = ZHEJIANG_CITIES.has(name);
+    regions.push({
+      name,
+      itemStyle: {
+        areaColor: baseColor,
+        borderColor: lightenColor(baseColor, 0.35),
+        borderWidth: 1.2,
+        shadowColor: lightenColor(baseColor, 0.2),
+        shadowBlur: 6,
+      },
+      label: showLabel
+        ? { show: true, fontSize: 9, color: '#e0f0ff', fontWeight: '600',
+            textShadowColor: 'rgba(0,0,0,0.9)', textShadowBlur: 3 }
+        : { show: false },
+    });
+  });
+
+  return regions;
+}
+
+function applyMapOption(keepView = false) {
+  if (!mapChart) return;
+
+  // 读取当前视图状态
+  let zoom = 2.2;
+  let center = [117.5, 30];
+  if (keepView) {
+    const currentOption = mapChart.getOption();
+    const currentGeo = currentOption && currentOption.geo && currentOption.geo[0];
+    if (currentGeo) {
+      zoom   = currentGeo.zoom   || zoom;
+      center = currentGeo.center || center;
+    }
+  }
+
+  mapChart.setOption({
+    backgroundColor: 'transparent',
+    geo: {
+      map: 'china',
+      roam: true,
+      zoom,
+      center,
+      itemStyle: {
+        areaColor: {
+          type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+          colorStops: [
+            { offset: 0, color: '#0d1f38' },
+            { offset: 1, color: '#060f1e' },
+          ],
+        },
+        borderColor: '#2a6aaa',
+        borderWidth: 2,
+        shadowColor: 'rgba(0,100,200,0.1)',
+        shadowBlur: 2,
+      },
+      emphasis: { disabled: true },
+      label: { show: false },
+      regions: buildMapRegions(),
+    },
+    series: [],
+  }, true);
+
+}
+
+// 颜色工具：让边框颜色比填充色亮一些
+function lightenColor(hex, amount) {
+  const num = parseInt(hex.replace('#',''), 16);
+  const r = Math.min(255, (num >> 16) + Math.round(255 * amount));
+  const g = Math.min(255, ((num >> 8) & 0xff) + Math.round(255 * amount));
+  const b = Math.min(255, (num & 0xff) + Math.round(255 * amount));
+  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// 战区卡片（可手动拖动，位置固定后缩放地图不影响）
+// ═══════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════
+// 卡片定位：拖动确定经纬度锚点，地图缩放/平移时跟随地图
+// ═══════════════════════════════════════════════════════════
+
+// 把卡片中心的像素坐标转换为地图经纬度，保存到 zone.coords
+function saveCardGeoCoord(zone, card) {
+  if (!mapChart) return;
+  const cardW = card.offsetWidth || 130;
+  const cardH = card.offsetHeight || 60;
+  const pixelX = parseFloat(card.style.left) + cardW / 2;
+  const pixelY = parseFloat(card.style.top)  + cardH / 2;
+  const geoCoord = mapChart.convertFromPixel('geo', [pixelX, pixelY]);
+  if (geoCoord) {
+    zone.coords = geoCoord;
+    // 持久化到 localStorage（保存在 ZONES 里）
+    saveZoneCoordsToStorage();
+  }
+}
+
+// 把所有战区的 coords 保存到 localStorage
+function saveZoneCoordsToStorage() {
+  const coordsMap = {};
+  ZONES.forEach(z => { coordsMap[z.id] = z.coords; });
+  try {
+    localStorage.setItem('sandmap_zone_coords', JSON.stringify(coordsMap));
+  } catch {}
+}
+
+// 从 localStorage 恢复战区 coords（覆盖默认值）
+function loadZoneCoordsFromStorage() {
+  try {
+    const saved = localStorage.getItem('sandmap_zone_coords');
+    if (!saved) return;
+    const coordsMap = JSON.parse(saved);
+    ZONES.forEach(z => {
+      if (coordsMap[z.id]) z.coords = coordsMap[z.id];
+    });
+  } catch {}
+}
+
+// 把 zone.coords 经纬度转换为像素坐标，定位卡片
+function placeCardByGeoCoord(zone, card) {
+  if (!mapChart) return;
+  const pixel = mapChart.convertToPixel('geo', zone.coords);
+  if (!pixel) return;
+
+  const overlay = document.getElementById('zone-overlay');
+  const overlayW = overlay.offsetWidth;
+  const overlayH = overlay.offsetHeight;
+  const cardW = card.offsetWidth || 130;
+  const cardH = card.offsetHeight || 60;
+
+  let left = pixel[0] - cardW / 2;
+  let top  = pixel[1] - cardH / 2;
+  left = Math.max(4, Math.min(left, overlayW - cardW - 4));
+  top  = Math.max(4, Math.min(top,  overlayH - cardH - 4));
+
+  card.style.left = `${Math.round(left)}px`;
+  card.style.top  = `${Math.round(top)}px`;
+}
+
+function makeDraggableCard(card, zone) {
+  const titleEl = card.querySelector('.zone-card-title');
+  if (!titleEl) return;
+
+  titleEl.style.cursor = 'grab';
+
+  titleEl.addEventListener('mousedown', e => {
+    if (e.target.classList.contains('zone-settings-btn')) return;
+
+    e.preventDefault();
+    titleEl.style.cursor = 'grabbing';
+
+    const overlay = document.getElementById('zone-overlay');
+    const overlayRect = overlay.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const mouseOffsetX = e.clientX - cardRect.left;
+    const mouseOffsetY = e.clientY - cardRect.top;
+
+    const onMouseMove = (moveEvent) => {
+      const overlayW = overlay.offsetWidth;
+      const overlayH = overlay.offsetHeight;
+      const cardW = card.offsetWidth;
+      const cardH = card.offsetHeight;
+
+      let left = moveEvent.clientX - overlayRect.left - mouseOffsetX;
+      let top  = moveEvent.clientY - overlayRect.top  - mouseOffsetY;
+      left = Math.max(4, Math.min(left, overlayW - cardW - 4));
+      top  = Math.max(4, Math.min(top,  overlayH - cardH - 4));
+
+      card.style.left = `${Math.round(left)}px`;
+      card.style.top  = `${Math.round(top)}px`;
+    };
+
+    const onMouseUp = () => {
+      titleEl.style.cursor = 'grab';
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+
+      // 松开时：把当前像素位置反转换为经纬度，锁定地图锚点
+      saveCardGeoCoord(zone, card);
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+}
+
+function initZoneCards() {
+  const overlay = document.getElementById('zone-overlay');
+  overlay.innerHTML = '';
+
+  ZONES.forEach(zone => {
+    const card = document.createElement('div');
+    card.className = 'zone-card';
+    card.id = `zone-card-${zone.id}`;
+    card.dataset.zoneId = zone.id;
+    card.style.border = `1px solid ${zone.borderColor}`;
+
+    card.innerHTML = `
+      <div class="zone-card-title" style="color:${zone.titleColor};border-bottom-color:${zone.borderColor}40">
+        <span>${zone.name}</span>
+        <span class="zone-settings-btn" title="战区设置" onclick="openZoneSettings('${zone.id}')">⚙️</span>
+      </div>
+      <div class="zone-persons" id="zone-persons-${zone.id}">
+        <div class="zone-empty">拖入人员</div>
+      </div>
+    `;
+
+    card.addEventListener('dragover', e => { e.preventDefault(); card.classList.add('drag-over'); });
+    card.addEventListener('dragleave', e => { if (!card.contains(e.relatedTarget)) card.classList.remove('drag-over'); });
+    card.addEventListener('drop', e => {
+      e.preventDefault();
+      card.classList.remove('drag-over');
+      const personId = e.dataTransfer.getData('personId');
+      if (personId) assignPersonToZone(personId, zone.id);
+    });
+
+    makeDraggableCard(card, zone);
+    overlay.appendChild(card);
+
+    // 初始定位：等 DOM 渲染完成后用经纬度坐标定位
+    requestAnimationFrame(() => placeCardByGeoCoord(zone, card));
+  });
+}
+
+// 地图缩放/平移时，根据经纬度锚点重新计算所有卡片的像素位置
+function repositionZoneCards() {
+  ZONES.forEach(zone => {
+    const card = document.getElementById(`zone-card-${zone.id}`);
+    if (card) placeCardByGeoCoord(zone, card);
+  });
+}
+
+function renderZoneCard(zoneId) {
+  const container = document.getElementById(`zone-persons-${zoneId}`);
+  if (!container) return;
+
+  const assignedIds = [...(zoneAssignments[zoneId] || [])];
+  container.innerHTML = '';
+
+  if (assignedIds.length === 0) {
+    container.innerHTML = '<div class="zone-empty">拖入人员</div>';
+    return;
+  }
+
+  const roleOrder = { manager: 0, bd: 1, sa: 2, ai_sa: 3, zhongtai: 4 };
+  const sorted = assignedIds
+    .map(id => PERSONS.find(p => p.id === id))
+    .filter(Boolean)
+    .sort((a, b) => roleOrder[a.role] - roleOrder[b.role]);
+
+  sorted.forEach(person => {
+    const rc = ROLE_CONFIG[person.role];
+    const displayName = person.codename ? `${person.name}·${person.codename}` : person.name;
+    const el = document.createElement('div');
+    el.className = 'zone-person';
+    el.innerHTML = `
+      <div class="role-dot" style="background:${rc.dotColor}"></div>
+      <span class="person-name-text" title="${displayName}">${displayName}</span>
+      <span class="remove-btn" title="移除" onclick="removePersonFromZone('${person.id}','${zoneId}')">✕</span>
+    `;
+    container.appendChild(el);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// 人员分配逻辑
+// ═══════════════════════════════════════════════════════════
+
+function assignPersonToZone(personId, zoneId) {
+  const prev = personCurrentZone[personId];
+  if (prev && prev !== zoneId) {
+    zoneAssignments[prev].delete(personId);
+    renderZoneCard(prev);
+  }
+  zoneAssignments[zoneId].add(personId);
+  personCurrentZone[personId] = zoneId;
+  renderZoneCard(zoneId);
+  refreshPersonCard(personId);
+  updateStats();
+}
+
+function removePersonFromZone(personId, zoneId) {
+  zoneAssignments[zoneId].delete(personId);
+  personCurrentZone[personId] = null;
+  renderZoneCard(zoneId);
+  refreshPersonCard(personId);
+  updateStats();
+}
+
+function resetAll() {
+  if (!confirm('确定要重置所有布阵吗？')) return;
+  ZONES.forEach(zone => {
+    zoneAssignments[zone.id].clear();
+    renderZoneCard(zone.id);
+  });
+  PERSONS.forEach(p => { personCurrentZone[p.id] = null; });
+  document.querySelectorAll('.person-card').forEach(c => c.classList.remove('placed'));
+  currentVersionName = '未保存';
+  document.getElementById('current-version-name').textContent = currentVersionName;
+  updateStats();
+}
+
+// ═══════════════════════════════════════════════════════════
+// 右侧人员面板
+// ═══════════════════════════════════════════════════════════
+
+function initSidebar() {
+  const container = document.getElementById('sidebar-content');
+  container.innerHTML = '';
+
+  ['manager', 'bd', 'sa'].forEach(role => {
+    const rc = ROLE_CONFIG[role];
+    const persons = PERSONS.filter(p => p.role === role);
+
+    const groupEl = document.createElement('div');
+    groupEl.className = 'role-group';
+    groupEl.id = `role-group-${role}`;
+
+    const headerEl = document.createElement('div');
+    headerEl.className = `role-group-header ${rc.cls}`;
+    headerEl.innerHTML = `
+      <div class="role-icon ${rc.cls}">${rc.icon}</div>
+      <span class="role-label ${rc.cls}">${rc.label}</span>
+      <span class="role-count" id="role-count-${role}">${persons.length}人</span>
+      <span class="role-toggle" id="toggle-${role}">▼</span>
+    `;
+    headerEl.addEventListener('click', () => {
+      const list = document.getElementById(`person-list-${role}`);
+      list.classList.toggle('collapsed');
+      document.getElementById(`toggle-${role}`).classList.toggle('collapsed');
+    });
+
+    const listEl = document.createElement('div');
+    listEl.className = 'person-list';
+    listEl.id = `person-list-${role}`;
+
+    persons.forEach(person => listEl.appendChild(buildPersonCard(person)));
+
+    // 新增按钮
+    const addBtn = document.createElement('div');
+    addBtn.className = 'add-person-btn';
+    addBtn.innerHTML = `<span>＋</span><span>新增${rc.label}</span>`;
+    addBtn.addEventListener('click', () => openAddPersonModal(role));
+
+    groupEl.appendChild(headerEl);
+    groupEl.appendChild(listEl);
+    groupEl.appendChild(addBtn);
+    container.appendChild(groupEl);
+  });
+}
+
+function buildPersonCard(person) {
+  const rc = ROLE_CONFIG[person.role];
+  const zone = ZONES.find(z => z.id === person.defaultZone);
+  const tagText = person.tag || (zone ? zone.name : '');
+
+  const card = document.createElement('div');
+  card.className = 'person-card';
+  card.id = `person-card-${person.id}`;
+  card.draggable = true;
+  card.dataset.personId = person.id;
+  card.dataset.searchText = `${person.name}${person.codename}`.toLowerCase();
+
+  card.innerHTML = `
+    <div class="person-avatar ${rc.cls}">${person.name.slice(0,1)}</div>
+    <div class="person-info">
+      <div class="person-realname">${person.name}</div>
+      ${person.codename ? `<div class="person-codename">${person.codename}</div>` : ''}
+    </div>
+    ${tagText ? `<span class="person-zone-tag">${tagText}</span>` : ''}
+    <span class="person-del-btn" title="删除人员" onclick="deletePerson('${person.id}')">🗑</span>
+  `;
+
+  if (personCurrentZone[person.id]) card.classList.add('placed');
+
+  card.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('personId', person.id);
+    e.dataTransfer.effectAllowed = 'move';
+    card.classList.add('dragging');
+    const ghost = document.getElementById('drag-ghost');
+    ghost.textContent = `${rc.icon} ${person.name}${person.codename ? ' · ' + person.codename : ''}`;
+    ghost.style.display = 'block';
+    ghost.style.left = '-9999px'; ghost.style.top = '-9999px';
+    e.dataTransfer.setDragImage(ghost, 0, 0);
+  });
+  card.addEventListener('dragend', () => {
+    card.classList.remove('dragging');
+    document.getElementById('drag-ghost').style.display = 'none';
+  });
+
+  return card;
+}
+
+function refreshPersonCard(personId) {
+  const card = document.getElementById(`person-card-${personId}`);
+  if (!card) return;
+  card.classList.toggle('placed', personCurrentZone[personId] !== null);
+}
+
+function updateRoleCount(role) {
+  const count = PERSONS.filter(p => p.role === role).length;
+  const el = document.getElementById(`role-count-${role}`);
+  if (el) el.textContent = `${count}人`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// 新增 / 删除人员
+// ═══════════════════════════════════════════════════════════
+
+function openAddPersonModal(defaultRole) {
+  document.getElementById('ap-name').value = '';
+  document.getElementById('ap-codename').value = '';
+  document.getElementById('ap-role').value = defaultRole || 'bd';
+
+  // 填充战区选项
+  const zoneSelect = document.getElementById('ap-zone');
+  zoneSelect.innerHTML = ZONES.map(z => `<option value="${z.id}">${z.name}</option>`).join('');
+
+  openModal('add-person-modal');
+}
+
+function confirmAddPerson() {
+  const name = document.getElementById('ap-name').value.trim();
+  if (!name) { alert('请输入姓名'); return; }
+
+  const codename = document.getElementById('ap-codename').value.trim();
+  const role     = document.getElementById('ap-role').value;
+  const zoneId   = document.getElementById('ap-zone').value;
+
+  const newId = `custom-${Date.now()}`;
+  const newPerson = { id: newId, name, codename, role, defaultZone: zoneId };
+  PERSONS.push(newPerson);
+  personCurrentZone[newId] = null;
+
+  // 插入到对应角色列表
+  const list = document.getElementById(`person-list-${role}`);
+  if (list) list.appendChild(buildPersonCard(newPerson));
+  updateRoleCount(role);
+  updateStats();
+  closeModal('add-person-modal');
+}
+
+function deletePerson(personId) {
+  const person = PERSONS.find(p => p.id === personId);
+  if (!person) return;
+  if (!confirm(`确定删除「${person.name}」吗？`)) return;
+
+  // 从战区移除
+  const zone = personCurrentZone[personId];
+  if (zone) {
+    zoneAssignments[zone].delete(personId);
+    renderZoneCard(zone);
+  }
+
+  // 从数据中移除
+  PERSONS = PERSONS.filter(p => p.id !== personId);
+  delete personCurrentZone[personId];
+
+  // 从 DOM 移除
+  const card = document.getElementById(`person-card-${personId}`);
+  if (card) card.remove();
+
+  updateRoleCount(person.role);
+  updateStats();
+}
+
+// ═══════════════════════════════════════════════════════════
+// 战区设置弹窗
+// ═══════════════════════════════════════════════════════════
+
+function openZoneSettings(zoneId) {
+  editingZoneId = zoneId;
+  const zone = ZONES.find(z => z.id === zoneId);
+  if (!zone) return;
+
+  document.getElementById('zone-settings-title').textContent = `战区设置 — ${zone.name}`;
+  document.getElementById('zs-name').value  = zone.name;
+  document.getElementById('zs-color').value = zone.color;
+  document.getElementById('zs-city-input').value = '';
+
+  renderCityTags(zone.cities);
+  openModal('zone-settings-modal');
+}
+
+function renderCityTags(cities) {
+  const list = document.getElementById('zs-city-list');
+  list.innerHTML = cities.map(city => `
+    <div class="city-tag">
+      <span>${city}</span>
+      <span class="city-tag-remove" onclick="removeCityTag('${city}')">✕</span>
+    </div>
+  `).join('');
+}
+
+function removeCityTag(cityName) {
+  const zone = ZONES.find(z => z.id === editingZoneId);
+  if (!zone) return;
+  zone.cities = zone.cities.filter(c => c !== cityName);
+  renderCityTags(zone.cities);
+}
+
+function addCityToZone() {
+  const input = document.getElementById('zs-city-input');
+  const cityName = input.value.trim();
+  if (!cityName) return;
+
+  const zone = ZONES.find(z => z.id === editingZoneId);
+  if (!zone) return;
+
+  // 检查是否已存在于其他战区
+  const existingZone = ZONES.find(z => z.id !== editingZoneId && z.cities.includes(cityName));
+  if (existingZone) {
+    if (!confirm(`「${cityName}」已在「${existingZone.name}」中，确定移入当前战区吗？`)) return;
+    existingZone.cities = existingZone.cities.filter(c => c !== cityName);
+  }
+
+  if (!zone.cities.includes(cityName)) {
+    zone.cities.push(cityName);
+  }
+  renderCityTags(zone.cities);
+  input.value = '';
+}
+
+// 支持回车添加城市
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('zs-city-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addCityToZone();
+  });
+});
+
+function saveZoneSettings() {
+  const zone = ZONES.find(z => z.id === editingZoneId);
+  if (!zone) return;
+
+  const newName  = document.getElementById('zs-name').value.trim();
+  const newColor = document.getElementById('zs-color').value;
+
+  if (!newName) { alert('战区名称不能为空'); return; }
+
+  zone.name  = newName;
+  zone.color = newColor;
+  zone.borderColor = newColor;
+  zone.titleColor  = lightenColor(newColor, 0.5);
+
+  // 更新地图高亮（保留当前 zoom/center，仅刷新 regions 颜色）
+  applyMapOption(true);
+
+  // 更新战区卡片标题和边框
+  const card = document.getElementById(`zone-card-${zone.id}`);
+  if (card) {
+    card.style.border = `1px solid ${zone.borderColor}`;
+    const titleEl = card.querySelector('.zone-card-title');
+    if (titleEl) {
+      titleEl.style.color = zone.titleColor;
+      titleEl.style.borderBottomColor = `${zone.borderColor}40`;
+      const nameSpan = titleEl.querySelector('span:first-child');
+      if (nameSpan) nameSpan.textContent = zone.name;
+    }
+  }
+
+  // 更新侧边栏人员卡片的战区标签
+  rebuildSidebar();
+  closeModal('zone-settings-modal');
+}
+
+// ═══════════════════════════════════════════════════════════
+// 搜索过滤
+// ═══════════════════════════════════════════════════════════
+
+function filterPersons(query) {
+  const keyword = query.trim().toLowerCase();
+  document.querySelectorAll('.person-card').forEach(card => {
+    const text = card.dataset.searchText || '';
+    card.classList.toggle('hidden-by-search', !!(keyword && !text.includes(keyword)));
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// 地图容器 drop（落在空白区域时找最近战区）
+// ═══════════════════════════════════════════════════════════
+
+function initMapDrop() {
+  const wrapper = document.getElementById('map-wrapper');
+  wrapper.addEventListener('dragover', e => e.preventDefault());
+  wrapper.addEventListener('drop', e => {
+    e.preventDefault();
+    const personId = e.dataTransfer.getData('personId');
+    if (!personId) return;
+    const nearestZoneId = findNearestZoneCard(e.clientX, e.clientY, 200);
+    if (nearestZoneId) assignPersonToZone(personId, nearestZoneId);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// 地图缩放控制
+// ═══════════════════════════════════════════════════════════
+
+// 记录当前缩放级别（ECharts geo 的 zoom 值），与初始 applyMapOption 保持一致
+let currentMapZoom = 2.2;
+
+function mapZoom(factor) {
+  if (!mapChart) return;
+  currentMapZoom = currentMapZoom * factor;
+  // 限制缩放范围：0.5x ~ 8x
+  currentMapZoom = Math.max(0.5, Math.min(8, currentMapZoom));
+  mapChart.setOption({ geo: { zoom: currentMapZoom } });
+}
+
+function mapZoomReset() {
+  if (!mapChart) return;
+  currentMapZoom = 2.2;
+  mapChart.setOption({ geo: { zoom: 2.2, center: [117.5, 30] } });
+}
+
+function findNearestZoneCard(clientX, clientY, maxDist) {
+  let minDist = Infinity, nearestId = null;
+  ZONES.forEach(zone => {
+    const card = document.getElementById(`zone-card-${zone.id}`);
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const dist = Math.hypot(clientX - (rect.left + rect.width/2), clientY - (rect.top + rect.height/2));
+    if (dist < minDist) { minDist = dist; nearestId = zone.id; }
+  });
+  return minDist <= maxDist ? nearestId : null;
+}
+
+// ═══════════════════════════════════════════════════════════
+// 统计
+// ═══════════════════════════════════════════════════════════
+
+function updateStats() {
+  const placed = PERSONS.filter(p => personCurrentZone[p.id] !== null);
+  document.getElementById('stat-manager').textContent  = placed.filter(p => p.role === 'manager').length;
+  document.getElementById('stat-bd').textContent       = placed.filter(p => p.role === 'bd').length;
+  document.getElementById('stat-sa').textContent       = placed.filter(p => p.role === 'sa').length;
+  document.getElementById('stat-ai_sa').textContent    = placed.filter(p => p.role === 'ai_sa').length;
+  document.getElementById('stat-zhongtai').textContent = placed.filter(p => p.role === 'zhongtai').length;
+  document.getElementById('stat-total').textContent    = placed.length;
+}
+
+// ═══════════════════════════════════════════════════════════
+// 保存 / 版本管理（localStorage）
+// ═══════════════════════════════════════════════════════════
+
+const STORAGE_KEY = 'sandmap_versions';
+
+function getVersions() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveVersions(versions) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(versions));
+}
+
+function openSaveModal() {
+  const now = new Date();
+  const defaultName = `布阵 ${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  document.getElementById('save-name').value = defaultName;
+  openModal('save-modal');
+}
+
+function confirmSave() {
+  const name = document.getElementById('save-name').value.trim();
+  if (!name) { alert('请输入版本名称'); return; }
+
+  const snapshot = {
+    id: Date.now().toString(),
+    name,
+    time: new Date().toLocaleString('zh-CN'),
+    zones: JSON.parse(JSON.stringify(ZONES)),
+    persons: JSON.parse(JSON.stringify(PERSONS)),
+    assignments: {},
+    personZones: { ...personCurrentZone },
+  };
+  ZONES.forEach(z => {
+    snapshot.assignments[z.id] = [...zoneAssignments[z.id]];
+  });
+
+  const versions = getVersions();
+  versions.unshift(snapshot);
+  saveVersions(versions);
+
+  currentVersionName = name;
+  document.getElementById('current-version-name').textContent = name;
+  closeModal('save-modal');
+  alert(`✅ 版本「${name}」已保存！`);
+}
+
+function openVersionModal() {
+  renderVersionList();
+  openModal('version-modal');
+}
+
+function renderVersionList() {
+  const versions = getVersions();
+  const container = document.getElementById('version-list');
+
+  if (versions.length === 0) {
+    container.innerHTML = '<div class="no-versions">暂无保存的版本<br><small>点击「保存版本」创建第一个版本</small></div>';
+    return;
+  }
+
+  container.innerHTML = versions.map(ver => `
+    <div class="version-item ${ver.name === currentVersionName ? 'active' : ''}">
+      <div>
+        <div class="version-item-name">${ver.name}</div>
+        <div class="version-item-time">${ver.time}</div>
+      </div>
+      <div class="version-item-actions">
+        <button class="ver-btn ver-btn-load" onclick="loadVersion('${ver.id}')">载入</button>
+        <button class="ver-btn ver-btn-del"  onclick="deleteVersion('${ver.id}')">删除</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function loadVersion(versionId) {
+  const versions = getVersions();
+  const ver = versions.find(v => v.id === versionId);
+  if (!ver) return;
+
+  if (!confirm(`确定载入版本「${ver.name}」？当前未保存的布阵将丢失。`)) return;
+
+  // 恢复战区配置（coords 不从 localStorage 恢复，由 computeZoneCoords 重新计算）
+  // 先保存当前 coords（由 computeZoneCoords 计算的准确坐标）
+  const currentCoordsMap = {};
+  ZONES.forEach(z => { currentCoordsMap[z.id] = z.coords; });
+
+  ZONES = ver.zones.map(savedZone => ({
+    ...savedZone,
+    coords: currentCoordsMap[savedZone.id] || savedZone.coords,
+  }));
+
+  // 恢复人员数据
+  PERSONS = ver.persons;
+
+  // 重置分配状态
+  ZONES.forEach(z => { zoneAssignments[z.id] = new Set(ver.assignments[z.id] || []); });
+  PERSONS.forEach(p => { personCurrentZone[p.id] = ver.personZones[p.id] || null; });
+
+  // 重新计算战区地理中心坐标（基于已加载的 GeoJSON，确保 coords 准确）
+  computeZoneCoords();
+
+  currentVersionName = ver.name;
+  document.getElementById('current-version-name').textContent = ver.name;
+
+  // 重建 UI
+  applyMapOption();
+  rebuildSidebar();
+  rebuildZoneCards();
+  updateStats();
+  closeModal('version-modal');
+}
+
+function deleteVersion(versionId) {
+  const versions = getVersions();
+  const ver = versions.find(v => v.id === versionId);
+  if (!ver) return;
+  if (!confirm(`确定删除版本「${ver.name}」？`)) return;
+
+  saveVersions(versions.filter(v => v.id !== versionId));
+  renderVersionList();
+}
+
+// ═══════════════════════════════════════════════════════════
+// 重建 UI（战区/人员变更后）
+// ═══════════════════════════════════════════════════════════
+
+function rebuildSidebar() {
+  initSidebar();
+}
+
+function rebuildZoneCards() {
+  initZoneCards();
+  ZONES.forEach(z => renderZoneCard(z.id));
+}
+
+// ═══════════════════════════════════════════════════════════
+// 弹窗工具
+// ═══════════════════════════════════════════════════════════
+
+function openModal(id) {
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.add('hidden');
+}
+
+// 点击背景关闭弹窗
+document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+  backdrop.addEventListener('click', e => {
+    if (e.target === backdrop) backdrop.classList.add('hidden');
+  });
+});
+
+// ═══════════════════════════════════════════════════════════
+// 启动
+// ═══════════════════════════════════════════════════════════
+
+function main() {
+  initSidebar();
+  initMapDrop();
+  loadMap();
+  updateStats();
+}
+
+main();
+</script>
+</body>
+</html>

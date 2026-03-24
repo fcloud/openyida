@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Preview - Electric Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-white: #ffffff;
+            --accent-blue: #4361ee;
+            --text-dark: #0a0a0a;
+            --text-light: #ffffff;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            position: relative;
+        }
+
+        .panel-top {
+            background: var(--bg-white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(1rem, 4vw, 4rem);
+            position: relative;
+        }
+
+        .panel-top::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-blue);
+        }
+
+        .panel-bottom {
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(1rem, 4vw, 4rem);
+        }
+
+        .brand-mark {
+            position: absolute;
+            top: clamp(1rem, 4vw, 4rem);
+            left: clamp(1rem, 4vw, 4rem);
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            color: var(--text-dark);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .nav-mark {
+            position: absolute;
+            top: clamp(1rem, 4vw, 4rem);
+            right: clamp(1rem, 4vw, 4rem);
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            color: var(--text-dark);
+            opacity: 0.5;
+        }
+
+        .quote-large {
+            font-size: clamp(1.5rem, 5vw, 4rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.2;
+            max-width: 800px;
+        }
+
+        .section-title {
+            font-size: clamp(1.25rem, 3vw, 2.5rem);
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            font-size: clamp(0.75rem, 1.5vw, 1.125rem);
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: clamp(1rem, 4vw, 4rem);
+            left: clamp(1rem, 4vw, 4rem);
+            font-size: clamp(0.65rem, 1vw, 0.875rem);
+            color: rgba(255,255,255,0.5);
+        }
+
+        .slide-indicator {
+            position: absolute;
+            bottom: clamp(1rem, 4vw, 4rem);
+            right: clamp(1rem, 4vw, 4rem);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .dot.active {
+            background: var(--accent-blue);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide > * {
+            animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .panel-top { animation-delay: 0.1s; }
+        .panel-bottom { animation-delay: 0.2s; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="panel-top">
+            <span class="brand-mark">悟空 AI-Native</span>
+            <span class="nav-mark">01 / 04</span>
+            <h1 class="quote-large">"过去是人用钉钉<br>来工作"</h1>
+        </div>
+        
+        <div class="panel-bottom">
+            <h2 class="section-title">未来是 AI 用钉钉来工作</h2>
+            <p class="section-desc">重新定义人机协作的底层逻辑。从概念到实践，理解 Agent 的本质。</p>
+        </div>
+        
+        <div class="footer">
+            杭远 · 钉钉华中区域解决方案总经理
+        </div>
+        
+        <div class="slide-indicator">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+</body>
+</html>

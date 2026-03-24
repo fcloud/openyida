@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>以“竹”为名“连接”一切 - 悟空 AI-Native Work Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@100;300;400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #00FF85; /* 悟空绿/竹青 */
+      --accent-soft: rgba(0, 255, 133, 0.1);
+      --dark: #050505;
+      --light: #FFFFFF;
+      --gray: #888888;
+      --bg: #000000;
+      --font-display: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+      --font-body: 'Noto Sans SC', sans-serif;
+      --font-accent: 'Ma Shan+Zheng', cursive;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--light);
+      font-family: var(--font-body);
+      overflow: hidden;
+      cursor: none;
+    }
+
+    /* 全局装饰 */
+    .noise {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('https://grainy-gradients.vercel.app/noise.svg');
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      mix-blend-mode: difference;
+      transition: transform 0.1s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    /* 幻灯片架构 */
+    .deck {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+    }
+
+    .slide {
+      height: 100vh;
+      width: 100vw;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 网格背景 */
+    .grid-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+    }
+
+    /* 抽象“竹”装饰 */
+    .bamboo-decor {
+      position: absolute;
+      bottom: -10%;
+      right: 5%;
+      font-family: var(--font-accent);
+      font-size: 40vh;
+      color: var(--accent);
+      opacity: 0.03;
+      pointer-events: none;
+      user-select: none;
+      line-height: 0.8;
+      writing-mode: vertical-rl;
+    }
+
+    /* 内容排版 */
+    .content {
+      width: 100%;
+      max-width: 1400px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* 封面 */
+    .slide-cover h1 {
+      font-family: var(--font-display);
+      font-size: 8vw;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 2vw;
+    }
+
+    .slide-cover h1 span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .slide-cover .sub {
+      font-size: 1.5vw;
+      color: var(--gray);
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .slide-cover .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: 2vw;
+      font-size: 0.9vw;
+      color: var(--gray);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* 目录 & 列表 */
+    .slide-list h2 {
+      font-size: 4vw;
+      margin-bottom: 4vw;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+    }
+
+    .slide-list h2::before {
+      content: '';
+      width: 40px;
+      height: 4px;
+      background: var(--accent);
+    }
+
+    .list-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2vw;
+    }
+
+    .list-item {
+      border-left: 2px solid rgba(255,255,255,0.1);
+      padding: 1.5vw 2vw;
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+
+    .list-item:hover {
+      border-left-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .list-item .num {
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 1.2vw;
+      margin-bottom: 0.5vw;
+      display: block;
+    }
+
+    .list-item h3 {
+      font-size: 2vw;
+      margin-bottom: 0.5vw;
+    }
+
+    .list-item p {
+      color: var(--gray);
+      font-size: 1vw;
+    }
+
+    /* 章节 */
+    .slide-chapter {
+      text-align: center;
+    }
+
+    .slide-chapter .tag {
+      font-family: var(--font-display);
+      color: var(--accent);
+      letter-spacing: 0.5em;
+      margin-bottom: 1vw;
+      display: block;
+    }
+
+    .slide-chapter h1 {
+      font-size: 10vw;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    /* 场景/图文 */
+    .scene-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5vw;
+      align-items: center;
+    }
+
+    .scene-info .label {
+      color: var(--accent);
+      font-size: 0.8vw;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      margin-bottom: 1vw;
+      display: block;
+    }
+
+    .scene-info h2 {
+      font-size: 3.5vw;
+      line-height: 1.1;
+      margin-bottom: 2vw;
+    }
+
+    .scene-info p {
+      color: var(--gray);
+      font-size: 1.1vw;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .scene-media {
+      position: relative;
+    }
+
+    .scene-media img {
+      width: 100%;
+      height: 60vh;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.1);
+      transition: filter 0.5s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .scene-media:hover img {
+      filter: grayscale(0);
+    }
+
+    .scene-media::after {
+      content: '';
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 100px; height: 100px;
+      border-top: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+    }
+
+    /* 导航指示器 */
+    .nav {
+      position: fixed;
+      right: 3vw;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1vh;
+      z-index: 1000;
+    }
+
+    .nav-dot {
+      width: 4px;
+      height: 20px;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .nav-dot.active {
+      background: var(--accent);
+      height: 40px;
+    }
+
+    .progress {
+      position: fixed;
+      bottom: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.3s ease;
+    }
+
+    /* 动画 */
+    .slide > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .slide.active > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .list-grid, .scene-layout {
+        grid-template-columns: 1fr;
+      }
+      .slide-cover h1 { font-size: 12vw; }
+      .scene-media img { height: 40vh; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="progress" id="progress"></div>
+  <div class="nav" id="nav"></div>
+
+  <div class="deck" id="deck">
+    <!-- 幻灯片内容由 JavaScript 注入 -->
+  </div>
+
+  <script>
+    const SLIDES = [
+      {
+        type: 'cover',
+        title: '以“竹”为名<span>连接一切</span>',
+        sub: '悟空 AI-Native Work Platform',
+        meta: '杭远 · 钉钉华中区域解决方案总经理',
+        date: '2026.03'
+      },
+      {
+        type: 'list',
+        title: '今日分享',
+        items: [
+          { num: '01', title: '什么是 AI Agent', desc: '从概念到实践，理解 Agent 的本质' },
+          { num: '02', title: 'OpenClaw 龙虾', desc: '开源 Agent 框架，三周超越 Linux 三十年' },
+          { num: '03', title: '安全与企业级', desc: '机遇与风险并存，国家怎么看龙虾' },
+          { num: '04', title: '悟空', desc: '阿里企业 AI 原生工作平台，重新定义人机协作' }
+        ]
+      },
+      {
+        type: 'chapter',
+        tag: 'PART 01',
+        title: '什么是 AI Agent'
+      },
+      {
+        type: 'scene',
+        label: 'CONCEPT',
+        title: 'Agent = 感知 + 规划 + 执行',
+        body: '不只是聊天，而是真正帮你把事情做完。\n\n• 感知 Perceive: 理解意图与上下文\n• 规划 Plan: 拆解任务与工具选择\n• 执行 Act: API调用与系统操作\n• 反思 Reflect: 自动修正与重试',
+        img: 'https://img.alicdn.com/imgextra/i2/O1CN01TB05pI1HpekqOi75D_!!6000000000807-2-tps-2190-1470.png'
+      },
+      {
+        type: 'chapter',
+        tag: 'PART 02',
+        title: 'OpenClaw 龙虾'
+      },
+      {
+        type: 'scene',
+        label: 'STORY',
+        title: '超越 Linux 的 3 周',
+        body: '2025.11 诞生 → 2026.03 引爆。\n\nGitHub Stars 60天斩获 28万，下载量在三周内超越 Linux 三十年的积累。\n\n"这是我们这个时代最重要的软件发布" —— 黄仁勋',
+        img: 'https://img.alicdn.com/imgextra/i3/O1CN014yYsDR1jS7dzzVtin_!!6000000004546-0-tps-1320-2231.jpg'
+      },
+      {
+        type: 'scene',
+        label: 'SCENE 02',
+        title: '用 OpenYida 复刻 SAP 系统',
+        body: 'AI 自动学习 SAP 架构，宜搭快速复刻 + 数据迁移。\n\n不是推倒重来，而是平滑过渡——新系统上线，旧系统数据不丢失。',
+        img: 'https://img.alicdn.com/imgextra/i2/O1CN01fs5WhH1m1VTW9ZMhK_!!6000000004894-0-tps-1320-2051.jpg'
+      },
+      {
+        type: 'chapter',
+        tag: 'PART 03',
+        title: '安全与企业级'
+      },
+      {
+        type: 'scene',
+        label: 'SECURITY',
+        title: '企业级“不可能三角”',
+        body: '权限管不住、操作查不到、成本算不清。\n\n大厂 IT 部门正在下达死命令：严禁员工在真实业务系统中接入龙虾。',
+        img: 'https://img.alicdn.com/imgextra/i4/O1CN01YgmZx126P8DjenDGD_!!6000000007653-0-tps-1320-1160.jpg'
+      },
+      {
+        type: 'chapter',
+        tag: 'PART 04',
+        title: '悟空'
+      },
+      {
+        type: 'scene',
+        label: 'WUKONG',
+        title: '悟空：企业级正规军',
+        body: '“今天，我们把钉钉打碎，用 AI 重建，炼出悟空。” —— 无招\n\n三重安全防线：原生权限继承、全链路审计、CLI 化底层重构。',
+        img: 'https://img.alicdn.com/imgextra/i1/O1CN01Rie0TX1Q22O4coira_!!6000000001917-0-tps-1320-2168.jpg'
+      }
+    ];
+
+    let current = 0;
+    const deck = document.getElementById('deck');
+    const nav = document.getElementById('nav');
+    const cursor = document.getElementById('cursor');
+
+    function render() {
+      deck.innerHTML = SLIDES.map((s, i) => `
+        <div class="slide slide-${s.type}" id="s-${i}">
+          <div class="grid-bg"></div>
+          <div class="bamboo-decor">竹</div>
+          <div class="content">
+            ${renderSlideContent(s)}
+          </div>
+        </div>
+      `).join('');
+
+      nav.innerHTML = SLIDES.map((_, i) => `
+        <div class="nav-dot ${i === 0 ? 'active' : ''}" onclick="goto(${i})"></div>
+      `).join('');
+    }
+
+    function renderSlideContent(s) {
+      if (s.type === 'cover') return `
+        <div class="slide-cover">
+          <div class="sub">${s.sub}</div>
+          <h1>${s.title}</h1>
+          <div class="footer">
+            <span>${s.meta}</span>
+            <span>${s.date}</span>
+          </div>
+        </div>
+      `;
+      if (s.type === 'list') return `
+        <div class="slide-list">
+          <h2>${s.title}</h2>
+          <div class="list-grid">
+            ${s.items.map(item => `
+              <div class="list-item">
+                <span class="num">${item.num}</span>
+                <h3>${item.title}</h3>
+                <p>${item.desc}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      if (s.type === 'chapter') return `
+        <div class="slide-chapter">
+          <span class="tag">${s.tag}</span>
+          <h1>${s.title}</h1>
+        </div>
+      `;
+      if (s.type === 'scene') return `
+        <div class="scene-layout">
+          <div class="scene-info">
+            <span class="label">${s.label}</span>
+            <h2>${s.title}</h2>
+            <p>${s.body}</p>
+          </div>
+          <div class="scene-media">
+            <img src="${s.img}" referrerpolicy="no-referrer">
+          </div>
+        </div>
+      `;
+      return '';
+    }
+
+    function goto(index) {
+      if (index < 0 || index >= SLIDES.length) return;
+      current = index;
+      deck.style.transform = `translateY(-${current * 100}vh)`;
+      
+      document.querySelectorAll('.slide').forEach((el, i) => {
+        el.classList.toggle('active', i === current);
+      });
+      document.querySelectorAll('.nav-dot').forEach((el, i) => {
+        el.classList.toggle('active', i === current);
+      });
+      
+      document.getElementById('progress').style.width = `${((current + 1) / SLIDES.length) * 100}%`;
+    }
+
+    // 交互
+    window.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) < 30) return;
+      if (e.deltaY > 0) goto(current + 1);
+      else goto(current - 1);
+    }, { passive: false });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === ' ') goto(current + 1);
+      if (e.key === 'ArrowUp') goto(current - 1);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    render();
+    setTimeout(() => goto(0), 100);
+  </script>
+</body>
+</html>
