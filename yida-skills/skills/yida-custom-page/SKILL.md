@@ -249,6 +249,32 @@ this.forceUpdate();
      return <button onClick={this.handleSubmit}>提交</button>;
    }
 
+3. **页面跳转必须使用 `this.utils.router.push`**：宜搭自定义页面内跳转必须使用 `router.push` API，且跳转函数必须用 `export function` 定义：
+
+   ```javascript
+   // ✅ 正确：使用 export function 定义跳转函数
+   export function openFormPage() {
+     // 同应用内跳转，直接传 formUuid
+     this.utils.router.push('FORM-XXX', {}, false);
+   }
+
+   export function renderJsx() {
+     return (
+       <div onClick={(e) => { this.openFormPage(); }}>
+         点击跳转
+       </div>
+     );
+   }
+
+   // ❌ 错误：直接绑定 this.openFormPage，this 会丢失
+   <div onClick={this.openFormPage}>
+
+   // ❌ 错误：使用普通函数定义，无法访问 this
+   function openFormPage() {
+     this.utils.router.push(...);  // this is undefined
+   }
+   ```
+
    // ❌ 错误②：使用 .bind(this) 绑定，虽然能运行但不符合规范，禁止使用！
    export function renderJsx() {
      return <button onClick={function() { this.handleSubmit(); }.bind(this)}>提交</button>;
