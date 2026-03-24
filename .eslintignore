@@ -7,3 +7,6 @@ lib/cdn/cdn-upload.js
 
 # connector 子模块（动态 require 路径，实际运行时存在）
 lib/connector/
+
+# 宜搭自定义页面示例（使用 export function 语法，需宜搭 Babel 编译）
+project/pages/src/
