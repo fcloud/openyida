@@ -39,6 +39,11 @@ jobs:
         find lib -name "*.js" | while read f; do node --check "$f"; done
         echo "All JS files passed syntax check"
 
+    - name: Build TypeScript
+      run: npm run build
+      # Continue if build fails (currently optional, no TS source yet)
+      continue-on-error: true
+
   test:
     name: Test (Node ${{ matrix.node-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}

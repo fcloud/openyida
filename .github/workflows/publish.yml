@@ -52,6 +52,11 @@ jobs:
     - name: Install dependencies
       run: npm install --ignore-scripts
 
+    - name: Build TypeScript
+      run: npm run build
+      # Continue if build fails (currently optional, no TS source yet)
+      continue-on-error: true
+
     - name: Determine npm tag
       id: npm-tag
       run: |
