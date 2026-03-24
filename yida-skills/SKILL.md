@@ -122,6 +122,21 @@ openyida copy
 
 > ⚠️ **公开访问配置不在主流程中**：若用户明确要求配置公开访问或组织内分享，再执行 `openyida verify-short-url` / `save-share-config`，详见 `skills/yida-page-config/SKILL.md`。
 
+### ⚠️ 重要：使用模板文件确保一次性成功
+
+为避免生成错误代码，**必须**使用各技能的模板文件：
+
+| 技能 | 模板文件 | 用途 |
+|------|---------|------|
+| yida-custom-page | [templates/custom-page-template.js](skills/yida-custom-page/templates/custom-page-template.js) | 自定义页面完整模板 |
+| yida-data-management | [templates/form-field-template.js](skills/yida-data-management/templates/form-field-template.js) | 表单字段定义和数据插入 |
+| yida-create-app | [templates/ipd-app-template.js](skills/yida-create-app/templates/ipd-app-template.js) | 完整应用创建示例 |
+
+**⚠️ 代码生成前必须**：
+1. 读取对应的模板文件
+2. 以模板为基础进行扩展
+3. 验证所有参数名称与 CLI 一致
+
 ---
 
 ## 子技能速查

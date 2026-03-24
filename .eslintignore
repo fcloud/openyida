@@ -2,6 +2,10 @@
 lib/core/babel-transform/
 assets/babel-transform/
 
+# Skill 模板文件（宜搭自定义页面代码，使用 ES modules）
+yida-skills/*/templates/
+yida-skills/*/*/templates/
+
 # 可选依赖（@alicloud/*、ali-oss 等按需安装，不在 devDependencies 中）
 lib/cdn/cdn-refresh.js
 lib/cdn/cdn-upload.js

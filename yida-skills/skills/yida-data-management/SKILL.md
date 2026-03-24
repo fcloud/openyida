@@ -29,6 +29,14 @@ metadata:
 - 流程实例
 - 任务中心
 
+## 📁 模板文件
+
+| 模板文件 | 用途 |
+|---------|------|
+| [templates/form-field-template.js](templates/form-field-template.js) | 表单字段定义模板，包含字段 ID 映射和数据插入示例 |
+
+**重要**：插入数据前，先运行 `openyida get-schema <appType> <formUuid>` 获取字段 ID。
+
 支持操作：
 - 查询
 - 新增

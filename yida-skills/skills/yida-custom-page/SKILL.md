@@ -74,7 +74,25 @@ metadata:
 - `export function didUnmount () {}` — 组件卸载时执行，用于清理定时器、解绑事件，防止内存泄漏
 - `export function renderJsx () {}` — 页面渲染入口（等同于 `render`），返回 JSX。⚠️ **每个 `return` 分支都必须包含 `<div style={{ display: 'none' }}>{this.state.timestamp}</div>`**，否则 `forceUpdate` 调用 `this.setState({ timestamp })` 后 React 无法检测到输出变化，页面将无法更新。
 
-> 🚨 **强制要求：所有生成的代码必须以下面的示例为基础进行扩展，禁止从零自行构造页面骨架。**
+> 🚨 **强制要求：所有生成的代码必须以模板文件为基础进行扩展，禁止从零自行构造页面骨架。**
+
+## 📁 模板文件
+
+**重要**：使用以下模板文件作为代码生成的基础，确保一次性生成正确的代码：
+
+| 模板文件 | 用途 |
+|---------|------|
+| [templates/custom-page-template.js](templates/custom-page-template.js) | 完整的自定义页面模板，包含所有必要函数 |
+| [jsx-compile-checklist.md](jsx-compile-checklist.md) | JSX 编译检查清单 |
+| [yida-assets-guide.md](yida-assets-guide.md) | 图片、音效等素材资源指南 |
+
+**使用方式**：
+1. 复制 `templates/custom-page-template.js` 作为基础
+2. 修改 `_customState` 初始状态
+3. 在 `renderJsx` 中编写页面 JSX
+4. 添加业务方法（必须用 `export function`）
+5. 运行 `openyida compile` 验证语法
+
 **完整示例：**
 ```javascript
 
