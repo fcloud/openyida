@@ -772,4 +772,25 @@ openyida - 宜搭命令行工具
     refresh_error: '❌ 刷新失败: {0}',
     file_not_found: '❌ 文件不存在: {0}',
   },
+
+  // ── lib/integration/integration-create.js ───────────
+  integration: {
+    create_title: '集成&自动化创建',
+    create_usage: '用法: openyida integration create <appType> <formUuid> <flowName> [选项]',
+    create_missing_args: '缺少必要参数',
+    create_args_title: '参数说明:',
+    create_arg_app_type: '  appType    应用 ID',
+    create_arg_form_uuid: '  formUuid   表单 UUID',
+    create_arg_flow_name: '  flowName   流程名称',
+    create_options_title: '选项:',
+    create_opt_process_code: '  --process-code <code>    流程编码',
+    create_opt_receivers: '  --receivers <users>      接收人列表',
+    create_opt_title: '  --title <title>          消息标题',
+    create_opt_content: '  --content <content>      消息内容',
+    create_opt_events: '  --events <events>        触发事件',
+    create_opt_data_form_uuid: '  --data-form-uuid <uuid>  数据表单 UUID',
+    create_opt_data_condition: '  --data-condition <cond>  数据条件',
+    create_opt_add_data_form_uuid: '  --add-data-form-uuid <uuid>  新增数据表单 UUID',
+    create_opt_add_data_assignment: '  --add-data-assignment <assign>  新增数据赋值',
+  },
 };

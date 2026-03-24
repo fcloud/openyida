@@ -4,9 +4,9 @@
 
 | 配置项 | 值 |
 | --- | --- |
-| appType | APP_VYEAFZJ3KY5PIWNIWC1I |
-| corpId | ding8196cd9a2b2405da24f2f5cc6abecb85 |
-| baseUrl | https://ding.aliwork.com |
+| appType | APP_Z41XMQCLAWX6VMT0WW1U |
+| corpId | ding9a0954b4f9d9d40ef5bf40eda33b7ba0 |
+| baseUrl | https://www.aliwork.com |
 
 ### 表单配置
 
