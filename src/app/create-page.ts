@@ -1,7 +1,7 @@
 /**
  * create-page.ts - 宜搭自定义页面创建命令
  *
- * 用法：yidacli create-page <appType> "<pageName>" [--datasource <jsonOrFile>]
+ * 用法：openyida create-page <appType> "<pageName>" [--datasource <jsonOrFile>]
  *
  * --datasource 参数（可选）：JSON 字符串或文件路径，用于在页面创建后注入连接器数据源。
  * 数据源定义格式：
@@ -18,6 +18,7 @@ import {
 } from '../core/utils';
 import { t } from '../core/i18n';
 import { buildDataSourceList, parseDatasourceArg, extractDatasourceArg } from './datasource-utils';
+import type { CookieData, AuthRef, YidaApiResponse } from '../types';
 
 export async function run(args: string[]): Promise<void> {
   // 从参数中提取 --datasource 选项，解构返回值并更新 mutableArgs
@@ -34,23 +35,23 @@ export async function run(args: string[]): Promise<void> {
   const appType = mutableArgs[0];
   const pageName = mutableArgs[1];
 
-  const SEP = '='.repeat(50);
-  console.error(SEP);
+  const SEPARATOR = '='.repeat(50);
+  console.error(SEPARATOR);
   console.error(t('create_page.title'));
-  console.error(SEP);
+  console.error(SEPARATOR);
   console.error(t('create_page.app_id', appType));
   console.error(t('create_page.page_name', pageName));
 
   // Step 1: 读取登录态
   console.error(t('common.step_login', '1'));
-  let cookieData: any = loadCookieData();
+  let cookieData: CookieData | null = loadCookieData();
   if (!cookieData) {
     console.error(t('common.login_no_cache'));
     cookieData = triggerLogin();
   }
 
-  const authRef = {
-    csrfToken: cookieData.csrf_token,
+  const authRef: AuthRef = {
+    csrfToken: cookieData.csrf_token ?? '',
     cookies: cookieData.cookies,
     baseUrl: resolveBaseUrl(cookieData),
     cookieData,
@@ -61,7 +62,7 @@ export async function run(args: string[]): Promise<void> {
   console.error(t('create_page.step_create'));
   console.error(t('create_page.sending'));
 
-  const response: any = await requestWithAutoLogin((auth) => {
+  const response: YidaApiResponse = await requestWithAutoLogin((auth) => {
     const postData = querystring.stringify({
       _csrf_token: auth.csrfToken,
       formType: 'display',
@@ -84,8 +85,8 @@ export async function run(args: string[]): Promise<void> {
   }
 
   const rawContent = response.content;
-  const pageId = (typeof rawContent === 'object' && rawContent !== null)
-    ? rawContent.formUuid || rawContent.pageId
+  const pageId: string | undefined = (typeof rawContent === 'object' && rawContent !== null)
+    ? ((rawContent as Record<string, unknown>).formUuid as string) || ((rawContent as Record<string, unknown>).pageId as string)
     : String(rawContent);
 
   if (!pageId) {
@@ -108,7 +109,7 @@ export async function run(args: string[]): Promise<void> {
       dataSourceList: dataSourceList,
     };
 
-    const saveSchemaResponse: any = await requestWithAutoLogin((auth) => {
+    const saveSchemaResponse: YidaApiResponse = await requestWithAutoLogin((auth) => {
       const postData = querystring.stringify({
         _csrf_token: auth.csrfToken,
         formUuid: pageId,
@@ -134,12 +135,11 @@ export async function run(args: string[]): Promise<void> {
   }
 
   // 输出结果
-  const SEP2 = '='.repeat(50);
-  console.error('\n' + SEP2);
+  console.error('\n' + SEPARATOR);
   console.error(t('create_page.success'));
   console.error(t('create_page.page_id_label', pageId));
   console.error(t('create_page.url_label', pageUrl));
-  console.error(SEP2);
+  console.error(SEPARATOR);
 
   console.log(JSON.stringify({ success: true, pageId, pageName, appType, url: pageUrl }));
 }
