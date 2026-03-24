@@ -70,8 +70,8 @@ openyida data <action> <resource> [args] [options]
 ```bash
 openyida data query form <appType> <formUuid> [options]
 openyida data get form <appType> --inst-id <formInstId>
-openyida data create form <appType> <formUuid> --data-json '<json>'
-openyida data update form <appType> --inst-id <formInstId> --data-json '<json>'
+openyida data create form <appType> <formUuid> --data '<json>'
+openyida data update form <appType> --inst-id <formInstId> --data '<json>'
 openyida data query subform <appType> <formUuid> --inst-id <formInstId> --table-field-id <fieldId>
 ```
 
@@ -80,8 +80,8 @@ openyida data query subform <appType> <formUuid> --inst-id <formInstId> --table-
 ```bash
 openyida data query process <appType> <formUuid> [options]
 openyida data get process <appType> --process-inst-id <processInstanceId>
-openyida data create process <appType> <formUuid> --process-code <processCode> --data-json '<json>'
-openyida data update process <appType> --process-inst-id <processInstanceId> --data-json '<json>'
+openyida data create process <appType> <formUuid> --process-code <processCode> --data '<json>'
+openyida data update process <appType> --process-inst-id <processInstanceId> --data '<json>'
 openyida data query operation-records <appType> --process-inst-id <processInstanceId>
 openyida data execute task <appType> --task-id <taskId> --process-inst-id <processInstanceId> --out-result AGREE --remark '同意'
 ```
@@ -103,13 +103,13 @@ openyida data query tasks <appType> --type cc --page 1 --size 20
 | --- | --- |
 | `query form` | `appType`, `formUuid` |
 | `get form` | `appType`, `instId` |
-| `create form` | `appType`, `formUuid`, `dataJson` |
-| `update form` | `appType`, `instId`, `dataJson` |
+| `create form` | `appType`, `formUuid`, `data` |
+| `update form` | `appType`, `instId`, `data` |
 | `query subform` | `appType`, `formUuid`, `instId`, `tableFieldId` |
 | `query process` | `appType`, `formUuid` |
 | `get process` | `appType`, `processInstanceId` |
-| `create process` | `appType`, `formUuid`, `processCode`, `dataJson` |
-| `update process` | `appType`, `processInstanceId`, `dataJson` |
+| `create process` | `appType`, `formUuid`, `processCode`, `data` |
+| `update process` | `appType`, `processInstanceId`, `data` |
 | `query operation-records` | `appType`, `processInstanceId` |
 | `execute task` | `appType`, `taskId`, `processInstanceId`, `outResult`, `remark` |
 | `query tasks` | `appType`, `type` |
@@ -241,10 +241,10 @@ openyida data query form "APP_XXX" "FORM_XXX" --page 1 --size 20
 openyida data query process "APP_XXX" "FORM_XXX" --instance-status RUNNING
 
 # 新增表单实例
-openyida data create form "APP_XXX" "FORM_XXX" --data-json '{"textField_xxx":"测试"}'
+openyida data create form "APP_XXX" "FORM_XXX" --data '{"textField_xxx":"测试"}'
 
 # 发起流程
-openyida data create process "APP_XXX" "FORM_XXX" --process-code "TPROC--XXX" --data-json '{"textField_xxx":"123"}'
+openyida data create process "APP_XXX" "FORM_XXX" --process-code "TPROC--XXX" --data '{"textField_xxx":"123"}'
 
 # 查询任务
 openyida data query tasks "APP_XXX" --type todo --page 1 --size 10

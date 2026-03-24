@@ -44,10 +44,10 @@
 - `query form --ids-only`
 - `query process --search-json`
 - `query process --ids-only`
-- `create process --process-code --data-json --dept-id`
-- `update process --data-json`
+- `create process --process-code --data --dept-id`
+- `update process --data`
 - `execute task --out-result --remark`
-- `execute task --data-json`
+- `execute task --data`
 - `execute task --no-execute-expressions`
 
 ## 说明
