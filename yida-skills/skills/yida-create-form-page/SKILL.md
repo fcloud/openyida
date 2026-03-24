@@ -1,6 +1,6 @@
 ---
 name: yida-create-form-page
-description: 宜搭表单页面创建与更新技能，支持创建新表单（saveFormSchemaInfo + saveFormSchema + updateFormConfig）和更新已有表单（getFormSchema + saveFormSchema + updateFormConfig），支持 19 种字段类型（含 SerialNumberField 流水号）和字段增删改操作。
+description: 宜搭表单页面创建与更新技能，支持创建新表单（saveFormSchemaInfo + saveFormSchema + updateFormConfig）和更新已有表单（getFormSchema + saveFormSchema + updateFormConfig），支持 33 种字段类型（含 SerialNumberField 流水号、CC_ 扩展字段）和字段增删改操作。
 license: MIT
 compatibility:
   - opencode
@@ -511,27 +511,95 @@ yida-create-form-page/
 
 ## 支持的字段类型
 
+> 来源：FORM-C87D231B5F7B4D84A5750F9965F911E7BLF2 表单中实际存在的组件
+
+### 基础字段
+
 | 字段类型 | componentName | 说明 | 特殊属性 |
 | --- | --- | --- | --- |
 | `TextField` | TextField | 单行文本，用于姓名、标题、编号等 | — |
 | `TextareaField` | TextareaField | 多行文本，用于描述、备注等 | — |
+| `NumberField` | NumberField | 数字，用于金额、数量、年龄等 | — |
+| `RateField` | RateField | 评分，用于满意度评价等星级打分 | — |
+| `DateField` | DateField | 日期，用于生日、截止日期等 | — |
+
+### 选项类字段
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
 | `RadioField` | RadioField | 单选，用于性别、状态等互斥选项 | `options` |
 | `SelectField` | SelectField | 下拉单选，适合选项较多（>5）的场景 | `options` |
 | `CheckboxField` | CheckboxField | 多选，用于兴趣爱好、技能标签等 | `options` |
 | `MultiSelectField` | MultiSelectField | 下拉多选，适合选项较多（>5）的场景 | `options` |
-| `NumberField` | NumberField | 数字，用于金额、数量、年龄等 | — |
-| `RateField` | RateField | 评分，用于满意度评价等星级打分 | — |
-| `DateField` | DateField | 日期，用于生日、截止日期等 | — |
+| `CascadeSelectField` | CascadeSelectField | 级联选择，用于省市区等层级选择 | `options` |
+
+### 高级字段
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
 | `CascadeDateField` | CascadeDateField | 级联日期，用于日期范围选择 | — |
+| `EditorField` | EditorField | 富文本编辑器 | — |
+| `DigitalSignatureField` | DigitalSignatureField | 数字签名 | — |
+| `LocationField` | LocationField | 位置字段，用于定位打卡等 | — |
+| `TimeZoneDateField` | TimeZoneDateField | 时区日期 | — |
+
+### 人员组织字段
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
 | `EmployeeField` | EmployeeField | 成员，选择组织内成员 | `multiple` |
 | `DepartmentSelectField` | DepartmentSelectField | 部门，选择组织内部门 | `multiple` |
-| `CountrySelectField` | CountrySelectField | 国家，选择国家/地区 | `multiple` |
-| `AddressField` | AddressField | 地址，用于收货地址等 | — |
+
+### 关联字段
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
+| `AssociationFormField` | AssociationFormField | 关联表单 | `associationForm` |
+| `AssociationQuery` | AssociationQuery | 关联查询 | — |
+
+### 附件字段
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
 | `AttachmentField` | AttachmentField | 附件上传 | — |
 | `ImageField` | ImageField | 图片上传 | — |
+
+### 地址字段
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
+| `AddressField` | AddressField | 地址，用于收货地址等 | — |
+| `CountrySelectField` | CountrySelectField | 国家，选择国家/地区 | `multiple` |
+
+### 表格字段
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
 | `TableField` | TableField | 表格（子表），用于结构化数据 | `children` |
-| `AssociationFormField` | AssociationFormField | 关联表单 | `associationForm` |
+
+### 流水号字段
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
 | `SerialNumberField` | SerialNumberField | 流水号，自动生成唯一编号 | `serialNumberRule` |
+
+### 扩展字段（CC_ 前缀）
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
+| `CC_MoneyField` | CC_MoneyField | 金额字段 | — |
+| `CC_PhoneNumberField` | CC_PhoneNumberField | 电话号码 | — |
+| `CC_ChineseIdField` | CC_ChineseIdField | 身份证 | — |
+| `CC_AIButtonField` | CC_AIButtonField | AI 按钮字段 | — |
+| `CC_PG_ESignField` | CC_PG_ESignField | 电子签名 | — |
+| `CC_TeambitionProjectLinksField` | CC_TeambitionProjectLinksField | Teambition 项目关联 | — |
+| `CC_TeambitionTaskLinksField` | CC_TeambitionTaskLinksField | Teambition 任务关联 | — |
+
+### 钉钉相关
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
+| `YidaDingtalkAgentField` | YidaDingtalkAgentField | 钉钉代理人 | — |
 
 ## 与其他技能配合
 
