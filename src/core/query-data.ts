@@ -1,264 +1,380 @@
 /**
  * query-data.ts - 宜搭统一数据管理命令
- * 支持表单数据、流程实例、任务、子表单等资源的增删改查。
  *
- * USAGE:
- *   openyida data query form <appType> <formUuid> [--page N] [--size N] [--search-json JSON]
- *   openyida data get form <appType> <formUuid> --inst-id <instId>
- *   openyida data create form <appType> <formUuid> --data <JSON>
- *   openyida data update form <appType> <formUuid> --inst-id <instId> --data <JSON>
- *   openyida data query subform <appType> <formUuid> --inst-id <instId>
- *   openyida data query process <appType> <formUuid> [--page N] [--size N]
- *   openyida data get process <appType> <processInstanceId>
- *   openyida data create process <appType> <formUuid> --data <JSON>
- *   openyida data update process <appType> <processInstanceId> --data <JSON>
- *   openyida data query operation-records <appType> <processInstanceId>
- *   openyida data execute task <appType> <taskId> --data <JSON>
- *   openyida data query tasks <appType> [--page N] [--size N]
+ * 用法：
+ *   openyida data <action> <resource> [参数]
+ *
+ * 支持的操作：
+ *   query form / get form / create form / update form / query subform
+ *   query process / get process / create process / update process
+ *   query operation-records / execute task / query tasks
  */
 
-'use strict';
-
+import * as querystring from 'querystring';
 import {
   loadCookieData,
+  triggerLogin,
   resolveBaseUrl,
   httpGet,
   httpPost,
   requestWithAutoLogin,
 } from './utils';
-import type { AuthRef, YidaApiResponse } from '../types';
 
-/**
- * 将 snake_case 字符串转为 camelCase。
- */
-function snakeToCamel(str: string): string {
-  return str.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase());
+const USAGE = `openyida data - Unified Yida data CLI
+
+Usage:
+  openyida data query form <appType> <formUuid> [--page N] [--size N] [--search-json JSON] [--inst-id ID]
+  openyida data get form <appType> --inst-id <formInstId>
+  openyida data create form <appType> <formUuid> --data <JSON> [--dept-id ID]
+  openyida data update form <appType> --inst-id <formInstId> --data <JSON> [--use-latest-version y]
+  openyida data query subform <appType> <formUuid> --inst-id <formInstId> --table-field-id <fieldId> [--page N] [--size N]
+  openyida data query process <appType> <formUuid> [--page N] [--size N] [--search-json JSON] [--task-id ID] [--instance-status STATUS] [--approved-result RESULT]
+  openyida data get process <appType> --process-inst-id <processInstanceId>
+  openyida data create process <appType> <formUuid> --process-code <processCode> --data <JSON> [--dept-id ID]
+  openyida data update process <appType> --process-inst-id <processInstanceId> --data <JSON>
+  openyida data query operation-records <appType> --process-inst-id <processInstanceId>
+  openyida data execute task <appType> --task-id <taskId> --process-inst-id <processInstanceId> --out-result <AGREE|DISAGREE> --remark <text> [--data JSON] [--no-execute-expressions y]
+  openyida data query tasks <appType> --type <todo|done|submitted|cc> [--page N] [--size N] [--keyword TEXT] [--process-codes JSON] [--instance-status STATUS]
+`;
+
+interface Session {
+  cookieData: any;
+  cookies: any[];
+  csrfToken: string;
+  baseUrl: string;
 }
 
-/**
- * 解析 CLI 参数数组，返回位置参数和命名选项。
- * - 位置参数：不以 -- 开头的参数
- * - 命名选项：--key value 或 --flag（布尔值）
- * - kebab-case 选项名自动转为 snake_case
- */
-function parseCliOptions(args: string[]): { positionals: string[]; options: Record<string, string | boolean> } {
+interface CliOptions {
+  positionals: string[];
+  options: Record<string, string | boolean>;
+}
+
+function fail(message: string): never {
+  console.error(message);
+  console.error(USAGE);
+  process.exit(1);
+}
+
+function parseError(message: string): never {
+  console.error(`参数校验失败：${message}`);
+  console.error(USAGE);
+  process.exit(1);
+}
+
+function ensureSession(): Session {
+  let cookieData = loadCookieData();
+  if (!cookieData || !cookieData.cookies || cookieData.cookies.length === 0 || !cookieData.csrf_token) {
+    cookieData = triggerLogin();
+  }
+
+  if (!cookieData || !cookieData.cookies || !cookieData.csrf_token) {
+    fail('无法获取有效登录态或 CSRF Token');
+  }
+
+  return {
+    cookieData,
+    cookies: cookieData.cookies,
+    csrfToken: cookieData.csrf_token,
+    baseUrl: resolveBaseUrl(cookieData),
+  };
+}
+
+function parseCliOptions(tokens: string[]): CliOptions {
   const positionals: string[] = [];
   const options: Record<string, string | boolean> = {};
 
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-    if (arg.startsWith('--')) {
-      const key = arg.slice(2).replace(/-/g, '_');
-      const nextArg = args[i + 1];
-      if (nextArg !== undefined && !nextArg.startsWith('--')) {
-        options[key] = nextArg;
-        i++;
+  for (let i = 0; i < tokens.length; i += 1) {
+    const token = tokens[i];
+    if (token.startsWith('--')) {
+      const key = token.slice(2).replace(/-/g, '_');
+      const next = tokens[i + 1];
+      if (next && !next.startsWith('--')) {
+        options[key] = next;
+        i += 1;
       } else {
         options[key] = true;
       }
     } else {
-      positionals.push(arg);
+      positionals.push(token);
     }
   }
 
   return { positionals, options };
 }
 
-/**
- * 规范化 page/size 参数，确保在合法范围内。
- */
-function clampPageSize(options: Record<string, string | boolean | number>, defaultSize?: number): void {
-  const resolvedDefaultSize = defaultSize !== undefined ? defaultSize : 20;
+function clampPageSize(options: Record<string, string | boolean | number>, defaultSize = 20): void {
+  let size = Number.parseInt(String(options.size || defaultSize), 10);
+  let page = Number.parseInt(String(options.page || '1'), 10);
 
-  let page = parseInt(String(options.page), 10);
-  if (isNaN(page) || page < 1) {
-    page = 1;
-  }
-  options.page = page;
+  if (!Number.isFinite(size) || size <= 0) { size = defaultSize; }
+  if (size > 100) { size = 100; }
+  if (!Number.isFinite(page) || page <= 0) { page = 1; }
 
-  let size = parseInt(String(options.size), 10);
-  if (isNaN(size) || size < 1) {
-    size = resolvedDefaultSize;
-  }
-  if (size > 100) {
-    size = 100;
-  }
   options.size = size;
+  options.page = page;
 }
 
-export async function run(args: string[]): Promise<void> {
-  const { positionals, options } = parseCliOptions(args);
-  const action = positionals[0];
-  const resource = positionals[1];
-  const appType = positionals[2];
-  const formUuid = positionals[3];
-
-  const SEP = '='.repeat(50);
-
-  if (!action || !resource || !appType) {
-    console.error('用法：openyida data <action> <resource> <appType> [formUuid] [options]');
-    console.error('示例：');
-    console.error('  openyida data query form <appType> <formUuid>');
-    console.error('  openyida data create form <appType> <formUuid> --data <JSON>');
-    console.error('  openyida data execute task <appType> <taskId> --data <JSON>');
-    process.exit(1);
+function requirePositionals(positionals: string[], count: number, names: string[]): void {
+  if (positionals.length < count) {
+    parseError(`缺少必填参数 ${names.join(' ')}`);
   }
+}
 
-  console.error(SEP);
-  console.error(`  data ${action} ${resource}`);
-  console.error(SEP);
-
-  const cookieData = loadCookieData();
-  if (!cookieData || !cookieData.cookies) {
-    console.error('  ❌ 未登录，请先执行 openyida login');
-    process.exit(1);
+function requireOption(options: Record<string, string | boolean>, key: string, flagName?: string): void {
+  if (!options[key]) {
+    parseError(`缺少必填参数 ${flagName || `--${key.replace(/_/g, '-')}`}`);
   }
+}
 
-  const authRef: AuthRef = {
-    cookieData,
-    cookies: cookieData.cookies,
-    csrfToken: cookieData.csrf_token || '',
-    baseUrl: resolveBaseUrl(cookieData),
+function snakeToCamel(str: string): string {
+  const parts = str.split('_');
+  return parts[0] + parts.slice(1).map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+}
+
+function buildRequestParams(session: Session, params: Record<string, any>): Record<string, any> {
+  return {
+    _api: 'nattyFetch',
+    _mock: 'false',
+    _csrf_token: session.csrfToken,
+    _stamp: `${Date.now()}`,
+    ...params,
   };
+}
 
-  let result: YidaApiResponse;
+async function sendGet(session: Session, appType: string, requestPath: string, params: Record<string, any>): Promise<any> {
+  return requestWithAutoLogin(
+    (auth) => httpGet(auth.baseUrl, requestPath, buildRequestParams(auth, params), auth.cookies),
+    session,
+  );
+}
 
-  if (action === 'query' && resource === 'form') {
-    clampPageSize(options);
-    const queryParams: Record<string, string> = {
-      _csrf_token: authRef.csrfToken,
-      _stamp: String(Date.now()),
+async function sendPost(session: Session, appType: string, requestPath: string, params: Record<string, any>): Promise<any> {
+  return requestWithAutoLogin(
+    (auth) => httpPost(auth.baseUrl, requestPath, querystring.stringify(buildRequestParams(auth, params)), auth.cookies),
+    session,
+  );
+}
+
+function printResult(result: any): void {
+  const errorCode = result && result.errorCode;
+  const hasErrorCode = errorCode !== undefined && errorCode !== null && errorCode !== '' && errorCode !== 0 && errorCode !== '0';
+
+  if (result && result.success && !hasErrorCode) {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  console.error(JSON.stringify(result || { success: false, errorMsg: '未知错误' }, null, 2));
+  process.exit(1);
+}
+
+async function queryForm(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 2, ['appType', 'formUuid']);
+  const [appType, formUuid] = positionals;
+  clampPageSize(options);
+
+  let result;
+  if (options.inst_id) {
+    result = await sendGet(session, appType, `/dingtalk/web/${appType}/v1/form/getFormDataById.json`, {
+      formInstId: options.inst_id,
+    });
+  } else {
+    const params: Record<string, any> = {
       formUuid,
       appType,
       currentPage: String(options.page),
       pageSize: String(options.size),
     };
-    if (options.search_json) {
-      queryParams.searchFieldJson = String(options.search_json);
+    if (options.search_json) { params.searchFieldJson = options.search_json; }
+    for (const key of ['originator_id', 'create_from', 'create_to', 'modified_from', 'modified_to', 'dynamic_order']) {
+      if (options[key]) { params[snakeToCamel(key)] = options[key]; }
     }
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpGet(auth.baseUrl, `/dingtalk/web/${appType}/v1/form/searchFormDatas.json`, queryParams, auth.cookies),
-      authRef
-    );
-  } else if (action === 'get' && resource === 'form') {
-    const queryParams: Record<string, string> = {
-      _csrf_token: authRef.csrfToken,
-      _stamp: String(Date.now()),
-      formInstId: String(options.inst_id),
-    };
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpGet(auth.baseUrl, `/dingtalk/web/${appType}/v1/form/getFormDataById.json`, queryParams, auth.cookies),
-      authRef
-    );
-  } else if (action === 'create' && resource === 'form') {
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpPost(auth.baseUrl, `/dingtalk/web/${appType}/v1/form/saveFormData.json`,
-        `_csrf_token=${encodeURIComponent(auth.csrfToken)}&formUuid=${encodeURIComponent(formUuid)}&appType=${encodeURIComponent(appType)}&formDataJson=${encodeURIComponent(String(options.data || '{}'))}`,
-        auth.cookies),
-      authRef
-    );
-  } else if (action === 'update' && resource === 'form') {
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpPost(auth.baseUrl, `/dingtalk/web/${appType}/v1/form/updateFormData.json`,
-        `_csrf_token=${encodeURIComponent(auth.csrfToken)}&formInstId=${encodeURIComponent(String(options.inst_id))}&appType=${encodeURIComponent(appType)}&updateFormDataJson=${encodeURIComponent(String(options.data || '{}'))}`,
-        auth.cookies),
-      authRef
-    );
-  } else if (action === 'query' && resource === 'subform') {
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpGet(auth.baseUrl, `/dingtalk/web/${appType}/v1/form/getSubFormDatas.json`, {
-        _csrf_token: auth.csrfToken,
-        _stamp: String(Date.now()),
-        formInstId: String(options.inst_id),
-        appType,
-      }, auth.cookies),
-      authRef
-    );
-  } else if (action === 'query' && resource === 'process') {
-    clampPageSize(options);
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpGet(auth.baseUrl, `/dingtalk/web/${appType}/v1/process/getInstances.json`, {
-        _csrf_token: auth.csrfToken,
-        _stamp: String(Date.now()),
-        formUuid,
-        appType,
-        currentPage: String(options.page),
-        pageSize: String(options.size),
-      }, auth.cookies),
-      authRef
-    );
-  } else if (action === 'get' && resource === 'process') {
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpGet(auth.baseUrl, `/dingtalk/web/${appType}/v1/process/getInstanceById.json`, {
-        _csrf_token: auth.csrfToken,
-        _stamp: String(Date.now()),
-        processInstanceId: formUuid,
-        appType,
-      }, auth.cookies),
-      authRef
-    );
-  } else if (action === 'create' && resource === 'process') {
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpPost(auth.baseUrl, `/dingtalk/web/${appType}/v1/process/startInstance.json`,
-        `_csrf_token=${encodeURIComponent(auth.csrfToken)}&formUuid=${encodeURIComponent(formUuid)}&appType=${encodeURIComponent(appType)}&formDataJson=${encodeURIComponent(String(options.data || '{}'))}`,
-        auth.cookies),
-      authRef
-    );
-  } else if (action === 'update' && resource === 'process') {
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpPost(auth.baseUrl, `/dingtalk/web/${appType}/v1/process/updateInstance.json`,
-        `_csrf_token=${encodeURIComponent(auth.csrfToken)}&processInstanceId=${encodeURIComponent(formUuid)}&appType=${encodeURIComponent(appType)}&updateFormDataJson=${encodeURIComponent(String(options.data || '{}'))}`,
-        auth.cookies),
-      authRef
-    );
-  } else if (action === 'query' && resource === 'operation-records') {
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpGet(auth.baseUrl, `/dingtalk/web/${appType}/v1/process/getOperationRecords.json`, {
-        _csrf_token: auth.csrfToken,
-        _stamp: String(Date.now()),
-        processInstanceId: formUuid,
-        appType,
-      }, auth.cookies),
-      authRef
-    );
-  } else if (action === 'execute' && resource === 'task') {
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpPost(auth.baseUrl, `/dingtalk/web/${appType}/v1/task/executeTask.json`,
-        `_csrf_token=${encodeURIComponent(auth.csrfToken)}&taskId=${encodeURIComponent(formUuid)}&appType=${encodeURIComponent(appType)}&formDataJson=${encodeURIComponent(String(options.data || '{}'))}`,
-        auth.cookies),
-      authRef
-    );
-  } else if (action === 'query' && resource === 'tasks') {
-    clampPageSize(options);
-    result = await requestWithAutoLogin(
-      (auth: AuthRef) => httpGet(auth.baseUrl, `/dingtalk/web/${appType}/v1/task/getTasks.json`, {
-        _csrf_token: auth.csrfToken,
-        _stamp: String(Date.now()),
-        appType,
-        currentPage: String(options.page),
-        pageSize: String(options.size),
-      }, auth.cookies),
-      authRef
-    );
-  } else {
-    console.error(`  ❌ 不支持的操作：${action} ${resource}`);
-    console.error('  支持的操作：query/get/create/update form, query subform, query/get/create/update process, query operation-records, execute task, query tasks');
-    process.exit(1);
+    const requestPath = options.ids_only
+      ? `/dingtalk/web/${appType}/v1/form/searchFormDataIds.json`
+      : `/dingtalk/web/${appType}/v1/form/searchFormDatas.json`;
+    result = await sendGet(session, appType, requestPath, params);
   }
 
-  console.error('\n' + SEP);
-  if (result && result.success) {
-    console.error('  ✅ 操作成功！');
-    console.error(SEP);
-    console.log(JSON.stringify(result, null, 2));
-  } else {
-    const errorMsg = result?.errorMsg ?? '未知错误';
-    const errorCode = result?.errorCode ?? '';
-    console.error(`  ❌ 操作失败：${errorMsg}`);
-    if (errorCode) {
-      console.error(`  错误码：${errorCode}`);
-    }
-    console.error(SEP);
-    process.exit(1);
+  printResult(result);
+}
+
+async function getForm(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 1, ['appType']);
+  requireOption(options, 'inst_id');
+  const [appType] = positionals;
+  printResult(await sendGet(session, appType, `/dingtalk/web/${appType}/v1/form/getFormDataById.json`, {
+    formInstId: options.inst_id,
+  }));
+}
+
+async function createForm(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 2, ['appType', 'formUuid']);
+  requireOption(options, 'data');
+  const [appType, formUuid] = positionals;
+  const params: Record<string, any> = {
+    appType,
+    formUuid,
+    formDataJson: options.data,
+  };
+  if (options.dept_id) { params.deptId = options.dept_id; }
+  printResult(await sendPost(session, appType, `/dingtalk/web/${appType}/v1/form/saveFormData.json`, params));
+}
+
+async function updateForm(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 1, ['appType']);
+  requireOption(options, 'inst_id');
+  requireOption(options, 'data');
+  const [appType] = positionals;
+  const params: Record<string, any> = {
+    formInstId: options.inst_id,
+    updateFormDataJson: options.data,
+  };
+  if (options.use_latest_version) { params.useLatestVersion = options.use_latest_version; }
+  printResult(await sendPost(session, appType, `/dingtalk/web/${appType}/v1/form/updateFormData.json`, params));
+}
+
+async function querySubform(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 2, ['appType', 'formUuid']);
+  requireOption(options, 'inst_id');
+  requireOption(options, 'table_field_id');
+  clampPageSize(options, 10);
+  const [appType, formUuid] = positionals;
+  const params = {
+    formUuid,
+    formInstanceId: options.inst_id,
+    tableFieldId: options.table_field_id,
+    currentPage: String(options.page),
+    pageSize: String(options.size),
+  };
+  printResult(await sendGet(session, appType, `/dingtalk/web/${appType}/v1/form/listTableDataByFormInstIdAndTableId.json`, params));
+}
+
+async function queryProcess(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 2, ['appType', 'formUuid']);
+  clampPageSize(options, 10);
+  const [appType, formUuid] = positionals;
+  const params: Record<string, any> = {
+    formUuid,
+    currentPage: String(options.page),
+    pageSize: String(options.size),
+  };
+  for (const key of ['search_json', 'task_id', 'instance_status', 'approved_result', 'originator_id', 'create_from', 'create_to', 'modified_from', 'modified_to']) {
+    if (options[key]) { params[key === 'search_json' ? 'searchFieldJson' : snakeToCamel(key)] = options[key]; }
   }
+  const requestPath = options.ids_only
+    ? `/dingtalk/web/${appType}/v1/process/getInstanceIds.json`
+    : `/dingtalk/web/${appType}/v1/process/getInstances.json`;
+  printResult(await sendGet(session, appType, requestPath, params));
+}
+
+async function getProcess(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 1, ['appType']);
+  requireOption(options, 'process_inst_id');
+  const [appType] = positionals;
+  printResult(await sendGet(session, appType, `/dingtalk/web/${appType}/v1/process/getInstanceById.json`, {
+    processInstanceId: options.process_inst_id,
+  }));
+}
+
+async function createProcess(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 2, ['appType', 'formUuid']);
+  requireOption(options, 'process_code');
+  requireOption(options, 'data');
+  const [appType, formUuid] = positionals;
+  const params: Record<string, any> = {
+    processCode: options.process_code,
+    formUuid,
+    formDataJson: options.data,
+  };
+  if (options.dept_id) { params.deptId = options.dept_id; }
+  printResult(await sendPost(session, appType, `/dingtalk/web/${appType}/v1/process/startInstance.json`, params));
+}
+
+async function updateProcess(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 1, ['appType']);
+  requireOption(options, 'process_inst_id');
+  requireOption(options, 'data');
+  const [appType] = positionals;
+  printResult(await sendPost(session, appType, `/dingtalk/web/${appType}/v1/process/updateInstance.json`, {
+    processInstanceId: options.process_inst_id,
+    updateFormDataJson: options.data,
+  }));
+}
+
+async function queryOperationRecords(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 1, ['appType']);
+  requireOption(options, 'process_inst_id');
+  const [appType] = positionals;
+  printResult(await sendGet(session, appType, `/dingtalk/web/${appType}/v1/process/getOperationRecords.json`, {
+    processInstanceId: options.process_inst_id,
+  }));
+}
+
+async function executeTask(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 1, ['appType']);
+  for (const key of ['task_id', 'process_inst_id', 'out_result', 'remark']) {
+    requireOption(options, key);
+  }
+  const [appType] = positionals;
+  const params: Record<string, any> = {
+    taskId: options.task_id,
+    procInstId: options.process_inst_id,
+    outResult: options.out_result,
+    remark: options.remark,
+  };
+  if (options.data) { params.formDataJson = options.data; }
+  if (options.no_execute_expressions) { params.noExecuteExpressions = options.no_execute_expressions; }
+  printResult(await sendPost(session, appType, `/dingtalk/web/${appType}/v1/task/executeTask.json`, params));
+}
+
+async function queryTasks(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
+  requirePositionals(positionals, 1, ['appType']);
+  requireOption(options, 'type');
+  clampPageSize(options, 10);
+  const [appType] = positionals;
+  const typeMap: Record<string, string> = {
+    todo: 'task/getTodoTasksInApp',
+    done: 'task/getDoneTasksInApp',
+    submitted: 'process/getMySubmitInApp',
+    cc: 'task/getNotifyMeTasksInApp',
+  };
+  const endpoint = typeMap[String(options.type)];
+  if (!endpoint) {
+    parseError('--type 仅支持 todo|done|submitted|cc');
+  }
+
+  const params: Record<string, any> = {
+    currentPage: String(options.page),
+    pageSize: String(options.size),
+  };
+  if (options.keyword) { params.keyword = options.keyword; }
+  if (options.process_codes) { params.processCodes = options.process_codes; }
+  if (options.instance_status) { params.instanceStatus = options.instance_status; }
+  printResult(await sendGet(session, appType, `/dingtalk/web/${appType}/v1/${endpoint}.json`, params));
+}
+
+export async function run(args: string[]): Promise<void> {
+  if (args.length < 2) {
+    parseError('缺少必填参数 action 或 resource');
+  }
+
+  const action = args[0];
+  const resource = args[1];
+  const { positionals, options } = parseCliOptions(args.slice(2));
+  const session = ensureSession();
+
+  if (action === 'query' && resource === 'form') { return queryForm(positionals, options, session); }
+  if (action === 'get' && resource === 'form') { return getForm(positionals, options, session); }
+  if (action === 'create' && resource === 'form') { return createForm(positionals, options, session); }
+  if (action === 'update' && resource === 'form') { return updateForm(positionals, options, session); }
+  if (action === 'query' && resource === 'subform') { return querySubform(positionals, options, session); }
+  if (action === 'query' && resource === 'process') { return queryProcess(positionals, options, session); }
+  if (action === 'get' && resource === 'process') { return getProcess(positionals, options, session); }
+  if (action === 'create' && resource === 'process') { return createProcess(positionals, options, session); }
+  if (action === 'update' && resource === 'process') { return updateProcess(positionals, options, session); }
+  if (action === 'query' && resource === 'operation-records') { return queryOperationRecords(positionals, options, session); }
+  if (action === 'execute' && resource === 'task') { return executeTask(positionals, options, session); }
+  if (action === 'query' && resource === 'tasks') { return queryTasks(positionals, options, session); }
+
+  fail(`暂未实现的命令：${action} ${resource}`);
 }
