@@ -41,6 +41,13 @@ const OP_CODE_TO_DISPLAY: Record<string, string> = {
   LessThanOrEqual: '小于等于',
   In: '属于',
   NotIn: '不属于',
+  // 符号映射
+  '=': '等于',
+  '!=': '不等于',
+  '>': '大于',
+  '>=': '大于等于',
+  '<': '小于',
+  '<=': '小于等于',
 };
 
 const COMPONENT_TO_RULE_TYPE: Record<string, string> = {
@@ -86,9 +93,11 @@ function buildActions(): any[] {
 
   return actionDefs.map(function (def) {
     return {
-      action: def.action,
-      name: i18n(def.zh, def.en),
       hidden: def.hidden,
+      name: i18n(def.zh, def.en),
+      action: def.action,
+      text: i18n(def.zh, def.en),
+      alias: i18n(def.zh, def.en),
     };
   });
 }
@@ -102,21 +111,151 @@ function buildAppendActions(): any[] {
 
 // ── 构建条件规则 ─────────────────────────────────────
 
-function buildConditionRules(rules: any[]): any[] {
-  return rules.map(function (rule) {
-    const ruleType = COMPONENT_TO_RULE_TYPE[rule.componentType] || 'rule_text';
+function buildConditionRules(rules: any[], logic?: string): any {
+  const conditionCode = logic === 'OR' ? '||' : '&&';
+  const groupId = 'group-' + generateUuid();
+
+  const builtRules = rules.map(function (rule) {
     const opDisplay = OP_CODE_TO_DISPLAY[rule.op] || rule.op;
+    const ruleType = COMPONENT_TO_RULE_TYPE[rule.componentType] || 'rule_text';
 
     return {
-      fieldId: rule.fieldId,
-      fieldName: i18n(rule.fieldName || rule.fieldId),
-      ruleType: ruleType,
-      componentType: rule.componentType || 'TextField',
+      id: rule.fieldId,
       op: opDisplay,
+      operators: [],
+      value: rule.value,
+      componentType: rule.componentType || 'TextField',
+      ruleId: 'item-' + generateUuid(),
+      parentId: groupId,
+      extValue: 'value',
+      ruleValue: rule.value,
+      name: rule.fieldName || rule.fieldId,
+      valueType: 'literal',
+      ruleType: ruleType,
       opCode: rule.op,
-      value: Array.isArray(rule.value) ? rule.value : [String(rule.value)],
     };
   });
+
+  return {
+    condition: logic === 'OR' ? 'OR' : 'AND',
+    rules: builtRules,
+    ruleId: groupId,
+    conditionCode: conditionCode,
+  };
+}
+
+// ── 构建跳转规则（审批节点的 routeRule）─────────────────
+
+interface RouteRuleDef {
+  jumpTo: string;
+  when?: 'agree' | 'disagree' | string;
+  logic?: 'AND' | 'OR';
+  fieldRules?: Array<{
+    componentType?: string;
+    fieldId: string;
+    fieldName?: string;
+    op: string;
+    value: any;
+  }>;
+}
+
+interface RouteRuleResult {
+  rules: any[];
+  triggerRule: 'y' | 'n';
+  ruleIfMiss: string;
+  defaultNextId: string[];
+}
+
+function buildRouteRule(
+  routeRuleDefs: RouteRuleDef[] | undefined,
+  currentNodeId: string,
+  nodeNameToIdMap: Record<string, string>
+): RouteRuleResult {
+  if (!routeRuleDefs || routeRuleDefs.length === 0) {
+    return {
+      rules: [],
+      triggerRule: 'n',
+      ruleIfMiss: 'terminate',
+      defaultNextId: [],
+    };
+  }
+
+  const rules = routeRuleDefs.map(function (ruleDef, index) {
+    // 解析跳转目标
+    const targetNodeId = nodeNameToIdMap[ruleDef.jumpTo];
+    if (!targetNodeId) {
+      console.error('  ⚠️ routeRule 跳转目标 "' + ruleDef.jumpTo + '" 未找到对应节点');
+      return null;
+    }
+
+    // 构建条件规则
+    const conditionGroupId = 'group-' + generateUuid();
+    const conditionRules: any[] = [];
+
+    if (ruleDef.when === 'disagree' || ruleDef.when === 'agree') {
+      // 基于审批结果的跳转（内置虚拟字段 approvalResult）
+      conditionRules.push({
+        componentType: 'SelectField',
+        id: 'approvalResult',
+        extValue: 'value',
+        name: '审批结果',
+        op: '等于',
+        opCode: 'Equal',
+        parentId: conditionGroupId,
+        ruleId: 'item-' + generateUuid(),
+        ruleType: 'rule_text',
+        ruleValue: ruleDef.when,
+        value: ruleDef.when,
+        valueType: 'literal',
+      });
+    } else if (ruleDef.fieldRules && ruleDef.fieldRules.length > 0) {
+      // 基于表单字段的跳转条件
+      ruleDef.fieldRules.forEach(function (fieldRule) {
+        const opDisplay = OP_CODE_TO_DISPLAY[fieldRule.op] || fieldRule.op;
+        const ruleType = COMPONENT_TO_RULE_TYPE[fieldRule.componentType || 'TextField'] || 'rule_text';
+        conditionRules.push({
+          componentType: fieldRule.componentType || 'TextField',
+          id: fieldRule.fieldId,
+          extValue: 'value',
+          name: fieldRule.fieldName || fieldRule.fieldId,
+          op: opDisplay,
+          opCode: fieldRule.op,
+          parentId: conditionGroupId,
+          ruleId: 'item-' + generateUuid(),
+          ruleType: ruleType,
+          ruleValue: fieldRule.value,
+          value: fieldRule.value,
+          valueType: 'literal',
+        });
+      });
+    }
+
+    const conditionNodeId = generateNodeId();
+    return {
+      type: 'condition',
+      nodeId: conditionNodeId,
+      prevId: currentNodeId,
+      nextId: [targetNodeId],
+      props: {
+        calculate: 'condition',
+        isDefault: false,
+        conditions: {
+          condition: (ruleDef.logic || 'AND'),
+          conditionCode: (ruleDef.logic === 'OR' ? '||' : '&&'),
+          ruleId: conditionGroupId,
+          rules: conditionRules,
+        },
+        priority: index + 1,
+      },
+    };
+  }).filter(function (rule) { return rule !== null; });
+
+  return {
+    rules: rules,
+    triggerRule: rules.length > 0 ? 'y' : 'n',
+    ruleIfMiss: 'terminate',
+    defaultNextId: [],
+  };
 }
 
 // ── 递归分配 nodeId ──────────────────────────────────
@@ -145,101 +284,84 @@ function assignNodeIdsRecursive(nodes: any[], nameToIdMap: Record<string, string
 
 function buildApprovalNode(node: any, nextNodeId: string, nameToIdMap: Record<string, string>): { processNode: any; viewNode: any } {
   const nodeId = node._nodeId;
+  const routeRule = buildRouteRule(node.routeRules || [], nodeId, nameToIdMap);
 
-  // 审批人类型映射
-  let approverType = 'ext_target_approval_originator';
-  if (node.approver === 'originator' || !node.approver) {
-    approverType = 'ext_target_approval_originator';
+  // 构建字段权限（formConfig.behaviorList）
+  // 兼容两种输入格式：
+  //   1. node.formConfig.behaviorList（推荐，与 SKILL.md 文档一致）
+  //   2. node.fieldPermissions（旧格式，向后兼容）
+  let formConfig: any = undefined;
+  if (node.formConfig && node.formConfig.behaviorList && node.formConfig.behaviorList.length > 0) {
+    const behaviorList = node.formConfig.behaviorList.map(function (fp: any) {
+      return {
+        fieldId: fp.fieldId,
+        fieldBehavior: fp.fieldBehavior || fp.behavior || 'READONLY',
+      };
+    });
+    formConfig = { behaviorList: behaviorList };
+  } else if (node.fieldPermissions && node.fieldPermissions.length > 0) {
+    const behaviorList = node.fieldPermissions.map(function (fp: any) {
+      return {
+        fieldId: fp.fieldId,
+        fieldBehavior: fp.fieldBehavior || fp.behavior || 'READONLY',
+      };
+    });
+    formConfig = { behaviorList: behaviorList };
   }
 
-  const processNode: any = {
-    name: i18n(node.name || '审批', 'Approval'),
-    description: '',
+  const processNodeProps: any = {
+    conditionalMode: 'conditional',
+    approvals: [['originator']],
+    actions: buildActions(),
+    appendActions: buildAppendActions(),
+    openDigitalSign: false,
+    noActionersType: 'stopProcess',
+    routeRule: routeRule,
+  };
+  if (formConfig) {
+    processNodeProps.formConfig = formConfig;
+  }
+
+  const processNode = {
+    name: i18n(node.name || '审批人', 'Approver'),
+    description: node.description || '请选择审批人',
     type: 'approval',
-    approvalType: approverType,
+    approvalType: 'ext_target_approval_originator',
     nodeId: nodeId,
     prevId: '',
     nextId: [nextNodeId],
-    props: {
-      params: [
-        { key: 'nodeId', value: nodeId },
-        { key: 'instId', value: '#procInstId' },
-        { key: 'userId', value: '#originator' },
-      ],
-      actions: buildActions(),
-      appendActions: buildAppendActions(),
-      openDigitalSign: false,
-      noActionersType: 'stopProcess',
-    },
+    props: processNodeProps,
     childNodes: [],
   };
 
-  // 跳转规则（routeRule）
-  if (node.routeRules && node.routeRules.length > 0) {
-    const routeRuleRules: any[] = [];
-    node.routeRules.forEach(function (rr: any) {
-      const targetNodeId = nameToIdMap[rr.jumpTo] || nextNodeId;
-      routeRuleRules.push({
-        action: rr.when || 'disagree',
-        nextId: targetNodeId,
-      });
-    });
-
-    processNode.props.routeRule = {
-      rules: routeRuleRules,
-      triggerRule: 'y',
-      ruleIfMiss: 'terminate',
-      defaultNextId: [],
-    };
-  } else {
-    processNode.props.routeRule = {
-      rules: [],
-      triggerRule: 'n',
-      ruleIfMiss: 'terminate',
-      defaultNextId: [],
-    };
+  const viewNodeProps: any = {
+    nodeName: 'ApprovalNode',
+    name: i18n(node.name || '审批人', 'Approver'),
+    description: node.description || '请选择审批人',
+    approverRules: {
+      type: 'ext_target_approval_originator',
+      mode: 'ApprovalNode_rules_only',
+      approverList: [{ type: 'ext_target_approval' }],
+      multiApproverType: 'all',
+      conditionalMode: 'conditional',
+      description: '发起人本人',
+    },
+    actions: {
+      normalActions: buildActions(),
+      appendActions: buildAppendActions(),
+    },
+    routeRule: routeRule,
+  };
+  if (formConfig) {
+    viewNodeProps.formConfig = formConfig;
   }
 
-  // 字段权限（formConfig）
-  if (node.formConfig) {
-    processNode.props.formConfig = node.formConfig;
-  }
-
-  const viewNode: any = {
+  const viewNode = {
     componentName: 'ApprovalNode',
     id: nodeId,
-    props: {
-      nodeName: 'ApprovalNode',
-      name: i18n(node.name || '审批', 'Approval'),
-      description: i18n(node.description || '发起人审批', 'Sponsor approval'),
-      approverRules: {
-        type: 'APPROVER',
-        approvalType: approverType,
-        approvals: [[node.approver || 'originator']],
-      },
-      actions: {
-        actions: buildActions(),
-        appendActions: buildAppendActions(),
-      },
-    },
+    props: viewNodeProps,
+    title: i18n('审批人', 'Approver'),
   };
-
-  // viewNode 中的 routeRule
-  if (node.routeRules && node.routeRules.length > 0) {
-    viewNode.props.routeRule = processNode.props.routeRule;
-  } else {
-    viewNode.props.routeRule = {
-      rules: [],
-      triggerRule: 'n',
-      ruleIfMiss: 'terminate',
-      defaultNextId: [],
-    };
-  }
-
-  // viewNode 中的 formConfig
-  if (node.formConfig) {
-    viewNode.props.formConfig = node.formConfig;
-  }
 
   return { processNode, viewNode };
 }
@@ -288,7 +410,7 @@ function buildCarbonNode(node: any, nextNodeId: string): { processNode: any; vie
 
 // ── 构建条件分支路由节点 ─────────────────────────────
 
-function buildRouteNode(node: any, exitNodeId: string, nameToIdMap: Record<string, string>): { processNodes: any[]; viewNodes: any[] } {
+function buildRouteNode(node: any, exitNodeId: string, nameToIdMap: Record<string, string>): { processNode: any; viewNode: any } {
   const routeNodeId = node._nodeId;
   const conditions = node.conditions || [];
 
@@ -308,6 +430,14 @@ function buildRouteNode(node: any, exitNodeId: string, nameToIdMap: Record<strin
       const childResult = buildNodeListRecursive(cond.childNodes, exitNodeId, nameToIdMap);
       childProcessNodes = childResult.processNodes;
       childViewNodes = childResult.viewNodes;
+      // 设置条件分支内第一个子节点的 prevId 为条件节点 ID
+      if (childProcessNodes.length > 0) {
+        childProcessNodes[0].prevId = condNodeId;
+        // 设置后续子节点的 prevId 为前一个节点的 nodeId
+        for (let ci = 1; ci < childProcessNodes.length; ci++) {
+          childProcessNodes[ci].prevId = childProcessNodes[ci - 1].nodeId;
+        }
+      }
     }
 
     // 构建条件规则
@@ -316,44 +446,64 @@ function buildRouteNode(node: any, exitNodeId: string, nameToIdMap: Record<strin
       isDefault: false,
     };
 
+    // 构建条件规则
+    const condRules = buildConditionRules(cond.rules || [], cond.logic || 'AND');
+    const condDescription = cond.name || '';
+
     if (cond.rules && cond.rules.length > 0) {
       conditionProps.conditions = {
-        condition: (cond.logic || 'AND').toUpperCase(),
-        conditionCode: cond.logic === 'OR' ? '||' : '&&',
-        rules: buildConditionRules(cond.rules),
-        ruleId: 'group-' + generateUuid(),
+        condition: condRules.condition || 'AND',
+        rules: condRules.rules || [],
+        ruleId: condRules.ruleId || 'group-' + generateUuid(),
+        conditionCode: condRules.conditionCode || '&&',
       };
       conditionProps.calculate = 'condition';
     }
 
+    // 条件节点的 nextId：如果有子节点，指向第一个子节点；否则指向出口节点
+    const condNextId = (childProcessNodes.length > 0)
+      ? [childProcessNodes[0].nodeId]
+      : [exitNodeId];
+
     const condProcessNode = {
-      name: i18n(cond.name || '条件 ' + (index + 1), 'Condition ' + (index + 1)),
+      name: i18n(condDescription || '条件', 'Condition'),
       description: '',
       type: 'condition',
       nodeId: condNodeId,
       prevId: routeNodeId,
-      nextId: [exitNodeId],
+      nextId: condNextId,
       props: conditionProps,
-      childNodes: childProcessNodes,
+      childNodes: childProcessNodes.map(function (n: any) {
+        return JSON.parse(JSON.stringify(n));
+      }),
     };
 
     conditionProcessNodes.push(condProcessNode);
 
+    // 构建 condition viewNode（带嵌套 conditions 包装）
     const condViewNode: any = {
       componentName: 'ConditionNode',
       id: condNodeId,
       props: {
-        isDefault: false,
-        buttons: [{ name: '关闭' }],
-        name: i18n(cond.name || '条件 ' + (index + 1), 'Condition ' + (index + 1)),
+        name: i18n(condDescription || '条件', 'Condition'),
         description: '',
+        conditions: {
+          calculate: 'condition',
+          conditions: {
+            condition: condRules.condition || 'AND',
+            rules: condRules.rules || [],
+            ruleId: condRules.ruleId || 'group-' + generateUuid(),
+            conditionCode: condRules.conditionCode || '&&',
+          },
+          isDefault: false,
+          priority: index + 1,
+          description: condDescription,
+        },
       },
-      children: childViewNodes,
     };
 
-    if (cond.rules && cond.rules.length > 0) {
-      condViewNode.props.conditions = conditionProps.conditions;
-      condViewNode.props.calculate = 'condition';
+    if (childViewNodes.length > 0) {
+      condViewNode.children = childViewNodes;
     }
 
     conditionViewNodes.push(condViewNode);
@@ -371,7 +521,7 @@ function buildRouteNode(node: any, exitNodeId: string, nameToIdMap: Record<strin
     prevId: routeNodeId,
     nextId: [exitNodeId],
     props: {
-      priority: conditions.length + 1,
+      priority: 2147483647,
       isDefault: true,
     },
     childNodes: [],
@@ -388,36 +538,32 @@ function buildRouteNode(node: any, exitNodeId: string, nameToIdMap: Record<strin
       name: i18n('其他情况', 'Other situations'),
       description: '',
     },
-    children: [],
   };
 
   conditionViewNodes.push(defaultCondViewNode);
 
-  // 构建路由节点
+  // 构建 route processNode
   const routeProcessNode = {
-    name: i18n('路由', 'Route'),
+    name: { zh_CN: 'ConditionNode', en_US: '' },
     description: '',
     type: 'route',
     nodeId: routeNodeId,
     prevId: '',
     nextId: conditionNodeIds,
-    props: {},
+    props: { outgoingType: 'priority' },
     childNodes: conditionProcessNodes,
   };
 
+  // 构建 route viewNode（ConditionContainer）
   const routeViewNode = {
-    componentName: 'RouteNode',
+    componentName: 'ConditionContainer',
     id: routeNodeId,
-    props: {
-      name: i18n('路由', 'Route'),
-    },
+    props: {},
+    title: '条件分支',
     children: conditionViewNodes,
   };
 
-  return {
-    processNodes: [routeProcessNode],
-    viewNodes: [routeViewNode],
-  };
+  return { processNode: routeProcessNode, viewNode: routeViewNode };
 }
 
 // ── 递归构建节点列表 ───────────────────────────────
@@ -439,9 +585,9 @@ function buildNodeListRecursive(nodes: any[], exitNodeId: string, nameToIdMap: R
       processNodes.push(result.processNode);
       viewNodes.push(result.viewNode);
     } else if (node.type === 'route') {
-      const result = buildRouteNode(node, exitNodeId, nameToIdMap);
-      processNodes.push(...result.processNodes);
-      viewNodes.push(...result.viewNodes);
+      const result = buildRouteNode(node, nextNodeId, nameToIdMap);
+      processNodes.push(result.processNode);
+      viewNodes.push(result.viewNode);
     }
   }
 
@@ -465,6 +611,14 @@ function buildProcessAndViewJson(definition: any, processCode: string, formUuid:
 
   // 第二遍：递归构建所有节点
   const middleResult = buildNodeListRecursive(nodes, finishNodeId, nodeNameToIdMap);
+
+  // 设置顶层节点的 prevId
+  if (middleResult.processNodes.length > 0) {
+    middleResult.processNodes[0].prevId = 'sid_instStart';
+    for (let mi = 1; mi < middleResult.processNodes.length; mi++) {
+      middleResult.processNodes[mi].prevId = middleResult.processNodes[mi - 1].nodeId;
+    }
+  }
 
   const firstMiddleNodeId = middleResult.processNodes.length > 0
     ? middleResult.processNodes[0].nodeId
@@ -501,15 +655,18 @@ function buildProcessAndViewJson(definition: any, processCode: string, formUuid:
   });
   processNodes.push(finishProcessNode);
 
+  const defaultProcessDetailUrl = baseUrl + '/alibaba/web/' + appType + '/inst/taskDetail.htm';
+  const defaultProcessMobileDetailUrl = baseUrl + '/alibaba/mobile/' + appType + '/inst/detail/taskDetail/';
+
   const processJson = {
     props: {
       allowWithdraw: true,
       allowCollaboration: true,
       allowTemporaryStorage: true,
       processCode: processCode,
-      processDetailUrl: baseUrl + '/alibaba/web/' + appType + '/inst/taskDetail.htm',
+      processDetailUrl: definition.processDetailUrl || defaultProcessDetailUrl,
       processInitUrl: baseUrl + '/alibaba/web/' + appType + '/inst/instStart.htm?processCode=' + processCode,
-      processMobileDetailUrl: baseUrl + '/alibaba/mobile/' + appType + '/inst/detail/taskDetail/',
+      processMobileDetailUrl: definition.processMobileDetailUrl || defaultProcessMobileDetailUrl,
       bindingForm: formUuid,
       stopAssociationRulesIfFailed: false,
       noRecordRecall: false,
@@ -648,49 +805,47 @@ function getProcessCodeFromSchema(authRef: AuthRef, appType: string, formUuid: s
   });
 }
 
-function newDraftProcess(authRef: AuthRef, appType: string, processCode: string, formUuid: string, baseProcessId: string | null, version: number): Promise<any> {
-  const requestPath = '/alibaba/web/' + appType + '/query/process/newProcessVersionDraft.json'
-    + '?_api=Process.newProcessVersionDraft&_mock=false&_stamp=' + Date.now();
-  const postData = querystring.stringify({
+function newDraftProcess(authRef: AuthRef, appType: string, processCode: string, formUuid: string, processId: string | null, processVersion: number | null): Promise<any> {
+  const requestPath = '/' + appType + '/query/simpleProcess/newDraftProcess.json';
+  const postObj: any = {
     _csrf_token: authRef.csrfToken,
     _locale_time_zone_offset: '28800000',
-    processCode: processCode,
     formUuid: formUuid,
-    baseProcessId: baseProcessId || '',
-    version: String(version),
-  });
-  return httpPost(authRef.baseUrl, requestPath, postData, authRef.cookies);
+    processCode: processCode,
+  };
+  if (processId) {
+    postObj.processId = String(processId);
+  }
+  if (processVersion !== undefined && processVersion !== null) {
+    postObj.processVersion = String(processVersion);
+  }
+  return httpPost(authRef.baseUrl, requestPath, querystring.stringify(postObj), authRef.cookies);
 }
 
-function saveProcessById(authRef: AuthRef, appType: string, formUuid: string, processCode: string, processId: string, version: number, processJsonStr: string, viewJsonStr: string): Promise<any> {
-  const requestPath = '/alibaba/web/' + appType + '/query/process/saveProcessById.json'
-    + '?_api=Process.saveProcessById&_mock=false&_stamp=' + Date.now();
-  const postData = querystring.stringify({
+function saveProcessById(authRef: AuthRef, appType: string, formUuid: string, processCode: string, processId: string, processVersion: number, processJsonStr: string, viewJsonStr: string): Promise<any> {
+  const requestPath = '/alibaba/web/' + appType + '/query/simpleProcess/saveProcessById.json';
+  return httpPost(authRef.baseUrl, requestPath, querystring.stringify({
     _csrf_token: authRef.csrfToken,
-    _locale_time_zone_offset: '28800000',
-    processCode: processCode,
     formUuid: formUuid,
-    processId: processId,
-    version: String(version),
+    isOnline: 'true',
     json: processJsonStr,
+    needReportLine: 'y',
+    processCode: processCode,
+    processId: String(processId),
+    processVersion: String(processVersion),
     viewJson: viewJsonStr,
-    isLogic: 'true',
-  });
-  return httpPost(authRef.baseUrl, requestPath, postData, authRef.cookies);
+  }), authRef.cookies);
 }
 
 function publishProcessById(authRef: AuthRef, appType: string, formUuid: string, processCode: string, processId: string, version: number): Promise<any> {
-  const requestPath = '/alibaba/web/' + appType + '/query/process/publishProcessById.json'
-    + '?_api=Process.publishProcessById&_mock=false&_stamp=' + Date.now();
-  const postData = querystring.stringify({
+  const requestPath = '/alibaba/web/' + appType + '/query/simpleProcess/publishProcessById.json';
+  return httpPost(authRef.baseUrl, requestPath, querystring.stringify({
     _csrf_token: authRef.csrfToken,
-    _locale_time_zone_offset: '28800000',
-    processCode: processCode,
     formUuid: formUuid,
-    processId: processId,
-    version: String(version),
-  });
-  return httpPost(authRef.baseUrl, requestPath, postData, authRef.cookies);
+    processCode: processCode,
+    processId: String(processId),
+    processVersion: String(version),
+  }), authRef.cookies);
 }
 
 // ── 主流程 ───────────────────────────────────────────
