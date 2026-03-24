@@ -780,44 +780,27 @@ function buildFieldComponent(field: any): any {
     // 流水号字段固定为空校验规则，不支持 required
     props.validation = [];
 
-    // 默认流水号规则：前缀 + 自动递增数字
+    // 默认流水号规则：仅一条 autoCount，4位自增，从1开始，不重置
+    // 参考：yida-skills/reference/serial-number-field.md
     const defaultSerialNumberRule = [
       {
-        __hide_delete__: false,
-        ruleType: 'character',
-        content: 'serial',
-        formField: '',
-        dateFormat: 'yyyyMMdd',
-        timeZone: '+8',
-        digitCount: 4,
-        isFixed: true,
-        isFixedTips: '',
         resetPeriod: 'noClean',
-        resetPeriodTips: '',
-        initialValue: 1,
-        __sid: 'item_' + Date.now().toString(36) + '1',
-        __sid__: 'serial_' + Date.now().toString(36) + '1'
-      },
-      {
-        __hide_delete__: true,
+        dateFormat: 'yyyyMMdd',
         ruleType: 'autoCount',
-        content: '',
-        formField: '',
-        dateFormat: 'yyyyMMdd',
         timeZone: '+8',
-        digitCount: 5,
+        __sid: 'item_auto_count',
+        __hide_delete__: true,
+        __sid__: 'serial_auto_count',
+        digitCount: '4',
         isFixed: true,
-        isFixedTips: '',
-        resetPeriod: 'noClean',
-        resetPeriodTips: '',
         initialValue: 1,
-        __sid: 'item_' + Date.now().toString(36) + '2',
-        __sid__: 'serial_' + Date.now().toString(36) + '2'
+        content: '',
+        formField: ''
       }
     ];
 
     props.serialNumberRule = field.serialNumberRule || defaultSerialNumberRule;
-    props.serialNumPreview = 'serial00001';
+    props.serialNumPreview = '0001';
     props.serialNumReset = 1;
     props.syncSerialConfig = false;
 
