@@ -675,11 +675,13 @@ async function main(): Promise<void> {
   console.error(SEP2);
 }
 
-// 直接调用主流程
-main().catch((error: Error) => {
-  console.error(t('publish.exception', error.message));
-  process.exit(1);
-});
+// 直接调用主流程（仅在直接运行此文件时执行，require 时跳过）
+if (require.main === module || process.argv[1]?.includes('publish')) {
+  main().catch((error: Error) => {
+    console.error(t('publish.exception', error.message));
+    process.exit(1);
+  });
+}
 
 // 导出函数
 export { compileSource };
