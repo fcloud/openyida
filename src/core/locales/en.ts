@@ -384,6 +384,7 @@ Examples:`,
     schema_response_structure: '  Response structure: {0}',
     schema_parse_failed: 'Unable to parse Schema structure',
     action_label: 'Action {0}: {1}',
+    unsupported_field_type: '❌ Unsupported field type: {0}\nSupported field types: {1}',
   },
   common: {
     http_status: '  HTTP status: {0}',

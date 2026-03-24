@@ -79,6 +79,14 @@ import {
 // ── 选项类字段类型 ───────────────────────────────────
 const OPTION_FIELD_TYPES = ['RadioField', 'SelectField', 'CheckboxField', 'MultiSelectField'];
 
+// ── 支持的字段类型（宜搭后端支持的 componentName）──────────
+const SUPPORTED_FIELD_TYPES = [
+  'TextField', 'TextareaField', 'RadioField', 'SelectField', 'CheckboxField',
+  'MultiSelectField', 'NumberField', 'RateField', 'DateField', 'CascadeDateField',
+  'EmployeeField', 'DepartmentSelectField', 'CountrySelectField', 'AddressField',
+  'AttachmentField', 'ImageField', 'TableField', 'AssociationFormField', 'SerialNumberField'
+];
+
 // ── 接口路径生成 ──────────────────────────────────────
 
 /**
@@ -309,6 +317,13 @@ function buildOptionDataSource(options: string[]): any[] {
 
 function buildFieldComponent(field: any): any {
   const componentName = field.type;
+
+  // 验证字段类型是否支持
+  if (!SUPPORTED_FIELD_TYPES.includes(componentName)) {
+    console.error(t('create_form.unsupported_field_type', componentName, SUPPORTED_FIELD_TYPES.join(', ')));
+    process.exit(1);
+  }
+
   const fieldId = generateFieldId(componentName);
   const nodeId = nextNodeId();
 

@@ -349,6 +349,7 @@ openyida - 宜搭命令行工具
     schema_response_structure: '  响应结构: {0}',
     schema_parse_failed: '无法解析 Schema 结构',
     action_label: '操作 {0}: {1}',
+    unsupported_field_type: '❌ 不支持的字段类型: {0}\n支持的字段类型: {1}',
   },
   common: {
     http_status: '  HTTP 状态码: {0}',
