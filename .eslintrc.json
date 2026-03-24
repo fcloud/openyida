@@ -11,7 +11,11 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js"]
+        "extensions": [".js", ".ts"]
+      },
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
       }
     }
   },
@@ -20,7 +24,10 @@
     "sourceType": "commonjs"
   },
   "rules": {
-    "import/no-unresolved": ["error", { "commonjs": true }],
+    "import/no-unresolved": ["error", { 
+      "commonjs": true,
+      "ignore": ["@alicloud/.*", "ali-oss", "./locales/.*", "./login", "../core/babel-transform"]
+    }],
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single", { "avoidEscape": true }],
@@ -36,9 +43,47 @@
     "no-trailing-spaces": "error",
     "eol-last": ["error", "always"]
   },
+  "overrides": [
+    {
+      "files": ["src/**/*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+      },
+      "rules": {
+        "indent": ["error", 2, { "SwitchCase": 1 }],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single", { "avoidEscape": true }],
+        "semi": ["error", "always"],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "no-console": "off",
+        "no-var": "error",
+        "prefer-const": "error",
+        "eqeqeq": ["error", "always"],
+        "curly": ["error", "all"],
+        "no-throw-literal": "off",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/ban-ts-comment": ["warn", { "ts-ignore": "allow-with-description" }],
+        "no-return-await": "error",
+        "no-trailing-spaces": "error",
+        "eol-last": ["error", "always"]
+      }
+    }
+  ],
   "ignorePatterns": [
     "node_modules/",
+    "lib/",
     "project/pages/dist/",
     "**/*.compile.js"
   ]
 }
+

@@ -135,10 +135,15 @@ export function didUnmount() {
   // 清理逻辑
 }
 
+// ============================================================
+// 业务方法
+// ============================================================
+
 export function handleSubmit(e) {
   this.setCustomState({ submitted: true });
   this.utils.toast({ title: '提交成功', type: 'success' });
 }
+
 // ============================================================
 // 渲染
 // ============================================================
@@ -150,11 +155,12 @@ export function handleSubmit(e) {
  */
 // ⚠️ **关键约束：`renderJsx` 的每个 `return` 分支都必须包含 `<div style={{ display: 'none' }}>{this.state.timestamp}</div>`**，否则 `forceUpdate` 调用 `this.setState({ timestamp })` 后，React 无法检测到输出变化，`renderJsx` 不会被重新执行，页面将无法更新。这是宜搭渲染引擎触发重渲染的核心机制。
 export function renderJsx() {
+  // this.state 由宜搭运行时注入，包含 timestamp 等内置状态
   const { timestamp } = this.state;
 
   return (
     <div>
-      {/* 必须保留：用于触发重新渲染 */}
+      {/* 必须保留：timestamp 用于触发 React 重新渲染 */}
       <div style={{ display: "none" }}>{timestamp}</div>
 
       {/* 页面内容写在这里 */}
@@ -209,9 +215,9 @@ this.forceUpdate();
      this.utils.yida.searchFormDatas({ formUuid: 'FORM-XXX', pageSize: 10 });
    }
 
-   // ❌ 错误①：缺少 export，无法被宜搭运行时识别，this 丢失
+   // ❌ 错误①：普通函数无法访问外部 this，宜搭运行时无法为其绑定正确的 this 上下文
    export function didMount() {
-     loadStatistics();  // 直接调用，this 丢失
+     loadStatistics();  // 普通函数调用，内部的 this 为 undefined（严格模式）
    }
    function loadStatistics() {
      this.utils.yida.searchFormDatas(...);  // 报错：this is undefined
@@ -385,6 +391,31 @@ this.forceUpdate();
     1. 获取表单 Schema 后，**必须先在文件顶部定义 `FIELDS` 常量**，将所有用到的字段 ID 映射为语义化名称
     2. 后续所有代码中**禁止直接写字段 ID 字符串**，统一通过 `FIELDS.xxx` 引用
     3. `FIELDS` 的 key 使用 camelCase 命名，与字段的中文含义对应
+
+---
+
+## 页面管理
+
+### 创建自定义页面
+
+使用 `openyida create-page` 命令在指定应用中创建空白自定义页面：
+
+```bash
+openyida create-page <appType> "<pageName>" [--datasource <jsonOrFile>]
+```
+
+**参数说明**：
+
+| 参数 | 说明 | 示例 |
+| --- | --- | --- |
+| `appType` | 应用 ID | `APP_XXX` |
+| `pageName` | 页面名称 | `"数据大屏"` |
+| `--datasource` | 可选，连接器数据源定义 | JSON 字符串或文件路径 |
+
+**数据源定义格式**（用于页面创建后自动注入连接器数据源）：
+```json
+[{ "id": "myApi", "connectorId": "G-CONN-xxx", "actionId": "G-ACT-xxx" }]
+```
 
 ---
 

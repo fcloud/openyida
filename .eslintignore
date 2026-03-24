@@ -1,5 +1,6 @@
 # Babel 编译产物（包含 window、var 等浏览器环境代码）
 lib/core/babel-transform/
+assets/babel-transform/
 
 # 可选依赖（@alicloud/*、ali-oss 等按需安装，不在 devDependencies 中）
 lib/cdn/cdn-refresh.js
@@ -7,3 +8,6 @@ lib/cdn/cdn-upload.js
 
 # connector 子模块（动态 require 路径，实际运行时存在）
 lib/connector/
+
+# 宜搭自定义页面示例（使用 export function 语法，需宜搭 Babel 编译）
+project/pages/src/

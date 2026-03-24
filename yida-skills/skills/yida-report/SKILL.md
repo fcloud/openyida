@@ -352,10 +352,9 @@ openyida publish <源文件路径> <appType> <formUuid>
 
 ## 表单数据批量写入（HTTP API）
 
-通过 openyida 的 `lib/utils.js` 中的 `httpPost` 方法批量写入数据：
+使用标准 HTTP 客户端（如 axios、fetch 或 Node.js https 模块）批量写入数据：
 
 ```javascript
-const { httpPost } = require('lib/utils.js');
 const querystring = require('querystring');
 
 const postData = querystring.stringify({
@@ -368,10 +367,20 @@ const postData = querystring.stringify({
   }),
 });
 
-await httpPost(baseUrl, `/dingtalk/web/${APP_TYPE}/query/punchFormDataProvider/saveFormData.json`, postData, cookies);
+// 使用 Node.js https 模块示例
+const https = require('https');
+const options = {
+  hostname: 'www.aliwork.com',
+  path: `/dingtalk/web/${APP_TYPE}/query/punchFormDataProvider/saveFormData.json`,
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Cookie': cookies.map(c => `${c.name}=${c.value}`).join('; ')
+  }
+};
 ```
 
-**注意**：`cookies` 参数是数组格式 `[{name, value, domain, path}]`，`httpPost` 内部会自动拼接。
+**注意**：`cookies` 参数是数组格式 `[{name, value, domain, path}]`，需要手动拼接为 Cookie 字符串。
 
 ---
 
