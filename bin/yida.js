@@ -288,8 +288,8 @@ async function main() {
       }
       const [sourceFile, appType, formUuid] = args;
       process.argv = [process.argv[0], process.argv[1], appType, formUuid, sourceFile];
-      const { main: publishMain } = require('../lib/app/publish');
-      await publishMain();
+      const { run: publishRun } = require('../lib/app/publish');
+      await publishRun();
       break;
     }
 

@@ -18,9 +18,10 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc",
-    "build:clean": "rimraf lib && tsc",
+    "build": "tsc && npm run copy:babel",
+    "build:clean": "rimraf lib && tsc && npm run copy:babel",
     "build:watch": "tsc --watch",
+    "copy:babel": "mkdir -p lib/core/babel-transform && cp assets/babel-transform/*.js lib/core/babel-transform/ 2>/dev/null || true",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run lint && npm run build:clean && npm test",
     "test": "jest",
