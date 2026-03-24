@@ -207,14 +207,103 @@ async function getForm(positionals: string[], options: Record<string, string | b
   }));
 }
 
+/**
+ * 从 Schema 中提取字段标签到字段 ID 的映射
+ */
+function extractLabelToFieldIdMap(schema: any): Record<string, string> {
+  const labelMap: Record<string, string> = {};
+
+  function traverse(node: any): void {
+    if (!node) { return; }
+
+    // 提取当前节点的 label 和 fieldId
+    if (node.props) {
+      const { label, fieldId } = node.props;
+      if (fieldId && label) {
+        // 支持 i18n 格式的 label
+        const labelText = typeof label === 'object' ? (label.zh_CN || label.en_US) : label;
+        if (labelText) {
+          labelMap[labelText] = fieldId;
+        }
+      }
+    }
+
+    // 递归处理子节点
+    if (node.children && Array.isArray(node.children)) {
+      node.children.forEach(traverse);
+    }
+    if (node.items && Array.isArray(node.items)) {
+      node.items.forEach(traverse);
+    }
+  }
+
+  // 遍历 componentsTree
+  if (schema?.content?.pages) {
+    for (const page of schema.content.pages) {
+      if (page.componentsTree) {
+        page.componentsTree.forEach(traverse);
+      }
+    }
+  }
+
+  return labelMap;
+}
+
+/**
+ * 将用户数据中的字段标签替换为字段 ID
+ */
+function convertLabelToFieldId(data: Record<string, any>, labelMap: Record<string, string>): Record<string, any> {
+  const result: Record<string, any> = {};
+  for (const [key, value] of Object.entries(data)) {
+    // 如果 key 在 labelMap 中，说明是标签，需要转换为 fieldId
+    if (labelMap[key]) {
+      result[labelMap[key]] = value;
+    } else {
+      // 否则保持原样（可能已经是 fieldId）
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
 async function createForm(positionals: string[], options: Record<string, string | boolean>, session: Session): Promise<void> {
   requirePositionals(positionals, 2, ['appType', 'formUuid']);
   requireOption(options, 'data');
   const [appType, formUuid] = positionals;
+
+  // 解析用户输入的数据
+  let userData: Record<string, any>;
+  try {
+    userData = JSON.parse(options.data as string);
+  } catch (e) {
+    fail('--data 参数必须是有效的 JSON 格式');
+  }
+
+  // 检查数据中是否包含中文标签（需要转换）
+  const hasChineseKey = Object.keys(userData).some(key => /[\u4e00-\u9fa5]/.test(key));
+
+  let formDataJson = options.data as string;
+
+  if (hasChineseKey) {
+    // 获取表单 Schema 以提取字段映射
+    console.error('  📋 检测到字段标签，正在获取字段映射...');
+    const schemaResult = await sendGet(session, appType,
+      `/alibaba/web/${appType}/_view/query/formdesign/getFormSchema.json`,
+      { formUuid }
+    );
+
+    if (schemaResult && schemaResult.content) {
+      const labelMap = extractLabelToFieldIdMap(schemaResult);
+      const convertedData = convertLabelToFieldId(userData, labelMap);
+      formDataJson = JSON.stringify(convertedData);
+      console.error('  ✅ 字段标签已转换为字段 ID');
+    }
+  }
+
   const params: Record<string, any> = {
     appType,
     formUuid,
-    formDataJson: options.data,
+    formDataJson,
   };
   if (options.dept_id) { params.deptId = options.dept_id; }
   printResult(await sendPost(session, appType, `/dingtalk/web/${appType}/v1/form/saveFormData.json`, params));
