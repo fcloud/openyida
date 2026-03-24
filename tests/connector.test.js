@@ -377,7 +377,7 @@ describe("generateOperation", () => {
     };
     const result = generateOperation(curlData, []);
     expect(result.operationId).toBeDefined();
-    expect(result.method).toBe("get");
+    expect(result.method).toBe("GET");
     expect(result.url).toBe("users");
     expect(result.summary).toBeDefined();
     expect(result.inputs).toEqual([]);

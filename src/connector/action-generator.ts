@@ -253,7 +253,7 @@ function generateOperation(curlData: CurlData, relevantHeaders: [string, string]
     summary: summary,
     description: description,
     url: cleanPath,
-    method: curlData.method.toLowerCase(),
+    method: curlData.method.toUpperCase(),
     inputs: inputs,
     parameters: parameters,
     responses: { type: 'object', properties: {} },

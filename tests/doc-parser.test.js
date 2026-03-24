@@ -287,7 +287,7 @@ describe('convertToOperationConfig', () => {
     expect(config.operationId).toBe('查询用户');
     expect(config.summary).toBe('查询用户');
     expect(config.description).toBe('查询用户列表接口');
-    expect(config.method).toBe('get');
+    expect(config.method).toBe('GET');
     expect(config.url).toBe('/api/users');
     expect(config.origin).toBe(true);
   });

@@ -452,7 +452,7 @@ function convertToOperationConfig(parseResult: ParseResult): Operation {
     summary: parseResult.basicInfo.title || '未命名操作',
     description: parseResult.basicInfo.description || '',
     url: parseResult.serverInfo.path || '',
-    method: (parseResult.serverInfo.method || 'GET').toLowerCase(),
+    method: (parseResult.serverInfo.method || 'GET').toUpperCase(),
     inputs: [],
     parameters: {
       header: [],
