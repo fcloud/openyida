@@ -207,7 +207,7 @@ export function loadCookieData(projectRoot?: string, defaultBaseUrl?: string): C
 export function triggerLogin(): CookieData {
   console.error(t('login.trigger_login'));
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { ensureLogin } = require('./login') as { ensureLogin: () => CookieData };
+  const { ensureLogin } = require('../auth/login') as { ensureLogin: () => CookieData };
   return ensureLogin();
 }
 
@@ -217,7 +217,7 @@ export function triggerLogin(): CookieData {
 export function refreshCsrfToken(): CookieData {
   console.error(t('login.csrf_refresh'));
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { refreshCsrfFromCache } = require('./login') as { refreshCsrfFromCache: () => CookieData };
+  const { refreshCsrfFromCache } = require('../auth/login') as { refreshCsrfFromCache: () => CookieData };
   return refreshCsrfFromCache();
 }
 
