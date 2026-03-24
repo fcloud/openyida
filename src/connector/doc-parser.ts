@@ -43,7 +43,7 @@ interface ParseResult {
     };
   };
   responseInfo: {
-    schema?: JsonSchema;
+    schema?: JsonSchema | null;
     examples: any[];
   };
 }
@@ -81,7 +81,7 @@ class BaseDocParser {
         body: undefined
       },
       responseInfo: {
-        schema: undefined,
+        schema: null,
         examples: []
       }
     };

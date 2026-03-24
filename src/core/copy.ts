@@ -107,6 +107,73 @@ function removeSkillsLink(destLink: string): boolean {
 }
 
 /**
+ * 删除指定路径（文件、目录或软链接）。
+ * @param targetPath 要删除的路径
+ * @param silent 是否静默（不打印错误）
+ * @returns 删除成功返回 true，路径不存在或失败返回 false
+ */
+function removePath(targetPath: string, silent: boolean): boolean {
+  let stats: fs.Stats;
+  try {
+    stats = fs.lstatSync(targetPath);
+  } catch {
+    return false;
+  }
+
+  try {
+    if (stats.isSymbolicLink()) {
+      fs.unlinkSync(targetPath);
+    } else if (stats.isDirectory()) {
+      fs.rmSync(targetPath, { recursive: true, force: true });
+    } else {
+      fs.unlinkSync(targetPath);
+    }
+    return true;
+  } catch (error) {
+    if (!silent) {
+      const err = error as Error;
+      console.error(t('copy.remove_failed', targetPath, err.message));
+    }
+    return false;
+  }
+}
+
+interface AgentInstallResult {
+  agent: string;
+  type: 'symlink' | 'wukong-cleanup';
+  dest: string;
+  success: boolean;
+}
+
+/**
+ * 将 sourceDir 安装（软链接）到所有指定 AI 工具的 skills 目录。
+ * 悟空工具只清理已有软链，其他工具创建软链接。
+ */
+function installSkillsToAllAgents(sourceDir: string, agents: EnvironmentResult[]): AgentInstallResult[] {
+  const home = os.homedir();
+  const results: AgentInstallResult[] = [];
+
+  for (const agent of agents) {
+    const isWukong = agent.dirName === '.real';
+
+    if (isWukong) {
+      const wukongSkillsDir = path.join(home, '.real', 'skills');
+      const wukongLink = path.join(wukongSkillsDir, path.basename(sourceDir));
+      const removed = removePath(wukongLink, true);
+      results.push({ agent: agent.displayName, type: 'wukong-cleanup', dest: wukongLink, success: removed });
+    } else {
+      const agentSkillsDir = path.join(home, agent.dirName, 'skills');
+      const destLink = path.join(agentSkillsDir, path.basename(sourceDir));
+      fs.mkdirSync(agentSkillsDir, { recursive: true });
+      const success = createSymlink(sourceDir, destLink);
+      results.push({ agent: agent.displayName, type: 'symlink', dest: destLink, success });
+    }
+  }
+
+  return results;
+}
+
+/**
  * 创建软链接：如果目标存在实际目录则先删除，再创建软链接。
  */
 function createSymlink(sourceDir: string, destLink: string): boolean {
@@ -201,6 +268,8 @@ function copyItem(label: string, sourceDir: string, destDir: string, isForce: bo
 /**
  * 执行 copy 命令主逻辑。
  */
+export { removePath, createSymlink, installSkillsToAllAgents };
+
 export function run(): void {
   const SEP = '='.repeat(55);
   console.log(SEP);
