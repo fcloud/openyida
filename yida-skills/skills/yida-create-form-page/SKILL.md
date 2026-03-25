@@ -1,10 +1,12 @@
 ---
 name: yida-create-form-page
-description: 宜搭表单页面创建与更新技能，支持创建新表单（saveFormSchemaInfo + saveFormSchema + updateFormConfig）和更新已有表单（getFormSchema + saveFormSchema + updateFormConfig），支持 19 种字段类型（含 SerialNumberField 流水号）和字段增删改操作。
+description: 宜搭表单页面创建与更新技能，支持创建新表单（saveFormSchemaInfo + saveFormSchema + updateFormConfig）和更新已有表单（getFormSchema + saveFormSchema + updateFormConfig），支持 33 种字段类型（含 SerialNumberField 流水号、CC_ 扩展字段）和字段增删改操作。
 license: MIT
 compatibility:
   - opencode
   - claude-code
+  - qoder
+  - wukong
 metadata:
   audience: developers
   workflow: yida-development
@@ -509,27 +511,59 @@ yida-create-form-page/
 
 ## 支持的字段类型
 
+> 来源：FORM-C87D231B5F7B4D84A5750F9965F911E7BLF2 表单中实际存在的组件
+> 插件中心：https://www.aliwork.com/solutionCenter?tab=plugin
+
+### 基础字段（宜搭内置，无需安装插件）
+
 | 字段类型 | componentName | 说明 | 特殊属性 |
 | --- | --- | --- | --- |
 | `TextField` | TextField | 单行文本，用于姓名、标题、编号等 | — |
 | `TextareaField` | TextareaField | 多行文本，用于描述、备注等 | — |
+| `NumberField` | NumberField | 数字，用于金额、数量、年龄等 | — |
+| `RateField` | RateField | 评分，用于满意度评价等星级打分 | — |
+| `DateField` | DateField | 日期，用于生日、截止日期等 | — |
 | `RadioField` | RadioField | 单选，用于性别、状态等互斥选项 | `options` |
 | `SelectField` | SelectField | 下拉单选，适合选项较多（>5）的场景 | `options` |
 | `CheckboxField` | CheckboxField | 多选，用于兴趣爱好、技能标签等 | `options` |
 | `MultiSelectField` | MultiSelectField | 下拉多选，适合选项较多（>5）的场景 | `options` |
-| `NumberField` | NumberField | 数字，用于金额、数量、年龄等 | — |
-| `RateField` | RateField | 评分，用于满意度评价等星级打分 | — |
-| `DateField` | DateField | 日期，用于生日、截止日期等 | — |
+| `CascadeSelectField` | CascadeSelectField | 级联选择，用于省市区等层级选择 | `options` |
 | `CascadeDateField` | CascadeDateField | 级联日期，用于日期范围选择 | — |
 | `EmployeeField` | EmployeeField | 成员，选择组织内成员 | `multiple` |
 | `DepartmentSelectField` | DepartmentSelectField | 部门，选择组织内部门 | `multiple` |
-| `CountrySelectField` | CountrySelectField | 国家，选择国家/地区 | `multiple` |
-| `AddressField` | AddressField | 地址，用于收货地址等 | — |
+| `AssociationFormField` | AssociationFormField | 关联表单 | `associationForm` |
+| `AssociationQuery` | AssociationQuery | 关联查询 | — |
 | `AttachmentField` | AttachmentField | 附件上传 | — |
 | `ImageField` | ImageField | 图片上传 | — |
+| `AddressField` | AddressField | 地址，用于收货地址等 | — |
+| `CountrySelectField` | CountrySelectField | 国家，选择国家/地区 | `multiple` |
 | `TableField` | TableField | 表格（子表），用于结构化数据 | `children` |
-| `AssociationFormField` | AssociationFormField | 关联表单 | `associationForm` |
 | `SerialNumberField` | SerialNumberField | 流水号，自动生成唯一编号 | `serialNumberRule` |
+
+### 高级字段（宜搭内置，部分功能可能需要开通）
+
+| 字段类型 | componentName | 说明 | 特殊属性 |
+| --- | --- | --- | --- |
+| `EditorField` | EditorField | 富文本编辑器 | — |
+| `DigitalSignatureField` | DigitalSignatureField | 数字签名 | — |
+| `LocationField` | LocationField | 位置字段，用于定位打卡等 | — |
+
+### 插件字段（⚠️ 需要安装对应插件才能使用）
+
+> 以下字段类型需要在「插件中心」安装对应插件后才能使用，否则创建表单时会报错。
+> 插件中心地址：https://www.aliwork.com/solutionCenter?tab=plugin
+
+| 字段类型 | componentName | 说明 | 所需插件 |
+| --- | --- | --- | --- |
+| `TimeZoneDateField` | TimeZoneDateField | 时区日期 | 国际化时区组件 |
+| `CC_AIButtonField` | CC_AIButtonField | AI 按钮字段 | AI组件 |
+| `CC_PG_ESignField` | CC_PG_ESignField | 电子签名 | 智能财务组件 |
+| `CC_TeambitionProjectLinksField` | CC_TeambitionProjectLinksField | Teambition 项目关联 | Teambition-关联任务/项目 |
+| `CC_TeambitionTaskLinksField` | CC_TeambitionTaskLinksField | Teambition 任务关联 | Teambition-关联任务/项目 |
+| `CC_MoneyField` | CC_MoneyField | 金额字段 | 智能财务组件 |
+| `CC_PhoneNumberField` | CC_PhoneNumberField | 电话号码 | 扩展组件 |
+| `CC_ChineseIdField` | CC_ChineseIdField | 身份证 | 扩展组件 |
+| `YidaDingtalkAgentField` | YidaDingtalkAgentField | 钉钉代理人 | 钉钉相关插件 |
 
 ## 与其他技能配合
 
@@ -545,6 +579,18 @@ yida-create-form-page/
 
 
 ## 注意事项
+
+> ⛔ **强制规则（违反将导致数据丢失，不可恢复）**
+>
+> 1. **禁止全量覆盖 Schema**：update 模式必须先通过 `getFormSchema` 获取当前完整 Schema，在原有 Schema 基础上进行增量修改后再保存，严禁用全新构建的 Schema 直接覆盖原有页面的 Schema。
+>
+> 2. **禁止删除字段**：即使用户要求"删除"某字段，也不得执行 `delete` 操作。正确做法是：
+>    - 若字段类型需要变更：将原字段的 `behavior` 设置为 `HIDDEN`（隐藏），再新增一个新类型的字段
+>    - 若字段仅需隐藏：将 `behavior` 设置为 `HIDDEN` 即可
+>    - 原因：已提交的表单数据与字段 ID 绑定，删除字段会导致历史数据永久丢失
+>
+> 3. **有数据时必须二次确认**：执行 update 操作前，必须先调用 `searchFormDataIds` 检测表单是否有数据。若表单已有数据，**必须暂停执行，向用户展示影响说明并等待明确确认**，用户取消则终止操作。严禁在未经确认的情况下直接修改有数据的表单结构。
+
 - **临时文件写在当前工程根目录的 .cache 文件夹中，如果没有就创建一个文件夹，注意不要写在系统的其他文件夹中**
 - update 模式中，修改定义 JSON 的操作按顺序执行，注意操作间的依赖关系（如先删后加）
 - 字段匹配基于中文标签（`label.zh_CN`），确保标签名称准确
