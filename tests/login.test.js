@@ -256,6 +256,8 @@ describe("findProjectRoot 环境检测", () => {
     expect(fs.realpathSync(root)).toBe(fs.realpathSync(projectDir));
     expect(fs.existsSync(root)).toBe(true);
 
+    // Windows 上需要先切回原目录，否则 testDir 被占用导致 EBUSY
+    process.chdir(originalCwd);
     fs.rmSync(testDir, { recursive: true, force: true });
   });
 
