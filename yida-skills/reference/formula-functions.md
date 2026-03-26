@@ -209,7 +209,7 @@ IF(ISEMPTY(textField_remark), "无备注", textField_remark)
 | `SMALL(array, k)` | 返回数据集中第 k 个最小值 | ✅ | ❌ | ❌ |
 | `COUNTDISTINCT(field)` | 对字段进行去重计数 | ❌ | ✅ | ❌ |
 | `ParseDouble(value)` | 将字符串或整数强转为浮点数 | ❌ | ❌ | ✅ |
-| `Parseint(value)` | 将字符串或浮点数强转为整数 | ❌ | ❌ | ✅ |
+| `ParseInt(value)` | 将字符串或浮点数强转为整数 | ❌ | ❌ | ✅ |
 
 ### 数学函数示例
 
