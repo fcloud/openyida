@@ -280,10 +280,20 @@ describe("findProjectRoot 环境检测", () => {
     delete process.env.AGENT_WORK_ROOT;
     delete process.env.OPENCODE;
     delete process.env.CURSOR_TRACE_ID;
+    delete process.env.TERM_PROGRAM;
+
+    // 屏蔽 Aone Copilot 兜底检测（避免本机 ~/.aone_copilot 目录干扰）
+    const originalExistsSync = fs.existsSync;
+    fs.existsSync = (p) => {
+      if (p.includes(".aone_copilot")) return false;
+      return originalExistsSync(p);
+    };
 
     const { findProjectRoot: findRoot } = require("../lib/core/utils");
     const root = findRoot();
-    
+
+    fs.existsSync = originalExistsSync;
+
     expect(root).toBe(originalCwd);
   });
 });
@@ -338,10 +348,21 @@ describe("detectActiveTool", () => {
     delete process.env.AGENT_WORK_ROOT;
     delete process.env.OPENCODE;
     delete process.env.CURSOR_TRACE_ID;
+    delete process.env.TERM_PROGRAM;
+
+    // 屏蔽 Aone Copilot 兜底检测（避免本机 ~/.aone_copilot 目录干扰）
+    const originalExistsSync = fs.existsSync;
+    fs.existsSync = (p) => {
+      if (p.includes(".aone_copilot")) return false;
+      return originalExistsSync(p);
+    };
 
     const { detectActiveTool: detectTool } = require("../lib/core/utils");
 
     const tool = detectTool();
+
+    fs.existsSync = originalExistsSync;
+
     expect(tool).toBeNull();
   });
 
