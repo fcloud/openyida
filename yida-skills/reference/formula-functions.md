@@ -165,14 +165,14 @@ INT(DAYS(TODAY(), dateField_joinDate) / 365)
 ### 逻辑函数示例
 
 ```
-# 简单条件判断
-IF(numberField_score >= 90, "优秀", "良好")
+# 简单条件判断（⚠️ 比较运算必须用函数，不能用 >=、<= 等符号）
+IF(GE(numberField_score, 90), "优秀", "良好")
 
 # 嵌套 IF（多级判断）
-IF(numberField_score >= 90, "A", IF(numberField_score >= 60, "B", "C"))
+IF(GE(numberField_score, 90), "A", IF(GE(numberField_score, 60), "B", "C"))
 
 # AND 多条件
-IF(AND(numberField_age >= 18, numberField_age <= 60), "适龄", "不适龄")
+IF(AND(GE(numberField_age, 18), LE(numberField_age, 60)), "适龄", "不适龄")
 
 # OR 任一条件
 IF(OR(EQ(radioField_status, "已完成"), EQ(radioField_status, "已关闭")), "已结束", "进行中")
