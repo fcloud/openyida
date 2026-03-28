@@ -618,6 +618,8 @@ async function main() {
     case 'dws': {
       const { run: runDws } = require('../lib/dws/dws-wrapper');
       await runDws(args);
+      break;
+    }
     case 'export-conversation': {
       const { exportConversation } = require('../lib/conversation/export-conversation');
       // 解析选项
