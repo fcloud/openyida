@@ -66,6 +66,9 @@ large-file-write - 大文件可靠写入工具
 }
 
 // ─── 执行 payload 模式 ────────────────────────────────────────────────────────
+// ⚠️ 安全警告：--payload 模式会通过 require() 直接执行指定的 JS 文件，
+// 该文件中的任意代码都会被执行。此功能仅供 AI Agent 内部自动化使用，
+// 不要将此参数暴露给不受信任的终端用户或外部输入。
 
 if (args.payload) {
   const payloadPath = path.resolve(args.payload);
@@ -150,7 +153,9 @@ rl.on('line', (line) => {
 rl.on('close', () => {
   const content = chunks.join('\n');
   if (!content.trim()) {
-    console.error('❌ 未接收到任何内容，请通过 stdin 或 --content-file 提供内容');
+    console.error('❌ 未接收到任何内容');
+    console.error('   已尝试的输入来源：stdin（管道或交互式输入）');
+    console.error('   其他可用方式：--content-file <文件路径> 或 --payload <JS脚本路径>');
     process.exit(1);
   }
   writeContent(content);

@@ -64,15 +64,25 @@ fs.appendFileSync('/path/to/target.js', appendContent, 'utf8');
 console.log('追加完成');
 ```
 
-### 方式三：使用通用写入脚本
+### 方式三：使用通用写入脚本（仅限人工操作）
+
+> ⚠️ 此方式需要交互式 stdin 输入，**不适用于 AI Agent 自动化场景**。AI Agent 请使用方式一或方式二。
 
 ```bash
+# 交互式输入（人工操作时使用）
 node ~/.agents/skills/large-file-write/scripts/write.js \
   --file /path/to/target.js \
-  --mode write   # 或 append
-```
+  --mode write
 
-然后通过 stdin 输入内容（Ctrl+D 结束）。
+# 或通过管道输入（自动化场景可用）
+cat /tmp/content.txt | node ~/.agents/skills/large-file-write/scripts/write.js \
+  --file /path/to/target.js
+
+# 或通过 --content-file 指定内容文件（自动化场景推荐）
+node ~/.agents/skills/large-file-write/scripts/write.js \
+  --file /path/to/target.js \
+  --content-file /tmp/content.txt
+```
 
 ## 核心原则
 
