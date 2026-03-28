@@ -8,6 +8,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2026.03.28] - 2026-03-28
+
+### Security
+- `cdn-config.js`：保存 AccessKey 配置后自动设置文件权限为 600，防止凭证泄露
+- `cdn-upload.js`：新增 `isPathSafe()` 路径安全校验，过滤 null-byte 注入攻击
+- `query-data.js`：`--search-json` 参数在发送前强制校验是否为合法 JSON
+
+### Fixed
+- `utils.js`：修复 `httpPost` / `httpGet` 中双重 reject 问题（通过 `hasRejected` 标志位防止重复触发）
+- `formatter.js`：实现 `escapeMarkdown()` 函数，正确转义 Markdown 特殊字符，防止 XSS
+
+### Changed
+- 合并 `lib/data-management.js` 到 `lib/core/query-data.js`，统一数据管理命令入口
+  - 支持表单/流程/任务/子表单的查询、新增、更新全操作
+  - 删除冗余的 `lib/data-management.js` 和对应测试文件
+- `bin/yida.js`：`data` 命令统一路由至 `lib/core/query-data`
+
+### Documentation
+- `yida-skills/SKILL.md`：删除孤立标题、修复重复条目，新增模板文件引用表格
+- `yida-app/SKILL.md`：重构步骤详解，步骤编号与流程图对齐（Step 1-9），补充缺失的流程配置和预检步骤，每步添加子技能文档链接
+- 恢复三个模板文件（从 v2026.03.24 tag 还原）：
+  - `yida-custom-page/templates/custom-page-template.js`
+  - `yida-data-management/templates/form-field-template.js`
+  - `yida-create-app/templates/ipd-app-template.js`
+
+### Tests
+- 重写 `tests/query-data.test.js`：更新为新接口格式（`query form / get form / create form / query tasks`），新增 19 个测试用例，覆盖参数校验、未登录、查询/创建/错误场景
+
 ## [2026.03.26] - 2026-03-26
 
 ### Added

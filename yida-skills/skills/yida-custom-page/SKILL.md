@@ -444,7 +444,7 @@ this.utils.yida.searchFormDatas({
 
 ## API 速查
 
-### 表单数据（`this.utils.yida.<方法>(params)`）
+`### 表单数据（`this.utils.yida.<方法>(params)`）
 
 | 方法 | 说明 | 必填参数 |
 |------|------|----------|
@@ -474,9 +474,23 @@ this.utils.yida.searchFormDatas({
 | `isMobile` | 判断移动端 |
 | `openPage` | 打开新页面 |
 | `router.push` | 路由跳转 |
-| `loadScript` | 动态加载脚本 |
+| `loadScript` | 动态加载脚本 |`
 
-完整参数说明见 [yida-api.md](../../references/yida-api.md)、[model-api.md](../../references/model-api.md)。
+> **使用前必须阅读 [yida-api.md](../../references/yida-api.md) 查询详细的参数，禁止猜测参数**。
+
+### 大模型 AI 接口
+
+以下接口用于调用大模型 AI 文本生成能力：
+
+| 方法 | 说明 | 调用方式 |
+| --- | --- | --- |
+| `txtFromAI` | AI 文本生成 | `POST /query/intelligent/txtFromAI.json` |
+
+**主要参数**：`_csrf_token`（CSRF 令牌）、`prompt`（提示词）、`skill`（技能类型，如 `ToText`）、`maxTokens`（最大返回 token 数）
+
+> **使用前必须阅读 [model-api.md](../../references/model-api.md)查询详细的参数，禁止猜测参数**。
+
+---
 
 ## 参考文档
 
