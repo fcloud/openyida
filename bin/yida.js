@@ -27,6 +27,7 @@
  *   openyida get-page-config <appType> <formUuid>       查询页面公开访问/分享配置
  *   openyida update-form-config <appType> <formUuid> <isRenderNav> <title>  更新表单配置
  *   openyida data <action> <resource> [args]            统一数据管理（表单/流程/任务/子表单）
+ *   openyida task-center <type> [--page N] [--size N] [--keyword TEXT]  全局任务中心（待办/我创建的/我已处理/抄送/代提交）
  *   openyida doctor [选项]                              检查环境依赖，诊断应用问题
  *   openyida export <appType> [output]                  导出应用所有表单 Schema（生成迁移包）
  *   openyida import <file> [name]                       导入迁移包，在目标环境重建应用
@@ -622,6 +623,12 @@ async function main() {
         }
       }
       await exportConversation(options);
+      break;
+    }
+
+    case 'task-center': {
+      const { run: runTaskCenter } = require('../lib/core/task-center');
+      await runTaskCenter(args);
       break;
     }
 
