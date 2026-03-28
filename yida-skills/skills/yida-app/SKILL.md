@@ -141,7 +141,7 @@ openyida create-app "<应用名称>" "[描述]"
 |--------|-----|
 | appType | APP_XXXXXX |
 | corpId | dingXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX |
-| baseUrl | https://ding.aliwork.com |
+| baseUrl | https://www.aliwork.com |
 
 ## 功能需求
 
@@ -191,7 +191,7 @@ openyida create-page <appType> "<页面名称>"
 
 **当页面需要收集/存储数据时**，调用 `yida-create-form-page` 技能。
 
-#### 4.1 定义字段，写入 `.cache/fields.json`
+#### 4.1 定义字段，写入 `.cache/xxx-fields.json`
 
 ```json
 [
@@ -205,7 +205,7 @@ openyida create-page <appType> "<页面名称>"
 #### 4.2 创建表单
 
 ```bash
-openyida create-form create <appType> "<表单名称>" .cache/fields.json
+openyida create-form create <appType> "<表单名称>" .cache/xxx-fields.json
 ```
 
 **输出**：`formUuid` 和各字段的 `fieldId`（如 `textField_xxxxxxxx`）。
@@ -294,7 +294,7 @@ openyida publish <源文件路径> <appType> <formUuid>
 
 ### Step 9：输出访问链接并用系统浏览器打开
 
-访问地址格式参考文档末尾「URL 规则」章节。
+访问地址格式参考文档末尾 [「宜搭应用 URL 规则」](#宜搭应用-url-规则) 章节。
 
 ## 数据流转说明
 
