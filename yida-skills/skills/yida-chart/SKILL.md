@@ -1282,7 +1282,7 @@ export function formatDate(timestamp) {
 
 如需创建或更新原生报表，请调用 `yida-report` 技能。相关参考：
 - **Schema 构建脚本**：[`build-yida-report-schema.js`](./build-yida-report-schema.js)
-- **组件详细文档**：[`reference/vc-yida-report-components-doc.md`](../../reference/vc-yida-report-components-doc.md)
+- **组件详细文档**：[`references/vc-yida-report-components-doc.md`](../../references/vc-yida-report-components-doc.md)
 
 ---
 

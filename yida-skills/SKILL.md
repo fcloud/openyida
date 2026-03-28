@@ -1,8 +1,10 @@
 ---
-name: yida
+name: yida-skills
 description: >
   宜搭低代码平台 AI 开发入口。一句话生成完整应用：创建应用、表单设计、自定义页面、流程配置、数据管理。
   当用户提到"宜搭"、"yida"、"低代码"、"创建应用"、"创建表单"、"发布页面"、"搭建"、"系统"、"应用"时触发。
+metadata:
+  version: 2026.03.28
 ---
 
 # 宜搭 AI 应用开发指南
@@ -48,44 +50,7 @@ openyida copy
 
 ## 开发流程
 
-```
-[Step 1] 创建应用 → openyida create-app          → 获得 appType
-              ↓
-[Step 2] 需求分析 → 写入 prd/<项目名>.md
-              ↓
-[Step 3] 创建自定义页面 → openyida create-page    → 获得 formUuid（自定义页面）
-              ↓
-[Step 4]（按需）创建/更新表单 → openyida create-form → 获得 formUuid（表单）
-              ↓
-[Step 5]（⚠️ 需求含「审批」「流程」「申请」「审核」「工单」等关键词时必须执行）
-          配置流程 → 读取 skills/yida-create-process/SKILL.md → openyida create-process / configure-process
-              ↓
-[Step 6] 编写自定义页面代码 → yida-custom-page 规范 → pages/src/<项目名>.js
-              ↓  （⚠️ 列表/表格类页面：参考 yida-density 技能选择合适的信息密度）
-              ↓
-[Step 7] （可选）预检语法 → openyida compile <源文件路径>   # 仅编译，不发布，快速验证语法
-              ↓
-[Step 8] 发布页面 → openyida publish <源文件路径> <appType> <formUuid>
-              ↓
-[Step 9] 输出访问链接，用系统浏览器打开
-```
-
-> 完整流程编排详见 [`skills/yida-app/SKILL.md`](skills/yida-app/SKILL.md)。
-
-### ⚠️ 重要：使用模板文件确保一次性成功
-
-为避免生成错误代码，**必须**使用各技能的模板文件：
-
-| 技能 | 模板文件 | 用途 |
-|------|---------|------|
-| yida-custom-page | [templates/custom-page-template.js](skills/yida-custom-page/templates/custom-page-template.js) | 自定义页面完整模板 |
-| yida-data-management | [templates/form-field-template.js](skills/yida-data-management/templates/form-field-template.js) | 表单字段定义和数据插入 |
-| yida-create-app | [templates/ipd-app-template.js](skills/yida-create-app/templates/ipd-app-template.js) | 完整应用创建示例 |
-
-**⚠️ 代码生成前必须**：
-1. 读取对应的模板文件
-2. 以模板为基础进行扩展
-3. 验证所有参数名称与 CLI 一致
+开发应用前必须完整阅读 yida-app 技能： [`skills/yida-app/SKILL.md`](skills/yida-app/SKILL.md)。
 
 ---
 
@@ -97,6 +62,7 @@ openyida copy
 |------|--------------|------|---------|
 | `yida-login` | `skills/yida-login/SKILL.md` | 登录态管理（通常自动触发） | `openyida login` |
 | `yida-logout` | `skills/yida-logout/SKILL.md` | 退出登录 / 切换账号 | `openyida logout` |
+| `yida-app` | `skills/yida-app/SKILL.md` | 完整应用开发全流程（从零到一，含创建/表单/页面/发布），创建应用前需先阅读此技能 | 详见技能文档 `skills/yida-app/SKILL.md` |
 | `yida-create-app` | `skills/yida-create-app/SKILL.md` | 创建应用，获取 appType | `openyida create-app "<名称>"` |
 | `yida-create-page` | `skills/yida-create-page/SKILL.md` | 创建自定义页面，获取 formUuid | `openyida create-page <appType> "<页面名>" [--datasource <json>]` |
 | `yida-create-form-page` | `skills/yida-create-form-page/SKILL.md` | 创建/更新表单页面 | `openyida create-form create <appType> "<表单名>" <字段JSON> [--datasource <json>]` |
@@ -109,7 +75,6 @@ openyida copy
 | `yida-data-management` | `skills/yida-data-management/SKILL.md` | 数据管理（表单实例/流程实例/任务中心的查询、新增、更新） | `openyida data query form <appType> <formUuid>` |
 | `yida-create-report` | `skills/yida-create-report/SKILL.md` | 创建报表页面，支持 9 种图表和筛选器联动 | `openyida create-report <appType> "<报表名>" <图表JSON>` |
 | `yida-connector` | `skills/yida-connector/SKILL.md` | 宜搭 HTTP 连接器管理（创建/编辑/测试/智能生成） | `openyida connector list` |
-| `yida-app` | `skills/yida-app/SKILL.md` | 完整应用开发全流程（从零到一，含创建/表单/页面/发布） | 详见技能文档 |
 | `yida-chart` | `skills/yida-chart/SKILL.md` | ECharts 高级可视化大屏（依赖 yida-report 作为数据源） | 详见技能文档 |
 | `yida-density` | `skills/yida-density/SKILL.md` | 自定义页面信息密度规范（紧凑/舒适/宽松三种模式） | 详见技能文档 |
 | `yida-integration` | `skills/yida-integration/SKILL.md` | 集成&自动化（逻辑流）：表单事件触发 → 消息通知/数据操作 | `openyida integration create <appType> <formUuid> "<名称>"` |
@@ -145,12 +110,6 @@ openyida copy
 | **yida-form-permission** | [`skills/yida-form-permission/SKILL.md`](skills/yida-form-permission/SKILL.md) | 表单权限配置（字段/数据/操作权限） |
 
 ### 流程
-
-### 1. 编写自定义页面代码前必须完整学习 `skills/yida-custom-page/SKILL.md`
-
-### 2. 生成表单 schema 前必须完整学习 `skills/yida-create-form-page/SKILL.md`
-
-### 3. corpId 一致性检查（必须遵守）
 | 技能 | 路径 | 说明 |
 |------|------|------|
 | **yida-create-process** | [`skills/yida-create-process/SKILL.md`](skills/yida-create-process/SKILL.md) | 一键创建流程表单（创建+转流程+配置） |
@@ -168,7 +127,6 @@ openyida copy
 | **yida-chatbot** | [`skills/yida-chatbot/SKILL.md`](skills/yida-chatbot/SKILL.md) | AI 对话浮窗组件（独立使用或注入已有页面） |
 
 
-### 4. 配置信息分两处存储
 ### 连接器与报表
 
 | 技能 | 路径 | 说明 |
@@ -180,7 +138,6 @@ openyida copy
 
 ### 配置与认证
 
-### 5. 临时文件规范
 | 技能 | 路径 | 说明 |
 |------|------|------|
 | **yida-login** | [`skills/yida-login/SKILL.md`](skills/yida-login/SKILL.md) | 登录态管理（通常自动触发） |
@@ -199,9 +156,9 @@ openyida copy
 
 | 文档 | 路径 | 说明 |
 |------|------|------|
-| 宜搭 JS API | [`reference/yida-api.md`](reference/yida-api.md) | 31 个 API（表单操作/流程操作/设计/工具类） |
-| 大模型 AI 接口 | [`reference/model-api.md`](reference/model-api.md) | AI 文本生成接口参数与示例 |
-| 查询条件指南 | [`reference/query-condition-guide.md`](reference/query-condition-guide.md) | searchFieldJson 条件构造规范 |
+| 宜搭 JS API | [`references/yida-api.md`](references/yida-api.md) | 31 个 API（表单操作/流程操作/设计/工具类） |
+| 大模型 AI 接口 | [`references/model-api.md`](references/model-api.md) | AI 文本生成接口参数与示例 |
+| 查询条件指南 | [`references/query-condition-guide.md`](references/query-condition-guide.md) | searchFieldJson 条件构造规范 |
 
 ---
 
@@ -242,7 +199,7 @@ openyida login
 
 **Q：如何在表单/页面中使用连接器调用外部接口？**
 
-参考 `reference/connector-datasource.md`，了解连接器数据源的定义方式和 JS 调用规范。支持 HTTP 连接器、宜搭内置连接器、第三方连接器等多种类型，在表单页面和自定义页面中均可使用：
+参考 `references/connector-datasource.md`，了解连接器数据源的定义方式和 JS 调用规范。支持 HTTP 连接器、宜搭内置连接器、第三方连接器等多种类型，在表单页面和自定义页面中均可使用：
 - 通过 `--datasource` 参数在创建表单/页面时注入连接器数据源
 - 在 JS 中通过 `this.dataSourceMap.<名称>.load({ inputs: JSON.stringify({...}) })` 调用
 > 拼接 `&corpid={corpId}` 切换组织，拼接 `&isRenderNav=false` 隐藏导航。

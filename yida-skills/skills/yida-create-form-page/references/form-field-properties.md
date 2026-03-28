@@ -229,7 +229,7 @@
 | `renderLinkForView` | `true` | 查看时渲染链接 |
 | `closeOnSelect` | `false` | 选择后关闭 |
 
-> 如果需要人员默认选中当前登录人，用法参考 `../reference/employee-field.md`
+> 如果需要人员默认选中当前登录人，用法参考 `../references/employee-field.md`
 
 ---
 
@@ -331,7 +331,7 @@
 
 关联表单字段。
 
-> 详细用法参考 `../reference/association-form-field.md`
+> 详细用法参考 `../references/association-form-field.md`
 
 ---
 

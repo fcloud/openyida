@@ -420,7 +420,7 @@ await httpPost(baseUrl, `/dingtalk/web/${APP_TYPE}/query/punchFormDataProvider/s
 - **组件库地址**：`//g.alicdn.com/code/npm/@ali/vc-yida-report/1.0.101/pc.js`
 - **全局挂载**：`window.YidaReport`
 - **Schema 构建脚本**：[`build-yida-report-schema.js`](./build-yida-report-schema.js)
-- **组件详细文档**：[`reference/vc-yida-report-components-doc.md`](../../reference/vc-yida-report-components-doc.md)
+- **组件详细文档**：[`references/vc-yida-report-components-doc.md`](../../references/vc-yida-report-components-doc.md)
 
 ### 组件总览
 

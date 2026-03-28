@@ -21,7 +21,7 @@ metadata:
 2. **配置校验规则**：在提交时校验数据是否符合规则（在表单属性的「校验」中配置）
 3. **配置业务关联规则**：提交后自动增删改其他表单的数据（高级函数 INSERT/UPDATE/DELETE/UPSERT）
 
-> 完整函数列表参见 `../../reference/formula-functions.md`
+> 完整函数列表参见 `../../references/formula-functions.md`
 
 ---
 
@@ -174,7 +174,7 @@ TODAY()
 
 ## 函数分类速查
 
-> 完整函数参数说明见 `../../reference/formula-functions.md`
+> 完整函数参数说明见 `../../references/formula-functions.md`
 
 ### 文本函数（表单场域）
 
@@ -425,4 +425,4 @@ ARRAYGET(SPLIT(#{textField_tags}, ","), 1)
 | 创建表单基础字段结构 | `yida-create-form-page`（创建 `NumberField`、`TextField` 等字段） |
 | 获取字段真实 fieldId 用于公式引用 | `yida-get-schema`（get-schema 后从 fieldId 属性获取，再用 `#{fieldId}` 格式写入公式） |
 | 配置提交后的数据联动（替代高级函数） | `yida-integration` |
-| 完整函数参数说明 | `../../reference/formula-functions.md` |
+| 完整函数参数说明 | `../../references/formula-functions.md` |

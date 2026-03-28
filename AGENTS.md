@@ -99,7 +99,7 @@ openyida/
 ├── yida-skills/
 │   ├── SKILL.md             # 技能入口（索引表，列出所有子技能）
 │   ├── skills/              # 子技能目录（每个 skill 自包含 SKILL.md + references/）
-│   └── reference/           # 跨 skill 共享参考文档（yida-api、model-api、query-condition-guide）
+│   └── references/           # 跨 skill 共享参考文档（yida-api、model-api、query-condition-guide）
 └── scripts/
     ├── postinstall.js       # 安装后脚本（环境检测 + 配置注入）
     ├── validate-ci.sh       # CI 校验脚本
@@ -117,7 +117,7 @@ openyida/
 ### 宜搭 API 调用
 - 所有宜搭 API 调用需携带 Cookie（从 `login.js` 获取缓存）
 - API 基础路径：`https://www.aliwork.com`
-- 参考 `yida-skills/reference/yida-api.md` 了解完整 API 列表
+- 参考 `yida-skills/references/yida-api.md` 了解完整 API 列表
 
 ### 环境检测
 - `lib/env.js` 负责检测当前运行的 AI 工具环境
@@ -133,7 +133,7 @@ openyida/
 - **入口文件** `yida-skills/SKILL.md` 是索引表，列出所有子技能和共享参考文档
 - **每个子技能**位于 `yida-skills/skills/<skill-name>/` 目录下，包含独立的 `SKILL.md`
 - **专属参考文档**放在各 skill 的 `references/` 目录下（复数形式），实现自包含
-- **跨 skill 共享文档**保留在 `yida-skills/reference/` 目录下（`yida-api.md`、`model-api.md`、`query-condition-guide.md`）
+- **跨 skill 共享文档**保留在 `yida-skills/references/` 目录下（`yida-api.md`、`model-api.md`、`query-condition-guide.md`）
 - 新增子技能时，同步更新 `yida-skills/SKILL.md` 的索引表
 
 ## 开发注意事项

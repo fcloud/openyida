@@ -18,7 +18,7 @@
 | `searchFormDataIds` | 按条件搜索表单实例 ID 列表 | `formUuid` |
 | `getFormComponentDefinationList` | 获取表单定义 | `formUuid` |
 
-完整参数说明和调用示例请参考 [yida-api.md](../../reference/yida-api.md) 的「表单数据操作」章节。
+完整参数说明和调用示例请参考 [yida-api.md](../../references/yida-api.md) 的「表单数据操作」章节。
 
 ### 流程操作
 
@@ -42,7 +42,7 @@
 | `saveFormSchema` | 保存表单 Schema | `POST /dingtalk/web/{appType}/_view/query/formdesign/saveFormSchema.json` |
 | `updateFormConfig` | 更新表单配置 | `POST /dingtalk/web/{appType}/query/formdesign/updateFormConfig.json` |
 
-完整参数说明请参考 [yida-api.md](../../reference/yida-api.md) 的「表单设计类 API」章节。
+完整参数说明请参考 [yida-api.md](../../references/yida-api.md) 的「表单设计类 API」章节。
 
 ### 大模型 AI 接口
 
@@ -54,7 +54,7 @@
 
 **主要参数**：`_csrf_token`（CSRF 令牌）、`prompt`（提示词）、`skill`（技能类型，如 `ToText`）、`maxTokens`（最大返回 token 数）
 
-完整参数说明和示例请参考 [model-api.md](../../reference/model-api.md)。
+完整参数说明和示例请参考 [model-api.md](../../references/model-api.md)。
 
 ---
 
@@ -78,7 +78,7 @@
 | `previewImage` | 图片预览 | 图片查看、多图轮播 |
 | `loadScript` | 动态加载脚本 | 引入第三方库（如二维码生成） |
 
-完整参数说明和示例请参考 [yida-api.md](../../reference/yida-api.md) 的「工具类 API」章节。
+完整参数说明和示例请参考 [yida-api.md](../../references/yida-api.md) 的「工具类 API」章节。
 
 ## 工具链
 
@@ -139,7 +139,7 @@ openyida publish <源文件路径> <appType> <formUuid>
 
 ### Icon 素材
 
-> 优先使用 `this.utils.loadStyleSheet(url)` 加载 CSS 图标库，详见 [yida-api.md](../../reference/yida-api.md) 的「loadStyleSheet」章节。
+> 优先使用 `this.utils.loadStyleSheet(url)` 加载 CSS 图标库，详见 [yida-api.md](../../references/yida-api.md) 的「loadStyleSheet」章节。
 
 | 图标库 | 授权方式 | 推荐场景 |
 | --- | --- | --- |
