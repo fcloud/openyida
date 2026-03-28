@@ -1,10 +1,10 @@
 ---
 name: yida-skills
-description: >
+description:
   宜搭低代码平台 AI 开发入口。一句话生成完整应用：创建应用、表单设计、自定义页面、流程配置、数据管理。
   当用户提到"宜搭"、"yida"、"低代码"、"创建应用"、"创建表单"、"发布页面"、"搭建"、"系统"、"应用"时触发。
 metadata:
-  version: 2026.03.28
+  version: 2026-03-28
 ---
 
 # 宜搭 AI 应用开发指南
@@ -87,9 +87,16 @@ openyida copy
 | `yida-formula` | `skills/yida-formula/SKILL.md` | 公式字段编写规范（函数速查、字段引用、18 个常见场景示例） | 详见技能文档 |
 | `yida-report` | `skills/yida-report/SKILL.md` | 宜搭原生报表技能，创建内置报表页面（16 种图表/表格/筛选器） | `openyida create-report <appType> "<报表名>" <图表JSON>` |
 | `yida-chatbot` | `skills/yida-chatbot/SKILL.md` | AI 对话浮窗组件（独立使用或注入已有页面，支持 12 种 AI 模型） | 详见技能文档 |
-| `large-file-write` | `skills/large-file-write/SKILL.md` | 大文件写入技能（解决 heredoc 截断问题，可靠写入大块内容） | 详见技能文档 |
 
 > **执行任何子技能前，必须先完整读取其 SKILL.md**，不要凭记忆猜测参数格式。
+
+---
+
+## 通用工具技能
+
+| 技能 | SKILL.md 路径 | 用途 |
+|------|--------------|------|
+| `large-file-write` | `skills/large-file-write/SKILL.md` | 大文件写入（解决 heredoc 截断问题，可靠写入超过 100 行的大块内容） |
 
 ### 应用生命周期
 
