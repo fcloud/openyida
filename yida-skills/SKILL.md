@@ -89,6 +89,21 @@ openyida copy
 
 > **执行任何子技能前，必须先完整读取其 SKILL.md**，不要凭记忆猜测参数格式。
 
+### ⚠️ 重要：使用模板文件确保一次性成功
+
+为避免生成错误代码，**必须**使用各技能的模板文件：
+
+| 技能 | 模板文件 | 用途 |
+|------|---------|------|
+| yida-custom-page | [templates/custom-page-template.js](skills/yida-custom-page/templates/custom-page-template.js) | 自定义页面完整模板 |
+| yida-data-management | [templates/form-field-template.js](skills/yida-data-management/templates/form-field-template.js) | 表单字段定义和数据插入 |
+| yida-create-app | [templates/ipd-app-template.js](skills/yida-create-app/templates/ipd-app-template.js) | 完整应用创建示例 |
+
+**⚠️ 代码生成前必须**：
+1. 读取对应的模板文件
+2. 以模板为基础进行扩展
+3. 验证所有参数名称与 CLI 一致
+
 ---
 
 ## 通用工具技能
