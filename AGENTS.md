@@ -23,7 +23,7 @@ openyida/
 │   │   ├── copy.js          # 初始化 project 工作目录
 │   │   ├── check-update.js  # 版本检测（每天一次）
 │   │   ├── doctor.js        # 环境诊断与自动修复
-│   │   ├── query-data.js    # 查询表单实例数据
+│   │   ├── query-data.js    # 统一数据管理命令（表单/流程/任务/子表单）
 │   │   ├── task-center.js   # 全局任务中心（待办/我创建的/我已处理/抄送/代提交）
 │   │   └── babel-transform/ # Babel 编译器（用于自定义页面）
 │   ├── auth/                # 登录认证模块
@@ -92,7 +92,6 @@ openyida/
 │   │   ├── chart-builder.js       # 图表 Schema 构建
 │   │   ├── http.js                # 报表 HTTP 请求封装
 │   │   └── constants.js           # 常量与 ID 生成工具
-│   └── data-management.js   # 表单数据管理（增删改查）
 ├── project/
 │   ├── config.json          # 应用配置（appType、pageId 等）
 │   └── pages/               # 自定义页面源码目录

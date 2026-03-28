@@ -85,7 +85,6 @@ openyida - 宜搭命令行工具
   verify-short-url <appType> <formUuid> <url>                  验证短链接 URL 是否可用
   save-share-config <appType> <formUuid> <url> <isOpen> [auth] 保存公开访问/分享配置
   get-page-config <appType> <formUuid>                         查询页面公开访问/分享配置
-  query-data <appType> <formUuid> [--page N] [--size N]        查询表单实例数据
   update-form-config <appType> <formUuid> <isRenderNav> <title> 更新表单配置
   data <action> <resource> [args]                              统一数据管理（表单/流程/任务/子表单）
   doctor [选项]                                                检查环境依赖，诊断应用问题
@@ -147,7 +146,6 @@ openyida - 宜搭命令行工具
   openyida dws contact user search --keyword "悟空"
   openyida dws calendar event list
   openyida dws todo task create --title "任务"
-  openyida query-data APP_XXX FORM-XXX --page 1 --size 10
   openyida create-report APP_XXX "销售报表" charts.json
   openyida append-chart APP_XXX REPORT-XXX charts.json
   openyida configure-process APP_XXX FORM-YYY process-def.json
@@ -439,7 +437,7 @@ async function main() {
         console.error('示例: openyida data query form APP_XXX FORM_XXX --page 1 --size 20');
         process.exit(1);
       }
-      const { run: runDataManagement } = require('../lib/data-management');
+      const { run: runDataManagement } = require('../lib/core/query-data');
       await runDataManagement(args);
       break;
     }
@@ -627,16 +625,6 @@ async function main() {
         console.error(t('cli.integration_help_hint'));
         process.exit(1);
       }
-      break;
-    }
-
-    case 'query-data': {
-      if (args.length < 2) {
-        console.error('用法：openyida query-data <appType> <formUuid> [--page N] [--size N] [--search-json JSON] [--inst-id ID]');
-        process.exit(1);
-      }
-      const { run: runQueryData } = require('../lib/core/query-data');
-      await runQueryData(args);
       break;
     }
 
