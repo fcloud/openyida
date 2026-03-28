@@ -21,6 +21,7 @@ project/pages/src/*.js
 !project/pages/src/demo-*
 project/prd/*.md
 !project/prd/demo-*
+project/tmp/
 
 # Misc
 .DS_Store

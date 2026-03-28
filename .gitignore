@@ -68,3 +68,5 @@ project/pages/tmp/*
 # 需求文档（保留 demo 示例）
 project/prd/*
 !project/prd/demo-*
+
+project/tmp/
