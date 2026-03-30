@@ -57,7 +57,21 @@ describe('generateFieldId uniqueness', () => {
   });
 });
 
-// ── Bug #3: buildFormSchema 不能有重复嵌套的 FormContainer ──
+// ── Bug #3: buildFormSchema 必须包含 componentDidMount 生命周期 ──
+
+describe('buildFormSchema lifeCycles', () => {
+  test('lifeCycles includes componentDidMount with actionRef to didMount', () => {
+    const formSchemaFunction = extractFunctionBody(sourceCode, 'buildFormSchema');
+    expect(formSchemaFunction).toBeDefined();
+
+    // 检查 lifeCycles 中包含 componentDidMount 配置
+    expect(formSchemaFunction).toContain('componentDidMount');
+    expect(formSchemaFunction).toContain("name: 'didMount'");
+    expect(formSchemaFunction).toContain("type: 'actionRef'");
+  });
+});
+
+// ── Bug #4: buildFormSchema 不能有重复嵌套的 FormContainer ──
 
 describe('buildFormSchema FormContainer structure', () => {
   test('FormContainer does not nest another FormContainer as direct child', () => {
