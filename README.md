@@ -17,7 +17,7 @@
 [![Node.js ≥18](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
 
 **Languages:**
-[English](https://openyida.ai/docs/en) · [简体中文](https://openyida.ai/docs) · [繁體中文（台灣）](https://openyida.ai/docs/zh-TW/) · [繁體中文（香港）](https://openyida.ai/docs/zh-HK/) · [日本語](https://openyida.ai/docs/ja/) · [한국어](https://openyida.ai/docs/ko/) · [Français](https://openyida.ai/docs/fr/) · [Deutsch](https://openyida.ai/docs/de/) · [Español](https://openyida.ai/docs/es/) · [Português (BR)](https://openyida.ai/docs/pt-BR/) · [Tiếng Việt](https://openyida.ai/docs/vi/) · [हिन्दी](https://openyida.ai/docs/hi/) · [العربية](https://openyida.ai/docs/ar/)
+[English](https://openyida.ai/docs/en) · [简体中文](https://openyida.ai/docs) · [繁體中文（香港）](https://openyida.ai/docs/zh-HK/) · [日本語](https://openyida.ai/docs/ja/) · [한국어](https://openyida.ai/docs/ko/) · [Français](https://openyida.ai/docs/fr/) · [Deutsch](https://openyida.ai/docs/de/) · [Español](https://openyida.ai/docs/es/) · [Português (BR)](https://openyida.ai/docs/pt-BR/) · [Tiếng Việt](https://openyida.ai/docs/vi/) · [हिन्दी](https://openyida.ai/docs/hi/) · [العربية](https://openyida.ai/docs/ar/)
 
 </div>
 
