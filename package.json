@@ -9,6 +9,7 @@
   "files": [
     "bin/",
     "lib/",
+    "agent/",
     "project/config.json",
     "project/pages/src/demo-*.js",
     "project/prd/demo-*.md",
@@ -20,8 +21,8 @@
   "scripts": {
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "lint": "eslint bin/ lib/ scripts/ tests/ --ext .js",
-    "lint:fix": "eslint bin/ lib/ scripts/ tests/ --ext .js --fix",
+    "lint": "eslint bin/ lib/ agent/ scripts/ tests/ --ext .js",
+    "lint:fix": "eslint bin/ lib/ agent/ scripts/ tests/ --ext .js --fix",
     "postinstall": "node scripts/postinstall.js"
   },
   "keywords": [
@@ -46,10 +47,19 @@
   },
   "homepage": "https://github.com/openyida/openyida#readme",
   "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.64",
+    "@ai-sdk/openai": "^3.0.49",
     "@babel/standalone": "^7.15.1",
+    "ai": "^6.0.141",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.4.0",
+    "express": "^4.21.0",
+    "ora": "^5.4.1",
     "playwright": "^1.58.2",
     "qrcode": "^1.5.4",
-    "uglify-js": "^3.19.3"
+    "uglify-js": "^3.19.3",
+    "ws": "^8.18.0",
+    "zod": "^3.23.0"
   },
   "devDependencies": {
     "eslint": "^8.50.0",

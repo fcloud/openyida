@@ -21,6 +21,29 @@ metadata:
     - visualization
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要在前端直接聚合表单数据，必须通过宜搭原生报表的 `getDataAsync.json` 或 `getCacheData.json` 接口获取聚合数据
+- 不要编造 `reportId`、`datasetId`、`fieldId`，必须从报表 Schema 或 URL 中提取
+- 不要将本技能与 `yida-chart` 混淆：本技能负责创建原生报表（数据源），`yida-chart` 负责 ECharts 可视化
+- 不要在没有原生报表的情况下直接使用 ECharts，ECharts 必须依赖原生报表作为数据源
+
+## 严格要求 (MUST DO)
+
+- 普通"报表"、"统计"需求默认使用本技能，不要直接跳到 `yida-chart`
+- 调用报表数据 API 前必须确认 `reportId` 和 `datasetId` 来自真实报表
+- 解析报表数据时必须处理 `data.rows` 为空的情况，避免页面崩溃
+
+## 适用场景
+
+| 用户意图 | 触发条件 |
+|---------|---------|
+| 普通报表/统计需求 | "报表"、"统计"、"数据分析"（默认使用本技能） |
+| 读取报表聚合数据 | 调用 `getDataAsync.json` / `getCacheData.json` |
+| 为 ECharts 提供数据源 | 先用本技能创建原生报表，再用 `yida-chart` 可视化 |
+
+---
+
 # 宜搭原生报表 + ECharts 自定义看板 技能文档
 
 ## 概述

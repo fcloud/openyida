@@ -3,6 +3,27 @@ name: yida-create-process
 description: 流程表单一体化创建。整合创建表单 → 转流程表单 → 获取 processCode → 配置流程四步为一步。
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要编造 processCode，必须从命令返回的 JSON 中提取
+- 不要在流程定义中使用猜测的 fieldId，必须先用 `yida-get-schema` 获取
+
+## 严格要求 (MUST DO)
+
+- 优先使用用法 2（先创建表单获取字段 ID，再 `--formUuid` 转流程）
+- 创建成功后，将 formUuid 和 processCode 记录到 `.cache/<项目名>-schema.json`
+- 流程定义中字段 ≥ 3 且审批节点 ≥ 2 时，必须自动配置字段权限
+
+## 适用场景
+
+用户需要"创建审批流程"、"新建流程表单"、"搭建审批系统"时使用。
+
+**关键区分**：
+- 从零创建流程表单（含表单+流程配置）→ 本技能
+- 为已有表单配置/修改审批规则 → `yida-process-rule`
+
+---
+
 # 流程表单一体化创建
 
 ## 用法 1：全新创建

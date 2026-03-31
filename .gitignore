@@ -70,3 +70,4 @@ project/prd/*
 !project/prd/demo-*
 
 project/tmp/
+examples/

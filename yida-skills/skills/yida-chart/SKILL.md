@@ -24,6 +24,31 @@ metadata:
     - filter
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要在前端直接聚合表单数据，必须通过宜搭原生报表接口（`getDataAsync.json` / `getCacheData.json`）获取聚合数据
+- 不要在没有原生报表的情况下直接创建 ECharts 页面，必须先用 `yida-report` 创建原生报表作为数据源
+- 不要支持多表关联数据源，当前仅支持单表数据源
+- 不要将 ECharts 图表的输出误认为是"优化原生报表"，输出始终是 ECharts 自定义页面
+- 不要编造 `reportId`、`datasetId`，必须从报表 URL 或 Schema 中提取
+
+## 严格要求 (MUST DO)
+
+- 用户提供报表 URL 时，必须先解析 URL 提取 `appType` 和 `reportId`，再获取报表 Schema
+- 若用户没有原生报表，必须先调用 `yida-report` 技能创建原生报表，再基于其数据源创建 ECharts 页面
+- ECharts 必须通过 `this.utils.loadScript` 加载 CDN，不得 `import`
+- 数据加载失败时必须显示错误状态，不得静默失败
+
+## 适用场景
+
+| 用户意图 | 触发条件 |
+|---------|---------|
+| 高级定制化可视化 | "更美观"、"ECharts"、"大屏"、"Dashboard"、"定制化" |
+| 优化已有报表 | 用户提供报表 URL 要求优化 |
+| 普通报表需求 | → 改用 `yida-report` 技能 |
+
+---
+
 # 宜搭 ECharts 高级报表技能
 
 ## 与 yida-report 的分工

@@ -28,3 +28,4 @@ project/tmp/
 *.swp
 *.dia~
 npm-debug.log*
+examples/

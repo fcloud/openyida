@@ -16,7 +16,7 @@
  *   openyida auth logout                                退出登录
  *   openyida org list                                   列出可访问的组织
  *   openyida org switch --corp-id <corpId>              切换组织（无需重新登录）
- *   openyida create-app "<名称>" [desc] [icon] [color] [themeColor]  创建应用
+ *   openyida create-app "<名称>" [desc] [icon] [color] [colour] [navTheme] [layout]  创建应用
  *   openyida create-page <appType> "<页面名>"            创建自定义页面
  *   openyida create-form create <appType> "<表单名>" <字段JSON> [--layout <布局>] [--theme <主题>] [--label-align <对齐>]  创建表单页面
  *   openyida create-form update <appType> <formUuid> <修改JSON>  更新表单页面
@@ -50,6 +50,7 @@
  *   openyida create-report <appType> "<报表名称>" <图表定义JSON或文件路径>  创建宜搭报表
  *   openyida append-chart <appType> <reportId> <图表定义JSON或文件路径>    向已有报表追加图表
  *   openyida dws <command> [args]                        钉钉 CLI（通讯录/日历/待办/审批等）
+ *   openyida agent [命令] [选项]                           AI Agent（Terminal 交互 / Web Server）
  */
 
 'use strict';
@@ -76,7 +77,7 @@ openyida - 宜搭命令行工具
   copy [--force]                                               复制 project 工作目录到当前 AI 工具环境
   login                                                        登录态管理（优先缓存，否则扫码）
   logout                                                       退出登录 / 切换账号
-  create-app "<名称>" [描述] [图标] [颜色] [主题色]             创建应用，输出 appType
+  create-app "<名称>" [描述] [图标] [颜色] [主题色] [导航风格] [布局]   创建应用，输出 appType
   create-page <appType> "<页面名>"                             创建自定义页面，输出 pageId
   create-form create <appType> "<表单名>" <字段JSON> [--layout <布局>] [--theme <主题>] [--label-align <对齐>]  创建表单页面
   create-form update <appType> <formUuid> <修改JSON>           更新表单页面
@@ -120,6 +121,10 @@ openyida - 宜搭命令行工具
   connector parse-api [选项]                                    解析接口信息
   connector gen-template [输出路径]                              生成接口文档模板
   dws <command> [args]                                          钉钉 CLI（通讯录/日历/待办/审批等）
+  agent [命令] [选项]                                             AI Agent（Terminal 交互 / Web Server）
+    agent                                                        启动 Terminal 交互模式
+    agent chat                                                   启动 Terminal 交互模式
+    agent serve [--port <端口>]                                  启动 Web Server（默认端口 3456）
   create-report <appType> "<报表名称>" <图表定义 JSON 或文件路径>   创建宜搭报表
   append-chart <appType> <reportId> <图表定义 JSON 或文件路径>      向已有报表追加图表
   export-conversation [选项]                                      导出 AI 对话记录
@@ -132,7 +137,8 @@ openyida - 宜搭命令行工具
   openyida login
   openyida logout
   openyida create-app "考勤管理"
-  openyida create-app "考勤管理" "员工考勤系统" "xian-daka" "#00B853" "red"
+  openyida create-app "考勤管理" "员工考勤系统" "xian-daka" "#00B853" "deepBlue" "dark" "slide"
+  openyida create-app "党建管理" "党员管理系统" "xian-zhengfu" "#FF4D4F" "red" "light" "ver"
   openyida create-page APP_XXX "游戏主页"
   openyida create-form create APP_XXX "员工信息" fields.json
   openyida create-form update APP_XXX FORM-XXX '[{"action":"add","field":{"type":"TextField","label":"备注"}}]'
@@ -655,6 +661,14 @@ async function main() {
     case 'task-center': {
       const { run: runTaskCenter } = require('../lib/core/task-center');
       await runTaskCenter(args);
+      break;
+    }
+
+    case 'agent': {
+      import('../agent/src/index.js').then(m => m.main(args)).catch(err => {
+        console.error('Failed to start agent:', err.message);
+        process.exit(1);
+      });
       break;
     }
 

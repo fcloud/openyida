@@ -26,6 +26,31 @@ metadata:
     - schema
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要混淆 `yida-create-report`（CLI 创建报表）和 `yida-report`（报表数据 API 使用）这两个技能
+- 不要编造 `formUuid`、`fieldId`、`appType`，必须从 Schema 或命令返回中提取
+- 不要在 `chart-builder.js` 中使用未定义的图表类型，只能使用 9 种已支持的类型
+- 不要在追加图表时（`append-chart`）修改已有图表的配置，只追加新图表
+- 不要跳过 `openyida env` 检测直接创建报表，必须先确认登录态
+
+## 严格要求 (MUST DO)
+
+- 创建报表前必须先用 `yida-get-schema` 获取表单 Schema，确认字段 ID 和类型
+- 图表的 `datasetId` 必须从 `create-report` 命令返回中提取，不得猜测
+- 筛选器联动必须配置 `filterRelation`，否则筛选器不生效
+- 追加图表（`append-chart`）前必须先获取现有报表的 `reportId`
+
+## 适用场景
+
+| 用户意图 | 触发条件 |
+|---------|---------|
+| 创建标准报表/数据统计 | "报表"、"统计"、"数据看板"、"数据分析" |
+| 向已有报表追加图表 | "追加图表"、"添加图表"、"在报表里加" |
+| 需要 ECharts 定制化 | → 改用 `yida-chart` 技能 |
+
+---
+
 # 宜搭原生报表创建与管理技能
 
 ## 概述

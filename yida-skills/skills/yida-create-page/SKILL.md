@@ -3,6 +3,26 @@ name: yida-create-page
 description: 在应用中创建自定义展示页面（display 类型），返回 formUuid。
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要编造 formUuid，必须从命令返回的 JSON 中提取
+- 不要用此命令创建表单页面（带字段的数据收集页），应使用 `yida-create-form-page`
+
+## 严格要求 (MUST DO)
+
+- 创建成功后，将 formUuid 记录到 `.cache/<项目名>-schema.json`
+- 创建页面后，必须继续执行 `yida-custom-page` 编写 JSX 代码，再用 `yida-publish-page` 发布
+
+## 适用场景
+
+用户需要创建"自定义展示页面"、"可视化大屏"、"自定义 UI 页面"时使用。
+
+**关键区分**：
+- 自定义展示页面（无字段，纯 JSX/React 开发）→ 本技能
+- 表单页面（有字段，数据收集）→ `yida-create-form-page`
+
+---
+
 # 创建自定义页面
 
 ## 命令

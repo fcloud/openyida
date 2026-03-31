@@ -5,10 +5,29 @@ description: 创建宜搭应用，返回 appType。搭建应用的第一步。
 
 # 创建应用
 
+
+## 严格禁止 (NEVER DO)
+
+- 不要编造 appType，必须从命令返回的 JSON 中提取
+- 不要在未确认 corpId 的情况下创建应用（先运行 `openyida env` 确认登录态）
+- 不要重复创建同名应用，先询问用户是否已有应用
+
+## 严格要求 (MUST DO)
+
+- 创建成功后，将 appType 记录到 `.cache/<项目名>-schema.json`
+- 创建前确认当前登录的组织（corpId）与目标组织一致
+
+## 适用场景
+
+用户说"创建应用"、"新建系统"、"搭建平台"时使用此技能。
+创建应用后，通常需要继续执行：创建表单（`yida-create-form-page`）→ 创建页面（`yida-create-page`）→ 发布页面（`yida-publish-page`）。
+
+---
+
 ## 命令
 
 ```bash
-openyida create-app <appName> [description] [icon] [iconColor]
+openyida create-app <appName> [description] [icon] [iconColor] [colour] [navTheme] [layoutDirection]
 ```
 
 | 参数 | 必填 | 默认值 | 说明 |
@@ -16,7 +35,30 @@ openyida create-app <appName> [description] [icon] [iconColor]
 | `appName` | 是 | — | 应用名称 |
 | `description` | 否 | 同 appName | 应用描述 |
 | `icon` | 否 | `xian-yingyong` | 图标标识（见下方图标表） |
-| `iconColor` | 否 | `#0089FF` | 图标颜色 |
+| `iconColor` | 否 | `#0089FF` | 图标背景色 |
+| `colour` | 否 | `deepBlue` | 主题色（见下方主题色表） |
+| `navTheme` | 否 | `dark` | 导航风格：`dark`（深色）/ `light`（浅色） |
+| `layoutDirection` | 否 | `slide` | 导航布局：`slide`（侧边栏）/ `ver`（L 型顶导） |
+
+**主题色（colour）可选值**：
+
+| 值 | 颜色 | 适合场景 |
+|------|------|------|
+| `deepBlue` | 深蓝 | 政务、金融、法律、企业管理、正式场合 |
+| `podBlue` | 蓝色 | 科技、教育、通用办公、SaaS 应用 |
+| `royalBlue` | 皇家蓝 | 高端商务、专业服务、企业级应用 |
+| `lightBlue` | 浅蓝 | 清新简约、云服务、通讯社交 |
+| `teal` | 青色 | 医疗健康、环保、清新简洁类应用 |
+| `podGreen` | 绿色 | 农业、环保、健康、生态 |
+| `deepPurple` | 深紫 | 创意设计、艺术、高端品牌 |
+| `purple` | 紫色 | 女性用户、美妆、时尚、创新科技 |
+| `podOrange` | 橙色 | 活力、电商、餐饮、娱乐、社交 |
+| `yellow` | 黄色 | 儿童教育、阳光活力、警示提醒 |
+| `magenta` | 玖红色 | 时尚、创意、社交、娱乐类应用 |
+| `red` | 红色 | 党建、政务、新闻、紧急类应用 |
+| `greyBlue` | 灰蓝 | 稳重商务、工业制造、技术工程 |
+| `coffee` | 咖啡 | 传统行业、文化教育、复古风格 |
+| `black` | 黑色 | 极简设计、奢侈品牌、科技前沿 |
 
 ## 输出
 

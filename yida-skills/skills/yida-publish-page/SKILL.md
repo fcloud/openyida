@@ -3,6 +3,25 @@ name: yida-publish-page
 description: 将 JSX 源码编译发布到宜搭自定义页面。Babel 转 ES5 + UglifyJS 压缩 + Schema 构建 + saveFormSchema 接口部署。
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要在未读取 `yida-custom-page` SKILL.md 的情况下编写 JSX 源码
+- 不要使用 React Hooks（useState、useEffect 等），宜搭自定义页面不支持
+- 不要编造 appType 和 formUuid，必须从已有记录或命令返回中获取
+
+## 严格要求 (MUST DO)
+
+- 发布前确认 JSX 源码已通过 `yida-custom-page` 规范编写
+- 发布前确认 `openyida env` 检测通过，登录态有效
+- corpId 不匹配时，必须询问用户是否切换组织，不得强行发布
+
+## 适用场景
+
+编写完自定义页面 JSX 代码后，执行此技能将代码编译发布到宜搭平台。
+通常在 `yida-custom-page`（编写代码）之后执行。
+
+---
+
 # 发布自定义页面
 
 ## 命令

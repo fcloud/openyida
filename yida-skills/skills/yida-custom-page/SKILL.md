@@ -3,6 +3,34 @@ name: yida-custom-page
 description: 宜搭自定义页面 JSX 开发规范。React 16 类组件模式，宜搭 JS API 调用，状态管理与编码约束。
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要使用 React Hooks（`useState`、`useEffect`），必须使用类组件模式（React 16）
+- 不要使用 `import/require` 引入模块，禁止 ES Module 语法
+- 不要在 `<input>` 上使用 `value` 受控模式，必须用 `defaultValue` + `onChange` 写入 `_customState`
+- 不要在 `renderJsx` 中直接修改 state 触发重渲染，必须调用 `this.forceUpdate()`
+- 不要在 `didUnmount` 中遗漏清理定时器/事件监听，否则内存泄漏
+- 不要在 API 调用中省略 `.catch()`，所有异步调用必须有错误处理
+
+## 严格要求 (MUST DO)
+
+- 所有需要 `this` 的方法必须用 `export function` 定义，不得用箭头函数定义顶层方法
+- 事件绑定必须用箭头函数包裹：`onClick={(e) => { this.handleClick(e) }}`
+- 所有样式通过 JS 对象 + `style` 属性内联，禁止外部 CSS 文件
+- 分页接口 `pageSize` 不得超过 100
+- 第三方库必须通过 `this.utils.loadScript` 加载 CDN 脚本，不得 `import`
+- 所有 API 调用必须 `.catch()` 并调用 `this.utils.toast` 提示用户
+
+## 适用场景
+
+| 用户意图 | 触发条件 |
+|---------|---------|
+| 开发自定义展示页面 | "自定义页面"、"JSX 页面"、"自定义组件" |
+| 需要宜搭 JS API | 调用 `this.utils.yida.*` 读写表单数据 |
+| 复杂交互逻辑 | 状态管理、事件处理、动态渲染 |
+
+---
+
 # 自定义页面开发
 
 ## 快速开始

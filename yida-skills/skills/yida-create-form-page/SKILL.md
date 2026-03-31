@@ -3,6 +3,27 @@ name: yida-create-form-page
 description: 宜搭表单页面创建与更新。create 模式创建新表单，update 模式增删改字段。支持 19 种字段类型。
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要编造 formUuid，必须从命令返回的 JSON 中提取
+- 不要在 update 模式中使用猜测的 fieldId，必须先用 `yida-get-schema` 获取
+- 不要用此命令操作数据记录（增删改查），应使用 `yida-data-management`
+
+## 严格要求 (MUST DO)
+
+- create 成功后，将 formUuid 记录到 `.cache/<项目名>-schema.json`
+- update 模式修改字段前，必须先用 `openyida get-schema` 确认字段 ID
+
+## 适用场景
+
+用户需要"创建表单"、"新增字段"、"修改表单结构"时使用。
+
+**关键区分**：
+- 修改表单结构（字段增删改）→ 本技能 update 模式
+- 操作表单中的数据记录 → `yida-data-management`
+
+---
+
 # 表单页面创建与更新
 
 ## create 模式

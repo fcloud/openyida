@@ -22,6 +22,33 @@ metadata:
     - presentation
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要使用 React Hooks（`useState`、`useEffect`），必须使用类组件模式
+- 不要在 `renderJsx` 内部创建内联事件处理函数，必须在顶部定义后引用
+- 不要使用 `import/require` 引入第三方库，必须通过 CDN 或内联代码
+- 不要在 `componentWillUnmount` 中遗漏清理键盘/触摸事件监听，否则内存泄漏
+- 不要使用 `objectFit: 'cover'` 裁剪图片，必须用 `contain` 确保完整显示
+- 不要将幻灯片数据硬编码在 `renderJsx` 中，必须定义为顶层 `SLIDES` 数组
+
+## 严格要求 (MUST DO)
+
+- 必须在 `componentDidMount` 中注册键盘事件（含 `PageDown`/`PageUp` 演讲笔支持）
+- 必须在 `componentWillUnmount` 中清理所有事件监听
+- 必须使用 `this.utils.isMobile()` 判断设备类型并适配移动端样式
+- 必须用 `position: fixed; top:0; left:0; right:0; bottom:0` 覆盖宜搭默认容器样式
+- 状态变更必须通过 `_customState.xxx = value; this.forceUpdate()` 触发重渲染
+
+## 适用场景
+
+| 用户意图 | 触发条件 |
+|---------|---------|
+| 在宜搭内创建演示文稿 | "PPT"、"幻灯片"、"演示页面"、"产品路演" |
+| 需要读取宜搭数据的演示 | 需要集成宜搭表单数据的展示页 |
+| 纯演讲稿（无宜搭依赖） | → 改用 `report-slides` 技能（独立 HTML） |
+
+---
+
 # 宜搭 PPT 幻灯片开发指南
 
 ## 概述

@@ -3,6 +3,21 @@ name: yida-export-conversation
 description: 导出 AI 对话记录，生成结构化的 Markdown 文档。支持 Claude Code 自动检测，其他环境通过 --input 手动指定。
 ---
 
+## 严格禁止 (NEVER DO)
+
+- 不要在非 Claude Code 环境下省略 `--input` 参数（其他环境无法自动检测对话文件）
+
+## 严格要求 (MUST DO)
+
+- 导出前确认当前环境（`openyida env`），Claude Code 环境可自动检测，其他环境需 `--input` 手动指定
+
+## 适用场景
+
+用户需要"导出对话记录"、"保存 AI 对话"、"生成开发文档"时使用。
+无需登录宜搭，为纯本地操作。
+
+---
+
 # 导出 AI 对话记录
 
 > 将 AI 对话记录导出为结构化的 Markdown 文档，方便分享和存档。
