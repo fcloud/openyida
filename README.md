@@ -8,7 +8,7 @@
 
 **Build Yida low-code apps with AI — zero config, instant deploy.**
 
-[Get Started](#get-started) · [CLI Commands](#cli-commands) · [Demo](#demo) · [Contributing](./CONTRIBUTING.md) · [Changelog](./CHANGELOG.md)
+[Get Started](#get-started) · [CLI Commands](#cli-commands) · [Demo](https://www.aliwork.com/o/OpenYidaAppShowcase) · [Contributing](./CONTRIBUTING.md) · [Changelog](./CHANGELOG.md)
 
 [![npm version](https://img.shields.io/npm/v/openyida?color=brightgreen&label=npm)](https://www.npmjs.com/package/openyida)
 [![npm downloads](https://img.shields.io/npm/dm/openyida?color=blue)](https://www.npmjs.com/package/openyida)
