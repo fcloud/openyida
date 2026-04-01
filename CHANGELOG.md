@@ -8,6 +8,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2026.04.01] - 2026-04-01
+
+### Improved
+- `yida-skills`：按钉钉 dws 规范全面重构 26 个子技能 SKILL.md
+  - 统一添加 `## 严格禁止 (NEVER DO)` / `## 严格要求 (MUST DO)` 规则区
+  - 新增 `## 适用场景` 意图判断表，明确每个技能的触发关键词
+  - 调整文档结构：`frontmatter → # 一级标题 → 规则区 → 正文`，符合钉钉规范
+  - 修复 `yida-integration`、`yida-process-rule` 规则区误插入 frontmatter 内部的问题
+  - 修复 `yida-formula` 缺失规则区的问题
+
+### Fixed
+- `create-form.js`：`buildFormSchema` 添加缺失的 `componentDidMount` 生命周期配置，修复表单初始化异常
+- CI：`validate-ci.sh` 改用 `find` 递归检查 `lib/` 子目录，修复子目录 JS 文件语法检查遗漏问题
+- 修复多语言 README 链接路径错误（`zh-Hant`、`pt`）
+
+### Refactored
+- 报表模块重构（`lib/report/`）：拆分为 `index.js`、`append.js`、`chart-builder.js`、`http.js`、`constants.js`，提升可维护性
+- 移除非英文 README 文件，统一通过语言链接跳转至文档站
+
+### Documentation
+- `yida-skills/references/`：根据官方 Excel 全面更正宜搭版本功能对比指南
+- 恢复误删的 `yida-create-report` 技能目录
+- 删除技能文档中不存在的 `compile` 命令引用
+
 ## [2026.03.28] - 2026-03-28
 
 ### Security
