@@ -50,7 +50,6 @@
  *   openyida create-report <appType> "<报表名称>" <图表定义JSON或文件路径>  创建宜搭报表
  *   openyida append-chart <appType> <reportId> <图表定义JSON或文件路径>    向已有报表追加图表
  *   openyida dws <command> [args]                        钉钉 CLI（通讯录/日历/待办/审批等）
- *   openyida agent [命令] [选项]                           AI Agent（Terminal 交互 / Web Server）
  */
 
 'use strict';
@@ -121,10 +120,6 @@ openyida - 宜搭命令行工具
   connector parse-api [选项]                                    解析接口信息
   connector gen-template [输出路径]                              生成接口文档模板
   dws <command> [args]                                          钉钉 CLI（通讯录/日历/待办/审批等）
-  agent [命令] [选项]                                             AI Agent（Terminal 交互 / Web Server）
-    agent                                                        启动 Terminal 交互模式
-    agent chat                                                   启动 Terminal 交互模式
-    agent serve [--port <端口>]                                  启动 Web Server（默认端口 3456）
   create-report <appType> "<报表名称>" <图表定义 JSON 或文件路径>   创建宜搭报表
   append-chart <appType> <reportId> <图表定义 JSON 或文件路径>      向已有报表追加图表
   export-conversation [选项]                                      导出 AI 对话记录
@@ -661,14 +656,6 @@ async function main() {
     case 'task-center': {
       const { run: runTaskCenter } = require('../lib/core/task-center');
       await runTaskCenter(args);
-      break;
-    }
-
-    case 'agent': {
-      import('../agent/src/index.js').then(m => m.main(args)).catch(err => {
-        console.error('Failed to start agent:', err.message);
-        process.exit(1);
-      });
       break;
     }
 

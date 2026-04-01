@@ -137,6 +137,41 @@ cat meeting.txt | openyida flash-to-prd --name <项目名>
 
 ---
 
+## 处理流程
+
+```
+[Step 1] 接收闪记内容（文本/文件/链接）
+           ↓
+[Step 2] 预处理（preprocessFlashNote）：
+         - 去除时间戳、口语填充词、重复标点
+         - 合并同一发言人的连续发言
+         - 清理多余空行
+           ↓
+[Step 3] 会议识别（新增能力）：
+         - extractMeetingMeta：提取会议元信息（标题、参会人、时间、时长等）
+         - extractA1Summary：识别钉钉 A1 生成的结构化摘要段落
+         - extractSpeakers：识别发言人及其角色标注
+         - buildMeetingContext：组装会议上下文信息
+           ↓
+[Step 4] 分段判断（splitIntoSegments）：
+         - ≤ 6000 字 → 单段模式
+         - > 6000 字 → 按段落边界智能分段
+           ↓
+[Step 5] AI 提取（buildFlashNoteToPrdPrompt）：
+         - 会议上下文作为高优先级信息注入 Prompt
+         - 单段模式：三层 Prompt 架构，直接输出 Markdown PRD
+         - 多段模式：每段输出 JSON 结构化数据
+           ↓
+[Step 6]（仅多段模式）合并去重（buildMergePrompt）：
+         - 合并各段 JSON 结果
+         - 去重、解决冲突
+         - 生成完整 Markdown PRD
+           ↓
+[Step 7] 输出到 prd/<项目名>.md
+           ↓
+[Step 8] 展示 PRD 摘要，询问用户确认或调整
+```
+
 ---
 
 ## Prompt 输出模板
@@ -183,9 +218,224 @@ cat meeting.txt | openyida flash-to-prd --name <项目名>
 
 ---
 
+## AI Prompt 设计
+
+本技能采用**三层 Prompt 架构**，确保从闪记中高质量提取需求并生成结构化 PRD。
+
+完整的 Prompt 构建逻辑实现在 `build-flash-note-prompt.js` 中，以下是核心设计。
+
+### Prompt 架构
+
+```
+┌─────────────────────────────────────────┐
+│  第 1 层：系统角色层                       │
+│  定义 AI 的角色、能力边界、专业背景          │
+├─────────────────────────────────────────┤
+│  第 2 层：任务指令层                       │
+│  明确输出格式、质量标准、字段类型约束         │
+├─────────────────────────────────────────┤
+│  第 3 层：内容输入层                       │
+│  预处理后的闪记文本                        │
+└─────────────────────────────────────────┘
+```
+
+### 第 1 层：系统角色定义
+
+```
+你是一名拥有 10 年经验的资深产品经理，同时精通宜搭低代码平台。你擅长：
+- 从非结构化的会议讨论中精准提取产品需求
+- 将模糊的口语化描述转化为清晰的功能规格
+- 识别隐含需求和潜在风险
+- 设计合理的数据模型和字段结构
+- 区分"讨论过程"和"最终决策"
+```
+
+### 第 2 层：任务指令（完整版）
+
+```
+## 任务
+
+请分析以下钉钉闪记内容，从中提取产品需求，生成一份高质量的结构化 PRD（产品需求文档）。
+
+## 分析要求
+
+### 内容提取规则
+1. **识别决策结论**：只提取最终达成共识的结论，忽略讨论过程中的争论和被否决的方案
+2. **忽略无关内容**：跳过寒暄、闲聊、重复表述、口语化废话（如"我觉得吧"、"怎么说呢"）
+3. **提取隐含需求**：从讨论上下文中推断未被明确说出但逻辑上必需的功能（如提到"审批"则隐含需要审批流程配置）
+4. **保留数据约束**：精确记录讨论中提到的数字、规则、条件（如"积分有效期 1 年"、"单次最多报销 5000 元"）
+5. **区分角色视角**：不同发言人可能代表不同角色（产品、技术、业务），注意区分并标注
+
+### 字段设计规则
+字段类型必须使用宜搭平台支持的标准类型：
+| 宜搭字段类型 | 适用场景 |
+|-------------|---------|
+| TextField | 短文本（姓名、标题等） |
+| TextareaField | 长文本（描述、备注等） |
+| NumberField | 数字（金额、数量、积分等） |
+| SelectField | 单选下拉（状态、类别等），需列出选项值 |
+| MultiSelectField | 多选（标签、多选类别等） |
+| DateField | 日期（提交时间、截止日期等） |
+| EmployeeField | 人员选择（提交人、审批人等） |
+| DepartmentSelectField | 部门选择 |
+| AttachmentField | 附件上传（文件、图片等） |
+| RadioField | 单选按钮（是/否、性别等少量选项） |
+| CheckboxField | 复选框 |
+| CascadeSelectField | 级联选择（省市区等） |
+| TableField | 子表单/明细（订单明细、费用明细等） |
+
+### 质量标准
+- 每个功能模块必须包含：功能描述、业务规则、字段设计表
+- 字段设计表必须包含：字段名、类型、必填、说明
+- 流程设计必须明确：发起人、审批节点、通过/拒绝后的动作
+- 待确认事项必须列出：闪记中未明确或存在分歧的内容
+
+## 输出格式
+
+严格按照以下 Markdown 结构输出，不要遗漏任何章节：
+
+# <项目名称> — 产品需求文档
+
+## 项目背景
+<!-- 2-3 句话概括项目来源、业务场景、核心痛点 -->
+
+## 需求概述
+<!-- 一句话描述核心需求和预期价值 -->
+
+## 目标用户
+<!-- 表格形式列出角色和说明 -->
+| 角色 | 说明 |
+|------|------|
+
+## 功能需求
+
+### 功能模块 1：<模块名>
+- **功能描述**：...
+- **业务规则**：
+  - 规则 1
+  - 规则 2
+- **字段设计**：
+  | 字段名 | 类型 | 必填 | 说明 |
+  |--------|------|------|------|
+
+### 功能模块 2：<模块名>
+<!-- 同上结构，按需添加更多模块 -->
+
+## 流程设计
+<!-- 如果闪记中讨论了审批/业务流程，用流程图文字描述 -->
+<!-- 明确：发起人、每个审批节点、通过/拒绝后的动作 -->
+
+## 数据报表
+<!-- 如果闪记中提到了统计、报表、数据分析需求 -->
+| 报表名称 | 数据来源 | 展示方式 | 说明 |
+|---------|---------|---------|------|
+
+## 非功能需求
+<!-- 性能、权限、安全、通知、集成等非功能性要求 -->
+
+## 待确认事项
+<!-- 表格形式列出需要用户进一步确认的内容 -->
+| 序号 | 待确认内容 | 说明 |
+|------|----------|------|
+```
+
+### 第 3 层：内容输入
+
+```
+---
+以下是钉钉闪记（会议录音自动转写）的内容：
+---
+
+{preprocessed_flash_note_content}
+
+---
+请严格按照上述要求输出结构化 PRD 文档。
+```
+
+### 分段处理 Prompt
+
+当闪记内容超过 6000 字时，自动分段处理。分段模式下使用不同的 prompt 策略：
+
+| 阶段 | Prompt 策略 | 输出格式 |
+|------|------------|---------|
+| **分段提取**（每段） | 从当前段提取需求信息 | JSON 结构化数据 |
+| **合并生成**（最终） | 将各段 JSON 合并去重，生成完整 PRD | Markdown PRD |
+
+**分段提取 prompt 输出的 JSON 结构**：
+
+```json
+{
+  "projectName": "从内容中推断的项目名称",
+  "background": "项目背景描述",
+  "users": [{"role": "角色名", "description": "说明"}],
+  "features": [
+    {
+      "moduleName": "模块名",
+      "description": "功能描述",
+      "rules": ["业务规则1", "业务规则2"],
+      "fields": [
+        {"name": "字段名", "type": "宜搭字段类型", "required": true, "description": "说明"}
+      ]
+    }
+  ],
+  "processes": [{"name": "流程名", "steps": "流程描述"}],
+  "reports": [{"name": "报表名", "source": "数据来源", "chartType": "图表类型", "description": "说明"}],
+  "nonFunctional": ["非功能需求1"],
+  "unconfirmed": [{"content": "待确认内容", "description": "说明"}]
+}
+```
+
+**合并阶段的规则**：
+1. 相同功能模块的信息合并到一起
+2. 重复的字段、规则去重
+3. 冲突的信息以后面段落的为准（代表更新的讨论结论）
+4. 补充遗漏的关联信息（如提到审批但未设计审批流程，需补充）
+
+### 调用方式
+
+```javascript
+// 引入 prompt 构建模块
+var promptBuilder = require('./build-flash-note-prompt');
+
+// 方式 1：单段模式（闪记内容 ≤ 6000 字）
+var prompt = promptBuilder.buildFlashNoteToPrdPrompt(cleanedContent, {
+  projectName: '设备巡检系统',  // 可选
+  industry: '制造业',           // 可选
+});
+
+// 方式 2：完整流程（自动判断分段）
+var callAI = promptBuilder.createYidaAICaller(8000);
+promptBuilder.flashNoteToPrd(rawFlashNote, {
+  projectName: '设备巡检系统',
+  callAI: callAI,
+}).then(function(prdContent) {
+  console.log('PRD 生成成功', prdContent);
+});
+
+// 方式 3：直接调用 AI 接口
+fetch('/query/intelligent/txtFromAI.json', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: new URLSearchParams({
+    _csrf_token: window.g_config._csrf_token,
+    prompt: prompt,
+    maxTokens: '8000',
+    skill: 'ToText',
+  }).toString(),
+}).then(function (res) { return res.json(); })
+  .then(function (data) {
+    if (data.success) {
+      var prdContent = data.content.content;
+      console.log('PRD 生成成功', prdContent);
+    }
+  });
+```
+
+---
+
 ## 闪记内容预处理规则
 
-在发送给 AI 之前，对闪记原文进行预处理：
+在发送给 AI 之前，对闪记原文进行预处理（实现在 `build-flash-note-prompt.js` 的 `preprocessFlashNote` 函数中）：
 
 | 处理步骤 | 说明 | 正则/规则 |
 |---------|------|----------|
@@ -202,7 +452,7 @@ cat meeting.txt | openyida flash-to-prd --name <项目名>
 
 预处理完成后，自动执行以下会议识别步骤：
 
-### 会议元信息提取
+### 会议元信息提取（extractMeetingMeta）
 
 从闪记头部提取结构化的会议元信息：
 
@@ -215,7 +465,7 @@ cat meeting.txt | openyida flash-to-prd --name <项目名>
 | 主持人 | 主持人/组织者/发起人、Organizer/Host | `主持人：张三` |
 | 会议地点 | 会议地点/位置、Location | `会议地点：3 号会议室` |
 
-### 钉钉 A1 摘要识别
+### 钉钉 A1 摘要识别（extractA1Summary）
 
 自动识别钉钉 A1 / 闪记 AI 生成的结构化摘要段落，支持 Emoji 标识和纯文本标识两种格式：
 
@@ -229,7 +479,7 @@ cat meeting.txt | openyida flash-to-prd --name <项目名>
 
 > **优先级说明**：A1 摘要段落被视为高优先级信息，会在 Prompt 中优先注入，帮助 AI 更准确地提取需求。
 
-### 发言人角色识别
+### 发言人角色识别（extractSpeakers）
 
 自动识别闪记中发言人的角色标注，支持以下格式：
 
@@ -274,7 +524,6 @@ Prompt 生成后，可无缝衔接宜搭应用开发流程：
 
 - Node.js ≥ 16
 - 已登录宜搭（`.cache/cookies.json` 存在且有效），用于调用 AI 接口
-
 ---
 
 ## 注意事项
