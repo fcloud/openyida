@@ -26,6 +26,8 @@ metadata:
     - schema
 ---
 
+# 宜搭原生报表创建与管理技能
+
 ## 严格禁止 (NEVER DO)
 
 - 不要混淆 `yida-create-report`（CLI 创建报表）和 `yida-report`（报表数据 API 使用）这两个技能
@@ -51,7 +53,6 @@ metadata:
 
 ---
 
-# 宜搭原生报表创建与管理技能
 
 ## 概述
 

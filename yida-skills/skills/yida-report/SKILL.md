@@ -21,6 +21,8 @@ metadata:
     - visualization
 ---
 
+# 宜搭原生报表 + ECharts 自定义看板 技能文档
+
 ## 严格禁止 (NEVER DO)
 
 - 不要在前端直接聚合表单数据，必须通过宜搭原生报表的 `getDataAsync.json` 或 `getCacheData.json` 接口获取聚合数据
@@ -44,7 +46,6 @@ metadata:
 
 ---
 
-# 宜搭原生报表 + ECharts 自定义看板 技能文档
 
 ## 概述
 

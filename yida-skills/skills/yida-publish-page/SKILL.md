@@ -3,6 +3,8 @@ name: yida-publish-page
 description: 将 JSX 源码编译发布到宜搭自定义页面。Babel 转 ES5 + UglifyJS 压缩 + Schema 构建 + saveFormSchema 接口部署。
 ---
 
+# 发布自定义页面
+
 ## 严格禁止 (NEVER DO)
 
 - 不要在未读取 `yida-custom-page` SKILL.md 的情况下编写 JSX 源码
@@ -22,7 +24,6 @@ description: 将 JSX 源码编译发布到宜搭自定义页面。Babel 转 ES5 
 
 ---
 
-# 发布自定义页面
 
 ## 命令
 

@@ -3,6 +3,8 @@ name: yida-get-schema
 description: 获取表单的完整 Schema 结构，用于确认字段 ID（fieldId）和组件配置。
 ---
 
+# 获取表单 Schema
+
 ## 严格禁止 (NEVER DO)
 
 - 不要猜测或编造 fieldId，必须通过此命令获取后再使用
@@ -22,7 +24,6 @@ description: 获取表单的完整 Schema 结构，用于确认字段 ID（field
 
 ---
 
-# 获取表单 Schema
 
 ## 命令
 

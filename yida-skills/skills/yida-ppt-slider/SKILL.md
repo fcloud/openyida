@@ -22,6 +22,8 @@ metadata:
     - presentation
 ---
 
+# 宜搭 PPT 幻灯片开发指南
+
 ## 严格禁止 (NEVER DO)
 
 - 不要使用 React Hooks（`useState`、`useEffect`），必须使用类组件模式
@@ -49,7 +51,6 @@ metadata:
 
 ---
 
-# 宜搭 PPT 幻灯片开发指南
 
 ## 概述
 

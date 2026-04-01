@@ -24,6 +24,8 @@ metadata:
     - filter
 ---
 
+# 宜搭 ECharts 高级报表技能
+
 ## 严格禁止 (NEVER DO)
 
 - 不要在前端直接聚合表单数据，必须通过宜搭原生报表接口（`getDataAsync.json` / `getCacheData.json`）获取聚合数据
@@ -49,7 +51,6 @@ metadata:
 
 ---
 
-# 宜搭 ECharts 高级报表技能
 
 ## 与 yida-report 的分工
 

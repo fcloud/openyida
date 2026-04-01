@@ -3,6 +3,8 @@ name: yida-logout
 description: 退出宜搭登录，清空本地 Cookie 缓存。
 ---
 
+# 退出登录
+
 ## 严格禁止 (NEVER DO)
 
 - 不要在退出登录后立即执行需要登录态的命令，必须先重新登录
@@ -21,7 +23,6 @@ description: 退出宜搭登录，清空本地 Cookie 缓存。
 
 ---
 
-# 退出登录
 
 ## 命令
 
