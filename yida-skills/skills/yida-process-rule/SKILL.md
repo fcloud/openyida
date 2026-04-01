@@ -1,22 +1,6 @@
 ---
 name: yida-process-rule
 description: 宜搭流程规则配置技能，通过调用流程设计器 API 实现流程的创建、配置（条件分支、嵌套分支、审批节点、字段权限、抄送节点、跳转规则）、保存和发布。
-license: MIT
-compatibility:
-  - opencode
-  - claude-code
-  - qoder
-  - wukong
-metadata:
-  audience: developers
-  workflow: yida-development
-  version: 1.0.0
-  tags:
-    - yida
-    - low-code
-    - process
-    - workflow
-    - approval
 ---
 
 # 宜搭流程规则配置技能

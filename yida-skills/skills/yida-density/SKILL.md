@@ -1,20 +1,6 @@
 ---
 name: yida-density
 description: 宜搭自定义页面信息密度设计规范。提供紧凑、舒适、宽松三种密度模式的样式模板，支持密度切换和响应式降级，帮助 AI 生成符合场景需求的页面布局。
-license: MIT
-compatibility:
-  - opencode
-  - claude-code
-metadata:
-  audience: developers
-  workflow: yida-development
-  version: 1.0.0
-  tags:
-    - yida
-    - low-code
-    - custom-page
-    - density
-    - layout
 ---
 
 # 宜搭自定义页面信息密度设计规范

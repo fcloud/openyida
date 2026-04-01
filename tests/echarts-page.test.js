@@ -170,7 +170,7 @@ describe('ECharts 页面 ECharts 加载', () => {
   });
 
   test('使用 CDN 加载 ECharts', () => {
-    expect(sourceCode).toMatch(/cdnjs\.cloudflare\.com|g\.alicdn\.com|cdn\.jsdelivr\.net/);
+    expect(sourceCode).toMatch(/cdnjs\.cloudflare\.com|g\.alicdn\.com/);
   });
 
   test('ECharts 实例存储在模块级变量中', () => {

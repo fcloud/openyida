@@ -1,20 +1,6 @@
 ---
 name: yida-table-form
 description: 宜搭自定义页面表格形式批量表单提交技能。支持动态增删行、行内多字段编辑、行内验证、Excel 粘贴导入、草稿暂存（localStorage）、批量调用 saveFormData 提交。
-license: MIT
-compatibility:
-  - opencode
-  - claude-code
-metadata:
-  audience: developers
-  workflow: yida-development
-  version: 1.0.0
-  tags:
-    - yida
-    - low-code
-    - custom-page
-    - table
-    - batch-submit
 ---
 
 # 宜搭自定义页面表格表单提交技能

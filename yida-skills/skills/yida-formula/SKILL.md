@@ -3,13 +3,6 @@ name: yida-formula
 description: >
   宜搭公式编写规范。提供公式语法规则、字段引用方式、函数分类速查和常见场景示例。
   当用户需要了解宜搭公式怎么写、有哪些函数可用、如何在字段中配置公式时，使用此技能。
-license: MIT
-metadata:
-  audience: developers
-  tags:
-    - yida
-    - formula
-    - low-code
 ---
 
 # 宜搭公式编写规范

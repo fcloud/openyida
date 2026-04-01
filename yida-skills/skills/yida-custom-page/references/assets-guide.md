@@ -85,9 +85,9 @@ function renderIcon(iconPath, size, color) {
 
 **安全规范：**
 - ✅ 仅使用以下经过验证的可信 CDN：
-  - `cdnjs.cloudflare.com` — Cloudflare 官方维护，支持 SRI 完整性校验，国内可访问，**首选**
+  - 阿里云 CDN（`alicdn.com`）— 国内访问最稳定，适合生产环境，**首选**
+  - `cdnjs.cloudflare.com` — Cloudflare 官方维护，支持 SRI 完整性校验，国内可访问
   - `unpkg.com` — npm 官方镜像，适合加载 npm 包资源，国内可访问
-  - 阿里云 CDN（`alicdn.com`）— 国内访问最稳定，适合生产环境
 - ✅ 引用第三方 CDN 资源时，建议添加 `integrity` 属性（SRI 校验），防止资源被篡改
 - ❌ **禁止使用 `cdn.jsdelivr.net`**：2024年发生过木马化 jQuery 供应链攻击事件，且有 SSL 证书过期记录，存在安全风险
 - ❌ **禁止使用 `fonts.googleapis.com`**：国内大陆无法访问，字体资源需下载到本地后上传自有 CDN

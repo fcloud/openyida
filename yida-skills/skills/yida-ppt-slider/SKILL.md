@@ -4,22 +4,6 @@ description: >
   宜搭自定义页面 PPT 幻灯片开发指南。用于在宜搭平台上创建全屏演示文稿式的幻灯片页面，
   支持键盘翻页、移动端适配、演讲笔控制等功能。
   适用于技术分享、产品路演、培训课件等场景。
-license: MIT
-compatibility:
-  - opencode
-  - claude-code
-  - qoder
-  - wukong
-metadata:
-  audience: developers
-  workflow: yida-custom-page
-  version: 1.0.0
-  tags:
-    - yida
-    - custom-page
-    - slider
-    - ppt
-    - presentation
 ---
 
 # 宜搭 PPT 幻灯片开发指南
