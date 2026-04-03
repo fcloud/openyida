@@ -1,6 +1,6 @@
 ---
 name: large-file-write
-description: Solves the problem of large file content being truncated when using heredoc or shell commands. Use this skill when you need to write large blocks of content (>100 lines) to a file reliably without truncation. Provides a Node.js script that accepts content via stdin or a temp file and writes it atomically. Not applicable for small files (<100 lines), binary files, or when the create_file tool is sufficient.
+description: 解决 heredoc 或 shell 命令写入大文件内容被截断的问题。当需要可靠地写入超过 100 行的大块内容时使用，通过 Node.js 脚本将内容作为模板字符串写入，绕过 shell 截断限制。不适用于：文件内容少于 100 行（直接使用 create_file 工具），或二进制文件写入。
 ---
 
 # Large File Write Skill
@@ -47,6 +47,7 @@ wc -l /path/to/target.js   # 验证行数
 2. **内容放在 JS 模板字符串里** — 支持任意长度，不受 shell 限制
 3. **写完立即验证** — `wc -l` 检查行数，`tail` 检查末尾内容
 4. **分段写入大文件** — 超过 300 行的内容，拆分为多个 `create_file` + `node` 执行
+5. **本技能不读写 memory**：文件写入为纯本地操作，不依赖跨会话的 memory 状态
 
 ## 适用场景
 

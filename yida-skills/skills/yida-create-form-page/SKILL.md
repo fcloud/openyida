@@ -15,6 +15,7 @@ description: 宜搭表单页面创建与更新。create 模式创建新表单，
 
 - create 成功后，将 formUuid 记录到 `.cache/<项目名>-schema.json`
 - update 模式修改字段前，必须先用 `openyida get-schema` 确认字段 ID
+- **本技能不读写 memory**：formUuid 等信息输出到 stdout，通过 `.cache/<项目名>-schema.json` 持久化，不依赖跨会话的 memory 状态
 
 ## 适用场景
 
@@ -23,6 +24,19 @@ description: 宜搭表单页面创建与更新。create 模式创建新表单，
 **关键区分**：
 - 修改表单结构（字段增删改）→ 本技能 update 模式
 - 操作表单中的数据记录 → `yida-data-management`
+
+## 触发条件
+
+**正向触发**：
+- "创建表单"、"新建表单"、"添加表单"
+- "新增字段"、"添加字段"、"修改字段"、"删除字段"
+- "修改表单结构"、"更新表单"
+- 已有 appType，需要在应用下建立数据收集入口
+
+**不适用场景（不要触发）**：
+- 操作表单数据记录（增删改查）→ `yida-data-management`
+- 创建无字段的自定义展示页面 → `yida-create-page`
+- 配置表单字段权限 → `yida-form-permission`
 
 ---
 

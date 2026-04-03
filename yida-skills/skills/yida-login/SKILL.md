@@ -14,6 +14,7 @@ description: 宜搭登录态管理。扫码登录，Cookie 持久化到 .cache/c
 
 - 执行任何宜搭操作前，必须先运行 `openyida env` 确认环境和登录态
 - Cookie 失效时，重新登录后必须验证新 Cookie 可用（运行任意查询命令确认）
+- **本技能不读写 memory**：登录态通过 `.cache/cookies.json` 持久化，不依赖跨会话的 memory 状态
 
 ## 适用场景
 
@@ -21,6 +22,17 @@ description: 宜搭登录态管理。扫码登录，Cookie 持久化到 .cache/c
 |---------|---------|
 | 首次使用或 Cookie 失效 | 其他命令报 401/未登录错误时自动触发 |
 | 切换账号/组织 | 先 `openyida logout` 再重新登录 |
+
+## 触发条件
+
+**正向触发**：
+- 其他命令返回 401 / 未登录 / Cookie 失效错误时自动触发
+- 用户明确说"登录"、"重新登录"、"扫码登录"
+- 首次使用 openyida，尚无 `.cache/cookies.json`
+
+**不适用场景（不要触发）**：
+- 已有有效登录态（先用 `openyida env` 确认）
+- 切换组织时（应先 `openyida logout` 再重新登录）
 
 ---
 

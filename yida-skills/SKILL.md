@@ -22,14 +22,37 @@ metadata:
 - 每个子技能执行前，必须完整读取其 SKILL.md，不得凭记忆猜测参数
 - 业务语义信息写入 `prd/<项目名>.md`，Schema ID 写入 `.cache/<项目名>-schema.json`
 - 超过 100 行的大文件写入，使用 `large-file-write` 技能，禁止用 heredoc
+- 在悟空环境中（`AGENT_WORK_ROOT` 包含 `.real`），执行任何 npm/node/npx 命令前，必须先设置 `export PATH="$HOME/.real/.bin/node/bin:$PATH"`，确保使用悟空自带的 node 环境
 
 ---
 
 ## ⚡ 首要步骤（每次必须先执行）
 
+**macOS / Linux：**
+
 ```bash
+# 0. 悟空环境：确保使用悟空自带的 node/npm（避免权限问题）
+if [ -n "$AGENT_WORK_ROOT" ] && echo "$AGENT_WORK_ROOT" | grep -q '.real'; then
+  export PATH="$HOME/.real/.bin/node/bin:$PATH"
+fi
+
 # 1. 确保 openyida 已安装（未安装则自动安装，已安装则跳过）
 openyida -v 2>/dev/null || npm install -g openyida@latest
+
+# 2. 一键诊断并自动修复：环境检测 + project 目录初始化
+openyida doctor --fix
+```
+
+**Windows (PowerShell)：**
+
+```powershell
+# 0. 悟空环境：确保使用悟空自带的 node/npm（避免权限问题）
+if ($env:AGENT_WORK_ROOT -and $env:AGENT_WORK_ROOT -match '\.real') {
+  $env:PATH = "$env:USERPROFILE\.real\.bin\node\bin;$env:PATH"
+}
+
+# 1. 确保 openyida 已安装（未安装则自动安装，已安装则跳过）
+try { openyida -v } catch { npm install -g openyida@latest }
 
 # 2. 一键诊断并自动修复：环境检测 + project 目录初始化
 openyida doctor --fix
@@ -130,7 +153,6 @@ openyida doctor --fix
 | **yida-density** | [`skills/yida-density/SKILL.md`](skills/yida-density/SKILL.md) | 信息密度设计规范（紧凑/舒适/宽松） |
 | **yida-table-form** | [`skills/yida-table-form/SKILL.md`](skills/yida-table-form/SKILL.md) | 表格形式批量表单提交 |
 | **yida-ppt-slider** | [`skills/yida-ppt-slider/SKILL.md`](skills/yida-ppt-slider/SKILL.md) | PPT 幻灯片页面开发（演讲/路演/培训） |
-| **yida-chatbot** | [`skills/yida-chatbot/SKILL.md`](skills/yida-chatbot/SKILL.md) | AI 对话浮窗组件（独立使用或注入已有页面，支持 12 种 AI 模型） |
 
 ### 连接器与报表
 
