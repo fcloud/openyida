@@ -1,6 +1,6 @@
 ---
 name: yida-formula
-description: "宜搭公式编写规范。提供公式语法规则、字段引用方式、函数分类速查和常见场景示例。当用户需要了解宜搭公式怎么写、有哪些函数可用、如何在字段中配置公式时，使用此技能。不适用于：配置集成自动化的数据联动（应使用 yida-integration），或在自定义页面 JSX 代码中写 JavaScript 逻辑（应使用 yida-custom-page）。"
+description: 宜搭表单公式编写规范，包含函数速查、语法规则、常见场景示例。不适用于：配置业务关联规则（应使用 yida-integration），或创建表单字段结构（应使用 yida-create-form-page）。
 ---
 
 # 宜搭表单公式编写规范
