@@ -1,6 +1,6 @@
 ---
 name: yida-process-rule
-description: 宜搭流程规则配置技能，通过调用流程设计器 API 实现流程的创建、配置（条件分支、嵌套分支、审批节点、字段权限、抄送节点、跳转规则）、保存和发布。
+description: 宜搭流程规则配置技能，通过调用流程设计器 API 实现流程的创建、配置（条件分支、嵌套分支、审批节点、字段权限、抄送节点、跳转规则）、保存和发布。不适用于：从零创建流程表单（应使用 yida-create-process），或配置集成自动化逻辑流（应使用 yida-integration）。
 ---
 
 # 宜搭流程规则配置技能
@@ -499,32 +499,22 @@ openyida configure-process "APP_XXX" "FORM-YYY" process-definition.json
 ```
 
 流程：`发起 → 部门主管审核 → 财务部审核（拒绝时跳回部门主管审核） → 结束`
+## 注意事项
 
-## 工作流程
+- 所有 `fieldId` 必须通过 `openyida get-schema` 获取，不能手写猜测
+- 条件分支的 `conditionNodes` 最后一个节点必须是 `else`（`conditionType: "else"`）
+- 嵌套分支不超过 3 层
+- 流程发布前必须先保存
 
-```
-读取登录态（.cache/cookies.json）
-    ↓
-读取流程定义 JSON
-    ↓
-获取 processCode（自动或手动传入）
-    ├─ switchFormType 转为流程表单
-    ├─ getAppPlatFormParam 提取 processCode（推荐）
-    └─ getFormSchema 正则匹配（备用）
-    ↓
-查询流程版本列表
-    ↓
-创建新流程版本草稿
-    ↓
-构建 processJson + viewJson
-    ↓
-saveProcessById 保存流程
-    ↓
-publishProcessById 发布流程
-    ↓
-输出结果 JSON
-```
+## 异常处理
 
+| 异常场景 | 处理方式 |
+|---------|----------|
+| 流程保存失败 | 检查 processCode 是否正确，确认登录态有效 |
+| 条件分支报错 | 确认最后一个 conditionNode 的 `conditionType` 为 `"else"` |
+| fieldId 不存在 | 先执行 `openyida get-schema` 获取真实 fieldId，不能手写猜测 |
+| 流程发布后未生效 | 确认已执行发布步骤（save 后还需 publish），检查流程版本 |
+| 嵌套分支超过 3 层 | 重新设计流程结构，将复杂条件拆分为多个节点 |
 ## 前置依赖
 
 - Node.js ≥ 16

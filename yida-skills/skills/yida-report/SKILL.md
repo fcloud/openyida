@@ -1,6 +1,6 @@
 ---
 name: yida-report
-description: "宜搭原生报表技能，用于创建宜搭平台内置的原生报表页面（vc-yida-report 组件库），支持 16 种开箱即用的图表/表格/筛选器组件，通过 openyida create-report 命令生成报表 Schema 并发布。本技能定位：创建宜搭原生报表（作为数据源），普通的「报表」「统计」需求默认使用本技能。如需更美观的 ECharts 自定义可视化大屏，请使用 yida-chart 技能（依赖本技能创建的原生报表作为数据源）。"
+description: "宜搭原生报表技能，用于创建宜搭平台内置的原生报表页面（vc-yida-report 组件库），支持 16 种开箱即用的图表/表格/筛选器组件，通过 openyida create-report 命令生成报表 Schema 并发布。本技能定位：创建宜搭原生报表（作为数据源），普通的「报表」「统计」需求默认使用本技能。如需更美观的 ECharts 自定义可视化大屏，请使用 yida-chart 技能（依赖本技能创建的原生报表作为数据源）。不适用于：创建 ECharts 自定义可视化大屏（应使用 yida-chart），或直接查询表单数据（应使用 yida-data-management）。"
 ---
 
 # 宜搭原生报表 + ECharts 自定义看板 技能文档
@@ -25,6 +25,27 @@ description: "宜搭原生报表技能，用于创建宜搭平台内置的原生
 | 普通报表/统计需求 | "报表"、"统计"、"数据分析"（默认使用本技能） |
 | 读取报表聚合数据 | 调用 `getDataAsync.json` / `getCacheData.json` |
 | 为 ECharts 提供数据源 | 先用本技能创建原生报表，再用 `yida-chart` 可视化 |
+
+## 触发条件
+
+**正向触发**：
+- "报表"、"统计"、"数据分析"（默认使用本技能）
+- "创建报表"、"生成统计图表"
+- 为 ECharts 可视化提供数据源
+
+**不适用场景（不要触发）**：
+- 创建 ECharts 自定义可视化大屏 → `yida-chart`（但必须先有本技能创建的原生报表）
+- 直接查询表单数据 → `yida-data-management`
+- 在前端直接聚合表单数据 → 严禁，必须通过原生报表 API 获取聚合数据
+
+## 异常处理
+
+| 异常场景 | 处理方式 |
+|---------|----------|
+| reportId/datasetId 不存在 | 不得编造，必须从报表 URL 或 Schema 中提取 |
+| 报表数据 rows 为空 | 必须处理空数据情况，显示"暂无数据"而非页面崩溃 |
+| 前端直接聚合表单数据 | 严禁，必须通过 `getDataAsync.json` 或 `getCacheData.json` 获取聚合数据 |
+| 命令执行失败 | 检查登录态（`openyida env`），确认 appType 和 formUuid 正确 |
 
 ---
 

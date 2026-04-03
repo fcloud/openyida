@@ -1,6 +1,6 @@
 ---
 name: yida-integration
-description: 宜搭集成&自动化（逻辑流）技能，用于在宜搭平台创建「集成&自动化」逻辑流，支持表单事件触发、多节点组合处理（消息通知/数据新增/查询/更新/条件分支）等场景。
+description: 宜搭集成&自动化配置技能。支持创建/查询/开启/关闭集成自动化，包括消息通知、新增数据、获取数据、更新数据、条件分支等节点。不适用于：配置审批流程（应使用 yida-process-rule），或直接操作表单数据（应使用 yida-data-management）。
 ---
 
 # yida-integration — 宜搭集成&自动化（逻辑流）技能
@@ -595,6 +595,18 @@ lib/
    - 字符串拼接：`CONCATENATE(#{fieldId_a},#{fieldId_b})`
    - 数值运算：`${nodeId}.numberField_xxx+1`
 
+## 触发条件
+
+**正向触发**：
+- "配置集成自动化"、"数据联动"、"自动触发"
+- "表单提交后自动发消息"、"自动新增数据"
+- "配置逻辑流"、"自动化规则"
+
+**不适用场景（不要触发）**：
+- 配置审批流程 → `yida-process-rule`
+- 直接操作表单数据（增删改查）→ `yida-data-management`
+- 配置 HTTP 连接器 → `yida-connector`
+
 ## 注意事项
 
 - `--receivers` 填写的是宜搭/钉钉用户 ID（`userId`），不是姓名
@@ -602,3 +614,14 @@ lib/
 - `processCode` 格式为 `LPROC-` 加 38 位大写字母数字，不传则自动随机生成
 - 保存（草稿）和发布使用**同一个接口** `saveProcess`，通过 `isOnline` 参数区分
 - 错误码处理：接口返回 `errorCode: "TIANSHU_000030"`（csrf 校验失败）时，脚本会自动刷新 token 后重试；`errorCode: "307"`（登录过期）时，会自动重新登录后重试
+
+## 异常处理
+
+| 异常场景 | 处理方式 |
+|---------|----------|
+| 创建集成失败 | 检查 appType 和 formUuid 是否正确，确认登录态有效 |
+| fieldId 不存在 | 先执行 `openyida get-schema` 获取真实 fieldId |
+| 开启/关闭失败 | 先查询获取 integrationId，不能手写猜测 |
+| 消息通知未发送 | 确认触发条件已在宜搭管理后台配置，检查接收人 userId 格式 |
+| CSRF 校验失败（TIANSHU_000030） | 脚本自动刷新 token 后重试，无需手动干预 |
+| 登录过期（307） | 脚本自动重新登录后重试，无需手动干预 |

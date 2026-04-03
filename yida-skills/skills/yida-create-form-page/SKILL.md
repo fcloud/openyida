@@ -1,6 +1,6 @@
 ---
 name: yida-create-form-page
-description: 宜搭表单页面创建与更新。create 模式创建新表单，update 模式增删改字段。支持 19 种字段类型。
+description: 宜搭表单页面创建与更新。create 模式创建新表单，update 模式增删改字段。支持 19 种字段类型。不适用于：操作表单数据记录（应使用 yida-data-management），或创建无字段的自定义展示页面（应使用 yida-create-page）。
 ---
 
 # 表单页面创建与更新
@@ -144,4 +144,14 @@ openyida create-form update <appType> <formUuid> <changesJsonOrFile>
 - update 模式操作按顺序执行，注意依赖关系
 - 字段匹配基于中文标签（`label.zh_CN`）
 - 如需创建自定义展示页面（无字段），请使用 `yida-create-page`
+
+## 异常处理
+
+| 异常场景 | 处理方式 |
+|---------|----------|
+| create 返回失败 | 检查 appType 是否正确，确认登录态有效 |
+| update 模式找不到字段 | 先用 `openyida get-schema` 确认字段标签（label）拼写正确 |
+| 字段类型不支持 | 检查字段类型是否在支持的 19 种类型列表中 |
+| 子表字段创建失败 | 确认 `children` 数组格式正确，子表字段不能嵌套子表 |
+| 返回 JSON 中无 formUuid | 不要猜测 formUuid，重新执行命令获取 |
 

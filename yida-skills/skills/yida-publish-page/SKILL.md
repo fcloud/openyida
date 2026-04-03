@@ -1,6 +1,6 @@
 ---
 name: yida-publish-page
-description: 将 JSX 源码编译发布到宜搭自定义页面。Babel 转 ES5 + UglifyJS 压缩 + Schema 构建 + saveFormSchema 接口部署。
+description: 将 JSX 源码编译发布到宜搭自定义页面。Babel 转 ES5 + UglifyJS 压缩 + Schema 构建 + saveFormSchema 接口部署。不适用于：发布原生表单页面（无需此命令），或代码尚未编写完成时（必须先完成 yida-custom-page 规范的代码编写）。
 ---
 
 # 发布自定义页面
@@ -61,3 +61,14 @@ body { background-color: #f2f3f5; }
 - 发布目标地址由 `.cache/cookies.json` 中的 `base_url` 决定
 - 碰到组织 corpId 不匹配时，询问用户是否创建新应用发布
 - **编写源码前必须先读取 `yida-custom-page` 的 SKILL.md**，禁止使用 React Hooks
+
+## 异常处理
+
+| 异常场景 | 处理方式 |
+|---------|----------|
+| Babel 编译失败 | 检查 JSX 语法，确认未使用 React Hooks（useState/useEffect 等） |
+| UglifyJS 压缩失败 | 检查是否有 ES6+ 语法未被 Babel 转译，确认 export function 格式正确 |
+| saveFormSchema 接口失败（401） | 执行 `openyida login` 重新登录后重试 |
+| corpId 不匹配 | 询问用户是否切换组织或创建新应用，不得强行发布 |
+| 发布后页面空白 | 检查 `renderJsx` 函数是否正确导出，检查浏览器控制台报错 |
+| 发布后功能异常 | 检查 `forceUpdate is not a function` 等常见错误，参考 `yida-custom-page` 规范 |

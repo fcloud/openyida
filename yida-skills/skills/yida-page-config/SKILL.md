@@ -1,6 +1,6 @@
 ---
 name: yida-page-config
-description: 页面公开访问和组织内分享配置。支持 URL 验证、配置保存、导航显示控制。
+description: 页面公开访问和组织内分享配置。支持 URL 验证、配置保存、导航显示控制。不适用于：配置表单数据权限（应使用 yida-form-permission），或修改页面代码内容（应使用 yida-custom-page + yida-publish-page）。
 ---
 
 # 页面配置
@@ -73,3 +73,12 @@ openyida update-form-config <appType> <formUuid> false "<页面标题>"
 
 - 公开访问：`/o/xxx`，组织内分享：`/s/xxx`
 - 仅支持 `a-z A-Z 0-9 _ -`，路径全局唯一
+
+## 异常处理
+
+| 异常场景 | 处理方式 |
+|---------|----------|
+| verify-short-url 验证失败 | 检查 URL 格式（只含 `a-z A-Z 0-9 _ -`），确认路径全局唯一 |
+| save-share-config 失败 | 必须先执行 verify-short-url 验证通过后再保存 |
+| 公开访问页面无法加载数据 | 使用宜搭表单数据的页面不支持公开访问（/o/），改用组织内分享（/s/） |
+| 配置后访问 URL 404 | 确认 URL 路径唯一，等待 CDN 缓存刷新（通常 1-2 分钟） |

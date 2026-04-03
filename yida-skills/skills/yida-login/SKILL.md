@@ -1,6 +1,6 @@
 ---
 name: yida-login
-description: 宜搭登录态管理。扫码登录，Cookie 持久化到 .cache/cookies.json。
+description: 宜搭登录态管理。扫码登录，Cookie 持久化到 .cache/cookies.json。不适用于：已有有效登录态时（先用 openyida env 确认），或切换组织时（应先 logout 再重新登录）。
 ---
 
 # 宜搭登录态管理
@@ -49,3 +49,13 @@ openyida login
 |-----------|------|---------|
 | `TIANSHU_000030` | CSRF Token 过期 | 自动无头刷新 |
 | `307` | Cookie 失效 | 自动重新登录 |
+
+## 异常处理
+
+| 异常场景 | 处理方式 |
+|---------|----------|
+| 扫码超时 | 重新执行 `openyida login`，二维码有时效限制 |
+| 登录后 Cookie 仍无效 | 检查 `.cache/cookies.json` 是否正确写入，执行 `openyida env` 验证 |
+| 反复登录失败 | 停止重试，提示用户联系开发同学 @天晟，不要自主尝试其他登录方案 |
+| CSRF Token 过期（TIANSHU_000030） | 自动无头刷新，无需手动干预 |
+| Cookie 失效（307） | 自动重新登录，无需手动干预 |
