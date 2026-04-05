@@ -15,8 +15,55 @@
 | **样式** | 所有 css 必须写在 renderJsx 的方法中，通过 style 的方式引入 |
 | **`this` 上下文** | 所有导出函数中的 `this` 指向宜搭页面的 React 类实例 |
 | **禁止使用 `this.setState` 管理业务状态** | `this.setState` 已被覆盖，仅用于 `forceUpdate`（通过更新 `timestamp`） |
-| **JavaScript 版本** | 使用 ES2015 (ES6) 语法，不能高于 ES2015 版本 |
+| **JavaScript 版本** | 使用 ES2015 (ES6) 语法，不能高于 ES2015 版本。**注意**：即使是 ES6 语法，部分特性也会导致静默失败，详见下方「JS 引擎兼容性限制」 |
 | **必须定义 renderJsx 函数** | renderJsx 是宜搭自定义页面核心渲染函数，也是入口函数，必须严格定义，不要改为其他名称 |
+
+---
+
+## ⚠️ JS 引擎兼容性限制（静默失败，极难排查）
+
+宜搭自定义页面的 JS 引擎存在以下已知兼容性问题，**所有问题均无控制台报错**，必须严格规避：
+
+### 1. 禁止使用 ES6 计算属性名 `{ [key]: value }` — 严重
+
+使用计算属性名会导致**整个模块加载失败**，`didMount` 不执行，页面空白，控制台无任何错误信息。
+
+```javascript
+// ❌ 严禁：计算属性名，导致模块加载失败
+var obj = { [fieldId]: value };
+searchFieldJson: JSON.stringify({ [FIELDS.department]: '研发部' });
+
+// ✅ 正确：ES5 写法
+var obj = {};
+obj[fieldId] = value;
+
+// ✅ 正确：searchFieldJson 中也必须用 ES5 写法
+var searchCondition = {};
+searchCondition[FIELDS.department] = '研发部';
+searchCondition[FIELDS.status] = '待审批';
+searchFieldJson: JSON.stringify(searchCondition);
+```
+
+### 2. 禁止在 `.then()` 回调中使用 `String.padStart()` — 严重
+
+在 `.then()` 回调中调用含 `padStart()` 的函数，回调会在该行**静默中断**，后续代码均不执行，控制台无报错。
+
+```javascript
+// ❌ 严禁：padStart 在 .then() 回调中静默中断
+.then(function(res) {
+  var month = String(date.getMonth() + 1).padStart(2, '0');  // 此行之后代码不执行
+  self.processData(res);  // 永远不会执行
+});
+
+// ✅ 正确：用三元运算符替代 padStart
+.then(function(res) {
+  var month = date.getMonth() + 1;
+  var monthStr = month < 10 ? '0' + month : '' + month;
+  self.processData(res);
+});
+```
+
+> **自检规则**：生成代码时，检查所有 `.then(function(res) { ... })` 回调，确保：① 无计算属性名；② 无 `padStart`/`padEnd`。建议将复杂的回调逻辑提取到独立的 `export function` 中，保持回调简洁。
 
 ---
 
@@ -361,12 +408,13 @@ var FIELDS = {
 };
 
 // ✅ 使用别名引用字段，代码清晰易读
+// 注意：必须用 ES5 写法构建对象，禁止使用计算属性名 { [key]: val }
+var searchCondition = {};
+searchCondition[FIELDS.department] = '研发部';
+searchCondition[FIELDS.status] = '待审批';
 this.utils.yida.searchFormDatas({
   formUuid: 'FORM-XXX',
-  searchFieldJson: JSON.stringify({
-    [FIELDS.department]: '研发部',
-    [FIELDS.status]: '待审批',
-  }),
+  searchFieldJson: JSON.stringify(searchCondition),
   currentPage: 1,
   pageSize: 20,
 });

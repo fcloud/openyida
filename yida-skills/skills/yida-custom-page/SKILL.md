@@ -473,12 +473,13 @@ var FIELDS = {
 };
 
 // ✅ 使用别名引用字段，代码清晰易读
+// 注意：必须用 ES5 写法构建对象，禁止使用计算属性名 { [key]: val }
+var searchCondition = {};
+searchCondition[FIELDS.department] = '研发部';
+searchCondition[FIELDS.status] = '待审批';
 this.utils.yida.searchFormDatas({
   formUuid: 'FORM-XXX',
-  searchFieldJson: JSON.stringify({
-    [FIELDS.department]: '研发部',
-    [FIELDS.status]: '待审批',
-  }),
+  searchFieldJson: JSON.stringify(searchCondition),
   currentPage: 1,
   pageSize: 20,
 });
