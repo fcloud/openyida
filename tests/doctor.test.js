@@ -71,7 +71,16 @@ function createTempProject(options = {}) {
 }
 
 function cleanupTempDir(tmpDir) {
-  fs.rmSync(tmpDir, { recursive: true, force: true });
+  // Windows 上文件句柄释放有延迟，可能导致 EBUSY，加入重试
+  const maxRetries = 3;
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      fs.rmSync(tmpDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
+      return;
+    } catch (err) {
+      if (attempt === maxRetries - 1) return; // 最后一次仍失败则静默忽略
+    }
+  }
 }
 
 // ── DiagnosticEngine ──────────────────────────────────
