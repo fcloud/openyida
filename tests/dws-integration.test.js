@@ -26,7 +26,8 @@ describe('钉钉 CLI 集成', () => {
   test('主帮助包含 dws 命令', () => {
     const output = execSync('node bin/yida.js --help', { encoding: 'utf8' });
     expect(output).toContain('dws');
-    expect(output).toContain('钉钉 CLI');
+    // 描述文字因 i18n 语言环境不同可能为中文或英文，兼容两种情况
+    expect(output).toMatch(/钉钉 CLI|DingTalk CLI/);
   });
 
   // 测试 4: 示例命令在帮助中
