@@ -1,6 +1,6 @@
 ---
 name: yida-create-form-page
-description: 宜搭表单页面创建与更新。create 模式创建新表单，update 模式增删改字段。支持 19 种字段类型。不适用于：操作表单数据记录（应使用 yida-data-management），或创建无字段的自定义展示页面（应使用 yida-create-page）。
+description: 宜搭表单页面创建与更新。适用于：创建新表单、新建数据收集页面、设计表单结构、添加/修改/删除表单字段、录入页面搭建。支持 19 种字段类型（文本、选择、日期、子表、关联表单等）。不适用于操作表单数据记录（→ yida-data-management）或创建无字段自定义展示页面（→ yida-create-page）。
 ---
 
 # 表单页面创建与更新

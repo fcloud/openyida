@@ -111,6 +111,7 @@ openyida doctor --fix
 2. corpId 不匹配 → 询问用户是否切换组织，执行 `openyida logout && openyida login`
 3. 命令执行失败 → 检查参数格式是否与子技能 SKILL.md 一致，不要猜测参数
 4. 发布失败 → 确认 `openyida env` 环境检测通过，检查 Babel 编译产物
+5. **技能检索失败（search_skills 未返回预期技能）→ 不得直接输出执行结果或编造执行过程**。必须先查阅上方「意图判断决策树」手动定位子技能路径，再通过 `use_skill` 激活对应技能后执行。若仍无法确定技能，停止执行并向用户说明，询问补充信息。
 
 ---
 
