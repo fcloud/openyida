@@ -1,14 +1,9 @@
 ---
+name: yida-create-app
+description: 创建宜搭应用，返回 appType。搭建应用的第一步。不适用于：应用已存在时（先查询是否已有同名应用），或只需在已有应用中创建页面/表单（直接使用 yida-create-page 或 yida-create-form-page）。
+---
 
 # 创建应用
-
-## 代码示例
-
-> 需要参考完整应用创建流程时，执行以下命令获取示例，再用 `read_file` 读取：
-
-```bash
-openyida sample yida-create-app ipd-app-template   # 完整应用创建示例（含多页面/表单/仪表盘的 IPD 应用模板）
-```
 
 ## 严格禁止 (NEVER DO)
 - 不要编造 appType，必须从命令返回的 JSON 中提取
@@ -88,6 +83,14 @@ openyida create-app <appName> [description] [icon] [iconColor] [colour] [navThem
 | 申报 | `xian-shenbao` | | 打卡 | `xian-daka` |
 
 **图标背景色**：`#0089FF` `#00B853` `#FFA200` `#FF7357` `#5C72FF` `#85C700` `#FFC505` `#FF6B7A` `#8F66FF` `#14A9FF`
+
+## 代码示例
+
+> 需要参考完整应用创建流程时，执行以下命令获取示例，再用 `read_file` 读取：
+
+```bash
+openyida sample yida-create-app ipd-app-template   # 完整应用创建示例（含多页面/表单/仪表盘的 IPD 应用模板）
+```
 
 ## 异常处理
 
