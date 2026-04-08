@@ -32,6 +32,7 @@ openyida/
 │   │   ├── org.js           # 组织管理（列出/切换组织）
 │   │   └── qr-login.js      # 终端二维码扫码登录
 │   ├── app/                 # 应用 / 表单 / 页面管理
+│   │   ├── app-list.js      # yida-app-list：查询我的应用列表（名称/appType/地址）
 │   │   ├── create-app.js    # 创建宜搭应用
 │   │   ├── create-page.js   # 创建自定义展示页面
 │   │   ├── create-form.js   # 创建 / 更新表单页面

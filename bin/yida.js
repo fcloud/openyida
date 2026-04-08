@@ -16,6 +16,7 @@
  *   openyida auth logout                                退出登录
  *   openyida org list                                   列出可访问的组织
  *   openyida org switch --corp-id <corpId>              切换组织（无需重新登录）
+ *   openyida yida-app-list [--size <每页数量>]                  查询我的应用列表（名称/appType/地址）
  *   openyida create-app "<名称>" [desc] [icon] [color] [colour] [navTheme] [layout]  创建应用
  *   openyida create-page <appType> "<页面名>"            创建自定义页面
  *   openyida create-form create <appType> "<表单名>" <字段JSON> [--layout <布局>] [--theme <主题>] [--label-align <对齐>]  创建表单页面
@@ -76,6 +77,7 @@ openyida - 宜搭命令行工具
   copy [--force]                                               复制 project 工作目录到当前 AI 工具环境
   login                                                        登录态管理（优先缓存，否则扫码）
   logout                                                       退出登录 / 切换账号
+  yida-app-list [--size <每页数量>]                             查询我的应用列表（名称/appType/地址）
   create-app "<名称>" [描述] [图标] [颜色] [主题色] [导航风格] [布局]   创建应用，输出 appType
   create-page <appType> "<页面名>"                             创建自定义页面，输出 pageId
   create-form create <appType> "<表单名>" <字段JSON> [--layout <布局>] [--theme <主题>] [--label-align <对齐>]  创建表单页面
@@ -339,6 +341,12 @@ async function main() {
         console.error(t('cli.org_example'));
         process.exit(1);
       }
+      break;
+    }
+
+    case 'yida-app-list': {
+      const { run: runAppList } = require('../lib/app/app-list');
+      await runAppList(args);
       break;
     }
 
