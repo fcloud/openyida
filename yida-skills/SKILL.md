@@ -125,7 +125,8 @@ openyida doctor --fix
 | 技能 | 路径 | 说明 |
 |------|------|------|
 | **yida-app** | [`skills/yida-app/SKILL.md`](skills/yida-app/SKILL.md) | 完整应用开发全流程编排（从零到一，创建应用前必读） |
-| **app-list** | `openyida app-list [--size N]` | 查询我的应用列表，返回 appName / appType / systemLink（直接执行，无需子技能） |
+| **app-list** | `openyida yida-app-list [--size N]` | 查询我的应用列表，返回 appName / appType / systemLink（直接执行，无需子技能） |
+| **sample** | `openyida sample <skill> <name>` | 输出代码示例/模板到 `.cache/samples/<name>.js`，再用 `read_file` 读取（`--list` 查看所有可用示例） |
 | **yida-create-app** | [`skills/yida-create-app/SKILL.md`](skills/yida-create-app/SKILL.md) | 创建应用，获取 appType |
 | **yida-create-page** | [`skills/yida-create-page/SKILL.md`](skills/yida-create-page/SKILL.md) | 创建自定义展示页面，获取 formUuid |
 | **yida-publish-page** | [`skills/yida-publish-page/SKILL.md`](skills/yida-publish-page/SKILL.md) | 编译并发布自定义页面 |
