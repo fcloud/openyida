@@ -1,6 +1,6 @@
 ---
 name: yida-skills
-description: "宜搭低代码平台 AI 开发入口。一句话生成完整应用：创建应用、表单设计、自定义页面、流程配置、数据管理。当用户提到「宜搭」「yida」「低代码」「创建应用」「创建表单」「发布页面」「搭建」「系统」「应用」时触发。"
+description: "宜搭低代码平台 AI 开发助手。适用于一切业务数字化需求：创建登记表/申请表/信息收集表、设计审批流程、搭建数据报表/数据大屏、开发自定义页面、管理表单数据、闪记转PRD/会议纪要提取需求/需求文档生成、导出对话记录、编写公式/计算字段、配置连接器/外部API接入、设置权限/公开分享、集成自动化。当用户想要创建任何形式的表单、系统、页面、流程、报表，或提到员工管理、客户管理、费用报销、考勤打卡、项目管理等业务场景时触发。也适用于「宜搭」「yida」「低代码」「创建应用」「发布页面」「搭建系统」「PRD」「闪记」「会议记录」「对话导出」「公式」「连接器」「权限」「分享」「集成自动化」等关键词场景。"
 metadata:
   version: 2026.04.02
 ---
@@ -64,6 +64,7 @@ openyida doctor --fix
 
 根据用户描述，快速定位应使用的子技能：
 
+用户提到"查询应用列表/我的应用/有哪些应用" → `openyida yida-app-list`（直接执行，无需子技能）
 用户提到"创建应用/新建系统/搭建平台" → 先读 `yida-app` 了解全流程，再用 `yida-create-app`
 用户提到"创建表单/新增字段/更新表单" → `yida-create-form-page`
 用户提到"自定义页面/JSX/React/可视化大屏" → `yida-custom-page` + `yida-publish-page`
@@ -124,6 +125,7 @@ openyida doctor --fix
 | 技能 | 路径 | 说明 |
 |------|------|------|
 | **yida-app** | [`skills/yida-app/SKILL.md`](skills/yida-app/SKILL.md) | 完整应用开发全流程编排（从零到一，创建应用前必读） |
+| **app-list** | `openyida app-list [--size N]` | 查询我的应用列表，返回 appName / appType / systemLink（直接执行，无需子技能） |
 | **yida-create-app** | [`skills/yida-create-app/SKILL.md`](skills/yida-create-app/SKILL.md) | 创建应用，获取 appType |
 | **yida-create-page** | [`skills/yida-create-page/SKILL.md`](skills/yida-create-page/SKILL.md) | 创建自定义展示页面，获取 formUuid |
 | **yida-publish-page** | [`skills/yida-publish-page/SKILL.md`](skills/yida-publish-page/SKILL.md) | 编译并发布自定义页面 |
