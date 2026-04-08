@@ -278,7 +278,7 @@ openyida create-process <appType> --formUuid <formUuid> <流程定义文件>
 
 **编写前必须**：
 1. 完整读取 [`skills/yida-custom-page/SKILL.md`](../yida-custom-page/SKILL.md)
-2. 读取模板文件 [`templates/custom-page-template.js`](../yida-custom-page/templates/custom-page-template.js)
+2. 执行 `openyida sample yida-custom-page custom-page-template` 获取模板，再用 `read_file` 读取 `.cache/samples/custom-page-template.js`
 3. 读取 prd 文档和 `.cache/<项目名>-schema.json` 获取所有 ID
 
 **代码文件路径**：`pages/src/<项目名>.js`

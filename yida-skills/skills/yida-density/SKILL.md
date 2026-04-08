@@ -146,4 +146,4 @@ var DENSITY_CONFIG = {
 
 ## 完整示例：带密度切换的页面
 
-> 完整示例代码见 [`examples/density-switch-page.js`](examples/density-switch-page.js)，包含 `DENSITY_CONFIG`、状态管理、密度切换 UI、数据加载和渲染逻辑的完整实现。
+> 完整示例代码：执行 `openyida sample yida-density density-switch-page` 输出到 `.cache/samples/density-switch-page.js`，再用 `read_file` 读取。包含 `DENSITY_CONFIG`、状态管理、密度切换 UI、数据加载和渲染逻辑的完整实现。
