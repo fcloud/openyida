@@ -96,6 +96,7 @@ function printHelp() {
   console.log('');
   console.log(`  ${BOLD}${CYAN}OpenYida${RESET} ${DIM}v${currentVersion}${RESET}`);
   console.log(`  ${DIM}${t('help.subtitle')}${RESET}`);
+  console.log(`  ${DIM}"We are on the verge of the Singularity"${RESET}`);
   console.log('');
   console.log(`  ${YELLOW}${t('help.usage')}${RESET}  openyida <command> [args...]`);
   console.log(`  ${DIM}${t('help.alias')}${RESET}  yida`);
