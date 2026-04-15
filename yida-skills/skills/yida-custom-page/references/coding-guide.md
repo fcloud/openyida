@@ -53,7 +53,7 @@ export function renderJsx() {
   return (
     <div>
       {/* 必须保留：触发 forceUpdate 重渲染 */}
-      <div style= display: "none" >{this.state.timestamp}</div>
+      <div style={{ display: 'none' }}>{this.state.timestamp}</div>
       {/* 页面内容 */}
     </div>
   );

@@ -5,30 +5,27 @@ description: 宜搭登录态管理。扫码登录，Cookie 持久化到 .cache/c
 
 # 宜搭登录态管理
 
-## 严格禁止 (NEVER DO)
+## 核心规则
 
-- 不要在代码中硬编码 Cookie 或凭证，Cookie 必须通过 `openyida login` 命令获取并缓存到 `.cache/cookies.json`
-- 不要在 Cookie 失效时手动修改 `.cache/cookies.json`，必须重新执行登录流程
+### 致命规则（FATAL）
+违反会导致功能失败或运行时报错：
+1. **不要在代码中硬编码 Cookie 或凭证**，Cookie 必须通过 `openyida login` 命令获取并缓存到 `.cache/cookies.json`
+2. **不要在 Cookie 失效时手动修改 `.cache/cookies.json`**，必须重新执行登录流程
 
-## 严格要求 (MUST DO)
+### 重要规则（IMPORTANT）
+影响代码质量和用户体验：
+1. **执行任何宜搭操作前，必须先运行 `openyida env` 确认环境和登录态**
+2. **Cookie 失效时，重新登录后必须验证新 Cookie 可用**（运行任意查询命令确认）
+3. **本技能不读写 memory**：登录态通过 `.cache/cookies.json` 持久化，不依赖跨会话的 memory 状态
 
-- 执行任何宜搭操作前，必须先运行 `openyida env` 确认环境和登录态
-- Cookie 失效时，重新登录后必须验证新 Cookie 可用（运行任意查询命令确认）
-- **本技能不读写 memory**：登录态通过 `.cache/cookies.json` 持久化，不依赖跨会话的 memory 状态
-
-## 适用场景
+## 适用场景与触发条件
 
 | 用户意图 | 触发条件 |
-|---------|---------|
+|---------|----------|
 | 首次使用或 Cookie 失效 | 其他命令报 401/未登录错误时自动触发 |
+| 用户明确说“登录” | “登录”、“重新登录”、“扫码登录” |
+| 尚无 `.cache/cookies.json` | 首次使用 openyida |
 | 切换账号/组织 | 先 `openyida logout` 再重新登录 |
-
-## 触发条件
-
-**正向触发**：
-- 其他命令返回 401 / 未登录 / Cookie 失效错误时自动触发
-- 用户明确说"登录"、"重新登录"、"扫码登录"
-- 首次使用 openyida，尚无 `.cache/cookies.json`
 
 **不适用场景（不要触发）**：
 - 已有有效登录态（先用 `openyida env` 确认）

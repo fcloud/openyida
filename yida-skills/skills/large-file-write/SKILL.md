@@ -16,15 +16,34 @@ description: 解决 heredoc 或 shell 命令写入大文件内容被截断的问
 
 使用 Node.js 脚本 `scripts/write.js`，将内容作为 JS 字符串变量传入，绕过 shell 截断限制。
 
-## 使用方式
+## 核心规则
 
-三种写入模式的完整代码示例，详见 [references/write-patterns.md](./references/write-patterns.md)：
+### 致命规则（FATAL）
+
+违反会导致功能失败或运行时报错：
+
+1. **永远不要用 heredoc 写大文件** — 改用 `create_file` 工具创建临时 JS 脚本，再 `node` 执行
+2. **内容放在 JS 模板字符串里** — 支持任意长度，不受 shell 限制
+3. **写完立即验证** — `wc -l` 检查行数，`tail` 检查末尾内容
+
+### 重要规则（IMPORTANT）
+
+影响代码质量和用户体验：
+
+1. **分段写入大文件** — 超过 300 行的内容，拆分为多个 `create_file` + `node` 执行
+2. **本技能不读写 memory** — 文件写入为纯本地操作，不依赖跨会话的 memory 状态
+
+## 写入模式
+
+三种写入模式的完整代码示例，详见 [write-patterns.md](references/write-patterns.md)：
 
 - **模式一**：创建内容脚本后执行（推荐）— 用 `create_file` 创建临时 JS 脚本，再 `node` 执行
 - **模式二**：追加内容到已有文件 — 用 `fs.appendFileSync` 追加大块内容
 - **模式三**：使用通用写入脚本（stdin 模式）— 通过管道传入内容
 
 ### 快速示例
+
+> **前置要求**：Node.js ≥ 16，异常处理表中的 `node: command not found` 即为未安装或版本不满足。
 
 ```js
 // /tmp/content-payload.js
@@ -40,14 +59,6 @@ console.log('写入完成，行数：', content.split('\n').length);
 node /tmp/content-payload.js
 wc -l /path/to/target.js   # 验证行数
 ```
-
-## 核心原则
-
-1. **永远不要用 heredoc 写大文件** — 改用 `create_file` 工具创建临时 JS 脚本
-2. **内容放在 JS 模板字符串里** — 支持任意长度，不受 shell 限制
-3. **写完立即验证** — `wc -l` 检查行数，`tail` 检查末尾内容
-4. **分段写入大文件** — 超过 300 行的内容，拆分为多个 `create_file` + `node` 执行
-5. **本技能不读写 memory**：文件写入为纯本地操作，不依赖跨会话的 memory 状态
 
 ## 适用场景
 
@@ -75,3 +86,9 @@ wc -l /path/to/target.js   # 验证行数
 | 脚本执行后文件为空 | 模板字符串语法错误 | 检查反引号是否闭合，特殊字符是否转义 |
 | 写入不完整 | 内容超过单次 create_file 限制 | 按「分段写入」方式拆分为多个脚本 |
 | 权限拒绝 | 目标路径无写权限 | 检查目录权限，或改用 `/tmp/` 路径 |
+
+## 参考文档
+
+| 文档 | 内容 | 阅读时机 |
+|------|------|----------|
+| [write-patterns.md](references/write-patterns.md) | 三种写入模式的完整代码示例 | 需要写入大文件时参考 |

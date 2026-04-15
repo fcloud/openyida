@@ -51,6 +51,10 @@
  *   openyida connector parse-api [选项]                  解析接口信息
  *   openyida connector gen-template [输出路径]            生成接口文档模板
  *   openyida integration create <appType> <formUuid> <flowName> [选项]  创建集成&自动化逻辑流
+ *   openyida flash-to-prd <file> [--output <路径>]                       闪记转高质量 PRD（支持会议识别）
+ *   openyida cdn-config [选项]                                            CDN 配置读写
+ *   openyida cdn-upload <file> [选项]                                     上传图片到 OSS/CDN
+ *   openyida cdn-refresh [选项]                                           刷新 CDN 缓存
  *   openyida create-report <appType> "<报表名称>" <图表定义JSON或文件路径>  创建宜搭报表
  *   openyida append-chart <appType> <reportId> <图表定义JSON或文件路径>    向已有报表追加图表
  *   openyida dws <command> [args]                        钉钉 CLI（通讯录/日历/待办/审批等）
@@ -127,6 +131,8 @@ openyida - 宜搭命令行工具
   connector smart-create --curl "curl命令" [选项]               智能创建连接器
   connector parse-api [选项]                                    解析接口信息
   connector gen-template [输出路径]                              生成接口文档模板
+  integration create <appType> <formUuid> <flowName> [选项]      创建集成&自动化逻辑流
+  flash-to-prd <file> [--output <路径>]                          闪记转高质量 PRD（支持会议识别）
   dws <command> [args]                                          钉钉 CLI（通讯录/日历/待办/审批等）
   create-report <appType> "<报表名称>" <图表定义 JSON 或文件路径>   创建宜搭报表
   append-chart <appType> <reportId> <图表定义 JSON 或文件路径>      向已有报表追加图表

@@ -100,14 +100,31 @@ openyida integration create APP_XXX FORM-TICKET "工单处理通知" \
 
 ---
 
-## 变量引用格式对照
+## 示例 4：条件分支（根据查询结果走不同分支）
 
-| 使用场景 | 格式 | 示例 |
-|---------|------|------|
-| 通知标题/内容中引用字段 | `#{fieldId-ComponentType}#` | `#{textField_name-TextField}#` |
-| 赋值中引用触发表单字段 | `processVar` + `fieldId` | `--add-data-assignment "targetField:processVar:sourceField"` |
-| 赋值固定值 | `literal` + 值 | `--add-data-assignment "statusField:literal:已处理"` |
-| 赋值公式 | `column` + 公式 | `--add-data-assignment "totalField:column:CONCATENATE(#{field1},#{field2})"` |
+### 场景
+
+当“工单处理”表单新增时，先从“客户信息”表查询客户是否存在：存在则更新客户记录，不存在则新增客户。
+
+### 执行命令
+
+```bash
+openyida integration create APP_XXX FORM-TICKET "工单自动同步客户" \
+  --events insert \
+  --data-form-uuid FORM-CUSTOMER \
+  --data-condition "textField_customerId:客户ID:textField_customerId:TextField" \
+  --route-conditions '{"condition":"AND","rules":[{"opCode":"ExistValue","componentType":"TextField"}]}' \
+  --route-true-action update --route-false-action create \
+  --publish
+```
+
+> 📖 条件分支节点的完整 JSON 结构详见 [integration-node-schemas.md](integration-node-schemas.md) “条件分支节点”章节。
+
+---
+
+## 变量引用格式
+
+> 变量引用格式的完整定义见 [SKILL.md](../SKILL.md) “变量引用格式（统一定义）”章节。
 
 ## 常见错误
 

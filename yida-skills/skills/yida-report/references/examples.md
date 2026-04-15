@@ -111,16 +111,13 @@ openyida create-report APP_XXX "任务管理数据报表" task-report-config.jso
 
 ---
 
-## 示例 2：fieldCode 后缀规则速查
+## 示例 2：fieldCode 后缀规则
 
-| 字段组件类型 | 报表中的 fieldCode | 示例 |
-|------------|-------------------|------|
-| `SelectField` | 加 `_value` 后缀 | `selectField_priority` → `selectField_priority_value` |
-| `EmployeeField` | 加 `_value` 后缀 | `employeeField_owner` → `employeeField_owner_value` |
-| `TextField` | 原样使用 | `textField_taskName` |
-| `NumberField` | 原样使用 | `numberField_amount` |
-| `DateField` | 原样使用 | `dateField_finishDate` |
-| 内置字段（计数用） | 原样使用 | `pid`（用于 COUNT） |
+fieldCode 后缀规则见 SKILL.md 的「fieldCode 后缀规则」章节。以下是示例 1 中的实际应用：
+
+- `selectField_priority` → `selectField_priority_value`（SelectField 加 `_value`）
+- `employeeField_owner` → `employeeField_owner_value`（EmployeeField 加 `_value`）
+- `textField_taskName`、`dateField_finishDate`、`pid` 原样使用
 
 ---
 

@@ -306,13 +306,7 @@ trigger
 
 ## 变量引用格式对照
 
-| 使用场景 | 格式 | 示例 |
-| --- | --- | --- |
-| 消息通知标题/内容 | `#{fieldId-ComponentType}#` | `#{textField_abc-TextField}#` |
-| 公式中引用触发表单字段 | `#{fieldId}` | `#{textField_abc}` |
-| 赋值中引用触发表单字段 | `processVar` + `fieldId` | `valueType: "processVar", value: "textField_abc"` |
-| 赋值中引用上游节点字段 | `column` + `${nodeId}.fieldId` | `"${node_xxx}.numberField_abc"` |
-| 条件中引用上游节点字段 | `${nodeId}.fieldId`（作为 `id`） | `"id": "${node_xxx}.employeeField_abc"` |
+> 变量引用格式的完整定义详见 [SKILL.md](../SKILL.md) 的「变量引用格式（统一定义）」章节。
 
 ---
 

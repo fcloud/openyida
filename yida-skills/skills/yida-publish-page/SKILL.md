@@ -5,18 +5,20 @@ description: 将 JSX 源码编译发布到宜搭自定义页面。Babel 转 ES5 
 
 # 发布自定义页面
 
-## 严格禁止 (NEVER DO)
+## 核心规则
 
-- 不要在未读取 `yida-custom-page` SKILL.md 的情况下编写 JSX 源码
-- 不要使用 React Hooks（useState、useEffect 等），宜搭自定义页面不支持
-- 不要编造 appType 和 formUuid，必须从已有记录或命令返回中获取
+### 致命规则（FATAL）
+违反会导致功能失败或运行时报错：
+1. **不要在未读取 `yida-custom-page` SKILL.md 的情况下编写 JSX 源码**
+2. **不要使用 React Hooks（useState、useEffect 等）**，宜搭自定义页面不支持
+3. **不要编造 appType 和 formUuid**，必须从已有记录或命令返回中获取
 
-## 严格要求 (MUST DO)
-
-- 发布前确认 JSX 源码已通过 `yida-custom-page` 规范编写
-- 发布前确认 `openyida env` 检测通过，登录态有效
-- corpId 不匹配时，必须询问用户是否切换组织，不得强行发布
-- **本技能不读写 memory**：发布操作通过 CLI 命令写入宜搭平台，不依赖跨会话的 memory 状态
+### 重要规则（IMPORTANT）
+影响代码质量和用户体验：
+1. **发布前确认 JSX 源码已通过 `yida-custom-page` 规范编写**
+2. **发布前确认 `openyida env` 检测通过，登录态有效**
+3. **corpId 不匹配时，必须询问用户是否切换组织**，不得强行发布
+4. **本技能不读写 memory**：发布操作通过 CLI 命令写入宜搭平台，不依赖跨会话的 memory 状态
 
 ## 适用场景
 
