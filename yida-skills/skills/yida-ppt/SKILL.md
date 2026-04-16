@@ -676,14 +676,17 @@ export function renderSlide1() {
 
 ## 注意事项
 
-1. **Canvas ID 唯一性**：`id="ppt-particles"` 在整个页面中必须唯一
-2. **宜搭 JSX 限制**：使用 React 16 语法，不支持 hooks，状态通过 `_customState` 对象管理
-3. **样式写法**：所有样式用 React 内联对象，`camelCase` 属性名（如 `backgroundColor`、`backdropFilter`）
-4. **`WebkitBackdropFilter`**：Safari 兼容，必须与 `backdropFilter` 同时写
-5. **`dangerouslySetInnerHTML`**：CSS 动画通过 `<style dangerouslySetInnerHTML={{ __html: CSS_ANIMATIONS }} />` 注入
-6. **全屏适配**：`position: 'fixed'` + `top/left/right/bottom: 0` 确保全屏覆盖
-7. **粒子初始化延迟**：`setTimeout(initParticles, 500)` 确保 Canvas DOM 已挂载
-8. **编译发布**：源码编写完成后用 `openyida publish` 命令编译并发布到宜搭
+1. **🚨 禁止 import/require**：文件顶部不能有任何 `import` 或 `require` 语句（包括 `import { Component } from 'react'`），宜搭沙箱不支持，会导致 `require is not defined` 报错页面崩溃
+2. **Canvas ID 唯一性**：`id="ppt-particles"` 在整个页面中必须唯一
+3. **宜搭 JSX 限制**：使用 React 16 语法，不支持 hooks，状态通过 `_customState` 对象管理
+4. **事件绑定用箭头函数**：JSX 中事件绑定必须用箭头函数 `onClick={() => { self.xxx(); }}`，不能用 `onClick={function() { self.xxx(); }}`
+5. **禁止 ES6 计算属性名**：`{ [key]: value }` 宜搭 JS 引擎不支持，改用 `var obj = {}; obj[key] = value;`
+6. **样式写法**：所有样式用 React 内联对象，`camelCase` 属性名（如 `backgroundColor`、`backdropFilter`）
+7. **`WebkitBackdropFilter`**：Safari 兼容，必须与 `backdropFilter` 同时写
+8. **`dangerouslySetInnerHTML`**：CSS 动画通过 `<style dangerouslySetInnerHTML={{ __html: CSS_ANIMATIONS }} />` 注入
+9. **全屏适配**：`position: 'fixed'` + `top/left/right/bottom: 0` 确保全屏覆盖
+10. **粒子初始化延迟**：`setTimeout(initParticles, 500)` 确保 Canvas DOM 已挂载
+11. **编译发布**：源码编写完成后用 `openyida publish` 命令编译并发布到宜搭
 
 ---
 
