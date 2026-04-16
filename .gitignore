@@ -1,0 +1,37 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+node_modules/
+
+# misc
+.idea/
+.happypack
+.DS_Store
+*.swp
+*.dia~
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+yarn.lock
+
+# AI 工具配置（保留 CLAUDE.md）
+.claude/*
+!.claude/CLAUDE.md
+# ── openyida 用户工作区 ────────────────────────────
+# 登录态 & Schema 缓存（敏感信息，不入库）
+openyida/.cache/*
+!openyida/.cache/.gitkeep
+!openyida/.cache/demo-*
+
+# 自定义页面编译产物
+openyida/pages/dist/*
+!openyida/pages/dist/.gitkeep
+
+# 用户自定义页面源码（保留 demo 示例）
+openyida/pages/src/*
+!openyida/pages/src/demo-*
+
+# 需求文档（保留 demo 示例）
+openyida/prd/*
+!openyida/prd/demo-*

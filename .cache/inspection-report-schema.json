@@ -1,0 +1,417 @@
+{
+  "componentName": "YoushuPageHeader",
+  "componentId": "pageHeader_7dnyamla",
+  "props": {
+    "tab": false,
+    "display": "normal",
+    "showTitle": true,
+    "titleContent": "设备巡检数据报表",
+    "titleTip": "",
+    "waiter": false
+  },
+  "children": [
+    {
+      "componentName": "YoushuSimpleIndicatorCard",
+      "componentId": "simpleIndicatorCard_cbe3ysqe",
+      "props": {
+        "dataSetModelMap": {
+          "kpi_dataset": {
+            "dataViewQueryModel": {
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "fieldDefinitionList": [
+                {
+                  "cubeCode": "",
+                  "isDim": false,
+                  "alias": "serialNumberField_pq061hs9t",
+                  "aliasName": "巡检总数",
+                  "classifiedCode": "",
+                  "fieldCode": "serialNumberField_pq061hs9t",
+                  "expression": "",
+                  "dataType": "STRING",
+                  "aggregateType": "COUNT",
+                  "timeGranularityType": null
+                }
+              ],
+              "fieldList": [
+                "serialNumberField_pq061hs9t"
+              ],
+              "filterList": [],
+              "orderByList": []
+            },
+            "limit": 1000
+          }
+        },
+        "settings": {
+          "columnCount": 1,
+          "columnCountForH5": 2,
+          "colorType": "default",
+          "customColor": ""
+        }
+      }
+    },
+    {
+      "componentName": "YoushuPieChart",
+      "componentId": "pieChart_mq1841bj",
+      "props": {
+        "dataSetModelMap": {
+          "pie_dataset": {
+            "dataViewQueryModel": {
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "fieldDefinitionList": [
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "radioField_pq067njt6",
+                  "aliasName": "设备状态",
+                  "classifiedCode": "",
+                  "fieldCode": "radioField_pq067njt6",
+                  "expression": "",
+                  "dataType": "STRING",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": null
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": false,
+                  "alias": "status_count",
+                  "aliasName": "数量",
+                  "classifiedCode": "",
+                  "fieldCode": "status_count",
+                  "expression": "",
+                  "dataType": "NUMBER",
+                  "aggregateType": "COUNT",
+                  "timeGranularityType": null
+                }
+              ],
+              "fieldList": [
+                "radioField_pq067njt6",
+                "status_count"
+              ],
+              "filterList": [],
+              "orderByList": []
+            },
+            "limit": 1000
+          }
+        },
+        "settings": {
+          "titleConfig": {
+            "label": "设备状态分布"
+          },
+          "height": 400,
+          "innerRadius": 0,
+          "startAngle": -1.5707963267948966,
+          "endAngle": 4.71238898038469,
+          "drillDown": false,
+          "limit": 1000,
+          "colorType": "default",
+          "customColor": "",
+          "labelConfig": {
+            "showLabel": true
+          }
+        }
+      }
+    },
+    {
+      "componentName": "YoushuGroupedBarChart",
+      "componentId": "groupedBarChart_cse9ic49",
+      "props": {
+        "dataSetModelMap": {
+          "bar_dataset": {
+            "dataViewQueryModel": {
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "fieldDefinitionList": [
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "selectField_pq0647gqt",
+                  "aliasName": "巡检区域",
+                  "classifiedCode": "",
+                  "fieldCode": "selectField_pq0647gqt",
+                  "expression": "",
+                  "dataType": "STRING",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": null
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": false,
+                  "alias": "area_count",
+                  "aliasName": "巡检次数",
+                  "classifiedCode": "",
+                  "fieldCode": "area_count",
+                  "expression": "",
+                  "dataType": "NUMBER",
+                  "aggregateType": "COUNT",
+                  "timeGranularityType": null
+                }
+              ],
+              "fieldList": [
+                "selectField_pq0647gqt",
+                "area_count"
+              ],
+              "filterList": [],
+              "orderByList": []
+            },
+            "limit": 1000
+          }
+        },
+        "settings": {
+          "titleConfig": {
+            "label": "各区域巡检次数"
+          },
+          "height": 400,
+          "isStack": false,
+          "isPercent": false,
+          "drillDown": false,
+          "limit": 1000,
+          "colorType": "default",
+          "customColor": "",
+          "labelConfig": {
+            "showLabel": false
+          }
+        }
+      }
+    },
+    {
+      "componentName": "YoushuGroupedBarChart",
+      "componentId": "groupedBarChart_it65xtfu",
+      "props": {
+        "dataSetModelMap": {
+          "bar_dataset": {
+            "dataViewQueryModel": {
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "fieldDefinitionList": [
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "selectField_pq062vhhm",
+                  "aliasName": "设备名称",
+                  "classifiedCode": "",
+                  "fieldCode": "selectField_pq062vhhm",
+                  "expression": "",
+                  "dataType": "STRING",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": null
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": false,
+                  "alias": "device_count",
+                  "aliasName": "巡检次数",
+                  "classifiedCode": "",
+                  "fieldCode": "device_count",
+                  "expression": "",
+                  "dataType": "NUMBER",
+                  "aggregateType": "COUNT",
+                  "timeGranularityType": null
+                }
+              ],
+              "fieldList": [
+                "selectField_pq062vhhm",
+                "device_count"
+              ],
+              "filterList": [],
+              "orderByList": []
+            },
+            "limit": 1000
+          }
+        },
+        "settings": {
+          "titleConfig": {
+            "label": "各设备巡检次数"
+          },
+          "height": 400,
+          "isStack": false,
+          "isPercent": false,
+          "drillDown": false,
+          "limit": 1000,
+          "colorType": "default",
+          "customColor": "",
+          "labelConfig": {
+            "showLabel": false
+          }
+        }
+      }
+    },
+    {
+      "componentName": "YoushuLineChart",
+      "componentId": "lineChart_90h0tcwn",
+      "props": {
+        "dataSetModelMap": {
+          "line_dataset": {
+            "dataViewQueryModel": {
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "fieldDefinitionList": [
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "dateField_pq066npit",
+                  "aliasName": "巡检日期",
+                  "classifiedCode": "",
+                  "fieldCode": "dateField_pq066npit",
+                  "expression": "",
+                  "dataType": "DATE",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": "DAY"
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": false,
+                  "alias": "date_count",
+                  "aliasName": "巡检次数",
+                  "classifiedCode": "",
+                  "fieldCode": "date_count",
+                  "expression": "",
+                  "dataType": "NUMBER",
+                  "aggregateType": "COUNT",
+                  "timeGranularityType": null
+                }
+              ],
+              "fieldList": [
+                "dateField_pq066npit",
+                "date_count"
+              ],
+              "filterList": [],
+              "orderByList": [
+                {
+                  "alias": "dateField_pq066npit",
+                  "orderType": "ASC"
+                }
+              ]
+            },
+            "limit": 1000
+          }
+        },
+        "settings": {
+          "titleConfig": {
+            "label": "巡检日期趋势"
+          },
+          "height": 400,
+          "smooth": false,
+          "isStack": false,
+          "isPercent": false,
+          "drillDown": false,
+          "limit": 1000,
+          "colorType": "default",
+          "customColor": "",
+          "lineWidth": 2,
+          "labelConfig": {
+            "showLabel": false
+          }
+        }
+      }
+    },
+    {
+      "componentName": "YoushuTable",
+      "componentId": "table_ngpblr7m",
+      "props": {
+        "dataSetModelMap": {
+          "table": {
+            "dataViewQueryModel": {
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "fieldDefinitionList": [
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "serialNumberField_pq061hs9t",
+                  "aliasName": "巡检编号",
+                  "classifiedCode": "",
+                  "fieldCode": "serialNumberField_pq061hs9t",
+                  "expression": "",
+                  "dataType": "STRING",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": null
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "selectField_pq062vhhm",
+                  "aliasName": "设备名称",
+                  "classifiedCode": "",
+                  "fieldCode": "selectField_pq062vhhm",
+                  "expression": "",
+                  "dataType": "STRING",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": null
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "selectField_pq0647gqt",
+                  "aliasName": "巡检区域",
+                  "classifiedCode": "",
+                  "fieldCode": "selectField_pq0647gqt",
+                  "expression": "",
+                  "dataType": "STRING",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": null
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "radioField_pq067njt6",
+                  "aliasName": "设备状态",
+                  "classifiedCode": "",
+                  "fieldCode": "radioField_pq067njt6",
+                  "expression": "",
+                  "dataType": "STRING",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": null
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": true,
+                  "alias": "dateField_pq066npit",
+                  "aliasName": "巡检日期",
+                  "classifiedCode": "",
+                  "fieldCode": "dateField_pq066npit",
+                  "expression": "",
+                  "dataType": "DATE",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": "DAY"
+                },
+                {
+                  "cubeCode": "",
+                  "isDim": false,
+                  "alias": "rateField_pq06a9x8n",
+                  "aliasName": "设备评分",
+                  "classifiedCode": "",
+                  "fieldCode": "rateField_pq06a9x8n",
+                  "expression": "",
+                  "dataType": "NUMBER",
+                  "aggregateType": "NONE",
+                  "timeGranularityType": null
+                }
+              ],
+              "fieldList": [
+                "serialNumberField_pq061hs9t",
+                "selectField_pq062vhhm",
+                "selectField_pq0647gqt",
+                "radioField_pq067njt6",
+                "dateField_pq066npit",
+                "rateField_pq06a9x8n"
+              ],
+              "filterList": [],
+              "orderByList": []
+            },
+            "limit": 1000
+          }
+        },
+        "settings": {
+          "fixedHeader": true,
+          "theme": "split",
+          "maxBodyHeight": 500,
+          "pagination": {
+            "pageSize": 20,
+            "showPageSelect": true,
+            "pageSizeList": [
+              10,
+              20,
+              50
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

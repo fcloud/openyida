@@ -1,0 +1,50 @@
+{
+  "filters": [
+    { "type": "select", "label": "检验结果", "fieldId": "radioField_c9lucyagc", "dataType": "STRING" },
+    { "type": "select", "label": "处理状态", "fieldId": "selectField_c9ludb7g0", "dataType": "STRING" },
+    { "type": "time", "label": "检验日期", "fieldId": "dateField_c9lt6m1ju", "dataType": "DATE" }
+  ],
+  "indicators": [
+    {
+      "kpis": [
+        { "label": "总质检数", "aggregation": "COUNT", "fieldId": "serialNumberField_c9ls14nds", "dataType": "STRING" },
+        { "label": "平均偏差率(%)", "aggregation": "AVG", "fieldId": "numberField_c9lubs6ug", "dataType": "DOUBLE" }
+      ],
+      "settings": {
+        "columnCount": 2,
+        "columnCountForH5": 2,
+        "bgColorType": "multiple",
+        "themeType": "light",
+        "showSideStyle": "BGTC"
+      }
+    }
+  ],
+  "charts": [
+    {
+      "type": "pie",
+      "title": "检验结果分布",
+      "dimension": { "fieldId": "radioField_c9lucyagc", "label": "检验结果", "fieldType": "RadioField" },
+      "measure": { "fieldId": "serialNumberField_c9ls14nds", "label": "质检次数", "aggregation": "COUNT" },
+      "settings": { "innerRadius": 0.6 }
+    },
+    {
+      "type": "bar",
+      "title": "各产品质检次数",
+      "dimension": { "fieldId": "textField_c9ls302nk", "label": "产品名称", "fieldType": "TextField" },
+      "measure": { "fieldId": "serialNumberField_c9ls14nds", "label": "质检次数", "aggregation": "COUNT" }
+    },
+    {
+      "type": "bar",
+      "title": "各检验类型分布",
+      "dimension": { "fieldId": "selectField_c9ls5ppeu", "label": "检验类型", "fieldType": "SelectField" },
+      "measure": { "fieldId": "serialNumberField_c9ls14nds", "label": "质检次数", "aggregation": "COUNT" }
+    },
+    {
+      "type": "line",
+      "title": "质检日期趋势",
+      "dimension": { "fieldId": "dateField_c9lt6m1ju", "label": "检验日期", "fieldType": "DateField" },
+      "measure": { "fieldId": "serialNumberField_c9ls14nds", "label": "质检次数", "aggregation": "COUNT" },
+      "settings": { "smooth": true }
+    }
+  ]
+}

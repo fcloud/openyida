@@ -1,0 +1,3423 @@
+==================================================
+  yidacli get-schema - 宜搭表单 Schema 获取工具
+==================================================
+  应用 ID:    APP_KNILKT41DC5XXR5D4QEC
+  表单 UUID:  REPORT-NNC669C1II64CRR2HCRBC4QZ9F7X2XSDONYMM2
+
+🔑 Step 1: 读取登录态
+  ✅ 登录态已就绪（https://www.aliwork.com）
+
+📄 Step 2: 获取表单 Schema
+  发送 getFormSchema 请求...
+  HTTP 状态码: 200
+
+==================================================
+  ✅ Schema 获取成功！
+==================================================
+{
+  "content": {
+    "gmtModified": 1773996643000,
+    "i18nData": [],
+    "pages": [
+      {
+        "componentsMap": [
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuSelectFilter",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuTimeFilter",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuTopFilterContainer",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "PageHeaderContent",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "PageHeaderTab",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuPageHeader",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "RootHeader",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuSimpleIndicatorCard",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuPieChart",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuGroupedBarChart",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuTable",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "RootContent",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "RootFooter",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "Page",
+            "version": "1.0.6"
+          }
+        ],
+        "id": "REPORT-NNC669C1II64CRR2HCRBC4QZ9F7X2XSDONYMM2",
+        "componentsTree": [
+          {
+            "css": "body {\n  background-color: #f2f3f5;\n}\n",
+            "children": [
+              {
+                "css": "body {\n  background-color: #f2f3f5;\n}\n",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "componentName": "YoushuSelectFilter",
+                                "id": "node_ocmmynodyi9",
+                                "props": {
+                                  "settings": {
+                                    "mode": "single",
+                                    "container": {
+                                      "height": -88
+                                    },
+                                    "hasSelectAll": false,
+                                    "isMultiLine": true,
+                                    "dataConfig": {
+                                      "tagMode": false,
+                                      "showTitle": true,
+                                      "required": false
+                                    },
+                                    "labelConfig": {
+                                      "labelAlign": "top",
+                                      "labelTips": {
+                                        "en_US": "",
+                                        "zh_CN": "",
+                                        "type": "i18n"
+                                      },
+                                      "labelTipIcon": "prompt-filling",
+                                      "label": {
+                                        "en_US": "Filter Title",
+                                        "zh_CN": "任务状态",
+                                        "type": "i18n"
+                                      },
+                                      "labelColSpan": 4,
+                                      "showLabel": true
+                                    },
+                                    "contentConfig": {
+                                      "notFoundContent": {
+                                        "en_US": "No data",
+                                        "zh_CN": "暂无数据",
+                                        "type": "i18n"
+                                      },
+                                      "placeholder": {
+                                        "en_US": "Please select",
+                                        "zh_CN": "请选择",
+                                        "type": "i18n"
+                                      }
+                                    },
+                                    "overallStyle": {
+                                      "size": "medium",
+                                      "hasClear": true,
+                                      "autoWidth": true,
+                                      "behavior": "NORMAL"
+                                    }
+                                  },
+                                  "openRefresh": true,
+                                  "link": {
+                                    "hasLink": false,
+                                    "onlyIcon": true,
+                                    "content": {
+                                      "en_US": "More",
+                                      "zh_CN": "更多",
+                                      "type": "i18n"
+                                    }
+                                  },
+                                  "dataSetModelMap": {
+                                    "selectFilter": {
+                                      "cubeCodes": [
+                                        "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1"
+                                      ],
+                                      "mockData": [],
+                                      "dataViewQueryModel": {
+                                        "orderByList": [],
+                                        "fieldDefinitionList": [
+                                          {
+                                            "aliasName": {
+                                              "en_US": "任务状态_值",
+                                              "zh_CN": "任务状态_值",
+                                              "type": "i18n"
+                                            },
+                                            "isDim": false,
+                                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "fieldCode": "selectField_jr2g93k9_value",
+                                            "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "dataType": "STRING",
+                                            "alias": "field_mmynodyia",
+                                            "aggregateType": "NONE"
+                                          },
+                                          {
+                                            "aliasName": {
+                                              "en_US": "任务状态_值",
+                                              "zh_CN": "任务状态_值",
+                                              "type": "i18n"
+                                            },
+                                            "isDim": false,
+                                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "fieldCode": "selectField_jr2g93k9_value",
+                                            "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "dataType": "STRING",
+                                            "alias": "field_mmynodyib",
+                                            "aggregateType": "NONE"
+                                          }
+                                        ],
+                                        "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                        "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                                        "filterList": [],
+                                        "fieldList": [
+                                          "field_mmynodyia",
+                                          "field_mmynodyib"
+                                        ]
+                                      },
+                                      "defaultValue": {
+                                        "conditionType": "EqualTo"
+                                      },
+                                      "limit": "",
+                                      "valueField": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mmynodyib",
+                                          "fieldCode": "selectField_jr2g93k9_value",
+                                          "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mmynodyib",
+                                            "type": "NONE"
+                                          },
+                                          "isVisible": "y",
+                                          "title": {
+                                            "en_US": "任务状态_值",
+                                            "zh_CN": "任务状态_值",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "beUsedTimes": 1,
+                                          "id": "selectField_jr2g93k9_value",
+                                          "text": "任务状态_值",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ],
+                                      "filterList": [],
+                                      "fieldList": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mmynodyia",
+                                          "fieldCode": "selectField_jr2g93k9_value",
+                                          "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mmynodyia",
+                                            "type": "NONE"
+                                          },
+                                          "isVisible": "y",
+                                          "title": {
+                                            "en_US": "任务状态_值",
+                                            "zh_CN": "任务状态_值",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "beUsedTimes": 1,
+                                          "id": "selectField_jr2g93k9_value",
+                                          "text": "任务状态_值",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        },
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mmynodyib",
+                                          "fieldCode": "selectField_jr2g93k9_value",
+                                          "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mmynodyib",
+                                            "type": "NONE"
+                                          },
+                                          "isVisible": "y",
+                                          "title": {
+                                            "en_US": "任务状态_值",
+                                            "zh_CN": "任务状态_值",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "beUsedTimes": 1,
+                                          "id": "selectField_jr2g93k9_value",
+                                          "text": "任务状态_值",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ],
+                                      "youshuDataType": "real"
+                                    }
+                                  },
+                                  "copyAsImg": false,
+                                  "exportData": {
+                                    "ignoreSwitch": true,
+                                    "passType": "NO_PASS",
+                                    "exportType": "BROWSER",
+                                    "supportExport": false
+                                  },
+                                  "hasFullscreen": false,
+                                  "mockData": [
+                                    {
+                                      "data": {
+                                        "data": [
+                                          {
+                                            "level": "P6",
+                                            "job": "前端"
+                                          },
+                                          {
+                                            "level": "P7",
+                                            "job": "设计"
+                                          },
+                                          {
+                                            "level": "P8",
+                                            "job": "后端"
+                                          }
+                                        ],
+                                        "meta": [
+                                          {
+                                            "aliasName": "层级",
+                                            "alias": "level",
+                                            "category": "valueField"
+                                          },
+                                          {
+                                            "aliasName": "工作",
+                                            "alias": "job",
+                                            "category": "labelField"
+                                          }
+                                        ],
+                                        "currentPage": 1,
+                                        "totalCount": 3
+                                      },
+                                      "name": "selectFilter"
+                                    }
+                                  ],
+                                  "autoLink": true,
+                                  "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n* 返回数据文档： https://www.yuque.com/yida/support/xgg4ps\n* data: 返回的数据 \n* extraInfo: { meta: [], cardParams: {} }，meta 代表数据元信息，cardParams 代表卡片参数信息\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                                  "isHeightAuto": false,
+                                  "enabledCache": true,
+                                  "userConfig": [
+                                    {
+                                      "name": "selectFilter",
+                                      "title": "筛选器数据集",
+                                      "items": [
+                                        {
+                                          "setterName": "ColumnFieldSetter",
+                                          "name": "valueField",
+                                          "setterProps": {
+                                            "single": true,
+                                            "showFormatTab": true,
+                                            "showFormulaEditor": true,
+                                            "showFieldInfo": true,
+                                            "showAggregateTab": true,
+                                            "showEditTab": true,
+                                            "showSortTab": true
+                                          },
+                                          "title": "查询字段"
+                                        },
+                                        {
+                                          "setterName": "ColumnFieldSetter",
+                                          "name": "labelField",
+                                          "setterProps": {
+                                            "single": true,
+                                            "showFormatTab": true,
+                                            "showFormulaEditor": true,
+                                            "showFieldInfo": true,
+                                            "showAggregateTab": true,
+                                            "showEditTab": true,
+                                            "showSortTab": true
+                                          },
+                                          "title": "显示字段"
+                                        },
+                                        {
+                                          "setterName": "DefaultValueSetter",
+                                          "name": "defaultValue",
+                                          "setterProps": {
+                                            "timeAsString": true
+                                          },
+                                          "title": "默认值"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "__style__": {},
+                                  "cid": "node_ocmmynodyi9",
+                                  "fieldId": "YoushuSelectFilter_mmynodyic"
+                                }
+                              },
+                              {
+                                "componentName": "YoushuSelectFilter",
+                                "id": "node_ocmmynodyjd",
+                                "props": {
+                                  "settings": {
+                                    "mode": "single",
+                                    "container": {
+                                      "height": -88
+                                    },
+                                    "hasSelectAll": false,
+                                    "isMultiLine": true,
+                                    "dataConfig": {
+                                      "tagMode": false,
+                                      "showTitle": true,
+                                      "required": false
+                                    },
+                                    "labelConfig": {
+                                      "labelAlign": "top",
+                                      "labelTips": {
+                                        "en_US": "",
+                                        "zh_CN": "",
+                                        "type": "i18n"
+                                      },
+                                      "labelTipIcon": "prompt-filling",
+                                      "label": {
+                                        "en_US": "Filter Title",
+                                        "zh_CN": "优先级",
+                                        "type": "i18n"
+                                      },
+                                      "labelColSpan": 4,
+                                      "showLabel": true
+                                    },
+                                    "contentConfig": {
+                                      "notFoundContent": {
+                                        "en_US": "No data",
+                                        "zh_CN": "暂无数据",
+                                        "type": "i18n"
+                                      },
+                                      "placeholder": {
+                                        "en_US": "Please select",
+                                        "zh_CN": "请选择",
+                                        "type": "i18n"
+                                      }
+                                    },
+                                    "overallStyle": {
+                                      "size": "medium",
+                                      "hasClear": true,
+                                      "autoWidth": true,
+                                      "behavior": "NORMAL"
+                                    }
+                                  },
+                                  "openRefresh": true,
+                                  "link": {
+                                    "hasLink": false,
+                                    "onlyIcon": true,
+                                    "content": {
+                                      "en_US": "More",
+                                      "zh_CN": "更多",
+                                      "type": "i18n"
+                                    }
+                                  },
+                                  "dataSetModelMap": {
+                                    "selectFilter": {
+                                      "cubeCodes": [
+                                        "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1"
+                                      ],
+                                      "mockData": [],
+                                      "dataViewQueryModel": {
+                                        "orderByList": [],
+                                        "fieldDefinitionList": [
+                                          {
+                                            "aliasName": {
+                                              "en_US": "优先级_值",
+                                              "zh_CN": "优先级_值",
+                                              "type": "i18n"
+                                            },
+                                            "isDim": false,
+                                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "fieldCode": "selectField_jr2hz8wp_value",
+                                            "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "dataType": "STRING",
+                                            "alias": "field_mmynodyje",
+                                            "aggregateType": "NONE"
+                                          },
+                                          {
+                                            "aliasName": {
+                                              "en_US": "优先级_值",
+                                              "zh_CN": "优先级_值",
+                                              "type": "i18n"
+                                            },
+                                            "isDim": false,
+                                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "fieldCode": "selectField_jr2hz8wp_value",
+                                            "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "dataType": "STRING",
+                                            "alias": "field_mmynodyjf",
+                                            "aggregateType": "NONE"
+                                          }
+                                        ],
+                                        "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                        "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                                        "filterList": [],
+                                        "fieldList": [
+                                          "field_mmynodyje",
+                                          "field_mmynodyjf"
+                                        ]
+                                      },
+                                      "defaultValue": {
+                                        "conditionType": "EqualTo"
+                                      },
+                                      "limit": "",
+                                      "valueField": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mmynodyjf",
+                                          "fieldCode": "selectField_jr2hz8wp_value",
+                                          "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mmynodyjf",
+                                            "type": "NONE"
+                                          },
+                                          "isVisible": "y",
+                                          "title": {
+                                            "en_US": "优先级_值",
+                                            "zh_CN": "优先级_值",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "beUsedTimes": 1,
+                                          "id": "selectField_jr2hz8wp_value",
+                                          "text": "优先级_值",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ],
+                                      "filterList": [],
+                                      "fieldList": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mmynodyje",
+                                          "fieldCode": "selectField_jr2hz8wp_value",
+                                          "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mmynodyje",
+                                            "type": "NONE"
+                                          },
+                                          "isVisible": "y",
+                                          "title": {
+                                            "en_US": "优先级_值",
+                                            "zh_CN": "优先级_值",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "beUsedTimes": 1,
+                                          "id": "selectField_jr2hz8wp_value",
+                                          "text": "优先级_值",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        },
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mmynodyjf",
+                                          "fieldCode": "selectField_jr2hz8wp_value",
+                                          "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mmynodyjf",
+                                            "type": "NONE"
+                                          },
+                                          "isVisible": "y",
+                                          "title": {
+                                            "en_US": "优先级_值",
+                                            "zh_CN": "优先级_值",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "beUsedTimes": 1,
+                                          "id": "selectField_jr2hz8wp_value",
+                                          "text": "优先级_值",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ],
+                                      "youshuDataType": "real"
+                                    }
+                                  },
+                                  "copyAsImg": false,
+                                  "exportData": {
+                                    "ignoreSwitch": true,
+                                    "passType": "NO_PASS",
+                                    "exportType": "BROWSER",
+                                    "supportExport": false
+                                  },
+                                  "hasFullscreen": false,
+                                  "mockData": [
+                                    {
+                                      "data": {
+                                        "data": [
+                                          {
+                                            "level": "P6",
+                                            "job": "前端"
+                                          },
+                                          {
+                                            "level": "P7",
+                                            "job": "设计"
+                                          },
+                                          {
+                                            "level": "P8",
+                                            "job": "后端"
+                                          }
+                                        ],
+                                        "meta": [
+                                          {
+                                            "aliasName": "层级",
+                                            "alias": "level",
+                                            "category": "valueField"
+                                          },
+                                          {
+                                            "aliasName": "工作",
+                                            "alias": "job",
+                                            "category": "labelField"
+                                          }
+                                        ],
+                                        "currentPage": 1,
+                                        "totalCount": 3
+                                      },
+                                      "name": "selectFilter"
+                                    }
+                                  ],
+                                  "autoLink": true,
+                                  "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n* 返回数据文档： https://www.yuque.com/yida/support/xgg4ps\n* data: 返回的数据 \n* extraInfo: { meta: [], cardParams: {} }，meta 代表数据元信息，cardParams 代表卡片参数信息\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                                  "isHeightAuto": false,
+                                  "enabledCache": true,
+                                  "userConfig": [
+                                    {
+                                      "name": "selectFilter",
+                                      "title": "筛选器数据集",
+                                      "items": [
+                                        {
+                                          "setterName": "ColumnFieldSetter",
+                                          "name": "valueField",
+                                          "setterProps": {
+                                            "single": true,
+                                            "showFormatTab": true,
+                                            "showFormulaEditor": true,
+                                            "showFieldInfo": true,
+                                            "showAggregateTab": true,
+                                            "showEditTab": true,
+                                            "showSortTab": true
+                                          },
+                                          "title": "查询字段"
+                                        },
+                                        {
+                                          "setterName": "ColumnFieldSetter",
+                                          "name": "labelField",
+                                          "setterProps": {
+                                            "single": true,
+                                            "showFormatTab": true,
+                                            "showFormulaEditor": true,
+                                            "showFieldInfo": true,
+                                            "showAggregateTab": true,
+                                            "showEditTab": true,
+                                            "showSortTab": true
+                                          },
+                                          "title": "显示字段"
+                                        },
+                                        {
+                                          "setterName": "DefaultValueSetter",
+                                          "name": "defaultValue",
+                                          "setterProps": {
+                                            "timeAsString": true
+                                          },
+                                          "title": "默认值"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "__style__": {},
+                                  "cid": "node_ocmmynodyjd",
+                                  "fieldId": "YoushuSelectFilter_mmynodyjg"
+                                }
+                              },
+                              {
+                                "componentName": "YoushuTimeFilter",
+                                "id": "node_ocmmynodyjh",
+                                "props": {
+                                  "settings": {
+                                    "container": {
+                                      "height": -88
+                                    },
+                                    "titleConfig": {
+                                      "labelAlign": "top",
+                                      "showTitle": true,
+                                      "labelTips": {
+                                        "en_US": "",
+                                        "zh_CN": "",
+                                        "type": "i18n"
+                                      },
+                                      "labelTipIcon": "prompt-filling",
+                                      "label": {
+                                        "en_US": "date select",
+                                        "zh_CN": "截止日期",
+                                        "type": "i18n"
+                                      },
+                                      "labelColSpan": 4
+                                    },
+                                    "styleConfig": {
+                                      "size": "medium",
+                                      "hasClear": true,
+                                      "behavior": "NORMAL"
+                                    },
+                                    "dataConfig": {
+                                      "required": false,
+                                      "isRange": true
+                                    },
+                                    "contentConfig": {
+                                      "placeholder": {
+                                        "en_US": "Select date",
+                                        "zh_CN": "选择日期",
+                                        "type": "i18n"
+                                      }
+                                    }
+                                  },
+                                  "openRefresh": true,
+                                  "link": {
+                                    "hasLink": false,
+                                    "onlyIcon": true,
+                                    "content": {
+                                      "en_US": "More",
+                                      "zh_CN": "更多",
+                                      "type": "i18n"
+                                    }
+                                  },
+                                  "dataSetModelMap": {
+                                    "filterData": {
+                                      "cubeCodes": [
+                                        "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1"
+                                      ],
+                                      "mockData": [],
+                                      "dataViewQueryModel": {
+                                        "orderByList": [],
+                                        "fieldDefinitionList": [
+                                          {
+                                            "aliasName": {
+                                              "en_US": "截止日期",
+                                              "zh_CN": "截止日期",
+                                              "type": "i18n"
+                                            },
+                                            "isDim": false,
+                                            "timeGranularityType": "DAY",
+                                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "fieldCode": "dateField_jr2gjkqm",
+                                            "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                            "dataType": "DATE",
+                                            "alias": "field_mmynodyji",
+                                            "aggregateType": "NONE"
+                                          }
+                                        ],
+                                        "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                        "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                                        "filterList": [],
+                                        "fieldList": [
+                                          "field_mmynodyji"
+                                        ]
+                                      },
+                                      "defaultValue": {
+                                        "conditionType": "Between"
+                                      },
+                                      "limit": "",
+                                      "valueField": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mmynodyji",
+                                          "fieldCode": "dateField_jr2gjkqm",
+                                          "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "dataType": "DATE",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mmynodyji",
+                                            "type": "NONE"
+                                          },
+                                          "isVisible": "y",
+                                          "title": {
+                                            "en_US": "截止日期",
+                                            "zh_CN": "截止日期",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "timeGranularityType": "DAY",
+                                          "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "beUsedTimes": 1,
+                                          "timeFormat": "yyyy-MM-dd",
+                                          "id": "dateField_jr2gjkqm5",
+                                          "text": "日",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ],
+                                      "filterList": [],
+                                      "fieldList": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mmynodyji",
+                                          "fieldCode": "dateField_jr2gjkqm",
+                                          "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "dataType": "DATE",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mmynodyji",
+                                            "type": "NONE"
+                                          },
+                                          "isVisible": "y",
+                                          "title": {
+                                            "en_US": "截止日期",
+                                            "zh_CN": "截止日期",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "timeGranularityType": "DAY",
+                                          "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                          "beUsedTimes": 1,
+                                          "timeFormat": "yyyy-MM-dd",
+                                          "id": "dateField_jr2gjkqm5",
+                                          "text": "日",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ],
+                                      "youshuDataType": "real"
+                                    }
+                                  },
+                                  "copyAsImg": false,
+                                  "exportData": {
+                                    "ignoreSwitch": true,
+                                    "passType": "NO_PASS",
+                                    "exportType": "BROWSER",
+                                    "supportExport": false
+                                  },
+                                  "hasFullscreen": false,
+                                  "mockData": [
+                                    {
+                                      "data": {
+                                        "data": [
+                                          {
+                                            "date": "2020-12-24"
+                                          }
+                                        ],
+                                        "meta": [
+                                          {
+                                            "aliasName": "日期",
+                                            "dataType": "DATE",
+                                            "alias": "date",
+                                            "category": "valueField"
+                                          }
+                                        ],
+                                        "currentPage": 1,
+                                        "totalCount": 3
+                                      },
+                                      "name": "filterData"
+                                    }
+                                  ],
+                                  "autoLink": true,
+                                  "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n* 返回数据文档： https://www.yuque.com/yida/support/xgg4ps\n* data: 返回的数据 \n* extraInfo: { meta: [], cardParams: {} }，meta 代表数据元信息，cardParams 代表卡片参数信息\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                                  "isHeightAuto": false,
+                                  "enabledCache": true,
+                                  "userConfig": [
+                                    {
+                                      "name": "filterData",
+                                      "title": "数据源展示名称",
+                                      "items": [
+                                        {
+                                          "setterName": "ColumnFieldSetter",
+                                          "name": "valueField",
+                                          "setterProps": {
+                                            "single": true,
+                                            "showFormatTab": true,
+                                            "showEditTab": true,
+                                            "dataType": "DATE"
+                                          },
+                                          "title": "查询字段"
+                                        },
+                                        {
+                                          "setterName": "DefaultValueSetter",
+                                          "name": "defaultValue",
+                                          "setterProps": {
+                                            "isConditionFilter": false
+                                          },
+                                          "title": "默认值"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "__style__": {},
+                                  "cid": "node_ocmmynodyjh",
+                                  "fieldId": "YoushuTimeFilter_mmynodyjj"
+                                }
+                              }
+                            ],
+                            "componentName": "YoushuTopFilterContainer",
+                            "id": "node_ocmmynodyi8",
+                            "props": {
+                              "resetBtn": true,
+                              "layout": [
+                                {
+                                  "static": false,
+                                  "w": 1,
+                                  "moved": false,
+                                  "h": 1,
+                                  "x": 0,
+                                  "y": 0,
+                                  "i": "YoushuSelectFilter_mmynodyic"
+                                },
+                                {
+                                  "static": false,
+                                  "w": 1,
+                                  "moved": false,
+                                  "h": 1,
+                                  "x": 1,
+                                  "y": 0,
+                                  "i": "YoushuSelectFilter_mmynodyjg"
+                                },
+                                {
+                                  "static": false,
+                                  "w": 1,
+                                  "moved": false,
+                                  "h": 1,
+                                  "x": 2,
+                                  "y": 0,
+                                  "i": "YoushuTimeFilter_mmynodyjj"
+                                }
+                              ],
+                              "rowColumn": 3,
+                              "createForm": true,
+                              "searchBtn": true,
+                              "fixed": true,
+                              "__style__": {},
+                              "rglSwitch": true,
+                              "status": "normal",
+                              "fieldId": "filter_mmynodyl18",
+                              "cid": "node_ocmmynodyi8"
+                            }
+                          }
+                        ],
+                        "componentName": "PageHeaderContent",
+                        "id": "node_ocmmynodyi6",
+                        "props": {}
+                      },
+                      {
+                        "componentName": "PageHeaderTab",
+                        "id": "node_ocmmynodyi7",
+                        "props": {}
+                      }
+                    ],
+                    "componentName": "YoushuPageHeader",
+                    "id": "node_ocmmynodyi5",
+                    "props": {
+                      "tab": false,
+                      "showTitle": true,
+                      "titleContent": {
+                        "en_US": "任务管理报表",
+                        "zh_CN": "任务管理报表",
+                        "type": "i18n"
+                      },
+                      "titleTip": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "status": "normal",
+                      "cid": "node_ocmmynodyi5"
+                    }
+                  }
+                ],
+                "componentName": "RootHeader",
+                "id": "node_ocmmynodyi2",
+                "props": {}
+              },
+              {
+                "children": [
+                  {
+                    "componentName": "YoushuSimpleIndicatorCard",
+                    "id": "YoushuSimpleIndicatorCard_mmynodyjl",
+                    "props": {
+                      "enableFieldSelect": false,
+                      "auth": [],
+                      "openRefresh": true,
+                      "link": {
+                        "hasLink": false,
+                        "onlyIcon": true,
+                        "content": {
+                          "en_US": "More",
+                          "zh_CN": "更多",
+                          "type": "i18n"
+                        }
+                      },
+                      "titleTipIconName": "help",
+                      "exportData": {
+                        "ignoreSwitch": true,
+                        "passType": "NO_PASS",
+                        "exportType": "BROWSER",
+                        "supportExport": false,
+                        "filterList": "",
+                        "exportPromptFilter": ""
+                      },
+                      "componentTitleTextAlign": "LEFT",
+                      "hasFullscreen": false,
+                      "componentTitle": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "titleTipContent": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "__style__": {},
+                      "fieldId": "YoushuSimpleIndicatorCard_mmynodyjl",
+                      "settings": {
+                        "container": {
+                          "height": 104
+                        },
+                        "titleMaxRow": 0,
+                        "bgColorType": "multiple",
+                        "sideBarColor": "#0089FF",
+                        "valueSize": "20px",
+                        "themeType": "dark",
+                        "columnCount": 4,
+                        "showSideStyle": "BGTC",
+                        "showSideBorder": true,
+                        "colorType": "SCHEMA_COLOR",
+                        "followTheme": false,
+                        "customColor": "#0089FF,#FF9200,#11AB4F,#FFD100,#7263EE,#67C5EB,#6B748C,#FF755A,#007E99,#FFA8A8",
+                        "singleBgColor": "#F1F2F3",
+                        "size": "normal",
+                        "multipleBgColor": "defaultColorsMode",
+                        "columnCountForH5": 2,
+                        "popoverAlign": "b"
+                      },
+                      "showComponentTitle": true,
+                      "dataSetModelMap": {
+                        "youshuData": {
+                          "cubeCodes": [
+                            "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1"
+                          ],
+                          "mockData": [],
+                          "helpKpi": [],
+                          "kpi": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyjm",
+                              "fieldCode": "textField_jr2gbmkf",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyjm",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "en_US": "总任务数",
+                                "zh_CN": "总任务数",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "textField_jr2gbmkf",
+                              "text": "总任务数",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynqbl7",
+                              "fieldCode": "textField_jr2gsc5g",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynqbl7",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "en_US": "",
+                                "zh_CN": "总项目数",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT_DISTINCT",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "textField_jr2gsc5g",
+                              "text": "所属项目",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "expression": "COUNTDISTINCT(FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.pid,FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.selectField_jr2hz8wp_value=\"高\")",
+                              "isDimension": false,
+                              "fieldKey": "field_mmynqbl9",
+                              "fieldCode": "",
+                              "dataType": "INTEGER",
+                              "classifiedCode": "",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynqbl9",
+                                "type": "NONE"
+                              },
+                              "expressionWrap": {
+                                "expression": "COUNTDISTINCT(FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.pid,FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.selectField_jr2hz8wp_value=\"高\")",
+                                "display": "COUNTDISTINCT(实例ID,优先级_值=\"高\")",
+                                "source": "COUNTDISTINCT(#{FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.pid},#{FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.selectField_jr2hz8wp_value}=\"高\")"
+                              },
+                              "title": {
+                                "en_US": "",
+                                "zh_CN": "高优任务数",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "",
+                              "beUsedTimes": 1,
+                              "text": "公式字段_field_mmynqbl9"
+                            }
+                          ],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": {
+                                  "en_US": "总任务数",
+                                  "zh_CN": "总任务数",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "textField_jr2gbmkf",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyjm",
+                                "aggregateType": "COUNT"
+                              },
+                              {
+                                "aliasName": {
+                                  "en_US": "",
+                                  "zh_CN": "总项目数",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "textField_jr2gsc5g",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynqbl7",
+                                "aggregateType": "COUNT_DISTINCT"
+                              },
+                              {
+                                "aliasName": {
+                                  "en_US": "",
+                                  "zh_CN": "高优任务数",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "expression": "COUNTDISTINCT(FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.pid,FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.selectField_jr2hz8wp_value=\"高\")",
+                                "cubeCode": "",
+                                "fieldCode": "",
+                                "classifiedCode": "",
+                                "dataType": "INTEGER",
+                                "alias": "field_mmynqbl9",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "任务状态",
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyib",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "优先级",
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyjf",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "截止日期",
+                                "isDim": false,
+                                "timeGranularityType": "DAY",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "alias": "field_mmynodyji",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                            "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                            "filterList": [
+                              {
+                                "filterKey": "filter-719fd31c-0a01-4c08-9c41-1b4a9a8f4cac",
+                                "alias": "field_mmynodyib",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmmynodyi9-selectFilter",
+                                "filterType": "relate"
+                              },
+                              {
+                                "filterKey": "filter-0d51d2b1-74aa-43fa-bb09-e4dd7d64d860",
+                                "alias": "field_mmynodyjf",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmmynodyjd-selectFilter",
+                                "filterType": "relate"
+                              },
+                              {
+                                "filterKey": "filter-a54a6dd4-6fba-413a-969a-78477c5d2960",
+                                "alias": "field_mmynodyji",
+                                "conditionType": "Between",
+                                "paramId": "node_ocmmynodyjh-filterData",
+                                "filterType": "relate"
+                              }
+                            ],
+                            "fieldList": [
+                              "field_mmynodyjm",
+                              "field_mmynqbl7",
+                              "field_mmynqbl9"
+                            ]
+                          },
+                          "limit": "",
+                          "filterList": [
+                            {
+                              "filterKey": "filter-719fd31c-0a01-4c08-9c41-1b4a9a8f4cac",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmmynodyi9-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyib",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyib",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "任务状态",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "selectField_jr2g93k9_value",
+                                "text": "任务状态",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            },
+                            {
+                              "filterKey": "filter-0d51d2b1-74aa-43fa-bb09-e4dd7d64d860",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmmynodyjd-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyjf",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyjf",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "优先级",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "selectField_jr2hz8wp_value",
+                                "text": "优先级",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            },
+                            {
+                              "filterKey": "filter-a54a6dd4-6fba-413a-969a-78477c5d2960",
+                              "conditionType": "Between",
+                              "paramId": "node_ocmmynodyjh-filterData",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyji",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyji",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "截止日期",
+                                "aggregateType": "NONE",
+                                "timeGranularityType": "DAY",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "timeFormat": "yyyy-MM-dd",
+                                "id": "dateField_jr2gjkqm5",
+                                "text": "日",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            }
+                          ],
+                          "fieldList": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyjm",
+                              "fieldCode": "textField_jr2gbmkf",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyjm",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "en_US": "总任务数",
+                                "zh_CN": "总任务数",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "textField_jr2gbmkf",
+                              "text": "总任务数",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynqbl7",
+                              "fieldCode": "textField_jr2gsc5g",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynqbl7",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "en_US": "",
+                                "zh_CN": "总项目数",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT_DISTINCT",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "textField_jr2gsc5g",
+                              "text": "所属项目",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "expression": "COUNTDISTINCT(FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.pid,FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.selectField_jr2hz8wp_value=\"高\")",
+                              "isDimension": false,
+                              "fieldKey": "field_mmynqbl9",
+                              "fieldCode": "",
+                              "dataType": "INTEGER",
+                              "classifiedCode": "",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynqbl9",
+                                "type": "NONE"
+                              },
+                              "expressionWrap": {
+                                "expression": "COUNTDISTINCT(FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.pid,FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.selectField_jr2hz8wp_value=\"高\")",
+                                "display": "COUNTDISTINCT(实例ID,优先级_值=\"高\")",
+                                "source": "COUNTDISTINCT(#{FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.pid},#{FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1.selectField_jr2hz8wp_value}=\"高\")"
+                              },
+                              "title": {
+                                "en_US": "",
+                                "zh_CN": "高优任务数",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "",
+                              "beUsedTimes": 1,
+                              "text": "公式字段_field_mmynqbl9"
+                            }
+                          ],
+                          "youshuDataType": "real"
+                        }
+                      },
+                      "titleTip": false,
+                      "copyAsImg": false,
+                      "headerSize": "medium",
+                      "datasetModel": {
+                        "filterList": []
+                      },
+                      "mockData": [
+                        {
+                          "data": {
+                            "data": [
+                              {
+                                "randomKey1": 23123,
+                                "randomKey2": 7712
+                              }
+                            ],
+                            "meta": [
+                              {
+                                "fieldKey": "randomKey1",
+                                "dataType": "STRING",
+                                "title": "指标1",
+                                "category": "kpi"
+                              },
+                              {
+                                "fieldKey": "randomKey2",
+                                "dataType": "STRING",
+                                "title": "指标2",
+                                "category": "kpi"
+                              }
+                            ],
+                            "currentPage": 1,
+                            "totalCount": 3
+                          },
+                          "name": "youshuData"
+                        }
+                      ],
+                      "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n* 返回数据文档： https://www.yuque.com/yida/support/xgg4ps\n* data: 返回的数据 \n* extraInfo: { meta: [], cardParams: {} }，meta 代表数据元信息，cardParams 代表卡片参数信息\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                      "isHeightAuto": true,
+                      "showFieldSelectIcon": true,
+                      "enabledCache": true,
+                      "userConfig": [
+                        {
+                          "name": "youshuData",
+                          "title": "指标数据",
+                          "items": [
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "kpi",
+                              "setterProps": {
+                                "single": false,
+                                "showFormatTab": true,
+                                "showDataLink": true,
+                                "customTabs": [
+                                  {
+                                    "tabName": "指标配置"
+                                  }
+                                ],
+                                "batchSetFields": [
+                                  "text",
+                                  "title",
+                                  "titleTip",
+                                  "aggregateType",
+                                  "format_type",
+                                  "format_decimalDigit",
+                                  "unit"
+                                ],
+                                "supportDynamicAlias": true,
+                                "showBatchSet": true,
+                                "showSortTab": false
+                              },
+                              "title": "指标",
+                              "required": true
+                            },
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "helpKpi",
+                              "setterProps": {
+                                "single": false,
+                                "showFormatTab": true,
+                                "showDataLink": true,
+                                "showSortTab": false
+                              },
+                              "title": "辅助指标"
+                            }
+                          ]
+                        }
+                      ],
+                      "cid": "YoushuSimpleIndicatorCard_mmynodyjl"
+                    }
+                  },
+                  {
+                    "componentName": "YoushuPieChart",
+                    "id": "YoushuPieChart_mmynodyk12",
+                    "props": {
+                      "auth": [],
+                      "openRefresh": true,
+                      "link": {
+                        "hasLink": false,
+                        "onlyIcon": true,
+                        "content": {
+                          "en_US": "More",
+                          "zh_CN": "更多",
+                          "type": "i18n"
+                        }
+                      },
+                      "titleTipIconName": "help",
+                      "exportData": {
+                        "ignoreSwitch": true,
+                        "passType": "NO_PASS",
+                        "exportType": "BROWSER",
+                        "supportExport": false
+                      },
+                      "componentTitleTextAlign": "LEFT",
+                      "hasFullscreen": false,
+                      "componentTitle": {
+                        "en_US": "任务状态分布",
+                        "zh_CN": "任务状态分布",
+                        "type": "i18n"
+                      },
+                      "enableFilterFunction": false,
+                      "titleTipContent": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "__style__": {},
+                      "fieldId": "YoushuPieChart_mmynodyk12",
+                      "settings": {
+                        "container": {
+                          "height": 232
+                        },
+                        "statistic": {
+                          "showStatistic": false
+                        },
+                        "legend": {
+                          "layout": "vertical",
+                          "showLegend": true,
+                          "flipPage": true,
+                          "cardWidth": "",
+                          "legendPosition": "top-left",
+                          "type": "item",
+                          "contentType": "NAME",
+                          "itemSpacing": 12,
+                          "ratio": 65
+                        },
+                        "percentDigits": 2,
+                        "tooltip": {
+                          "showTooltip": true,
+                          "contentType": ""
+                        },
+                        "style": {
+                          "isRing": false,
+                          "customColor": "#5894FF,#394B76,#F7B900,#E55F24,#80D5F5,#9849B0,#3BC88A,#0E869D,#F4A49E,#80563C",
+                          "radius": 75,
+                          "innerRadius": 65,
+                          "chartColorsMode": "defaultColorsMode",
+                          "colorType": "SCHEMA_COLOR"
+                        },
+                        "label": {
+                          "labelSize": 12,
+                          "labelAlign": "outer",
+                          "labelFormatType": "NAME_PERCENT",
+                          "showLine": true,
+                          "showLabel": true,
+                          "labelColor": "#404040"
+                        }
+                      },
+                      "showComponentTitle": true,
+                      "dataSetModelMap": {
+                        "chartData": {
+                          "totalValue": [],
+                          "cubeCodes": [
+                            "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1"
+                          ],
+                          "xField": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyk13",
+                              "fieldCode": "selectField_jr2g93k9_value",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyk13",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "zh_CN": "任务状态",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "selectField_jr2g93k9_value",
+                              "text": "任务状态",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "totalRatio": [],
+                          "mockData": [],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": {
+                                  "zh_CN": "任务状态",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyk13",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "任务数量",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "textField_jr2gbmkf",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyk14",
+                                "aggregateType": "COUNT"
+                              },
+                              {
+                                "aliasName": "任务状态",
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyib",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "优先级",
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyjf",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "截止日期",
+                                "isDim": false,
+                                "timeGranularityType": "DAY",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "alias": "field_mmynodyji",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                            "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                            "filterList": [
+                              {
+                                "filterKey": "filter-719fd31c-0a01-4c08-9c41-1b4a9a8f4cac",
+                                "alias": "field_mmynodyib",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmmynodyi9-selectFilter",
+                                "filterType": "relate"
+                              },
+                              {
+                                "filterKey": "filter-0d51d2b1-74aa-43fa-bb09-e4dd7d64d860",
+                                "alias": "field_mmynodyjf",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmmynodyjd-selectFilter",
+                                "filterType": "relate"
+                              },
+                              {
+                                "filterKey": "filter-a54a6dd4-6fba-413a-969a-78477c5d2960",
+                                "alias": "field_mmynodyji",
+                                "conditionType": "Between",
+                                "paramId": "node_ocmmynodyjh-filterData",
+                                "filterType": "relate"
+                              }
+                            ],
+                            "fieldList": [
+                              "field_mmynodyk13",
+                              "field_mmynodyk14"
+                            ]
+                          },
+                          "yField": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyk14",
+                              "fieldCode": "textField_jr2gbmkf",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyk14",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "zh_CN": "任务数量",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "textField_jr2gbmkf",
+                              "text": "任务数量",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "limit": "",
+                          "trailingIconField": [],
+                          "filterList": [
+                            {
+                              "filterKey": "filter-719fd31c-0a01-4c08-9c41-1b4a9a8f4cac",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmmynodyi9-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyib",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyib",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "任务状态_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "selectField_jr2g93k9_value",
+                                "text": "任务状态_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            },
+                            {
+                              "filterKey": "filter-0d51d2b1-74aa-43fa-bb09-e4dd7d64d860",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmmynodyjd-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyjf",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyjf",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "优先级_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "selectField_jr2hz8wp_value",
+                                "text": "优先级_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            },
+                            {
+                              "filterKey": "filter-a54a6dd4-6fba-413a-969a-78477c5d2960",
+                              "conditionType": "Between",
+                              "paramId": "node_ocmmynodyjh-filterData",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyji",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyji",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "截止日期_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "dateField_jr2gjkqm",
+                                "text": "截止日期_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            }
+                          ],
+                          "fieldList": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyk13",
+                              "fieldCode": "selectField_jr2g93k9_value",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyk13",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "zh_CN": "任务状态",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "selectField_jr2g93k9_value",
+                              "text": "任务状态",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyk14",
+                              "fieldCode": "textField_jr2gbmkf",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyk14",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "zh_CN": "任务数量",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "textField_jr2gbmkf",
+                              "text": "任务数量",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "youshuDataType": "real"
+                        }
+                      },
+                      "titleTip": false,
+                      "copyAsImg": false,
+                      "headerSize": "medium",
+                      "mockData": [],
+                      "autoLink": true,
+                      "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                      "isHeightAuto": false,
+                      "enabledCache": true,
+                      "userConfig": [
+                        {
+                          "name": "chartData",
+                          "title": "图表数据集",
+                          "items": [
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "xField",
+                              "setterProps": {
+                                "single": true,
+                                "showFormatTab": true,
+                                "showFormulaEditor": true,
+                                "showFieldInfo": true,
+                                "showAggregateTab": true,
+                                "showEditTab": true,
+                                "showSortTab": true
+                              },
+                              "title": "维度"
+                            },
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "yField",
+                              "setterProps": {
+                                "single": true,
+                                "showFormatTab": true,
+                                "showFormulaEditor": true,
+                                "showFieldInfo": true,
+                                "showAggregateTab": true,
+                                "showEditTab": true,
+                                "showSortTab": true
+                              },
+                              "title": "度量"
+                            }
+                          ]
+                        }
+                      ],
+                      "cid": "YoushuPieChart_mmynodyk12"
+                    }
+                  },
+                  {
+                    "componentName": "YoushuGroupedBarChart",
+                    "id": "YoushuGroupedBarChart_mmynodyk15",
+                    "props": {
+                      "auth": [],
+                      "openRefresh": true,
+                      "link": {
+                        "hasLink": false,
+                        "onlyIcon": true,
+                        "content": {
+                          "en_US": "More",
+                          "zh_CN": "更多",
+                          "type": "i18n"
+                        }
+                      },
+                      "titleTipIconName": "help",
+                      "exportData": {
+                        "ignoreSwitch": true,
+                        "passType": "NO_PASS",
+                        "exportType": "BROWSER",
+                        "supportExport": false
+                      },
+                      "componentTitleTextAlign": "LEFT",
+                      "hasFullscreen": false,
+                      "componentTitle": {
+                        "en_US": "优先级分布",
+                        "zh_CN": "优先级分布",
+                        "type": "i18n"
+                      },
+                      "enableFilterFunction": false,
+                      "titleTipContent": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "__style__": {},
+                      "fieldId": "YoushuGroupedBarChart_mmynodyk15",
+                      "settings": {
+                        "container": {
+                          "height": 232
+                        },
+                        "slider": {
+                          "showSlider": false
+                        },
+                        "yAxis": {
+                          "tickCount": 5,
+                          "showTitle": false,
+                          "line": false,
+                          "grid": true,
+                          "labelStyle": {
+                            "rotate": "0",
+                            "color": "rgba(23,26,29,0.4)",
+                            "labelType": "default",
+                            "fontSize": 12,
+                            "autoHide": true,
+                            "autoRotate": true,
+                            "percent": 30,
+                            "value": 100,
+                            "limitLengthType": "percent"
+                          },
+                          "label": true,
+                          "title": {
+                            "en_US": "",
+                            "zh_CN": "",
+                            "type": "i18n"
+                          },
+                          "showYAxis": true,
+                          "tickLine": false
+                        },
+                        "xAxis": {
+                          "showTitle": false,
+                          "line": true,
+                          "grid": false,
+                          "values": {
+                            "en_US": "",
+                            "zh_CN": "",
+                            "type": "i18n"
+                          },
+                          "labelStyle": {
+                            "rotate": "0",
+                            "color": "rgba(23,26,29,0.4)",
+                            "labelType": "default",
+                            "fontSize": 12,
+                            "autoHide": true,
+                            "autoRotate": true,
+                            "percent": 30,
+                            "value": 100,
+                            "limitLengthType": "percent"
+                          },
+                          "label": true,
+                          "title": {
+                            "en_US": "",
+                            "zh_CN": "",
+                            "type": "i18n"
+                          },
+                          "showXAxis": true,
+                          "tickLine": false
+                        },
+                        "legend": {
+                          "showLegend": true,
+                          "flipPage": true,
+                          "legendPosition": "top-left"
+                        },
+                        "tooltip": {
+                          "showTooltip": true
+                        },
+                        "style": {
+                          "radiusRightTop": 4,
+                          "mode": "group",
+                          "customColor": "#5894FF,#394B76,#F7B900,#E55F24,#80D5F5,#9849B0,#3BC88A,#0E869D,#F4A49E,#80563C",
+                          "linkGroup": false,
+                          "groupSpacing": 0,
+                          "radiusRightBottom": 0,
+                          "radiusLeftBottom": 0,
+                          "transpose": false,
+                          "radiusLeftTop": 4,
+                          "barStyle": "ai",
+                          "chartColorsMode": "defaultColorsMode",
+                          "colorType": "SCHEMA_COLOR"
+                        },
+                        "label": {
+                          "labelShowStyle": "ai",
+                          "color": "#000",
+                          "fontSize": 12,
+                          "autoAdjust": true,
+                          "autoHide": true,
+                          "position": "middle",
+                          "autoColor": true,
+                          "autoPosition": false,
+                          "showLabel": false
+                        },
+                        "axisType": "hz",
+                        "countLabel": {
+                          "color": "#000",
+                          "fontSize": 12,
+                          "showCountLabel": false
+                        }
+                      },
+                      "showComponentTitle": true,
+                      "dataSetModelMap": {
+                        "chartData": {
+                          "cubeCodes": [
+                            "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1"
+                          ],
+                          "xField": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyk16",
+                              "fieldCode": "selectField_jr2hz8wp_value",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyk16",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "zh_CN": "优先级",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "selectField_jr2hz8wp_value",
+                              "text": "优先级",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "mockData": [],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": {
+                                  "zh_CN": "优先级",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyk16",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "任务数量",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "textField_jr2gbmkf",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyk17",
+                                "aggregateType": "COUNT"
+                              },
+                              {
+                                "aliasName": "任务状态",
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyib",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "优先级",
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyjf",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "截止日期",
+                                "isDim": false,
+                                "timeGranularityType": "DAY",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "alias": "field_mmynodyji",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                            "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                            "filterList": [
+                              {
+                                "filterKey": "filter-719fd31c-0a01-4c08-9c41-1b4a9a8f4cac",
+                                "alias": "field_mmynodyib",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmmynodyi9-selectFilter",
+                                "filterType": "relate"
+                              },
+                              {
+                                "filterKey": "filter-0d51d2b1-74aa-43fa-bb09-e4dd7d64d860",
+                                "alias": "field_mmynodyjf",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmmynodyjd-selectFilter",
+                                "filterType": "relate"
+                              },
+                              {
+                                "filterKey": "filter-a54a6dd4-6fba-413a-969a-78477c5d2960",
+                                "alias": "field_mmynodyji",
+                                "conditionType": "Between",
+                                "paramId": "node_ocmmynodyjh-filterData",
+                                "filterType": "relate"
+                              }
+                            ],
+                            "fieldList": [
+                              "field_mmynodyk16",
+                              "field_mmynodyk17"
+                            ]
+                          },
+                          "yField": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyk17",
+                              "fieldCode": "textField_jr2gbmkf",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyk17",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "zh_CN": "任务数量",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "textField_jr2gbmkf",
+                              "text": "任务数量",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "limit": "",
+                          "filterList": [
+                            {
+                              "filterKey": "filter-719fd31c-0a01-4c08-9c41-1b4a9a8f4cac",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmmynodyi9-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyib",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyib",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "任务状态_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "selectField_jr2g93k9_value",
+                                "text": "任务状态_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            },
+                            {
+                              "filterKey": "filter-0d51d2b1-74aa-43fa-bb09-e4dd7d64d860",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmmynodyjd-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyjf",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyjf",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "优先级_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "selectField_jr2hz8wp_value",
+                                "text": "优先级_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            },
+                            {
+                              "filterKey": "filter-a54a6dd4-6fba-413a-969a-78477c5d2960",
+                              "conditionType": "Between",
+                              "paramId": "node_ocmmynodyjh-filterData",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyji",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyji",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "截止日期_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "dateField_jr2gjkqm",
+                                "text": "截止日期_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            }
+                          ],
+                          "fieldList": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyk16",
+                              "fieldCode": "selectField_jr2hz8wp_value",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyk16",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "zh_CN": "优先级",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "selectField_jr2hz8wp_value",
+                              "text": "优先级",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mmynodyk17",
+                              "fieldCode": "textField_jr2gbmkf",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mmynodyk17",
+                                "type": "NONE"
+                              },
+                              "isVisible": "y",
+                              "title": {
+                                "zh_CN": "任务数量",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT",
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "beUsedTimes": 1,
+                              "id": "textField_jr2gbmkf",
+                              "text": "任务数量",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "youshuDataType": "real"
+                        }
+                      },
+                      "titleTip": false,
+                      "copyAsImg": false,
+                      "headerSize": "medium",
+                      "mockData": [],
+                      "autoLink": true,
+                      "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                      "isHeightAuto": false,
+                      "enabledCache": true,
+                      "userConfig": [
+                        {
+                          "name": "chartData",
+                          "title": "图表数据集",
+                          "items": [
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "xField",
+                              "setterProps": {
+                                "single": true,
+                                "showFormatTab": true,
+                                "showFormulaEditor": true,
+                                "showFieldInfo": true,
+                                "showAggregateTab": true,
+                                "showEditTab": true,
+                                "showSortTab": true
+                              },
+                              "title": "维度"
+                            },
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "yField",
+                              "setterProps": {
+                                "single": true,
+                                "showFormatTab": true,
+                                "showFormulaEditor": true,
+                                "showFieldInfo": true,
+                                "showAggregateTab": true,
+                                "showEditTab": true,
+                                "showSortTab": true
+                              },
+                              "title": "度量"
+                            }
+                          ]
+                        }
+                      ],
+                      "cid": "YoushuGroupedBarChart_mmynodyk15"
+                    }
+                  },
+                  {
+                    "componentName": "YoushuTable",
+                    "id": "YoushuTable_mmynodykr",
+                    "props": {
+                      "enableFieldSelect": false,
+                      "auth": [],
+                      "openRefresh": true,
+                      "link": {
+                        "hasLink": false,
+                        "onlyIcon": true,
+                        "content": {
+                          "en_US": "More",
+                          "zh_CN": "更多",
+                          "type": "i18n"
+                        }
+                      },
+                      "titleTipIconName": "help",
+                      "exportData": {
+                        "ignoreSwitch": true,
+                        "passType": "NO_PASS",
+                        "exportType": "BROWSER",
+                        "supportExport": false,
+                        "filterList": "",
+                        "exportPromptFilter": ""
+                      },
+                      "componentTitleTextAlign": "LEFT",
+                      "hasFullscreen": false,
+                      "showCopyData": false,
+                      "componentTitle": {
+                        "en_US": "任务明细",
+                        "zh_CN": "任务明细",
+                        "type": "i18n"
+                      },
+                      "titleTipContent": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "__style__": {},
+                      "fieldId": "YoushuTable_mmynodykr",
+                      "settings": {
+                        "maxBodyHeight": "300",
+                        "container": {
+                          "height": 520
+                        },
+                        "isTree": false,
+                        "pagination": {
+                          "isPagination": true,
+                          "pageShowCount": 5,
+                          "size": "small",
+                          "pageSize": 10,
+                          "type": "normal",
+                          "showPageSelect": false
+                        },
+                        "defaultExpand": false,
+                        "seqNumColWidth": 50,
+                        "mergeCell": false,
+                        "isUniqueRows": false,
+                        "calcTableSpan": "/* function calcTableSpan(rowIndex, colIndex, dataIndex, record) {\nif (rowIndex === 2 && colIndex === 1) {\n  return {\n    // 合并3行 \n    rowSpan: 3,\n  };\n}\n\nif (rowIndex === 0 && colIndex === 2) {\n  return {\n    // 合并2列\n    colSpan: 2,\n  };\n}\n} */",
+                        "rglConfig": {
+                          "w": 12,
+                          "isHeightAuto": true,
+                          "h": 21
+                        },
+                        "fixedColumnIndex": 1,
+                        "rankStyle": false,
+                        "fixedHeader": false,
+                        "seqNumBackgroundSize": 10,
+                        "seqNumStyles": [
+                          {
+                            "backgroundColor": "#ffb71e",
+                            "color": "#ffffff"
+                          },
+                          {
+                            "backgroundColor": "#c2c2c2",
+                            "color": "#ffffff"
+                          },
+                          {
+                            "backgroundColor": "#d3846b",
+                            "color": "#ffffff"
+                          }
+                        ],
+                        "size": "medium",
+                        "theme": "split",
+                        "wordSize": "medium:14",
+                        "isReverseTable": false,
+                        "showReversedHeader": false
+                      },
+                      "showComponentTitle": true,
+                      "dataSetModelMap": {
+                        "table": {
+                          "cubeCodes": [
+                            "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1"
+                          ],
+                          "mockData": [],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": {
+                                  "en_US": "任务名称",
+                                  "zh_CN": "任务名称",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "textField_jr2gbmkf",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyks",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "en_US": "所属项目",
+                                  "zh_CN": "所属项目",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "textField_jr2gsc5g",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodykt",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "en_US": "任务状态",
+                                  "zh_CN": "任务状态",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyku",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "en_US": "优先级",
+                                  "zh_CN": "优先级",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodykv",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "en_US": "负责人",
+                                  "zh_CN": "负责人",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "employeeField_jr2gcklo_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "ARRAY",
+                                "alias": "field_mmynodykw",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "en_US": "开始日期",
+                                  "zh_CN": "开始日期",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "dateField_jr2gufqh",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "alias": "field_mmynodykx",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "en_US": "截止日期",
+                                  "zh_CN": "截止日期",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "alias": "field_mmynodyky",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "任务状态",
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodykz",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "优先级",
+                                "isDim": false,
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "alias": "field_mmynodyk10",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "截止日期",
+                                "isDim": false,
+                                "timeGranularityType": "DAY",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "alias": "field_mmynodyk11",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                            "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                            "filterList": [
+                              {
+                                "filterKey": "filter-719fd31c-0a01-4c08-9c41-1b4a9a8f4cac",
+                                "alias": "field_mmynodykz",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmmynodyi9-selectFilter",
+                                "filterType": "relate"
+                              },
+                              {
+                                "filterKey": "filter-0d51d2b1-74aa-43fa-bb09-e4dd7d64d860",
+                                "alias": "field_mmynodyk10",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmmynodyjd-selectFilter",
+                                "filterType": "relate"
+                              },
+                              {
+                                "filterKey": "filter-a54a6dd4-6fba-413a-969a-78477c5d2960",
+                                "alias": "field_mmynodyk11",
+                                "conditionType": "Between",
+                                "paramId": "node_ocmmynodyjh-filterData",
+                                "filterType": "relate"
+                              }
+                            ],
+                            "fieldList": [
+                              "field_mmynodyks",
+                              "field_mmynodykt",
+                              "field_mmynodyku",
+                              "field_mmynodykv",
+                              "field_mmynodykw",
+                              "field_mmynodykx",
+                              "field_mmynodyky"
+                            ]
+                          },
+                          "limit": "",
+                          "columnFields": [
+                            {
+                              "visible": true,
+                              "isDimension": "true",
+                              "fieldKey": "field_mmynodyks",
+                              "fieldCode": "textField_jr2gbmkf",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": {
+                                "hasLink": false
+                              },
+                              "width": 150,
+                              "title": {
+                                "en_US": "任务名称",
+                                "zh_CN": "任务名称",
+                                "type": "i18n"
+                              },
+                              "align": "left"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "true",
+                              "fieldKey": "field_mmynodykt",
+                              "fieldCode": "textField_jr2gsc5g",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": {
+                                "hasLink": false
+                              },
+                              "width": 150,
+                              "title": {
+                                "en_US": "所属项目",
+                                "zh_CN": "所属项目",
+                                "type": "i18n"
+                              },
+                              "align": "left"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "true",
+                              "fieldKey": "field_mmynodyku",
+                              "fieldCode": "selectField_jr2g93k9_value",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": {
+                                "hasLink": false
+                              },
+                              "width": 150,
+                              "title": {
+                                "en_US": "任务状态",
+                                "zh_CN": "任务状态",
+                                "type": "i18n"
+                              },
+                              "align": "left"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "true",
+                              "fieldKey": "field_mmynodykv",
+                              "fieldCode": "selectField_jr2hz8wp_value",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": {
+                                "hasLink": false
+                              },
+                              "width": 150,
+                              "title": {
+                                "en_US": "优先级",
+                                "zh_CN": "优先级",
+                                "type": "i18n"
+                              },
+                              "align": "left"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "true",
+                              "fieldKey": "field_mmynodykw",
+                              "fieldCode": "employeeField_jr2gcklo_value",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "ARRAY",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": {
+                                "hasLink": false
+                              },
+                              "width": 150,
+                              "title": {
+                                "en_US": "负责人",
+                                "zh_CN": "负责人",
+                                "type": "i18n"
+                              },
+                              "align": "left"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "true",
+                              "fieldKey": "field_mmynodykx",
+                              "fieldCode": "dateField_jr2gufqh",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "DATE",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": {
+                                "hasLink": false
+                              },
+                              "width": 150,
+                              "title": {
+                                "en_US": "开始日期",
+                                "zh_CN": "开始日期",
+                                "type": "i18n"
+                              },
+                              "align": "left"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "true",
+                              "fieldKey": "field_mmynodyky",
+                              "fieldCode": "dateField_jr2gjkqm",
+                              "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "dataType": "DATE",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": {
+                                "hasLink": false
+                              },
+                              "width": 150,
+                              "title": {
+                                "en_US": "截止日期",
+                                "zh_CN": "截止日期",
+                                "type": "i18n"
+                              },
+                              "align": "left"
+                            }
+                          ],
+                          "filterList": [
+                            {
+                              "filterKey": "filter-719fd31c-0a01-4c08-9c41-1b4a9a8f4cac",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmmynodyi9-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodykz",
+                                "fieldCode": "selectField_jr2g93k9_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodykz",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "任务状态_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "selectField_jr2g93k9_value",
+                                "text": "任务状态_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            },
+                            {
+                              "filterKey": "filter-0d51d2b1-74aa-43fa-bb09-e4dd7d64d860",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmmynodyjd-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyk10",
+                                "fieldCode": "selectField_jr2hz8wp_value",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyk10",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "优先级_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "selectField_jr2hz8wp_value",
+                                "text": "优先级_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            },
+                            {
+                              "filterKey": "filter-a54a6dd4-6fba-413a-969a-78477c5d2960",
+                              "conditionType": "Between",
+                              "paramId": "node_ocmmynodyjh-filterData",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mmynodyk11",
+                                "fieldCode": "dateField_jr2gjkqm",
+                                "classifiedCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "dataType": "DATE",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mmynodyk11",
+                                  "type": "NONE"
+                                },
+                                "isVisible": "y",
+                                "title": "截止日期_值",
+                                "aggregateType": "NONE",
+                                "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                                "beUsedTimes": 1,
+                                "id": "dateField_jr2gjkqm",
+                                "text": "截止日期_值",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            }
+                          ],
+                          "fieldList": [
+                            {
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "fieldCode": "textField_jr2gbmkf",
+                              "dataType": "STRING",
+                              "alias": "field_mmynodyks",
+                              "title": {
+                                "en_US": "任务名称",
+                                "zh_CN": "任务名称",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE"
+                            },
+                            {
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "fieldCode": "textField_jr2gsc5g",
+                              "dataType": "STRING",
+                              "alias": "field_mmynodykt",
+                              "title": {
+                                "en_US": "所属项目",
+                                "zh_CN": "所属项目",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE"
+                            },
+                            {
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "fieldCode": "selectField_jr2g93k9_value",
+                              "dataType": "STRING",
+                              "alias": "field_mmynodyku",
+                              "title": {
+                                "en_US": "任务状态",
+                                "zh_CN": "任务状态",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE"
+                            },
+                            {
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "fieldCode": "selectField_jr2hz8wp_value",
+                              "dataType": "STRING",
+                              "alias": "field_mmynodykv",
+                              "title": {
+                                "en_US": "优先级",
+                                "zh_CN": "优先级",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE"
+                            },
+                            {
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "fieldCode": "employeeField_jr2gcklo_value",
+                              "dataType": "ARRAY",
+                              "alias": "field_mmynodykw",
+                              "title": {
+                                "en_US": "负责人",
+                                "zh_CN": "负责人",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE"
+                            },
+                            {
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "fieldCode": "dateField_jr2gufqh",
+                              "dataType": "DATE",
+                              "alias": "field_mmynodykx",
+                              "title": {
+                                "en_US": "开始日期",
+                                "zh_CN": "开始日期",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE"
+                            },
+                            {
+                              "cubeCode": "FORM_C390F55E49DA4B1BB7EE5F7DE687A2054OG1",
+                              "fieldCode": "dateField_jr2gjkqm",
+                              "dataType": "DATE",
+                              "alias": "field_mmynodyky",
+                              "title": {
+                                "en_US": "截止日期",
+                                "zh_CN": "截止日期",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE"
+                            }
+                          ],
+                          "youshuDataType": "real"
+                        }
+                      },
+                      "titleTip": false,
+                      "copyAsImg": false,
+                      "defaultSelectedFields": [],
+                      "headerSize": "medium",
+                      "mockData": [],
+                      "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                      "isHeightAuto": true,
+                      "showFieldSelectIcon": true,
+                      "enabledCache": true,
+                      "userConfig": [
+                        {
+                          "name": "table",
+                          "title": "表格数据",
+                          "items": [
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "dimension",
+                              "setterProps": {
+                                "single": false
+                              },
+                              "title": "维度"
+                            },
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "kpi",
+                              "setterProps": {
+                                "single": false,
+                                "showFormatTab": true
+                              },
+                              "title": "指标"
+                            }
+                          ]
+                        }
+                      ],
+                      "cid": "YoushuTable_mmynodykr"
+                    }
+                  }
+                ],
+                "componentName": "RootContent",
+                "id": "node_ocmmynodyi3",
+                "props": {
+                  "layout": [
+                    {
+                      "static": false,
+                      "minH": 13,
+                      "resizeHandles": [
+                        "w",
+                        "e"
+                      ],
+                      "w": 6,
+                      "maxH": 13,
+                      "moved": false,
+                      "h": 13,
+                      "x": 0,
+                      "y": 0,
+                      "i": "YoushuSimpleIndicatorCard_mmynodyjl"
+                    },
+                    {
+                      "static": false,
+                      "minH": 15,
+                      "w": 6,
+                      "moved": false,
+                      "h": 21,
+                      "x": 0,
+                      "y": 13,
+                      "i": "YoushuPieChart_mmynodyk12"
+                    },
+                    {
+                      "static": false,
+                      "minH": 15,
+                      "w": 6,
+                      "moved": false,
+                      "h": 21,
+                      "x": 0,
+                      "y": 34,
+                      "i": "YoushuGroupedBarChart_mmynodyk15"
+                    },
+                    {
+                      "static": false,
+                      "minH": 39,
+                      "resizeHandles": [
+                        "w",
+                        "e"
+                      ],
+                      "w": 6,
+                      "maxH": 39,
+                      "moved": false,
+                      "h": 39,
+                      "x": 0,
+                      "y": 55,
+                      "i": "YoushuTable_mmynodykr"
+                    }
+                  ],
+                  "contentBgColor": "transparent",
+                  "rglSwitch": true
+                }
+              },
+              {
+                "componentName": "RootFooter",
+                "id": "node_ocmmynodyi4",
+                "props": {}
+              }
+            ],
+            "methods": {
+              "__initMethods__": {
+                "compiled": "function (exports, module) { /*set actions code here*/ }",
+                "source": "function (exports, module) { /*set actions code here*/ }",
+                "type": "js"
+              }
+            },
+            "componentName": "Page",
+            "id": "node_ocmmynodyi1",
+            "dataSource": {
+              "offline": [],
+              "globalConfig": {
+                "fit": {
+                  "compiled": "'use strict';\n\nvar __preParser__ = function fit(response) {\n  var content = response.content !== undefined ? response.content : response;\n  var error = {\n    message: response.errorMsg || response.errors && response.errors[0] && response.errors[0].msg || response.content || '远程数据源请求出错，success is false'\n  };\n  var success = true;\n  if (response.success !== undefined) {\n    success = response.success;\n  } else if (response.hasError !== undefined) {\n    success = !response.hasError;\n  }\n  return {\n    content: content,\n    success: success,\n    error: error\n  };\n};",
+                  "source": "function fit(response) {\r\n  const content = (response.content !== undefined) ? response.content : response;\r\n  const error = {\r\n    message: response.errorMsg ||\r\n      (response.errors && response.errors[0] && response.errors[0].msg) ||\r\n      response.content || '远程数据源请求出错，success is false',\r\n  };\r\n  let success = true;\r\n  if (response.success !== undefined) {\r\n    success = response.success;\r\n  } else if (response.hasError !== undefined) {\r\n    success = !response.hasError;\r\n  }\r\n  return {\r\n    content,\r\n    success,\r\n    error,\r\n  };\r\n}",
+                  "type": "js",
+                  "error": {}
+                }
+              },
+              "online": [],
+              "list": [],
+              "sync": true
+            },
+            "lifeCycles": {
+              "constructor": {
+                "compiled": "function constructor() {\nvar module = { exports: {} };\nvar _this = this;\nthis.__initMethods__(module.exports, module);\nObject.keys(module.exports).forEach(function(item) {\n  if(typeof module.exports[item] === 'function'){\n    _this[item] = module.exports[item];\n  }\n});\n\n}",
+                "source": "function constructor() {\nvar module = { exports: {} };\nvar _this = this;\nthis.__initMethods__(module.exports, module);\nObject.keys(module.exports).forEach(function(item) {\n  if(typeof module.exports[item] === 'function'){\n    _this[item] = module.exports[item];\n  }\n});\n\n}",
+                "type": "js"
+              }
+            },
+            "props": {
+              "pageStyle": ":root {\n  background-color: #f2f3f5;\n}\n",
+              "containerStyle": {},
+              "userVariables": [
+                {
+                  "text": "工号",
+                  "id": "varWorkNo"
+                },
+                {
+                  "text": "部门名称",
+                  "id": "varDeptName"
+                },
+                {
+                  "text": "所属公司编号",
+                  "id": "varCorpNo"
+                },
+                {
+                  "text": "部门编码",
+                  "id": "varDeptNo"
+                }
+              ],
+              "templateVersion": "1.0.0",
+              "className": "page_mmynspv3",
+              "params": []
+            }
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "5.0",
+    "schemaType": "superform",
+    "actions": {
+      "module": {
+        "compiled": "",
+        "source": ""
+      },
+      "list": []
+    },
+    "status": "ONLINE"
+  },
+  "success": true
+}
+
+💡 发现新版本 2026.3.20-2（当前 1.0.0-beta.6）
+   运行以下命令更新：
+   npm install -g openyida@latest
+

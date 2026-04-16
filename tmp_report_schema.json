@@ -1,0 +1,183 @@
+{
+  "schemaType": "superform",
+  "schemaVersion": "5.0",
+  "pages": [
+    {
+      "utils": [],
+      "componentsMap": [
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "YoushuSelectFilter"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "YoushuTopFilterContainer"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "PageHeaderContent"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "Tab"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "TabsLayout"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "PageHeaderTab"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "YoushuPageHeader"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "RootHeader"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "YoushuSimpleIndicatorCard"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "RootContent"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "RootFooter"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "Page"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "YoushuInputFilter"
+        },
+        {
+          "package": "@/components/vc-yida-report",
+          "version": "1.0.6",
+          "componentName": "YoushuTimeFilter"
+        }
+      ],
+      "componentsTree": [
+        {
+          "componentName": "Page",
+          "id": "node_ocmmwwwhdm1",
+          "props": {
+            "pageStyle": ":root {\n  background-color: #f2f3f5;\n}\n",
+            "containerStyle": {},
+            "userVariables": [
+              {
+                "text": "工号",
+                "id": "varWorkNo"
+              },
+              {
+                "text": "部门名称",
+                "id": "varDeptName"
+              },
+              {
+                "text": "所属公司编号",
+                "id": "varCorpNo"
+              },
+              {
+                "text": "部门编码",
+                "id": "varDeptNo"
+              }
+            ],
+            "templateVersion": "1.0.0",
+            "className": "page_mmwwzly1",
+            "params": []
+          },
+          "css": "body {\n  background-color: #f2f3f5;\n}\n",
+          "methods": {
+            "__initMethods__": {
+              "type": "js",
+              "source": "function (exports, module) { /*set actions code here*/ }",
+              "compiled": "function (exports, module) { /*set actions code here*/ }"
+            }
+          },
+          "dataSource": {
+            "offline": [],
+            "globalConfig": {
+              "fit": {
+                "compiled": "'use strict';\n\nvar __preParser__ = function fit(response) {\n  var content = response.content !== undefined ? response.content : response;\n  var error = {\n    message: response.errorMsg || response.errors && response.errors[0] && response.errors[0].msg || response.content || '远程数据源请求出错，success is false'\n  };\n  var success = true;\n  if (response.success !== undefined) {\n    success = response.success;\n  } else if (response.hasError !== undefined) {\n    success = !response.hasError;\n  }\n  return {\n    content: content,\n    success: success,\n    error: error\n  };\n};",
+                "source": "function fit(response) {\r\n  const content = (response.content !== undefined) ? response.content : response;\r\n  const error = {\r\n    message: response.errorMsg ||\r\n      (response.errors && response.errors[0] && response.errors[0].msg) ||\r\n      response.content || '远程数据源请求出错，success is false',\r\n  };\r\n  let success = true;\r\n  if (response.success !== undefined) {\r\n    success = response.success;\r\n  } else if (response.hasError !== undefined) {\r\n    success = !response.hasError;\r\n  }\r\n  return {\r\n    content,\r\n    success,\r\n    error,\r\n  };\r\n}",
+                "type": "js",
+                "error": {}
+              }
+            },
+            "online": [],
+            "list": [],
+            "sync": true
+          },
+          "lifeCycles": {
+            "constructor": {
+              "type": "js",
+              "compiled": "function constructor() {\nvar module = { exports: {} };\nvar _this = this;\nthis.__initMethods__(module.exports, module);\nObject.keys(module.exports).forEach(function(item) {\n  if(typeof module.exports[item] === 'function'){\n    _this[item] = module.exports[item];\n  }\n});\n\n}",
+              "source": "function constructor() {\nvar module = { exports: {} };\nvar _this = this;\nthis.__initMethods__(module.exports, module);\nObject.keys(module.exports).forEach(function(item) {\n  if(typeof module.exports[item] === 'function'){\n    _this[item] = module.exports[item];\n  }\n});\n\n}"
+            }
+          },
+          "children": [
+            {
+              "componentName": "RootHeader",
+              "id": "node_ocmmwwwhdm2",
+              "props": {},
+              "children": [
+                {
+                  "componentName": "YoushuPageHeader",
+                  "id": "node_ocmmwwwhdm3",
+                  "props": {
+                    "tab": false,
+                    "showTitle": true,
+                    "titleContent": {
+                      "type": "i18n",
+                      "zh_CN": "专题名称",
+                      "en_US": "专题名称"
+                    },
+                    "titleTip": {
+                      "type": "i18n",
+                      "zh_CN": "",
+                      "en_US": ""
+                    },
+                    "status": "normal",
+                    "cid": "node_ocmmwwwhdm3"
+                  },
+                  "children": [
+                    {
+                      "componentName": "PageHeaderContent",
+                      "id": "node_ocmmwwwhdm4",
+                      "props": {},
+                      "children": [
+                        {
+                          "componentName": "YoushuTopFilterContainer",
+                          "id": "node_ocmmwwwhdm5"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

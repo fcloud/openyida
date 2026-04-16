@@ -1,0 +1,77 @@
+{
+  "projectName": "project-dashboard",
+  "appType": "APP_KNILKT41DC5XXR5D4QEC",
+  "corpId": "ding9a8a8b0d2c3b5b35a1320fcb25e91351",
+  "pages": {
+    "dashboard": {
+      "type": "custom",
+      "formUuid": "FORM-51A2816CB3014C6186DFE470D85E1713IRNK",
+      "description": "项目管理 Dashboard 自定义页面",
+      "sourceFile": "project/pages/src/project-dashboard.js"
+    },
+    "dataForm": {
+      "type": "form",
+      "formUuid": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+      "description": "项目数据表单（数据源）"
+    },
+    "aggregateReport": {
+      "type": "report",
+      "formUuid": "REPORT-0R8665A1ED54RG45IJWIX55W9Q8U2U6AH9XMM1",
+      "description": "聚合数据报表（核心关联页面，Dashboard 所有聚合统计的数据源）",
+      "isCoreLinkedPage": true,
+      "url": "https://yidalogin.aliwork.com/APP_KNILKT41DC5XXR5D4QEC/admin/REPORT-0R8665A1ED54RG45IJWIX55W9Q8U2U6AH9XMM1",
+      "components": {
+        "totalCount": {
+          "cid": "YoushuSimpleIndicatorCard_mmx9ha69i",
+          "className": "YoushuSimpleIndicatorCard",
+          "description": "项目总数"
+        },
+        "totalBudget": {
+          "cid": "YoushuSimpleIndicatorCard_mmx9ha69l",
+          "className": "YoushuSimpleIndicatorCard",
+          "description": "总预算"
+        },
+        "avgProgress": {
+          "cid": "YoushuSimpleIndicatorCard_mmx9ha6ao",
+          "className": "YoushuSimpleIndicatorCard",
+          "description": "平均进度"
+        },
+        "statusTable": {
+          "cid": "YoushuTable_mmx9ha6ar",
+          "className": "YoushuTable",
+          "description": "按状态统计数量"
+        },
+        "priorityTable": {
+          "cid": "YoushuTable_mmx9ha6ax",
+          "className": "YoushuTable",
+          "description": "按优先级统计数量"
+        },
+        "budgetTable": {
+          "cid": "YoushuTable_mmx9ha6a13",
+          "className": "YoushuTable",
+          "description": "按状态统计预算"
+        },
+        "monthlyTrend": {
+          "cid": "YoushuTable_trend_mmxhdkl9",
+          "className": "YoushuTable",
+          "description": "月度趋势（按月分组，含数量+预算）"
+        },
+        "crossAnalysis": {
+          "cid": "YoushuTable_cross_mmxhdklg",
+          "className": "YoushuTable",
+          "description": "状态×优先级交叉分析（含数量+预算）"
+        }
+      }
+    }
+  },
+  "fieldMapping": {
+    "name": "textField_j2xehece",
+    "desc": "textareaField_j2xe87xm",
+    "startDate": "dateField_j2xe9bqx",
+    "endDate": "dateField_j2xex1if",
+    "status": "selectField_j2xeiduk",
+    "priority": "selectField_j2xeiguj",
+    "budget": "numberField_d9h5xczk",
+    "progress": "rateField_j2xeiy60"
+  }
+}

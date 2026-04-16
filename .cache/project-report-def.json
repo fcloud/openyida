@@ -1,0 +1,108 @@
+{
+  "filters": [
+    {
+      "type": "select",
+      "label": "项目状态",
+      "fieldId": "selectField_j2xeiduk",
+      "fieldType": "SelectField",
+      "dataType": "STRING"
+    },
+    {
+      "type": "select",
+      "label": "项目优先级",
+      "fieldId": "selectField_j2xeiguj",
+      "fieldType": "SelectField",
+      "dataType": "STRING"
+    },
+    {
+      "type": "time",
+      "label": "开始日期",
+      "fieldId": "dateField_j2xe9bqx",
+      "dataType": "DATE"
+    }
+  ],
+  "indicators": [
+    {
+      "label": "项目总数",
+      "aggregation": "COUNT",
+      "fieldId": "textField_j2xehece",
+      "dataType": "STRING"
+    },
+    {
+      "label": "进行中项目",
+      "aggregation": "COUNT",
+      "fieldId": "textField_j2xehece",
+      "dataType": "STRING",
+      "filters": [
+        {
+          "fieldId": "selectField_j2xeiduk",
+          "fieldType": "SelectField",
+          "label": "项目状态",
+          "dataType": "STRING",
+          "conditionType": "EqualTo",
+          "value": ["进行中"]
+        }
+      ]
+    },
+    {
+      "label": "已完成项目",
+      "aggregation": "COUNT",
+      "fieldId": "textField_j2xehece",
+      "dataType": "STRING",
+      "filters": [
+        {
+          "fieldId": "selectField_j2xeiduk",
+          "fieldType": "SelectField",
+          "label": "项目状态",
+          "dataType": "STRING",
+          "conditionType": "EqualTo",
+          "value": ["已完成"]
+        }
+      ]
+    },
+    {
+      "label": "总预算",
+      "aggregation": "SUM",
+      "fieldId": "numberField_d9h5xczk",
+      "dataType": "DOUBLE"
+    },
+    {
+      "label": "平均进度",
+      "aggregation": "AVG",
+      "fieldId": "rateField_j2xeiy60",
+      "dataType": "DOUBLE"
+    }
+  ],
+  "charts": [
+    {
+      "type": "pie",
+      "title": "项目状态分布",
+      "dimension": { "fieldId": "selectField_j2xeiduk", "label": "项目状态", "fieldType": "SelectField" },
+      "measure": { "fieldId": "textField_j2xehece", "label": "项目数量", "aggregation": "COUNT" },
+      "innerRadius": 0.6
+    },
+    {
+      "type": "bar",
+      "title": "项目优先级统计",
+      "dimension": { "fieldId": "selectField_j2xeiguj", "label": "项目优先级", "fieldType": "SelectField" },
+      "measure": { "fieldId": "textField_j2xehece", "label": "项目数量", "aggregation": "COUNT" }
+    }
+  ],
+  "tables": [
+    {
+      "title": "项目明细表",
+      "pageSize": 20,
+      "columns": [
+        { "fieldId": "textField_j2xehece", "label": "项目名称", "dataType": "STRING" },
+        { "fieldId": "employeeField_j2xe83h6", "label": "项目负责人", "fieldType": "EmployeeField", "dataType": "ARRAY" },
+        { "fieldId": "departmentSelectField_j2xe5myr", "label": "所属部门", "fieldType": "DepartmentSelectField", "dataType": "ARRAY" },
+        { "fieldId": "selectField_j2xeiduk", "label": "项目状态", "fieldType": "SelectField", "dataType": "STRING" },
+        { "fieldId": "selectField_j2xeiguj", "label": "项目优先级", "fieldType": "SelectField", "dataType": "STRING" },
+        { "fieldId": "numberField_d9h5xczk", "label": "项目预算", "dataType": "DOUBLE" },
+        { "fieldId": "rateField_j2xeiy60", "label": "项目进度", "dataType": "DOUBLE" },
+        { "fieldId": "dateField_j2xe9bqx", "label": "开始日期", "dataType": "DATE" },
+        { "fieldId": "dateField_j2xex1if", "label": "结束日期", "dataType": "DATE" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,589 @@
+{
+  "content": {
+    "gmtModified": 1774004013000,
+    "i18nData": [],
+    "pages": [
+      {
+        "componentsMap": [
+          {
+            "componentName": "YidaReport",
+            "url": "//g.alicdn.com/code/npm/@ali/vc-yida-report/1.0.101/pc.js"
+          }
+        ],
+        "connectComponent": [],
+        "id": "REPORT-U4C66EC1RJ64EW35NLD799GJ00VG2ODG4SYMM1",
+        "componentsTree": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "componentName": "YoushuSelectFilter",
+                    "props": {
+                      "settings": {
+                        "mode": "multiple",
+                        "labelConfig": {
+                          "label": "项目状态"
+                        },
+                        "dataConfig": {
+                          "required": false,
+                          "queryType": "EqualTo"
+                        },
+                        "showLabel": true,
+                        "height": 300
+                      },
+                      "dataSetModelMap": {
+                        "selectFilter": {
+                          "cubeCodes": [
+                            "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC"
+                          ],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": "项目状态",
+                                "isDim": true,
+                                "expression": "",
+                                "cubeCode": "",
+                                "fieldCode": "selectField_j2xeiduk",
+                                "classifiedCode": "",
+                                "dataType": "STRING",
+                                "alias": "selectField_j2xeiduk",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+                            "filterList": [],
+                            "fieldList": [
+                              "selectField_j2xeiduk"
+                            ]
+                          },
+                          "limit": 1000,
+                          "valueField": [
+                            "selectField_j2xeiduk"
+                          ],
+                          "labelField": [
+                            "selectField_j2xeiduk"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "componentName": "YoushuSelectFilter",
+                    "props": {
+                      "settings": {
+                        "mode": "multiple",
+                        "labelConfig": {
+                          "label": "项目优先级"
+                        },
+                        "dataConfig": {
+                          "required": false,
+                          "queryType": "EqualTo"
+                        },
+                        "showLabel": true,
+                        "height": 300
+                      },
+                      "dataSetModelMap": {
+                        "selectFilter": {
+                          "cubeCodes": [
+                            "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC"
+                          ],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": "项目优先级",
+                                "isDim": true,
+                                "expression": "",
+                                "cubeCode": "",
+                                "fieldCode": "selectField_j2xeiguj",
+                                "classifiedCode": "",
+                                "dataType": "STRING",
+                                "alias": "selectField_j2xeiguj",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+                            "filterList": [],
+                            "fieldList": [
+                              "selectField_j2xeiguj"
+                            ]
+                          },
+                          "limit": 1000,
+                          "valueField": [
+                            "selectField_j2xeiguj"
+                          ],
+                          "labelField": [
+                            "selectField_j2xeiguj"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "componentName": "YoushuTimeFilter",
+                    "props": {
+                      "settings": {
+                        "mode": "range",
+                        "labelConfig": {
+                          "label": "开始日期"
+                        },
+                        "dataConfig": {
+                          "queryType": "Between"
+                        }
+                      },
+                      "dataSetModelMap": {
+                        "filterData": {
+                          "cubeCodes": [
+                            "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC"
+                          ],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": "开始日期",
+                                "isDim": true,
+                                "timeGranularityType": "DAY",
+                                "expression": "",
+                                "cubeCode": "",
+                                "fieldCode": "dateField_j2xe9bqx",
+                                "classifiedCode": "",
+                                "dataType": "DATE",
+                                "alias": "dateField_j2xe9bqx",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+                            "filterList": [],
+                            "fieldList": [
+                              "dateField_j2xe9bqx"
+                            ]
+                          },
+                          "limit": 1000,
+                          "valueField": [
+                            "dateField_j2xe9bqx"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ],
+                "componentName": "YoushuTopFilterContainer",
+                "props": {
+                  "showTag": true,
+                  "config": []
+                }
+              },
+              {
+                "componentName": "YoushuSimpleIndicatorCard",
+                "props": {
+                  "settings": {
+                    "customColor": "",
+                    "columnCount": 2,
+                    "columnCountForH5": 2,
+                    "colorType": "default"
+                  },
+                  "dataSetModelMap": {
+                    "kpi_dataset": {
+                      "dataViewQueryModel": {
+                        "orderByList": [],
+                        "fieldDefinitionList": [
+                          {
+                            "aliasName": "项目总数",
+                            "isDim": false,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "textField_j2xehece",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "textField_j2xehece",
+                            "aggregateType": "COUNT"
+                          },
+                          {
+                            "aliasName": "总预算",
+                            "isDim": false,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "numberField_d9h5xczk",
+                            "classifiedCode": "",
+                            "dataType": "NUMBER",
+                            "alias": "numberField_d9h5xczk",
+                            "aggregateType": "SUM"
+                          }
+                        ],
+                        "cubeCode": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+                        "filterList": [],
+                        "fieldList": [
+                          "textField_j2xehece",
+                          "numberField_d9h5xczk"
+                        ]
+                      },
+                      "limit": 1000
+                    }
+                  }
+                }
+              },
+              {
+                "componentName": "YoushuPieChart",
+                "props": {
+                  "settings": {
+                    "drillDown": false,
+                    "titleConfig": {
+                      "label": "项目状态分布"
+                    },
+                    "customColor": "",
+                    "startAngle": -1.5707963267948966,
+                    "endAngle": 4.71238898038469,
+                    "limit": 1000,
+                    "labelConfig": {
+                      "showLabel": true
+                    },
+                    "innerRadius": 0.6,
+                    "height": 350,
+                    "colorType": "default"
+                  },
+                  "dataSetModelMap": {
+                    "pie_dataset": {
+                      "dataViewQueryModel": {
+                        "orderByList": [],
+                        "fieldDefinitionList": [
+                          {
+                            "aliasName": "项目状态",
+                            "isDim": true,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "selectField_j2xeiduk",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "selectField_j2xeiduk",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "项目数量",
+                            "isDim": false,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "textField_j2xehece",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "textField_j2xehece",
+                            "aggregateType": "COUNT"
+                          }
+                        ],
+                        "cubeCode": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+                        "filterList": [],
+                        "fieldList": [
+                          "selectField_j2xeiduk",
+                          "textField_j2xehece"
+                        ]
+                      },
+                      "limit": 1000
+                    }
+                  }
+                }
+              },
+              {
+                "componentName": "YoushuGroupedBarChart",
+                "props": {
+                  "settings": {
+                    "drillDown": false,
+                    "titleConfig": {
+                      "label": "各优先级项目预算对比"
+                    },
+                    "isPercent": false,
+                    "customColor": "",
+                    "limit": 1000,
+                    "labelConfig": {
+                      "showLabel": false
+                    },
+                    "isStack": false,
+                    "height": 350,
+                    "colorType": "default"
+                  },
+                  "dataSetModelMap": {
+                    "bar_dataset": {
+                      "dataViewQueryModel": {
+                        "orderByList": [],
+                        "fieldDefinitionList": [
+                          {
+                            "aliasName": "项目优先级",
+                            "isDim": true,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "selectField_j2xeiguj",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "selectField_j2xeiguj",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "项目预算",
+                            "isDim": false,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "numberField_d9h5xczk",
+                            "classifiedCode": "",
+                            "dataType": "NUMBER",
+                            "alias": "numberField_d9h5xczk",
+                            "aggregateType": "SUM"
+                          }
+                        ],
+                        "cubeCode": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+                        "filterList": [],
+                        "fieldList": [
+                          "selectField_j2xeiguj",
+                          "numberField_d9h5xczk"
+                        ]
+                      },
+                      "limit": 1000
+                    }
+                  }
+                }
+              },
+              {
+                "componentName": "YoushuLineChart",
+                "props": {
+                  "settings": {
+                    "drillDown": false,
+                    "titleConfig": {
+                      "label": "项目创建趋势（按月）"
+                    },
+                    "isPercent": false,
+                    "customColor": "",
+                    "limit": 1000,
+                    "labelConfig": {
+                      "showLabel": false
+                    },
+                    "isStack": false,
+                    "lineWidth": 2,
+                    "height": 350,
+                    "smooth": true,
+                    "colorType": "default"
+                  },
+                  "dataSetModelMap": {
+                    "line_dataset": {
+                      "dataViewQueryModel": {
+                        "orderByList": [
+                          {
+                            "orderType": "ASC",
+                            "alias": "dateField_j2xe9bqx"
+                          }
+                        ],
+                        "fieldDefinitionList": [
+                          {
+                            "aliasName": "开始日期",
+                            "isDim": true,
+                            "timeGranularityType": "MONTH",
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "dateField_j2xe9bqx",
+                            "classifiedCode": "",
+                            "dataType": "DATE",
+                            "alias": "dateField_j2xe9bqx",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "项目数量",
+                            "isDim": false,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "textField_j2xehece",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "textField_j2xehece",
+                            "aggregateType": "COUNT"
+                          }
+                        ],
+                        "cubeCode": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+                        "filterList": [],
+                        "fieldList": [
+                          "dateField_j2xe9bqx",
+                          "textField_j2xehece"
+                        ]
+                      },
+                      "limit": 1000
+                    }
+                  }
+                }
+              },
+              {
+                "componentName": "YoushuTable",
+                "props": {
+                  "settings": {
+                    "maxBodyHeight": 500,
+                    "fixedHeader": true,
+                    "pagination": {
+                      "pageSizeList": [
+                        10,
+                        20,
+                        50,
+                        100
+                      ],
+                      "pageSize": 20,
+                      "showPageSelect": true
+                    },
+                    "theme": "border"
+                  },
+                  "dataSetModelMap": {
+                    "table": {
+                      "dataViewQueryModel": {
+                        "orderByList": [
+                          {
+                            "orderType": "DESC",
+                            "alias": "dateField_j2xe9bqx"
+                          }
+                        ],
+                        "fieldDefinitionList": [
+                          {
+                            "aliasName": "项目名称",
+                            "isDim": true,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "textField_j2xehece",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "textField_j2xehece",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "项目状态",
+                            "isDim": true,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "selectField_j2xeiduk",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "selectField_j2xeiduk",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "项目优先级",
+                            "isDim": true,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "selectField_j2xeiguj",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "selectField_j2xeiguj",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "项目负责人",
+                            "isDim": true,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "employeeField_j2xe83h6",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "employeeField_j2xe83h6",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "所属部门",
+                            "isDim": true,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "departmentSelectField_j2xe5myr",
+                            "classifiedCode": "",
+                            "dataType": "STRING",
+                            "alias": "departmentSelectField_j2xe5myr",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "开始日期",
+                            "isDim": true,
+                            "timeGranularityType": "DAY",
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "dateField_j2xe9bqx",
+                            "classifiedCode": "",
+                            "dataType": "DATE",
+                            "alias": "dateField_j2xe9bqx",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "结束日期",
+                            "isDim": true,
+                            "timeGranularityType": "DAY",
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "dateField_j2xex1if",
+                            "classifiedCode": "",
+                            "dataType": "DATE",
+                            "alias": "dateField_j2xex1if",
+                            "aggregateType": "NONE"
+                          },
+                          {
+                            "aliasName": "项目预算",
+                            "isDim": false,
+                            "expression": "",
+                            "cubeCode": "",
+                            "fieldCode": "numberField_d9h5xczk",
+                            "classifiedCode": "",
+                            "dataType": "NUMBER",
+                            "alias": "numberField_d9h5xczk",
+                            "aggregateType": "SUM"
+                          }
+                        ],
+                        "cubeCode": "FORM-5FE501D96DDA42BDABA8AA33323CC4319LIC",
+                        "filterList": [],
+                        "fieldList": [
+                          "textField_j2xehece",
+                          "selectField_j2xeiduk",
+                          "selectField_j2xeiguj",
+                          "employeeField_j2xe83h6",
+                          "departmentSelectField_j2xe5myr",
+                          "dateField_j2xe9bqx",
+                          "dateField_j2xex1if",
+                          "numberField_d9h5xczk"
+                        ]
+                      },
+                      "limit": 1000
+                    }
+                  }
+                }
+              }
+            ],
+            "componentName": "YoushuPageHeader",
+            "dataSource": {
+              "offline": [],
+              "globalConfig": {
+                "fit": {
+                  "compiled": "'use strict';\n\nvar __preParser__ = function fit(response) {\n  var content = response.content !== undefined ? response.content : response;\n  var error = {\n    message: response.errorMsg || response.errors && response.errors[0] && response.errors[0].msg || response.content || '远程数据源请求出错，success is false'\n  };\n  var success = true;\n  if (response.success !== undefined) {\n    success = response.success;\n  } else if (response.hasError !== undefined) {\n    success = !response.hasError;\n  }\n  return {\n    content: content,\n    success: success,\n    error: error\n  };\n};",
+                  "source": "function fit(response) {\r\n  const content = (response.content !== undefined) ? response.content : response;\r\n  const error = {\r\n    message: response.errorMsg ||\r\n      (response.errors && response.errors[0] && response.errors[0].msg) ||\r\n      response.content || '远程数据源请求出错，success is false',\r\n  };\r\n  let success = true;\r\n  if (response.success !== undefined) {\r\n    success = response.success;\r\n  } else if (response.hasError !== undefined) {\r\n    success = !response.hasError;\r\n  }\r\n  return {\r\n    content,\r\n    success,\r\n    error,\r\n  };\r\n}",
+                  "type": "js",
+                  "error": {}
+                }
+              },
+              "online": [],
+              "list": [],
+              "sync": true
+            },
+            "props": {
+              "tab": false,
+              "showTitle": true,
+              "display": "normal",
+              "titleContent": "项目信息分析报表",
+              "titleTip": "基于项目信息表的多维度数据分析",
+              "waiter": false
+            }
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "5.0",
+    "schemaType": "superform",
+    "actions": {
+      "module": {
+        "compiled": "",
+        "source": ""
+      },
+      "type": "FUNCTION",
+      "list": []
+    },
+    "config": "{\"connectComponent\":[]}",
+    "status": "ONLINE"
+  },
+  "success": true
+}

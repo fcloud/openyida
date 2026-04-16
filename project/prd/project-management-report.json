@@ -1,0 +1,68 @@
+{
+  "filters": [
+    {
+      "type": "select",
+      "label": "项目状态",
+      "fieldId": "selectField_j2xeiduk",
+      "dataType": "STRING",
+      "mode": "single"
+    },
+    {
+      "type": "select",
+      "label": "项目优先级",
+      "fieldId": "selectField_j2xeiguj",
+      "dataType": "STRING",
+      "mode": "single"
+    }
+  ],
+  "indicators": [
+    {
+      "label": "项目总数",
+      "aggregation": "COUNT_DISTINCT",
+      "fieldId": "pid",
+      "dataType": "STRING"
+    }
+  ],
+  "tables": [
+    {
+      "title": "按项目状态统计",
+      "dimensions": [
+        {
+          "fieldId": "selectField_j2xeiduk",
+          "fieldType": "SelectField",
+          "label": "项目状态"
+        }
+      ],
+      "aggregations": [
+        {
+          "fieldId": "pid",
+          "label": "项目数量",
+          "aggregation": "COUNT_DISTINCT"
+        }
+      ],
+      "height": 200,
+      "pageSize": 10,
+      "pagination": true
+    },
+    {
+      "title": "按优先级统计",
+      "dimensions": [
+        {
+          "fieldId": "selectField_j2xeiguj",
+          "fieldType": "SelectField",
+          "label": "项目优先级"
+        }
+      ],
+      "aggregations": [
+        {
+          "fieldId": "pid",
+          "label": "项目数量",
+          "aggregation": "COUNT_DISTINCT"
+        }
+      ],
+      "height": 200,
+      "pageSize": 10,
+      "pagination": true
+    }
+  ]
+}

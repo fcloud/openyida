@@ -1,0 +1,627 @@
+{
+  "prdId": null,
+  "filters": [
+    {
+      "id": "node_ocmmyuejft5",
+      "componentName": "YoushuTopFilterContainer",
+      "props": {
+        "resetBtn": true,
+        "layout": [
+          {
+            "static": false,
+            "w": 1,
+            "moved": false,
+            "h": 1,
+            "x": 0,
+            "y": 0,
+            "i": "YoushuSelectFilter_mmyuejsq"
+          }
+        ],
+        "rowColumn": 3,
+        "createForm": true,
+        "searchBtn": true,
+        "fixed": true,
+        "__style__": {},
+        "rglSwitch": true,
+        "status": "normal",
+        "fieldId": "filter_mmyuejsr",
+        "cid": "node_ocmmyuejft5"
+      }
+    },
+    {
+      "id": "node_ocmmyuejft6",
+      "componentName": "YoushuSelectFilter",
+      "props": {
+        "settings": {
+          "mode": "single",
+          "container": {
+            "height": -88
+          },
+          "hasSelectAll": false,
+          "isMultiLine": true,
+          "dataConfig": {
+            "tagMode": false,
+            "showTitle": true,
+            "required": false
+          },
+          "labelConfig": {
+            "labelAlign": "top",
+            "labelTips": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "labelTipIcon": "prompt-filling",
+            "label": {
+              "en_US": "Filter Title",
+              "zh_CN": "设备状态",
+              "type": "i18n"
+            },
+            "labelColSpan": 4,
+            "showLabel": true
+          },
+          "contentConfig": {
+            "notFoundContent": {
+              "en_US": "No data",
+              "zh_CN": "暂无数据",
+              "type": "i18n"
+            },
+            "placeholder": {
+              "en_US": "Please select",
+              "zh_CN": "请选择",
+              "type": "i18n"
+            }
+          },
+          "overallStyle": {
+            "size": "medium",
+            "hasClear": true,
+            "autoWidth": true,
+            "behavior": "NORMAL"
+          }
+        },
+        "openRefresh": true,
+        "link": {
+          "hasLink": false,
+          "onlyIcon": true,
+          "content": {
+            "en_US": "More",
+            "zh_CN": "更多",
+            "type": "i18n"
+          }
+        },
+        "dataSetModelMap": {
+          "selectFilter": {
+            "cubeCodes": [
+              "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR"
+            ],
+            "mockData": [],
+            "dataViewQueryModel": {
+              "orderByList": [],
+              "fieldDefinitionList": [
+                {
+                  "aliasName": {
+                    "zh_CN": "设备状态_值",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_mmyufujq",
+                  "aggregateType": "NONE"
+                }
+              ],
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+              "filterList": [],
+              "fieldList": [
+                "field_mmyufujq"
+              ]
+            },
+            "defaultValue": {
+              "conditionType": "EqualTo"
+            },
+            "limit": "",
+            "valueField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_mmyufujq",
+                "fieldCode": "radioField_pq067njt6_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_mmyufujq",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "设备状态_值",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "radioField_pq067njt6_value",
+                "text": "设备状态_值",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "filterList": [],
+            "fieldList": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_mmyufujq",
+                "fieldCode": "radioField_pq067njt6_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_mmyufujq",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "设备状态_值",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "radioField_pq067njt6_value",
+                "text": "设备状态_值",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "youshuDataType": "real",
+            "labelField": []
+          }
+        },
+        "copyAsImg": false,
+        "exportData": {
+          "ignoreSwitch": true,
+          "passType": "NO_PASS",
+          "exportType": "BROWSER",
+          "supportExport": false
+        },
+        "hasFullscreen": false,
+        "mockData": [
+          {
+            "data": {
+              "data": [
+                {
+                  "level": "P6",
+                  "job": "前端"
+                },
+                {
+                  "level": "P7",
+                  "job": "设计"
+                },
+                {
+                  "level": "P8",
+                  "job": "后端"
+                }
+              ],
+              "meta": [
+                {
+                  "aliasName": "层级",
+                  "alias": "level",
+                  "category": "valueField"
+                },
+                {
+                  "aliasName": "工作",
+                  "alias": "job",
+                  "category": "labelField"
+                }
+              ],
+              "currentPage": 1,
+              "totalCount": 3
+            },
+            "name": "selectFilter"
+          }
+        ],
+        "autoLink": true,
+        "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n* 返回数据文档： https://www.yuque.com/yida/support/xgg4ps\n* data: 返回的数据 \n* extraInfo: { meta: [], cardParams: {} }，meta 代表数据元信息，cardParams 代表卡片参数信息\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+        "isHeightAuto": false,
+        "enabledCache": true,
+        "userConfig": [
+          {
+            "name": "selectFilter",
+            "title": "筛选器数据集",
+            "items": [
+              {
+                "setterName": "ColumnFieldSetter",
+                "name": "valueField",
+                "setterProps": {
+                  "single": true,
+                  "showFormatTab": true,
+                  "showFormulaEditor": true,
+                  "showFieldInfo": true,
+                  "showAggregateTab": true,
+                  "showEditTab": true,
+                  "showSortTab": true
+                },
+                "title": "查询字段"
+              },
+              {
+                "setterName": "ColumnFieldSetter",
+                "name": "labelField",
+                "setterProps": {
+                  "single": true,
+                  "showFormatTab": true,
+                  "showFormulaEditor": true,
+                  "showFieldInfo": true,
+                  "showAggregateTab": true,
+                  "showEditTab": true,
+                  "showSortTab": true
+                },
+                "title": "显示字段"
+              },
+              {
+                "setterName": "DefaultValueSetter",
+                "name": "defaultValue",
+                "setterProps": {
+                  "timeAsString": true
+                },
+                "title": "默认值"
+              }
+            ]
+          }
+        ],
+        "__style__": {},
+        "cid": "node_ocmmyuejft6",
+        "fieldId": "YoushuSelectFilter_mmyuejsq"
+      }
+    }
+  ],
+  "componentsSummary": [
+    {
+      "id": "node_ocmmyuejfte",
+      "type": "YoushuSimpleIndicatorCard",
+      "title": "巡检核心指标",
+      "dataSetKeys": [
+        "youshuData"
+      ],
+      "dataSetKey": "youshuData",
+      "cid": "node_ocmmyuejfte",
+      "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+      "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+      "fieldDefinitionList": [
+        {
+          "aliasName": {
+            "zh_CN": "总巡检次数",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "textField_pq063xees",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "DOUBLE",
+          "alias": "field_h9gasupb",
+          "aggregateType": "COUNT"
+        },
+        {
+          "aliasName": "设备状态_值",
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "radioField_pq067njt6_value",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "STRING",
+          "alias": "field_mmyufujq",
+          "aggregateType": "NONE"
+        }
+      ],
+      "filterList": [
+        {
+          "filterKey": "filter-dd5cbb0c-3dee-443e-b97c-912152362f3e",
+          "alias": "field_mmyufujq",
+          "conditionType": "EqualTo",
+          "paramId": "node_ocmmyuejft6-selectFilter",
+          "filterType": "relate"
+        }
+      ],
+      "fieldList": [
+        "field_h9gasupb"
+      ],
+      "kpiTitles": [
+        "总巡检次数"
+      ]
+    },
+    {
+      "id": "node_ocmmyuejftg",
+      "type": "YoushuPieChart",
+      "title": "设备状态分布",
+      "dataSetKeys": [
+        "chartData"
+      ],
+      "dataSetKey": "chartData",
+      "cid": "node_ocmmyuejftg",
+      "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+      "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+      "fieldDefinitionList": [
+        {
+          "aliasName": {
+            "zh_CN": "设备状态",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "radioField_pq067njt6_value",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "STRING",
+          "alias": "field_szbjbslp",
+          "aggregateType": "NONE"
+        },
+        {
+          "aliasName": {
+            "zh_CN": "数量",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "textField_pq063xees",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "DOUBLE",
+          "alias": "field_mzrmk1n2",
+          "aggregateType": "COUNT"
+        },
+        {
+          "aliasName": "设备状态_值",
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "radioField_pq067njt6_value",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "STRING",
+          "alias": "field_mmyufujq",
+          "aggregateType": "NONE"
+        }
+      ],
+      "filterList": [
+        {
+          "filterKey": "filter-21f42176-6752-4108-8900-560f08a06eb1",
+          "alias": "field_mmyufujq",
+          "conditionType": "EqualTo",
+          "paramId": "node_ocmmyuejft6-selectFilter",
+          "filterType": "relate"
+        }
+      ],
+      "fieldList": [
+        "field_szbjbslp",
+        "field_mzrmk1n2"
+      ],
+      "xFieldTitles": [
+        "设备状态"
+      ],
+      "yFieldTitles": [
+        "数量"
+      ]
+    },
+    {
+      "id": "node_ocmmyuejfti",
+      "type": "YoushuGroupedBarChart",
+      "title": "各区域巡检次数",
+      "dataSetKeys": [
+        "chartData"
+      ],
+      "dataSetKey": "chartData",
+      "cid": "node_ocmmyuejfti",
+      "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+      "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+      "fieldDefinitionList": [
+        {
+          "aliasName": {
+            "zh_CN": "巡检区域",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "selectField_pq0647gqt_value",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "STRING",
+          "alias": "field_zor74utr",
+          "aggregateType": "NONE"
+        },
+        {
+          "aliasName": {
+            "zh_CN": "巡检次数",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "textField_pq063xees",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "DOUBLE",
+          "alias": "field_3dedkmaq",
+          "aggregateType": "COUNT"
+        },
+        {
+          "aliasName": "设备状态_值",
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "radioField_pq067njt6_value",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "STRING",
+          "alias": "field_mmyufujq",
+          "aggregateType": "NONE"
+        }
+      ],
+      "filterList": [
+        {
+          "filterKey": "filter-527ad750-5e20-4b07-8934-054ebe4ece35",
+          "alias": "field_mmyufujq",
+          "conditionType": "EqualTo",
+          "paramId": "node_ocmmyuejft6-selectFilter",
+          "filterType": "relate"
+        }
+      ],
+      "fieldList": [
+        "field_zor74utr",
+        "field_3dedkmaq"
+      ],
+      "xFieldTitles": [
+        "巡检区域"
+      ],
+      "yFieldTitles": [
+        "巡检次数"
+      ]
+    },
+    {
+      "id": "node_ocmmyuejftk",
+      "type": "YoushuGroupedBarChart",
+      "title": "各设备巡检次数",
+      "dataSetKeys": [
+        "chartData"
+      ],
+      "dataSetKey": "chartData",
+      "cid": "node_ocmmyuejftk",
+      "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+      "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+      "fieldDefinitionList": [
+        {
+          "aliasName": {
+            "zh_CN": "设备名称",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "selectField_pq062vhhm_value",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "STRING",
+          "alias": "field_6dpw9yfh",
+          "aggregateType": "NONE"
+        },
+        {
+          "aliasName": {
+            "zh_CN": "巡检次数",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "textField_pq063xees",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "DOUBLE",
+          "alias": "field_ta3wg84j",
+          "aggregateType": "COUNT"
+        },
+        {
+          "aliasName": "设备状态_值",
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "radioField_pq067njt6_value",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "STRING",
+          "alias": "field_mmyufujq",
+          "aggregateType": "NONE"
+        }
+      ],
+      "filterList": [
+        {
+          "filterKey": "filter-8e38fe3d-7967-42bc-a825-b70b3d207ab2",
+          "alias": "field_mmyufujq",
+          "conditionType": "EqualTo",
+          "paramId": "node_ocmmyuejft6-selectFilter",
+          "filterType": "relate"
+        }
+      ],
+      "fieldList": [
+        "field_6dpw9yfh",
+        "field_ta3wg84j"
+      ],
+      "xFieldTitles": [
+        "设备名称"
+      ],
+      "yFieldTitles": [
+        "巡检次数"
+      ]
+    },
+    {
+      "id": "node_ocmmyuejftm",
+      "type": "YoushuLineChart",
+      "title": "巡检日期趋势",
+      "dataSetKeys": [
+        "chartData"
+      ],
+      "dataSetKey": "chartData",
+      "cid": "node_ocmmyuejftm",
+      "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+      "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+      "fieldDefinitionList": [
+        {
+          "aliasName": {
+            "zh_CN": "巡检日期",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "timeGranularityType": "DAY",
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "dateField_pq066npit",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "DATE",
+          "alias": "field_xzm3zrdd",
+          "aggregateType": "NONE"
+        },
+        {
+          "aliasName": {
+            "zh_CN": "巡检次数",
+            "type": "i18n"
+          },
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "textField_pq063xees",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "DOUBLE",
+          "alias": "field_5svdkrr5",
+          "aggregateType": "COUNT"
+        },
+        {
+          "aliasName": "设备状态_值",
+          "isDim": false,
+          "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "fieldCode": "radioField_pq067njt6_value",
+          "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+          "dataType": "STRING",
+          "alias": "field_mmyufujq",
+          "aggregateType": "NONE"
+        }
+      ],
+      "filterList": [
+        {
+          "filterKey": "filter-426a03b4-63a0-447f-a798-bc786a841d8b",
+          "alias": "field_mmyufujq",
+          "conditionType": "EqualTo",
+          "paramId": "node_ocmmyuejft6-selectFilter",
+          "filterType": "relate"
+        }
+      ],
+      "fieldList": [
+        "field_xzm3zrdd",
+        "field_5svdkrr5"
+      ],
+      "xFieldTitles": [
+        "巡检日期"
+      ],
+      "yFieldTitles": [
+        "巡检次数"
+      ]
+    }
+  ]
+}

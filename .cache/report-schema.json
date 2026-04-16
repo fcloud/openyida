@@ -1,0 +1,2030 @@
+{
+  "content": {
+    "gmtModified": 1774083375000,
+    "i18nData": [],
+    "pages": [
+      {
+        "componentsMap": [
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuSelectFilter",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuTopFilterContainer",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "PageHeaderContent",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "Tab",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "TabsLayout",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "PageHeaderTab",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuPageHeader",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "RootHeader",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "RootContent",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "RootFooter",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "Page",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuTable",
+            "version": "1.0.6"
+          },
+          {
+            "package": "@/components/vc-yida-report",
+            "componentName": "YoushuGroupedBarChart",
+            "version": "1.0.6"
+          }
+        ],
+        "id": "REPORT-3OG66891K834LPWFHDX5A7EYELG03RXM930NM5",
+        "componentsTree": [
+          {
+            "css": "body {\n  background-color: #f2f3f5;\n}\n",
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "componentName": "YoushuSelectFilter",
+                                "id": "node_ocmn039nau6",
+                                "props": {
+                                  "settings": {
+                                    "mode": "single",
+                                    "container": {
+                                      "height": -88
+                                    },
+                                    "hasSelectAll": false,
+                                    "isMultiLine": true,
+                                    "dataConfig": {
+                                      "tagMode": false,
+                                      "showTitle": true,
+                                      "required": false
+                                    },
+                                    "labelConfig": {
+                                      "labelAlign": "top",
+                                      "labelTips": {
+                                        "en_US": "",
+                                        "zh_CN": "",
+                                        "type": "i18n"
+                                      },
+                                      "labelTipIcon": "prompt-filling",
+                                      "label": {
+                                        "en_US": "Filter Title",
+                                        "zh_CN": "所属项目",
+                                        "type": "i18n"
+                                      },
+                                      "labelColSpan": 4,
+                                      "showLabel": true
+                                    },
+                                    "contentConfig": {
+                                      "notFoundContent": {
+                                        "en_US": "No data",
+                                        "zh_CN": "暂无数据",
+                                        "type": "i18n"
+                                      },
+                                      "placeholder": {
+                                        "en_US": "Please select",
+                                        "zh_CN": "请选择",
+                                        "type": "i18n"
+                                      }
+                                    },
+                                    "overallStyle": {
+                                      "size": "medium",
+                                      "hasClear": true,
+                                      "autoWidth": true,
+                                      "behavior": "NORMAL"
+                                    }
+                                  },
+                                  "openRefresh": true,
+                                  "link": {
+                                    "hasLink": false,
+                                    "onlyIcon": true,
+                                    "content": {
+                                      "en_US": "More",
+                                      "zh_CN": "更多",
+                                      "type": "i18n"
+                                    }
+                                  },
+                                  "dataSetModelMap": {
+                                    "selectFilter": {
+                                      "cubeCodes": [
+                                        "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271"
+                                      ],
+                                      "mockData": [],
+                                      "dataViewQueryModel": {
+                                        "orderByList": [],
+                                        "fieldDefinitionList": [
+                                          {
+                                            "aliasName": {
+                                              "zh_CN": "所属项目",
+                                              "type": "i18n"
+                                            },
+                                            "isDim": false,
+                                            "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                            "fieldCode": "field_mn036yf0",
+                                            "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                            "dataType": "STRING",
+                                            "alias": "field_mn03a0t2",
+                                            "aggregateType": "NONE"
+                                          },
+                                          {
+                                            "aliasName": {
+                                              "zh_CN": "所属项目",
+                                              "type": "i18n"
+                                            },
+                                            "isDim": false,
+                                            "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                            "fieldCode": "field_mn036yf0",
+                                            "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                            "dataType": "STRING",
+                                            "alias": "field_mn03a0t4",
+                                            "aggregateType": "NONE"
+                                          }
+                                        ],
+                                        "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                        "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                                        "filterList": [],
+                                        "fieldList": [
+                                          "field_mn03a0t2",
+                                          "field_mn03a0t4"
+                                        ]
+                                      },
+                                      "defaultValue": {
+                                        "conditionType": "EqualTo"
+                                      },
+                                      "limit": "",
+                                      "valueField": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mn03a0t2",
+                                          "fieldCode": "field_mn036yf0",
+                                          "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mn03a0t2",
+                                            "type": "NONE"
+                                          },
+                                          "title": {
+                                            "zh_CN": "所属项目",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                          "beUsedTimes": 1,
+                                          "id": "field_mn036yf0",
+                                          "text": "所属项目",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ],
+                                      "filterList": [],
+                                      "fieldList": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mn03a0t2",
+                                          "fieldCode": "field_mn036yf0",
+                                          "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mn03a0t2",
+                                            "type": "NONE"
+                                          },
+                                          "title": {
+                                            "zh_CN": "所属项目",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                          "beUsedTimes": 1,
+                                          "id": "field_mn036yf0",
+                                          "text": "所属项目",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        },
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mn03a0t4",
+                                          "fieldCode": "field_mn036yf0",
+                                          "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mn03a0t4",
+                                            "type": "NONE"
+                                          },
+                                          "title": {
+                                            "zh_CN": "所属项目",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                          "beUsedTimes": 1,
+                                          "id": "field_mn036yf0",
+                                          "text": "所属项目",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ],
+                                      "youshuDataType": "real",
+                                      "labelField": [
+                                        {
+                                          "visible": true,
+                                          "isDimension": "false",
+                                          "fieldKey": "field_mn03a0t4",
+                                          "fieldCode": "field_mn036yf0",
+                                          "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                          "dataType": "STRING",
+                                          "format": {
+                                            "type": "NONE"
+                                          },
+                                          "link": [
+                                            {
+                                              "type": "NONE"
+                                            }
+                                          ],
+                                          "drillList": [],
+                                          "orderBy": {
+                                            "reference": "field_mn03a0t4",
+                                            "type": "NONE"
+                                          },
+                                          "title": {
+                                            "zh_CN": "所属项目",
+                                            "type": "i18n"
+                                          },
+                                          "aggregateType": "NONE",
+                                          "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                          "beUsedTimes": 1,
+                                          "id": "field_mn036yf0",
+                                          "text": "所属项目",
+                                          "measureType": "MEASURE_ATTRIBUTE"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "copyAsImg": false,
+                                  "exportData": {
+                                    "ignoreSwitch": true,
+                                    "passType": "NO_PASS",
+                                    "exportType": "BROWSER",
+                                    "supportExport": false
+                                  },
+                                  "hasFullscreen": false,
+                                  "mockData": [
+                                    {
+                                      "data": {
+                                        "data": [
+                                          {
+                                            "level": "P6",
+                                            "job": "前端"
+                                          },
+                                          {
+                                            "level": "P7",
+                                            "job": "设计"
+                                          },
+                                          {
+                                            "level": "P8",
+                                            "job": "后端"
+                                          }
+                                        ],
+                                        "meta": [
+                                          {
+                                            "aliasName": "层级",
+                                            "alias": "level",
+                                            "category": "valueField"
+                                          },
+                                          {
+                                            "aliasName": "工作",
+                                            "alias": "job",
+                                            "category": "labelField"
+                                          }
+                                        ],
+                                        "currentPage": 1,
+                                        "totalCount": 3
+                                      },
+                                      "name": "selectFilter"
+                                    }
+                                  ],
+                                  "autoLink": true,
+                                  "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n* 返回数据文档： https://www.yuque.com/yida/support/xgg4ps\n* data: 返回的数据 \n* extraInfo: { meta: [], cardParams: {} }，meta 代表数据元信息，cardParams 代表卡片参数信息\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                                  "isHeightAuto": false,
+                                  "enabledCache": true,
+                                  "userConfig": [
+                                    {
+                                      "name": "selectFilter",
+                                      "title": "筛选器数据集",
+                                      "items": [
+                                        {
+                                          "setterName": "ColumnFieldSetter",
+                                          "name": "valueField",
+                                          "setterProps": {
+                                            "single": true,
+                                            "showFormatTab": true,
+                                            "showFormulaEditor": true,
+                                            "showFieldInfo": true,
+                                            "showAggregateTab": true,
+                                            "showEditTab": true,
+                                            "showSortTab": true
+                                          },
+                                          "title": "查询字段"
+                                        },
+                                        {
+                                          "setterName": "ColumnFieldSetter",
+                                          "name": "labelField",
+                                          "setterProps": {
+                                            "single": true,
+                                            "showFormatTab": true,
+                                            "showFormulaEditor": true,
+                                            "showFieldInfo": true,
+                                            "showAggregateTab": true,
+                                            "showEditTab": true,
+                                            "showSortTab": true
+                                          },
+                                          "title": "显示字段"
+                                        },
+                                        {
+                                          "setterName": "DefaultValueSetter",
+                                          "name": "defaultValue",
+                                          "setterProps": {
+                                            "timeAsString": true
+                                          },
+                                          "title": "默认值"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "__style__": {},
+                                  "cid": "node_ocmn039nau6",
+                                  "fieldId": "YoushuSelectFilter_mn039nhr"
+                                }
+                              }
+                            ],
+                            "componentName": "YoushuTopFilterContainer",
+                            "id": "node_ocmn039nau5",
+                            "props": {
+                              "resetBtn": true,
+                              "layout": [
+                                {
+                                  "static": false,
+                                  "w": 1,
+                                  "moved": false,
+                                  "h": 1,
+                                  "x": 0,
+                                  "y": 0,
+                                  "i": "YoushuSelectFilter_mn039nhr"
+                                }
+                              ],
+                              "rowColumn": 3,
+                              "createForm": true,
+                              "searchBtn": true,
+                              "fixed": true,
+                              "__style__": {},
+                              "rglSwitch": true,
+                              "status": "normal",
+                              "fieldId": "filter_mn039nhs",
+                              "cid": "node_ocmn039nau5"
+                            }
+                          }
+                        ],
+                        "componentName": "PageHeaderContent",
+                        "id": "node_ocmn039nau4",
+                        "props": {}
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "componentName": "Tab",
+                                "id": "node_ocmn039nau9",
+                                "props": {
+                                  "title": {
+                                    "en_US": "Tab Item",
+                                    "zh_CN": "标签项",
+                                    "type": "i18n"
+                                  }
+                                }
+                              },
+                              {
+                                "componentName": "Tab",
+                                "id": "node_ocmn039naua",
+                                "props": {
+                                  "title": {
+                                    "en_US": "Tab Item",
+                                    "zh_CN": "标签项",
+                                    "type": "i18n"
+                                  }
+                                }
+                              }
+                            ],
+                            "componentName": "TabsLayout",
+                            "id": "node_ocmn039nau8",
+                            "props": {
+                              "shape": "pure",
+                              "contentPadding": "18px 18px",
+                              "needBadge": false,
+                              "tabPosition": "top",
+                              "isItemsVariable": false,
+                              "forceRender": false,
+                              "lazyLoad": true,
+                              "traceable": false,
+                              "size": "medium",
+                              "excessMode": "slide",
+                              "items": [
+                                {
+                                  "title": {
+                                    "en_US": "Tab Item",
+                                    "zh_CN": "标签项",
+                                    "type": "i18n"
+                                  }
+                                },
+                                {
+                                  "title": {
+                                    "en_US": "Tab Item",
+                                    "zh_CN": "标签项",
+                                    "type": "i18n"
+                                  }
+                                }
+                              ],
+                              "__style__": {},
+                              "fieldId": "tabsLayout_mn039nht",
+                              "rglSwitch": false
+                            }
+                          }
+                        ],
+                        "componentName": "PageHeaderTab",
+                        "id": "node_ocmn039nau7",
+                        "props": {}
+                      }
+                    ],
+                    "componentName": "YoushuPageHeader",
+                    "id": "node_ocmn039nau3",
+                    "props": {
+                      "tab": false,
+                      "showTitle": true,
+                      "titleContent": {
+                        "en_US": "专题名称",
+                        "zh_CN": "专题名称",
+                        "type": "i18n"
+                      },
+                      "titleTip": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "status": "normal",
+                      "cid": "node_ocmn039nau3"
+                    }
+                  }
+                ],
+                "componentName": "RootHeader",
+                "id": "node_ocmn039nau2",
+                "props": {}
+              },
+              {
+                "children": [
+                  {
+                    "componentName": "YoushuTable",
+                    "id": "node_ocmn039naue",
+                    "props": {
+                      "enableFieldSelect": false,
+                      "auth": [],
+                      "openRefresh": true,
+                      "link": {
+                        "hasLink": false,
+                        "onlyIcon": true,
+                        "content": {
+                          "en_US": "More",
+                          "zh_CN": "更多",
+                          "type": "i18n"
+                        }
+                      },
+                      "titleTipIconName": "help",
+                      "exportData": {
+                        "ignoreSwitch": true,
+                        "passType": "NO_PASS",
+                        "exportType": "BROWSER",
+                        "supportExport": false,
+                        "filterList": "",
+                        "exportPromptFilter": ""
+                      },
+                      "componentTitleTextAlign": "LEFT",
+                      "hasFullscreen": false,
+                      "showCopyData": false,
+                      "componentTitle": {
+                        "en_US": "",
+                        "zh_CN": "项目任务完成进展",
+                        "type": "i18n"
+                      },
+                      "titleTipContent": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "__style__": {},
+                      "fieldId": "YoushuTable_mn039wss",
+                      "settings": {
+                        "maxBodyHeight": "300",
+                        "container": {
+                          "height": 472
+                        },
+                        "isTree": false,
+                        "idField": "",
+                        "drilldownFilterList": "",
+                        "pagination": {
+                          "isPagination": false,
+                          "pageShowCount": 5,
+                          "size": "small",
+                          "pageSize": 10,
+                          "type": "normal",
+                          "showPageSelect": false
+                        },
+                        "defaultExpand": false,
+                        "seqNumColWidth": 50,
+                        "mergeCell": false,
+                        "isUniqueRows": false,
+                        "calcTableSpan": "/* function calcTableSpan(rowIndex, colIndex, dataIndex, record) {\nif (rowIndex === 2 && colIndex === 1) {\n  return {\n    // 合并3行 \n    rowSpan: 3,\n  };\n}\n\nif (rowIndex === 0 && colIndex === 2) {\n  return {\n    // 合并2列\n    colSpan: 2,\n  };\n}\n} */",
+                        "pidField": "",
+                        "isLeaf": "",
+                        "rglConfig": {
+                          "w": 6,
+                          "isHeightAuto": true,
+                          "h": 21
+                        },
+                        "fixedColumnIndex": 1,
+                        "rankStyle": false,
+                        "fixedHeader": false,
+                        "seqNumBackgroundSize": 10,
+                        "seqNumStyles": [
+                          {
+                            "backgroundColor": "#ffb71e",
+                            "color": "#ffffff"
+                          },
+                          {
+                            "backgroundColor": "#c2c2c2",
+                            "color": "#ffffff"
+                          },
+                          {
+                            "backgroundColor": "#d3846b",
+                            "color": "#ffffff"
+                          }
+                        ],
+                        "size": "medium",
+                        "theme": "split",
+                        "wordSize": "medium:14",
+                        "isReverseTable": false,
+                        "showReversedHeader": false
+                      },
+                      "showComponentTitle": true,
+                      "dataSetModelMap": {
+                        "table": {
+                          "cubeCodes": [
+                            "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271"
+                          ],
+                          "mockData": [],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": {
+                                  "zh_CN": "所属项目",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yf0",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0sy",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "项目优先级_值",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yfp",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0t0",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "任务名称",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yf2",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0sw",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "优先级_值",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yef",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0ss",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "完成进度",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yeb",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "DOUBLE",
+                                "alias": "field_mn03a0sq",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "执行人_名称",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yet",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "ARRAY",
+                                "alias": "field_mn03a0su",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": "所属项目",
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yf0",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0t2",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                            "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                            "filterList": [
+                              {
+                                "filterKey": "filter-55148b54-1309-4940-a0ec-439de6343eac",
+                                "alias": "field_mn03a0t2",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmn039nau6-selectFilter",
+                                "filterType": "relate"
+                              }
+                            ],
+                            "fieldList": [
+                              "field_mn03a0sy",
+                              "field_mn03a0t0",
+                              "field_mn03a0sw",
+                              "field_mn03a0ss",
+                              "field_mn03a0sq",
+                              "field_mn03a0su"
+                            ]
+                          },
+                          "limit": "",
+                          "columnFields": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0sy",
+                              "fieldCode": "field_mn036yf0",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0sy",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "所属项目",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yf0",
+                              "text": "所属项目",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0t0",
+                              "fieldCode": "field_mn036yfp",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0t0",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "项目优先级_值",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yfp",
+                              "text": "项目优先级_值",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0sw",
+                              "fieldCode": "field_mn036yf2",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0sw",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "任务名称",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yf2",
+                              "text": "任务名称",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0ss",
+                              "fieldCode": "field_mn036yef",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0ss",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "优先级_值",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yef",
+                              "text": "优先级_值",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0sq",
+                              "fieldCode": "field_mn036yeb",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "DOUBLE",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0sq",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "完成进度",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yeb",
+                              "text": "完成进度",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0su",
+                              "fieldCode": "field_mn036yet",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "ARRAY",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0su",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "执行人_名称",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yet",
+                              "text": "执行人_名称",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "filterList": [
+                            {
+                              "filterKey": "filter-55148b54-1309-4940-a0ec-439de6343eac",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmn039nau6-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mn03a0t2",
+                                "fieldCode": "field_mn036yf0",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mn03a0t2",
+                                  "type": "NONE"
+                                },
+                                "title": {
+                                  "zh_CN": "所属项目",
+                                  "type": "i18n"
+                                },
+                                "aggregateType": "NONE",
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "beUsedTimes": 1,
+                                "id": "field_mn036yf0",
+                                "text": "所属项目",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            }
+                          ],
+                          "fieldList": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0sy",
+                              "fieldCode": "field_mn036yf0",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0sy",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "所属项目",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yf0",
+                              "text": "所属项目",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0t0",
+                              "fieldCode": "field_mn036yfp",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0t0",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "项目优先级_值",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yfp",
+                              "text": "项目优先级_值",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0sw",
+                              "fieldCode": "field_mn036yf2",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0sw",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "任务名称",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yf2",
+                              "text": "任务名称",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0ss",
+                              "fieldCode": "field_mn036yef",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0ss",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "优先级_值",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yef",
+                              "text": "优先级_值",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0sq",
+                              "fieldCode": "field_mn036yeb",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "DOUBLE",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0sq",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "完成进度",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yeb",
+                              "text": "完成进度",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0su",
+                              "fieldCode": "field_mn036yet",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "ARRAY",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0su",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "执行人_名称",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yet",
+                              "text": "执行人_名称",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "youshuDataType": "real"
+                        }
+                      },
+                      "titleTip": false,
+                      "copyAsImg": false,
+                      "defaultSelectedFields": "",
+                      "headerSize": "medium",
+                      "mockData": [
+                        {
+                          "data": {
+                            "data": [
+                              {
+                                "colomn1": "浙江省",
+                                "colomn2": "杭州市",
+                                "colomn3": "滨江区",
+                                "profit": 234,
+                                "sales": 12323
+                              },
+                              {
+                                "colomn1": "浙江省",
+                                "colomn2": "杭州市",
+                                "colomn3": "滨江区",
+                                "profit": 321,
+                                "sales": 22321
+                              },
+                              {
+                                "colomn1": "浙江省",
+                                "colomn2": "杭州市",
+                                "colomn3": "滨江区",
+                                "profit": 111,
+                                "sales": 11123
+                              },
+                              {
+                                "colomn1": "浙江省",
+                                "colomn2": "杭州市",
+                                "colomn3": "余杭区",
+                                "profit": 234,
+                                "sales": 32132
+                              },
+                              {
+                                "colomn1": "浙江省",
+                                "colomn2": "杭州市",
+                                "colomn3": "余杭区",
+                                "profit": 321,
+                                "sales": 22132
+                              },
+                              {
+                                "colomn1": "浙江省",
+                                "colomn2": "杭州市",
+                                "colomn3": "余杭区",
+                                "profit": 111,
+                                "sales": 43221
+                              }
+                            ],
+                            "meta": [
+                              {
+                                "aliasName": "省份",
+                                "dataType": "STRING",
+                                "alias": "colomn1",
+                                "category": "columnFields"
+                              },
+                              {
+                                "aliasName": "城市",
+                                "dataType": "STRING",
+                                "alias": "colomn2",
+                                "category": "columnFields"
+                              },
+                              {
+                                "aliasName": "区",
+                                "dataType": "STRING",
+                                "alias": "colomn3",
+                                "category": "columnFields"
+                              },
+                              {
+                                "aliasName": "销售额",
+                                "dataType": "STRING",
+                                "alias": "sales",
+                                "category": "columnFields"
+                              },
+                              {
+                                "aliasName": "利润",
+                                "dataType": "STRING",
+                                "alias": "profit",
+                                "category": "columnFields"
+                              }
+                            ],
+                            "currentPage": 1,
+                            "totalCount": 6
+                          },
+                          "name": "table"
+                        }
+                      ],
+                      "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n* 返回数据文档： https://www.yuque.com/yida/support/xgg4ps\n* data: 返回的数据 \n* extraInfo: { meta: [], cardParams: {} }，meta 代表数据元信息，cardParams 代表卡片参数信息\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                      "isHeightAuto": true,
+                      "showFieldSelectIcon": true,
+                      "enabledCache": true,
+                      "userConfig": [
+                        {
+                          "name": "table",
+                          "title": "配置数据",
+                          "items": [
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "columnFields",
+                              "tip": {
+                                "content": "体验版最多添加 30 个字段，所有付费版最多添加 100 个字段"
+                              },
+                              "setterProps": {
+                                "showFormatTab": true,
+                                "maxFieldNum": 100,
+                                "showAliasSetting": true,
+                                "showEditTab": true,
+                                "showDataLink": true,
+                                "batchSetFields": [
+                                  "text",
+                                  "title",
+                                  "message",
+                                  "aggregateType",
+                                  "align",
+                                  "format_type",
+                                  "format_decimalDigit",
+                                  "width",
+                                  "rowStatus",
+                                  "groupTitle"
+                                ],
+                                "supportDynamicAlias": true,
+                                "showBatchSet": true,
+                                "conditionStyle": true,
+                                "showTableColumnTab": true
+                              },
+                              "title": "表格列"
+                            }
+                          ]
+                        }
+                      ],
+                      "cid": "node_ocmn039naue"
+                    }
+                  },
+                  {
+                    "componentName": "YoushuGroupedBarChart",
+                    "id": "node_ocmn039naug",
+                    "props": {
+                      "settings": {
+                        "container": {
+                          "height": 248
+                        },
+                        "slider": {
+                          "showSlider": false
+                        },
+                        "yAxis": {
+                          "tickCount": 5,
+                          "showTitle": false,
+                          "line": false,
+                          "grid": true,
+                          "labelStyle": {
+                            "rotate": "0",
+                            "color": "rgba(23,26,29,0.4)",
+                            "labelType": "default",
+                            "fontSize": 12,
+                            "autoHide": true,
+                            "autoRotate": true,
+                            "percent": 30,
+                            "value": 100,
+                            "limitLengthType": "percent"
+                          },
+                          "label": true,
+                          "title": {
+                            "en_US": "",
+                            "zh_CN": "",
+                            "type": "i18n"
+                          },
+                          "showYAxis": true,
+                          "tickLine": false
+                        },
+                        "xAxis": {
+                          "showTitle": false,
+                          "line": true,
+                          "grid": false,
+                          "values": {
+                            "en_US": "",
+                            "zh_CN": "",
+                            "type": "i18n"
+                          },
+                          "labelStyle": {
+                            "rotate": "0",
+                            "color": "rgba(23,26,29,0.4)",
+                            "labelType": "default",
+                            "fontSize": 12,
+                            "autoHide": true,
+                            "autoRotate": true,
+                            "percent": 30,
+                            "value": 100,
+                            "limitLengthType": "percent"
+                          },
+                          "label": true,
+                          "title": {
+                            "en_US": "",
+                            "zh_CN": "",
+                            "type": "i18n"
+                          },
+                          "showXAxis": true,
+                          "tickLine": true
+                        },
+                        "legend": {
+                          "showLegend": true,
+                          "flipPage": true,
+                          "legendPosition": "top-left"
+                        },
+                        "tooltip": {
+                          "showTooltip": true
+                        },
+                        "style": {
+                          "radiusRightTop": 4,
+                          "maxSize": "",
+                          "radiusLeftBottom": 0,
+                          "radiusLeftTop": 4,
+                          "colorType": "SCHEMA_COLOR",
+                          "mode": "group",
+                          "customColor": "#5894FF,#394B76,#F7B900,#E55F24,#80D5F5,#9849B0,#3BC88A,#0E869D,#F4A49E,#80563C",
+                          "size": "",
+                          "barBackground": "",
+                          "linkGroup": false,
+                          "groupSpacing": 0,
+                          "minSize": "",
+                          "radiusRightBottom": 0,
+                          "transpose": false,
+                          "barStyle": "ai",
+                          "chartColorsMode": "defaultColorsMode"
+                        },
+                        "label": {
+                          "labelShowStyle": "ai",
+                          "color": "#000",
+                          "fontSize": 12,
+                          "autoAdjust": true,
+                          "autoHide": true,
+                          "position": "middle",
+                          "autoColor": true,
+                          "autoPosition": false,
+                          "showLabel": true
+                        },
+                        "axisType": "hz",
+                        "countLabel": {
+                          "color": "#000",
+                          "fontSize": 12,
+                          "showCountLabel": false
+                        }
+                      },
+                      "showComponentTitle": true,
+                      "auth": [],
+                      "openRefresh": true,
+                      "link": {
+                        "hasLink": false,
+                        "onlyIcon": true,
+                        "content": {
+                          "en_US": "More",
+                          "zh_CN": "更多",
+                          "type": "i18n"
+                        }
+                      },
+                      "dataSetModelMap": {
+                        "chartData": {
+                          "groupField": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0te",
+                              "fieldCode": "field_mn036yek",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0te",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "任务状态_值",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yek",
+                              "text": "任务状态_值",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "cubeCodes": [
+                            "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271"
+                          ],
+                          "annotationField": [],
+                          "xField": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0tc",
+                              "fieldCode": "field_mn036yf0",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0tc",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "所属项目",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yf0",
+                              "text": "所属项目",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "mockData": [],
+                          "dataViewQueryModel": {
+                            "orderByList": [],
+                            "fieldDefinitionList": [
+                              {
+                                "aliasName": {
+                                  "zh_CN": "所属项目",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yf0",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0tc",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "任务状态_值",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yek",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0te",
+                                "aggregateType": "NONE"
+                              },
+                              {
+                                "aliasName": {
+                                  "zh_CN": "任务实例ID",
+                                  "type": "i18n"
+                                },
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn03c4qa",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0tk",
+                                "aggregateType": "COUNT"
+                              },
+                              {
+                                "aliasName": "所属项目",
+                                "isDim": false,
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "fieldCode": "field_mn036yf0",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "alias": "field_mn03a0t2",
+                                "aggregateType": "NONE"
+                              }
+                            ],
+                            "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                            "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+                            "filterList": [
+                              {
+                                "filterKey": "filter-60595281-ef60-49e2-9b2b-38c2a3928e88",
+                                "alias": "field_mn03a0t2",
+                                "conditionType": "EqualTo",
+                                "paramId": "node_ocmn039nau6-selectFilter",
+                                "filterType": "relate"
+                              }
+                            ],
+                            "fieldList": [
+                              "field_mn03a0tc",
+                              "field_mn03a0te",
+                              "field_mn03a0tk"
+                            ]
+                          },
+                          "yField": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0tk",
+                              "fieldCode": "field_mn03c4qa",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0tk",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "任务实例ID",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn03c4qa",
+                              "text": "任务实例ID",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "limit": "",
+                          "filterList": [
+                            {
+                              "filterKey": "filter-60595281-ef60-49e2-9b2b-38c2a3928e88",
+                              "conditionType": "EqualTo",
+                              "paramId": "node_ocmn039nau6-selectFilter",
+                              "fieldInfo": {
+                                "visible": true,
+                                "isDimension": "false",
+                                "fieldKey": "field_mn03a0t2",
+                                "fieldCode": "field_mn036yf0",
+                                "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "dataType": "STRING",
+                                "format": {
+                                  "type": "NONE"
+                                },
+                                "link": [
+                                  {
+                                    "type": "NONE"
+                                  }
+                                ],
+                                "drillList": [],
+                                "orderBy": {
+                                  "reference": "field_mn03a0t2",
+                                  "type": "NONE"
+                                },
+                                "title": {
+                                  "zh_CN": "所属项目",
+                                  "type": "i18n"
+                                },
+                                "aggregateType": "NONE",
+                                "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                                "beUsedTimes": 1,
+                                "id": "field_mn036yf0",
+                                "text": "所属项目",
+                                "measureType": "MEASURE_ATTRIBUTE"
+                              },
+                              "filterType": "relate"
+                            }
+                          ],
+                          "fieldList": [
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0tc",
+                              "fieldCode": "field_mn036yf0",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0tc",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "所属项目",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yf0",
+                              "text": "所属项目",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0te",
+                              "fieldCode": "field_mn036yek",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0te",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "任务状态_值",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "NONE",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn036yek",
+                              "text": "任务状态_值",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            },
+                            {
+                              "visible": true,
+                              "isDimension": "false",
+                              "fieldKey": "field_mn03a0tk",
+                              "fieldCode": "field_mn03c4qa",
+                              "classifiedCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "dataType": "STRING",
+                              "format": {
+                                "type": "NONE"
+                              },
+                              "link": [
+                                {
+                                  "type": "NONE"
+                                }
+                              ],
+                              "drillList": [],
+                              "orderBy": {
+                                "reference": "field_mn03a0tk",
+                                "type": "NONE"
+                              },
+                              "title": {
+                                "zh_CN": "任务实例ID",
+                                "type": "i18n"
+                              },
+                              "aggregateType": "COUNT",
+                              "cubeCode": "vm_APP_KNILKT41DC5XXR5D4QEC_0200012118421322662271",
+                              "beUsedTimes": 1,
+                              "id": "field_mn03c4qa",
+                              "text": "任务实例ID",
+                              "measureType": "MEASURE_ATTRIBUTE"
+                            }
+                          ],
+                          "youshuDataType": "real"
+                        }
+                      },
+                      "titleTip": false,
+                      "copyAsImg": false,
+                      "titleTipIconName": "help",
+                      "exportData": {
+                        "ignoreSwitch": true,
+                        "passType": "NO_PASS",
+                        "exportType": "BROWSER",
+                        "supportExport": false,
+                        "filterList": "",
+                        "exportPromptFilter": ""
+                      },
+                      "componentTitleTextAlign": "LEFT",
+                      "headerSize": "medium",
+                      "datasetModel": {
+                        "filterList": []
+                      },
+                      "hasFullscreen": false,
+                      "mockData": [
+                        {
+                          "data": {
+                            "data": [
+                              {
+                                "london": 18.9,
+                                "month": "Jan.",
+                                "berlin": 42.4
+                              },
+                              {
+                                "london": 28.8,
+                                "month": "Feb.",
+                                "berlin": 12.4
+                              },
+                              {
+                                "london": 39.3,
+                                "month": "Mar.",
+                                "berlin": 23.2
+                              },
+                              {
+                                "london": 81.4,
+                                "month": "Apr.",
+                                "berlin": 34.5
+                              },
+                              {
+                                "london": 47,
+                                "month": "May",
+                                "berlin": 99.7
+                              },
+                              {
+                                "london": 20.3,
+                                "month": "Jun.",
+                                "berlin": 52.6
+                              },
+                              {
+                                "london": 24,
+                                "month": "Jul.",
+                                "berlin": 35.5
+                              },
+                              {
+                                "london": 35.6,
+                                "month": "Aug.",
+                                "berlin": 37.4
+                              }
+                            ],
+                            "meta": [
+                              {
+                                "aliasName": "月份",
+                                "dataType": "STRING",
+                                "alias": "month",
+                                "category": "xField"
+                              },
+                              {
+                                "aliasName": "伦敦",
+                                "dataType": "NUMBER",
+                                "alias": "london",
+                                "category": "yField"
+                              }
+                            ],
+                            "currentPage": 1,
+                            "totalCount": 8
+                          },
+                          "name": "chartData"
+                        }
+                      ],
+                      "componentTitle": {
+                        "en_US": "",
+                        "zh_CN": "不同项目任务完成情况",
+                        "type": "i18n"
+                      },
+                      "afterFetch": "/**\n* 对返回的数据做一些自定义处理\n* 返回数据文档： https://www.yuque.com/yida/support/xgg4ps\n* data: 返回的数据 \n* extraInfo: { meta: [], cardParams: {} }，meta 代表数据元信息，cardParams 代表卡片参数信息\n*/\nfunction afterFetch(data, extraInfo) {\n  return data;\n}",
+                      "isHeightAuto": false,
+                      "enabledCache": true,
+                      "titleTipContent": {
+                        "en_US": "",
+                        "zh_CN": "",
+                        "type": "i18n"
+                      },
+                      "userConfig": [
+                        {
+                          "name": "chartData",
+                          "title": "配置数据",
+                          "items": [
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "xField",
+                              "setterProps": {
+                                "single": true,
+                                "showFormatTab": true,
+                                "showFormulaEditor": true,
+                                "showFieldInfo": true,
+                                "showAggregateTab": false,
+                                "showDrillTab": true,
+                                "showEditTab": true,
+                                "showSortTab": true
+                              },
+                              "title": "横轴"
+                            },
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "yField",
+                              "setterProps": {
+                                "showFormatTab": true,
+                                "showFormulaEditor": true,
+                                "showEditTab": true,
+                                "showChartStyleTab": true,
+                                "showDataLink": true,
+                                "batchSetFields": [
+                                  "text",
+                                  "title",
+                                  "aggregateType",
+                                  "format_type",
+                                  "format_decimalDigit"
+                                ],
+                                "showBatchSet": true,
+                                "showTimeOffsetTab": true
+                              },
+                              "title": "纵轴（可多选）"
+                            },
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "groupField",
+                              "setterProps": {
+                                "single": true,
+                                "showFormulaEditor": true,
+                                "showAggregateTab": false,
+                                "showColorTab": true,
+                                "showEditTab": true
+                              },
+                              "title": "分组"
+                            },
+                            {
+                              "setterName": "ColumnFieldSetter",
+                              "name": "annotationField",
+                              "setterProps": {
+                                "showFormulaEditor": true,
+                                "showFormatTab": true,
+                                "showEditTab": true,
+                                "showChartAnnotation": true,
+                                "showSortTab": false
+                              },
+                              "title": "参考线"
+                            }
+                          ]
+                        }
+                      ],
+                      "__style__": {},
+                      "fieldId": "YoushuGroupedBarChart_mn039wsu",
+                      "cid": "node_ocmn039naug"
+                    }
+                  }
+                ],
+                "componentName": "RootContent",
+                "id": "node_ocmn039naub",
+                "props": {
+                  "layout": [
+                    {
+                      "static": false,
+                      "minH": 36,
+                      "resizeHandles": [
+                        "w",
+                        "e"
+                      ],
+                      "w": 6,
+                      "maxH": 36,
+                      "moved": false,
+                      "h": 36,
+                      "x": 0,
+                      "y": 0,
+                      "i": "YoushuTable_mn039wss"
+                    },
+                    {
+                      "static": false,
+                      "w": 6,
+                      "moved": false,
+                      "h": 22,
+                      "x": 0,
+                      "y": 36,
+                      "i": "YoushuGroupedBarChart_mn039wsu"
+                    }
+                  ],
+                  "contentBgColor": "transparent",
+                  "rglSwitch": true
+                }
+              },
+              {
+                "componentName": "RootFooter",
+                "id": "node_ocmn039nauc",
+                "props": {}
+              }
+            ],
+            "methods": {
+              "__initMethods__": {
+                "compiled": "function (exports, module) { /*set actions code here*/ }",
+                "source": "function (exports, module) { /*set actions code here*/ }",
+                "type": "js"
+              }
+            },
+            "componentName": "Page",
+            "id": "node_ocmn039nau1",
+            "dataSource": {
+              "offline": [],
+              "globalConfig": {
+                "fit": {
+                  "compiled": "'use strict';\n\nvar __preParser__ = function fit(response) {\n  var content = response.content !== undefined ? response.content : response;\n  var error = {\n    message: response.errorMsg || response.errors && response.errors[0] && response.errors[0].msg || response.content || '远程数据源请求出错，success is false'\n  };\n  var success = true;\n  if (response.success !== undefined) {\n    success = response.success;\n  } else if (response.hasError !== undefined) {\n    success = !response.hasError;\n  }\n  return {\n    content: content,\n    success: success,\n    error: error\n  };\n};",
+                  "source": "function fit(response) {\r\n  const content = (response.content !== undefined) ? response.content : response;\r\n  const error = {\r\n    message: response.errorMsg ||\r\n      (response.errors && response.errors[0] && response.errors[0].msg) ||\r\n      response.content || '远程数据源请求出错，success is false',\r\n  };\r\n  let success = true;\r\n  if (response.success !== undefined) {\r\n    success = response.success;\r\n  } else if (response.hasError !== undefined) {\r\n    success = !response.hasError;\r\n  }\r\n  return {\r\n    content,\r\n    success,\r\n    error,\r\n  };\r\n}",
+                  "type": "js",
+                  "error": {}
+                }
+              },
+              "online": [],
+              "list": [],
+              "sync": true
+            },
+            "lifeCycles": {
+              "constructor": {
+                "compiled": "function constructor() {\nvar module = { exports: {} };\nvar _this = this;\nthis.__initMethods__(module.exports, module);\nObject.keys(module.exports).forEach(function(item) {\n  if(typeof module.exports[item] === 'function'){\n    _this[item] = module.exports[item];\n  }\n});\n\n}",
+                "source": "function constructor() {\nvar module = { exports: {} };\nvar _this = this;\nthis.__initMethods__(module.exports, module);\nObject.keys(module.exports).forEach(function(item) {\n  if(typeof module.exports[item] === 'function'){\n    _this[item] = module.exports[item];\n  }\n});\n\n}",
+                "type": "js"
+              }
+            },
+            "props": {
+              "pageStyle": ":root {\n  background-color: #f2f3f5;\n}\n",
+              "containerStyle": {},
+              "userVariables": [
+                {
+                  "text": "工号",
+                  "id": "varWorkNo"
+                },
+                {
+                  "text": "部门名称",
+                  "id": "varDeptName"
+                },
+                {
+                  "text": "所属公司编号",
+                  "id": "varCorpNo"
+                },
+                {
+                  "text": "部门编码",
+                  "id": "varDeptNo"
+                }
+              ],
+              "templateVersion": "1.0.0",
+              "className": "page_mn03ah19",
+              "params": []
+            }
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "5.0",
+    "schemaType": "superform",
+    "actions": {
+      "module": {
+        "compiled": "",
+        "source": ""
+      },
+      "list": []
+    },
+    "status": "ONLINE"
+  },
+  "success": true
+}

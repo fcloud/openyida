@@ -1,0 +1,114 @@
+{
+  "filters": [
+    {
+      "fieldId": "selectField_jr2g93k9",
+      "label": "任务状态",
+      "dataType": "STRING",
+      "type": "select",
+      "fieldType": "SelectField"
+    },
+    {
+      "fieldId": "selectField_jr2hz8wp",
+      "label": "优先级",
+      "dataType": "STRING",
+      "type": "select",
+      "fieldType": "SelectField"
+    },
+    {
+      "fieldId": "dateField_jr2gjkqm",
+      "label": "截止日期",
+      "dataType": "DATE",
+      "type": "time",
+      "fieldType": "DateField"
+    }
+  ],
+  "indicators": [
+    {
+      "fieldId": "textField_jr2gbmkf",
+      "label": "任务总数",
+      "aggregateType": "COUNT",
+      "fieldType": "TextField"
+    }
+  ],
+  "charts": [
+    {
+      "title": "任务状态分布",
+      "type": "pie",
+      "dimension": {
+        "fieldId": "selectField_jr2g93k9",
+        "label": "任务状态",
+        "dataType": "STRING",
+        "fieldType": "SelectField"
+      },
+      "measure": {
+        "fieldId": "textField_jr2gbmkf",
+        "label": "任务数量",
+        "aggregation": "COUNT",
+        "fieldType": "TextField"
+      }
+    },
+    {
+      "title": "优先级分布",
+      "type": "bar",
+      "dimension": {
+        "fieldId": "selectField_jr2hz8wp",
+        "label": "优先级",
+        "dataType": "STRING",
+        "fieldType": "SelectField"
+      },
+      "measure": {
+        "fieldId": "textField_jr2gbmkf",
+        "label": "任务数量",
+        "aggregation": "COUNT",
+        "fieldType": "TextField"
+      }
+    },
+    {
+      "title": "任务创建趋势",
+      "type": "line",
+      "dimension": {
+        "fieldId": "dateField_jr2gjkqm",
+        "label": "截止日期",
+        "dataType": "DATE",
+        "fieldType": "DateField",
+        "timeGranularityType": "MONTH"
+      },
+      "measure": {
+        "fieldId": "textField_jr2gbmkf",
+        "label": "任务数量",
+        "aggregation": "COUNT",
+        "fieldType": "TextField"
+      }
+    },
+    {
+      "title": "项目任务分布",
+      "type": "bar",
+      "dimension": {
+        "fieldId": "textField_jr2gsc5g",
+        "label": "所属项目",
+        "dataType": "STRING",
+        "fieldType": "TextField"
+      },
+      "measure": {
+        "fieldId": "textField_jr2gbmkf",
+        "label": "任务数量",
+        "aggregation": "COUNT",
+        "fieldType": "TextField"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "title": "任务明细表",
+      "columns": [
+        { "fieldId": "textField_jr2gbmkf", "label": "任务名称", "dataType": "STRING", "fieldType": "TextField" },
+        { "fieldId": "textField_jr2gsc5g", "label": "所属项目", "dataType": "STRING", "fieldType": "TextField" },
+        { "fieldId": "employeeField_jr2gcklo", "label": "负责人", "dataType": "STRING", "fieldType": "EmployeeField" },
+        { "fieldId": "selectField_jr2g93k9", "label": "任务状态", "dataType": "STRING", "fieldType": "SelectField" },
+        { "fieldId": "selectField_jr2hz8wp", "label": "优先级", "dataType": "STRING", "fieldType": "SelectField" },
+        { "fieldId": "dateField_jr2gufqh", "label": "开始日期", "dataType": "DATE", "fieldType": "DateField" },
+        { "fieldId": "dateField_jr2gjkqm", "label": "截止日期", "dataType": "DATE", "fieldType": "DateField" }
+      ]
+    }
+  ]
+}

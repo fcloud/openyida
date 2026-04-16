@@ -1,0 +1,102 @@
+{
+  "filters": [
+    {
+      "type": "select",
+      "label": "项目状态",
+      "fieldId": "selectField_j2xeiduk",
+      "fieldType": "SelectField",
+      "dataType": "STRING",
+      "mode": "single"
+    },
+    {
+      "type": "select",
+      "label": "项目优先级",
+      "fieldId": "selectField_j2xeiguj",
+      "fieldType": "SelectField",
+      "dataType": "STRING",
+      "mode": "single"
+    }
+  ],
+  "indicators": [
+    {
+      "label": "项目总数",
+      "aggregation": "COUNT_DISTINCT",
+      "fieldId": "pid",
+      "dataType": "STRING"
+    },
+    {
+      "label": "总预算",
+      "aggregation": "SUM",
+      "fieldId": "textField_j2xeja4e",
+      "dataType": "STRING"
+    },
+    {
+      "label": "平均进度",
+      "aggregation": "AVG",
+      "fieldId": "rateField_j2xeiy60",
+      "dataType": "DOUBLE"
+    }
+  ],
+  "tables": [
+    {
+      "title": "按状态统计",
+      "dimensions": [
+        {
+          "fieldId": "selectField_j2xeiduk",
+          "fieldType": "SelectField",
+          "label": "项目状态"
+        }
+      ],
+      "aggregations": [
+        {
+          "fieldId": "pid",
+          "label": "项目数量",
+          "aggregation": "COUNT_DISTINCT"
+        }
+      ],
+      "height": 200,
+      "pageSize": 10,
+      "pagination": true
+    },
+    {
+      "title": "按优先级统计",
+      "dimensions": [
+        {
+          "fieldId": "selectField_j2xeiguj",
+          "fieldType": "SelectField",
+          "label": "项目优先级"
+        }
+      ],
+      "aggregations": [
+        {
+          "fieldId": "pid",
+          "label": "项目数量",
+          "aggregation": "COUNT_DISTINCT"
+        }
+      ],
+      "height": 200,
+      "pageSize": 10,
+      "pagination": true
+    },
+    {
+      "title": "按状态统计预算",
+      "dimensions": [
+        {
+          "fieldId": "selectField_j2xeiduk",
+          "fieldType": "SelectField",
+          "label": "项目状态"
+        }
+      ],
+      "aggregations": [
+        {
+          "fieldId": "pid",
+          "label": "项目数量",
+          "aggregation": "COUNT_DISTINCT"
+        }
+      ],
+      "height": 200,
+      "pageSize": 10,
+      "pagination": true
+    }
+  ]
+}

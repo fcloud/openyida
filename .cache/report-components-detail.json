@@ -1,0 +1,2364 @@
+{
+  "components": [
+    {
+      "id": "node_ocmmyuejfte",
+      "componentName": "YoushuSimpleIndicatorCard",
+      "props": {
+        "enableFieldSelect": false,
+        "auth": [],
+        "openRefresh": true,
+        "link": {
+          "hasLink": false,
+          "onlyIcon": true,
+          "content": {
+            "en_US": "More",
+            "zh_CN": "更多",
+            "type": "i18n"
+          }
+        },
+        "titleTipIconName": "help",
+        "exportData": {
+          "ignoreSwitch": true,
+          "passType": "NO_PASS",
+          "exportType": "BROWSER",
+          "supportExport": false
+        },
+        "componentTitleTextAlign": "LEFT",
+        "hasFullscreen": false,
+        "componentTitle": {
+          "en_US": "",
+          "zh_CN": "巡检核心指标",
+          "type": "i18n"
+        },
+        "titleTipContent": {
+          "en_US": "",
+          "zh_CN": "",
+          "type": "i18n"
+        },
+        "__style__": {},
+        "fieldId": "YoushuSimpleIndicatorCard_mlx7o8y9",
+        "settings": {
+          "container": {
+            "height": 72
+          },
+          "titleMaxRow": 0,
+          "bgColorType": "single",
+          "sideBarColor": "#0089FF",
+          "valueSize": "20px",
+          "themeType": "dark",
+          "columnCount": 4,
+          "showSideStyle": "NONE",
+          "showSideBorder": true,
+          "colorType": "SCHEMA_COLOR",
+          "followTheme": false,
+          "customColor": "#0089FF,#FF9200,#11AB4F,#FFD100,#7263EE,#67C5EB,#6B748C,#FF755A,#007E99,#FFA8A8",
+          "singleBgColor": "#F1F2F3",
+          "size": "normal",
+          "multipleBgColor": "defaultColorsMode",
+          "columnCountForH5": 2,
+          "popoverAlign": "b"
+        },
+        "showComponentTitle": true,
+        "dataSetModelMap": {
+          "youshuData": {
+            "cubeCodes": [
+              "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR"
+            ],
+            "mockData": [],
+            "helpKpi": [],
+            "kpi": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_h9gasupb",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_h9gasupb",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "总巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "总巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "dataViewQueryModel": {
+              "orderByList": [],
+              "fieldDefinitionList": [
+                {
+                  "aliasName": {
+                    "zh_CN": "总巡检次数",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "textField_pq063xees",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "DOUBLE",
+                  "alias": "field_h9gasupb",
+                  "aggregateType": "COUNT"
+                },
+                {
+                  "aliasName": "设备状态_值",
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_mmyufujq",
+                  "aggregateType": "NONE"
+                }
+              ],
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+              "filterList": [
+                {
+                  "filterKey": "filter-dd5cbb0c-3dee-443e-b97c-912152362f3e",
+                  "alias": "field_mmyufujq",
+                  "conditionType": "EqualTo",
+                  "paramId": "node_ocmmyuejft6-selectFilter",
+                  "filterType": "relate"
+                }
+              ],
+              "fieldList": [
+                "field_h9gasupb"
+              ]
+            },
+            "limit": "",
+            "filterList": [
+              {
+                "filterKey": "filter-dd5cbb0c-3dee-443e-b97c-912152362f3e",
+                "conditionType": "EqualTo",
+                "paramId": "node_ocmmyuejft6-selectFilter",
+                "fieldInfo": {
+                  "visible": true,
+                  "isDimension": "false",
+                  "fieldKey": "field_mmyufujq",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "format": {
+                    "type": "NONE"
+                  },
+                  "link": [
+                    {
+                      "type": "NONE"
+                    }
+                  ],
+                  "drillList": [],
+                  "orderBy": {
+                    "reference": "field_mmyufujq",
+                    "type": "NONE"
+                  },
+                  "isVisible": "y",
+                  "title": {
+                    "zh_CN": "设备状态_值",
+                    "type": "i18n"
+                  },
+                  "aggregateType": "NONE",
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "beUsedTimes": 1,
+                  "id": "radioField_pq067njt6_value",
+                  "text": "设备状态_值",
+                  "measureType": "MEASURE_ATTRIBUTE"
+                },
+                "filterType": "relate"
+              }
+            ],
+            "fieldList": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_h9gasupb",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_h9gasupb",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "总巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "总巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "youshuDataType": "real"
+          }
+        },
+        "titleTip": false,
+        "copyAsImg": false,
+        "headerSize": "medium",
+        "datasetModel": {
+          "filterList": []
+        },
+        "mockData": [
+          {
+            "data": {
+              "data": [
+                {
+                  "randomKey1": 23123,
+                  "randomKey2": 7712
+                }
+              ],
+              "meta": [
+                {
+                  "fieldKey": "randomKey1",
+                  "dataType": "STRING",
+                  "title": "指标1",
+                  "category": "kpi"
+                },
+                {
+                  "fieldKey": "randomKey2",
+                  "dataType": "STRING",
+                  "title": "指标2",
+                  "category": "kpi"
+                }
+              ],
+              "currentPage": 1,
+              "totalCount": 1
+            },
+            "name": "youshuData"
+          }
+        ],
+        "afterFetch": {
+          "type": "JSFunction",
+          "value": "function afterFetch(data, extraInfo) {\n  return data;\n}"
+        },
+        "isHeightAuto": true,
+        "enabledCache": true,
+        "showFieldSelectIcon": true,
+        "userConfig": [
+          {
+            "name": "youshuData",
+            "title": "指标数据",
+            "items": [
+              {
+                "setterName": "ColumnFieldSetter",
+                "name": "kpi",
+                "setterProps": {
+                  "single": false,
+                  "showFormatTab": true,
+                  "showDataLink": true,
+                  "customTabs": [
+                    {
+                      "tabName": "指标配置"
+                    }
+                  ],
+                  "batchSetFields": [
+                    "text",
+                    "title",
+                    "titleTip",
+                    "aggregateType",
+                    "format_type",
+                    "format_decimalDigit",
+                    "unit"
+                  ],
+                  "supportDynamicAlias": true,
+                  "showBatchSet": true,
+                  "showSortTab": false
+                },
+                "title": "指标",
+                "required": true
+              },
+              {
+                "setterName": "ColumnFieldSetter",
+                "name": "helpKpi",
+                "setterProps": {
+                  "single": false,
+                  "showFormatTab": true,
+                  "showDataLink": true,
+                  "showSortTab": false
+                },
+                "title": "辅助指标"
+              }
+            ]
+          }
+        ],
+        "cid": "node_ocmmyuejfte"
+      }
+    },
+    {
+      "id": "node_ocmmyuejftg",
+      "componentName": "YoushuPieChart",
+      "props": {
+        "auth": [],
+        "openRefresh": true,
+        "link": {
+          "hasLink": false,
+          "onlyIcon": true,
+          "content": {
+            "en_US": "More",
+            "zh_CN": "更多",
+            "type": "i18n"
+          }
+        },
+        "titleTipIconName": "help",
+        "exportData": {
+          "ignoreSwitch": true,
+          "passType": "NO_PASS",
+          "exportType": "BROWSER",
+          "supportExport": false
+        },
+        "componentTitleTextAlign": "LEFT",
+        "hasFullscreen": false,
+        "componentTitle": {
+          "en_US": "",
+          "zh_CN": "设备状态分布",
+          "type": "i18n"
+        },
+        "enableFilterFunction": false,
+        "titleTipContent": {
+          "en_US": "",
+          "zh_CN": "",
+          "type": "i18n"
+        },
+        "__style__": {},
+        "fieldId": "YoushuPieChart_bff3y8m8",
+        "settings": {
+          "container": {
+            "height": 248
+          },
+          "statistic": {
+            "showStatistic": false
+          },
+          "legend": {
+            "layout": "vertical",
+            "showLegend": true,
+            "flipPage": true,
+            "legendPosition": "right",
+            "type": "item",
+            "contentType": "NAME",
+            "itemSpacing": 12,
+            "ratio": 65
+          },
+          "percentDigits": 2,
+          "tooltip": {
+            "showTooltip": true
+          },
+          "style": {
+            "isRing": false,
+            "customColor": "#5894FF,#394B76,#F7B900,#E55F24,#80D5F5,#9849B0,#3BC88A,#0E869D,#F4A49E,#80563C",
+            "radius": 75,
+            "innerRadius": 0,
+            "chartColorsMode": "defaultColorsMode",
+            "colorType": "SCHEMA_COLOR"
+          },
+          "label": {
+            "labelSize": 12,
+            "labelAlign": "outer",
+            "labelFormatType": "NAME_PERCENT",
+            "showLine": true,
+            "showLabel": true,
+            "labelColor": "#404040"
+          }
+        },
+        "showComponentTitle": true,
+        "dataSetModelMap": {
+          "chartData": {
+            "totalValue": [],
+            "yField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_mzrmk1n2",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_mzrmk1n2",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "数量",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "数量",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "trailingIconField": [],
+            "youshuDataType": "real",
+            "cubeCodes": [
+              "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR"
+            ],
+            "xField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_szbjbslp",
+                "fieldCode": "radioField_pq067njt6_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_szbjbslp",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "设备状态",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "radioField_pq067njt6_value",
+                "text": "设备状态",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "totalRatio": [],
+            "mockData": [],
+            "dataViewQueryModel": {
+              "orderByList": [],
+              "fieldDefinitionList": [
+                {
+                  "aliasName": {
+                    "zh_CN": "设备状态",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_szbjbslp",
+                  "aggregateType": "NONE"
+                },
+                {
+                  "aliasName": {
+                    "zh_CN": "数量",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "textField_pq063xees",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "DOUBLE",
+                  "alias": "field_mzrmk1n2",
+                  "aggregateType": "COUNT"
+                },
+                {
+                  "aliasName": "设备状态_值",
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_mmyufujq",
+                  "aggregateType": "NONE"
+                }
+              ],
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+              "filterList": [
+                {
+                  "filterKey": "filter-21f42176-6752-4108-8900-560f08a06eb1",
+                  "alias": "field_mmyufujq",
+                  "conditionType": "EqualTo",
+                  "paramId": "node_ocmmyuejft6-selectFilter",
+                  "filterType": "relate"
+                }
+              ],
+              "fieldList": [
+                "field_szbjbslp",
+                "field_mzrmk1n2"
+              ]
+            },
+            "limit": "",
+            "filterList": [
+              {
+                "filterKey": "filter-21f42176-6752-4108-8900-560f08a06eb1",
+                "conditionType": "EqualTo",
+                "paramId": "node_ocmmyuejft6-selectFilter",
+                "fieldInfo": {
+                  "visible": true,
+                  "isDimension": "false",
+                  "fieldKey": "field_mmyufujq",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "format": {
+                    "type": "NONE"
+                  },
+                  "link": [
+                    {
+                      "type": "NONE"
+                    }
+                  ],
+                  "drillList": [],
+                  "orderBy": {
+                    "reference": "field_mmyufujq",
+                    "type": "NONE"
+                  },
+                  "isVisible": "y",
+                  "title": {
+                    "zh_CN": "设备状态_值",
+                    "type": "i18n"
+                  },
+                  "aggregateType": "NONE",
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "beUsedTimes": 1,
+                  "id": "radioField_pq067njt6_value",
+                  "text": "设备状态_值",
+                  "measureType": "MEASURE_ATTRIBUTE"
+                },
+                "filterType": "relate"
+              }
+            ],
+            "fieldList": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_szbjbslp",
+                "fieldCode": "radioField_pq067njt6_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_szbjbslp",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "设备状态",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "radioField_pq067njt6_value",
+                "text": "设备状态",
+                "measureType": "MEASURE_ATTRIBUTE"
+              },
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_mzrmk1n2",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_mzrmk1n2",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "数量",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "数量",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "ratio": []
+          }
+        },
+        "titleTip": false,
+        "copyAsImg": false,
+        "headerSize": "medium",
+        "datasetModel": {
+          "filterList": []
+        },
+        "mockData": [
+          {
+            "data": {
+              "data": [
+                {
+                  "totalValue": 202,
+                  "xField": "分类A",
+                  "totalRatio": 0.32,
+                  "yField": 63,
+                  "ratio": 0.8
+                },
+                {
+                  "totalValue": 202,
+                  "xField": "分类B",
+                  "totalRatio": 0.32,
+                  "yField": 73,
+                  "ratio": -0.3
+                },
+                {
+                  "totalValue": 202,
+                  "xField": "分类C",
+                  "totalRatio": 0.32,
+                  "yField": 66,
+                  "ratio": 0.25
+                }
+              ],
+              "meta": [
+                {
+                  "aliasName": "分类字段",
+                  "dataType": "STRING",
+                  "alias": "xField",
+                  "category": "xField"
+                },
+                {
+                  "aliasName": "数值字段",
+                  "dataType": "NUMBER",
+                  "alias": "yField",
+                  "category": "yField"
+                },
+                {
+                  "aliasName": "趋势值字段",
+                  "dataType": "NUMBER",
+                  "alias": "ratio",
+                  "category": "ratio"
+                },
+                {
+                  "aliasName": "总值字段",
+                  "dataType": "NUMBER",
+                  "alias": "totalValue",
+                  "category": "totalValue"
+                },
+                {
+                  "aliasName": "总趋势值字段",
+                  "dataType": "NUMBER",
+                  "alias": "totalRatio",
+                  "category": "totalRatio"
+                }
+              ],
+              "currentPage": 1,
+              "totalCount": 3
+            },
+            "name": "chartData"
+          }
+        ],
+        "afterFetch": {
+          "type": "JSFunction",
+          "value": "function afterFetch(data, extraInfo) {\n  return data;\n}"
+        },
+        "isHeightAuto": false,
+        "enabledCache": true,
+        "userConfig": {
+          "chartType": "pie",
+          "dataConfig": {
+            "totalValue": [],
+            "xField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_szbjbslp",
+                "fieldCode": "radioField_pq067njt6_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_szbjbslp",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "设备状态",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "radioField_pq067njt6_value",
+                "text": "设备状态",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "totalRatio": [],
+            "yField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_mzrmk1n2",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_mzrmk1n2",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "数量",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "数量",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "ratio": []
+          }
+        },
+        "cid": "node_ocmmyuejftg"
+      }
+    },
+    {
+      "id": "node_ocmmyuejfti",
+      "componentName": "YoushuGroupedBarChart",
+      "props": {
+        "settings": {
+          "container": {
+            "height": 248
+          },
+          "slider": {
+            "showSlider": false
+          },
+          "yAxis": {
+            "tickCount": 5,
+            "showTitle": false,
+            "line": false,
+            "grid": true,
+            "labelStyle": {
+              "rotate": "0",
+              "color": "rgba(23,26,29,0.4)",
+              "labelType": "default",
+              "fontSize": 12,
+              "autoHide": true,
+              "autoRotate": true,
+              "percent": 30,
+              "value": 100,
+              "limitLengthType": "percent"
+            },
+            "label": true,
+            "title": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "showYAxis": true,
+            "tickLine": false
+          },
+          "xAxis": {
+            "showTitle": false,
+            "line": true,
+            "grid": false,
+            "values": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "labelStyle": {
+              "rotate": "0",
+              "color": "rgba(23,26,29,0.4)",
+              "labelType": "default",
+              "fontSize": 12,
+              "autoHide": true,
+              "autoRotate": true,
+              "percent": 30,
+              "value": 100,
+              "limitLengthType": "percent"
+            },
+            "label": true,
+            "title": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "showXAxis": true,
+            "tickLine": true
+          },
+          "legend": {
+            "showLegend": true,
+            "flipPage": true,
+            "legendPosition": "top-left"
+          },
+          "tooltip": {
+            "showTooltip": true
+          },
+          "style": {
+            "radiusRightTop": 4,
+            "mode": "group",
+            "customColor": "#5894FF,#394B76,#F7B900,#E55F24,#80D5F5,#9849B0,#3BC88A,#0E869D,#F4A49E,#80563C",
+            "linkGroup": false,
+            "groupSpacing": 0,
+            "radiusRightBottom": 0,
+            "radiusLeftBottom": 0,
+            "transpose": false,
+            "radiusLeftTop": 4,
+            "barStyle": "ai",
+            "chartColorsMode": "defaultColorsMode",
+            "colorType": "SCHEMA_COLOR"
+          },
+          "label": {
+            "labelShowStyle": "ai",
+            "color": "#000",
+            "fontSize": 12,
+            "autoAdjust": true,
+            "autoHide": true,
+            "position": "middle",
+            "autoColor": true,
+            "autoPosition": false,
+            "showLabel": true
+          },
+          "axisType": "hz",
+          "countLabel": {
+            "color": "#000",
+            "fontSize": 12,
+            "showCountLabel": false
+          }
+        },
+        "showComponentTitle": true,
+        "auth": [],
+        "openRefresh": true,
+        "link": {
+          "hasLink": false,
+          "onlyIcon": true,
+          "content": {
+            "en_US": "More",
+            "zh_CN": "更多",
+            "type": "i18n"
+          }
+        },
+        "dataSetModelMap": {
+          "chartData": {
+            "groupField": [],
+            "cubeCodes": [
+              "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR"
+            ],
+            "annotationField": [],
+            "xField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_zor74utr",
+                "fieldCode": "selectField_pq0647gqt_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_zor74utr",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检区域",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "selectField_pq0647gqt_value",
+                "text": "巡检区域",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "mockData": [],
+            "dataViewQueryModel": {
+              "orderByList": [],
+              "fieldDefinitionList": [
+                {
+                  "aliasName": {
+                    "zh_CN": "巡检区域",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "selectField_pq0647gqt_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_zor74utr",
+                  "aggregateType": "NONE"
+                },
+                {
+                  "aliasName": {
+                    "zh_CN": "巡检次数",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "textField_pq063xees",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "DOUBLE",
+                  "alias": "field_3dedkmaq",
+                  "aggregateType": "COUNT"
+                },
+                {
+                  "aliasName": "设备状态_值",
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_mmyufujq",
+                  "aggregateType": "NONE"
+                }
+              ],
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+              "filterList": [
+                {
+                  "filterKey": "filter-527ad750-5e20-4b07-8934-054ebe4ece35",
+                  "alias": "field_mmyufujq",
+                  "conditionType": "EqualTo",
+                  "paramId": "node_ocmmyuejft6-selectFilter",
+                  "filterType": "relate"
+                }
+              ],
+              "fieldList": [
+                "field_zor74utr",
+                "field_3dedkmaq"
+              ]
+            },
+            "yField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_3dedkmaq",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_3dedkmaq",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "limit": "",
+            "filterList": [
+              {
+                "filterKey": "filter-527ad750-5e20-4b07-8934-054ebe4ece35",
+                "conditionType": "EqualTo",
+                "paramId": "node_ocmmyuejft6-selectFilter",
+                "fieldInfo": {
+                  "visible": true,
+                  "isDimension": "false",
+                  "fieldKey": "field_mmyufujq",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "format": {
+                    "type": "NONE"
+                  },
+                  "link": [
+                    {
+                      "type": "NONE"
+                    }
+                  ],
+                  "drillList": [],
+                  "orderBy": {
+                    "reference": "field_mmyufujq",
+                    "type": "NONE"
+                  },
+                  "isVisible": "y",
+                  "title": {
+                    "zh_CN": "设备状态_值",
+                    "type": "i18n"
+                  },
+                  "aggregateType": "NONE",
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "beUsedTimes": 1,
+                  "id": "radioField_pq067njt6_value",
+                  "text": "设备状态_值",
+                  "measureType": "MEASURE_ATTRIBUTE"
+                },
+                "filterType": "relate"
+              }
+            ],
+            "fieldList": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_zor74utr",
+                "fieldCode": "selectField_pq0647gqt_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_zor74utr",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检区域",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "selectField_pq0647gqt_value",
+                "text": "巡检区域",
+                "measureType": "MEASURE_ATTRIBUTE"
+              },
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_3dedkmaq",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_3dedkmaq",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "youshuDataType": "real"
+          }
+        },
+        "titleTip": false,
+        "copyAsImg": false,
+        "titleTipIconName": "help",
+        "exportData": {
+          "ignoreSwitch": true,
+          "passType": "NO_PASS",
+          "exportType": "BROWSER",
+          "supportExport": false
+        },
+        "componentTitleTextAlign": "LEFT",
+        "headerSize": "medium",
+        "datasetModel": {
+          "filterList": []
+        },
+        "hasFullscreen": false,
+        "mockData": [
+          {
+            "data": {
+              "data": [
+                {
+                  "month": "Jan.",
+                  "value": 18.9
+                },
+                {
+                  "month": "Feb.",
+                  "value": 28.8
+                },
+                {
+                  "month": "Mar.",
+                  "value": 39.3
+                },
+                {
+                  "month": "Apr.",
+                  "value": 81.4
+                },
+                {
+                  "month": "May",
+                  "value": 47
+                }
+              ],
+              "meta": [
+                {
+                  "aliasName": "月份",
+                  "dataType": "STRING",
+                  "alias": "month",
+                  "category": "xField"
+                },
+                {
+                  "aliasName": "数值",
+                  "dataType": "NUMBER",
+                  "alias": "value",
+                  "category": "yField"
+                }
+              ],
+              "currentPage": 1,
+              "totalCount": 5
+            },
+            "name": "chartData"
+          }
+        ],
+        "componentTitle": {
+          "en_US": "",
+          "zh_CN": "各区域巡检次数",
+          "type": "i18n"
+        },
+        "afterFetch": {
+          "type": "JSFunction",
+          "value": "function afterFetch(data, extraInfo) {\n  return data;\n}"
+        },
+        "isHeightAuto": false,
+        "enabledCache": true,
+        "titleTipContent": {
+          "en_US": "",
+          "zh_CN": "",
+          "type": "i18n"
+        },
+        "userConfig": {
+          "chartType": "bar",
+          "dataConfig": {
+            "groupField": [],
+            "annotationField": [],
+            "xField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_zor74utr",
+                "fieldCode": "selectField_pq0647gqt_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_zor74utr",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检区域",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "selectField_pq0647gqt_value",
+                "text": "巡检区域",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "yField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_3dedkmaq",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_3dedkmaq",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ]
+          }
+        },
+        "__style__": {},
+        "fieldId": "YoushuGroupedBarChart_zytyrs19",
+        "cid": "node_ocmmyuejfti"
+      }
+    },
+    {
+      "id": "node_ocmmyuejftk",
+      "componentName": "YoushuGroupedBarChart",
+      "props": {
+        "settings": {
+          "container": {
+            "height": 248
+          },
+          "slider": {
+            "showSlider": false
+          },
+          "yAxis": {
+            "tickCount": 5,
+            "showTitle": false,
+            "line": false,
+            "grid": true,
+            "labelStyle": {
+              "rotate": "0",
+              "color": "rgba(23,26,29,0.4)",
+              "labelType": "default",
+              "fontSize": 12,
+              "autoHide": true,
+              "autoRotate": true,
+              "percent": 30,
+              "value": 100,
+              "limitLengthType": "percent"
+            },
+            "label": true,
+            "title": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "showYAxis": true,
+            "tickLine": false
+          },
+          "xAxis": {
+            "showTitle": false,
+            "line": true,
+            "grid": false,
+            "values": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "labelStyle": {
+              "rotate": "0",
+              "color": "rgba(23,26,29,0.4)",
+              "labelType": "default",
+              "fontSize": 12,
+              "autoHide": true,
+              "autoRotate": true,
+              "percent": 30,
+              "value": 100,
+              "limitLengthType": "percent"
+            },
+            "label": true,
+            "title": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "showXAxis": true,
+            "tickLine": true
+          },
+          "legend": {
+            "showLegend": true,
+            "flipPage": true,
+            "legendPosition": "top-left"
+          },
+          "tooltip": {
+            "showTooltip": true
+          },
+          "style": {
+            "radiusRightTop": 4,
+            "mode": "group",
+            "customColor": "#5894FF,#394B76,#F7B900,#E55F24,#80D5F5,#9849B0,#3BC88A,#0E869D,#F4A49E,#80563C",
+            "linkGroup": false,
+            "groupSpacing": 0,
+            "radiusRightBottom": 0,
+            "radiusLeftBottom": 0,
+            "transpose": false,
+            "radiusLeftTop": 4,
+            "barStyle": "ai",
+            "chartColorsMode": "defaultColorsMode",
+            "colorType": "SCHEMA_COLOR"
+          },
+          "label": {
+            "labelShowStyle": "ai",
+            "color": "#000",
+            "fontSize": 12,
+            "autoAdjust": true,
+            "autoHide": true,
+            "position": "middle",
+            "autoColor": true,
+            "autoPosition": false,
+            "showLabel": true
+          },
+          "axisType": "hz",
+          "countLabel": {
+            "color": "#000",
+            "fontSize": 12,
+            "showCountLabel": false
+          }
+        },
+        "showComponentTitle": true,
+        "auth": [],
+        "openRefresh": true,
+        "link": {
+          "hasLink": false,
+          "onlyIcon": true,
+          "content": {
+            "en_US": "More",
+            "zh_CN": "更多",
+            "type": "i18n"
+          }
+        },
+        "dataSetModelMap": {
+          "chartData": {
+            "groupField": [],
+            "cubeCodes": [
+              "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR"
+            ],
+            "annotationField": [],
+            "xField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_6dpw9yfh",
+                "fieldCode": "selectField_pq062vhhm_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_6dpw9yfh",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "设备名称",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "selectField_pq062vhhm_value",
+                "text": "设备名称",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "mockData": [],
+            "dataViewQueryModel": {
+              "orderByList": [],
+              "fieldDefinitionList": [
+                {
+                  "aliasName": {
+                    "zh_CN": "设备名称",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "selectField_pq062vhhm_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_6dpw9yfh",
+                  "aggregateType": "NONE"
+                },
+                {
+                  "aliasName": {
+                    "zh_CN": "巡检次数",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "textField_pq063xees",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "DOUBLE",
+                  "alias": "field_ta3wg84j",
+                  "aggregateType": "COUNT"
+                },
+                {
+                  "aliasName": "设备状态_值",
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_mmyufujq",
+                  "aggregateType": "NONE"
+                }
+              ],
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+              "filterList": [
+                {
+                  "filterKey": "filter-8e38fe3d-7967-42bc-a825-b70b3d207ab2",
+                  "alias": "field_mmyufujq",
+                  "conditionType": "EqualTo",
+                  "paramId": "node_ocmmyuejft6-selectFilter",
+                  "filterType": "relate"
+                }
+              ],
+              "fieldList": [
+                "field_6dpw9yfh",
+                "field_ta3wg84j"
+              ]
+            },
+            "yField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_ta3wg84j",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_ta3wg84j",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "limit": "",
+            "filterList": [
+              {
+                "filterKey": "filter-8e38fe3d-7967-42bc-a825-b70b3d207ab2",
+                "conditionType": "EqualTo",
+                "paramId": "node_ocmmyuejft6-selectFilter",
+                "fieldInfo": {
+                  "visible": true,
+                  "isDimension": "false",
+                  "fieldKey": "field_mmyufujq",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "format": {
+                    "type": "NONE"
+                  },
+                  "link": [
+                    {
+                      "type": "NONE"
+                    }
+                  ],
+                  "drillList": [],
+                  "orderBy": {
+                    "reference": "field_mmyufujq",
+                    "type": "NONE"
+                  },
+                  "isVisible": "y",
+                  "title": {
+                    "zh_CN": "设备状态_值",
+                    "type": "i18n"
+                  },
+                  "aggregateType": "NONE",
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "beUsedTimes": 1,
+                  "id": "radioField_pq067njt6_value",
+                  "text": "设备状态_值",
+                  "measureType": "MEASURE_ATTRIBUTE"
+                },
+                "filterType": "relate"
+              }
+            ],
+            "fieldList": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_6dpw9yfh",
+                "fieldCode": "selectField_pq062vhhm_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_6dpw9yfh",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "设备名称",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "selectField_pq062vhhm_value",
+                "text": "设备名称",
+                "measureType": "MEASURE_ATTRIBUTE"
+              },
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_ta3wg84j",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_ta3wg84j",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "youshuDataType": "real"
+          }
+        },
+        "titleTip": false,
+        "copyAsImg": false,
+        "titleTipIconName": "help",
+        "exportData": {
+          "ignoreSwitch": true,
+          "passType": "NO_PASS",
+          "exportType": "BROWSER",
+          "supportExport": false
+        },
+        "componentTitleTextAlign": "LEFT",
+        "headerSize": "medium",
+        "datasetModel": {
+          "filterList": []
+        },
+        "hasFullscreen": false,
+        "mockData": [
+          {
+            "data": {
+              "data": [
+                {
+                  "month": "Jan.",
+                  "value": 18.9
+                },
+                {
+                  "month": "Feb.",
+                  "value": 28.8
+                },
+                {
+                  "month": "Mar.",
+                  "value": 39.3
+                },
+                {
+                  "month": "Apr.",
+                  "value": 81.4
+                },
+                {
+                  "month": "May",
+                  "value": 47
+                }
+              ],
+              "meta": [
+                {
+                  "aliasName": "月份",
+                  "dataType": "STRING",
+                  "alias": "month",
+                  "category": "xField"
+                },
+                {
+                  "aliasName": "数值",
+                  "dataType": "NUMBER",
+                  "alias": "value",
+                  "category": "yField"
+                }
+              ],
+              "currentPage": 1,
+              "totalCount": 5
+            },
+            "name": "chartData"
+          }
+        ],
+        "componentTitle": {
+          "en_US": "",
+          "zh_CN": "各设备巡检次数",
+          "type": "i18n"
+        },
+        "afterFetch": {
+          "type": "JSFunction",
+          "value": "function afterFetch(data, extraInfo) {\n  return data;\n}"
+        },
+        "isHeightAuto": false,
+        "enabledCache": true,
+        "titleTipContent": {
+          "en_US": "",
+          "zh_CN": "",
+          "type": "i18n"
+        },
+        "userConfig": {
+          "chartType": "bar",
+          "dataConfig": {
+            "groupField": [],
+            "annotationField": [],
+            "xField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_6dpw9yfh",
+                "fieldCode": "selectField_pq062vhhm_value",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "STRING",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_6dpw9yfh",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "设备名称",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "selectField_pq062vhhm_value",
+                "text": "设备名称",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "yField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_ta3wg84j",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_ta3wg84j",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ]
+          }
+        },
+        "__style__": {},
+        "fieldId": "YoushuGroupedBarChart_4oqg6ach",
+        "cid": "node_ocmmyuejftk"
+      }
+    },
+    {
+      "id": "node_ocmmyuejftm",
+      "componentName": "YoushuLineChart",
+      "props": {
+        "settings": {
+          "container": {
+            "height": 248
+          },
+          "slider": {
+            "showSlider": false
+          },
+          "yAxis": {
+            "tickCount": 5,
+            "showTitle": false,
+            "line": false,
+            "grid": true,
+            "labelStyle": {
+              "rotate": "0",
+              "color": "rgba(23,26,29,0.4)",
+              "labelType": "default",
+              "fontSize": 12,
+              "autoHide": true,
+              "autoRotate": true,
+              "percent": 30,
+              "value": 100,
+              "limitLengthType": "percent"
+            },
+            "label": true,
+            "title": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "showYAxis": true,
+            "tickLine": false
+          },
+          "xAxis": {
+            "showTitle": false,
+            "line": true,
+            "grid": false,
+            "values": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "labelStyle": {
+              "rotate": "0",
+              "color": "rgba(23,26,29,0.4)",
+              "labelType": "default",
+              "fontSize": 12,
+              "autoHide": true,
+              "autoRotate": true,
+              "percent": 30,
+              "value": 100,
+              "limitLengthType": "percent"
+            },
+            "label": true,
+            "title": {
+              "en_US": "",
+              "zh_CN": "",
+              "type": "i18n"
+            },
+            "showXAxis": true,
+            "tickLine": true
+          },
+          "legend": {
+            "showLegend": true,
+            "flipPage": true,
+            "legendPosition": "top-left"
+          },
+          "tooltip": {
+            "showTooltip": true
+          },
+          "style": {
+            "mode": "none",
+            "pointSize": 4,
+            "customColor": "#5894FF,#394B76,#F7B900,#E55F24,#80D5F5,#9849B0,#3BC88A,#0E869D,#F4A49E,#80563C",
+            "showPoint": true,
+            "pointShape": "circle",
+            "showLine": true,
+            "lineWidth": 2,
+            "chartColorsMode": "defaultColorsMode",
+            "smooth": false,
+            "showArea": false,
+            "colorType": "SCHEMA_COLOR"
+          },
+          "label": {
+            "autoOverlap": true,
+            "color": "#000",
+            "fontSize": 12,
+            "showLabel": true
+          },
+          "axisType": "hz"
+        },
+        "showComponentTitle": true,
+        "auth": [],
+        "openRefresh": true,
+        "link": {
+          "hasLink": false,
+          "onlyIcon": true,
+          "content": {
+            "en_US": "More",
+            "zh_CN": "更多",
+            "type": "i18n"
+          }
+        },
+        "dataSetModelMap": {
+          "chartData": {
+            "groupField": [],
+            "cubeCodes": [
+              "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR"
+            ],
+            "annotationField": [],
+            "xField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_xzm3zrdd",
+                "fieldCode": "dateField_pq066npit",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DATE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_xzm3zrdd",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检日期",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "timeGranularityType": "DAY",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "timeFormat": "yyyy-MM-dd",
+                "id": "dateField_pq066npit5",
+                "text": "巡检日期"
+              }
+            ],
+            "mockData": [],
+            "dataViewQueryModel": {
+              "orderByList": [],
+              "fieldDefinitionList": [
+                {
+                  "aliasName": {
+                    "zh_CN": "巡检日期",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "timeGranularityType": "DAY",
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "dateField_pq066npit",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "DATE",
+                  "alias": "field_xzm3zrdd",
+                  "aggregateType": "NONE"
+                },
+                {
+                  "aliasName": {
+                    "zh_CN": "巡检次数",
+                    "type": "i18n"
+                  },
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "textField_pq063xees",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "DOUBLE",
+                  "alias": "field_5svdkrr5",
+                  "aggregateType": "COUNT"
+                },
+                {
+                  "aliasName": "设备状态_值",
+                  "isDim": false,
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "alias": "field_mmyufujq",
+                  "aggregateType": "NONE"
+                }
+              ],
+              "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+              "cubeTenantId": "ding9a0954b4f9d9d40ef5bf40eda33b7ba0",
+              "filterList": [
+                {
+                  "filterKey": "filter-426a03b4-63a0-447f-a798-bc786a841d8b",
+                  "alias": "field_mmyufujq",
+                  "conditionType": "EqualTo",
+                  "paramId": "node_ocmmyuejft6-selectFilter",
+                  "filterType": "relate"
+                }
+              ],
+              "fieldList": [
+                "field_xzm3zrdd",
+                "field_5svdkrr5"
+              ]
+            },
+            "yField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_5svdkrr5",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_5svdkrr5",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "limit": "",
+            "filterList": [
+              {
+                "filterKey": "filter-426a03b4-63a0-447f-a798-bc786a841d8b",
+                "conditionType": "EqualTo",
+                "paramId": "node_ocmmyuejft6-selectFilter",
+                "fieldInfo": {
+                  "visible": true,
+                  "isDimension": "false",
+                  "fieldKey": "field_mmyufujq",
+                  "fieldCode": "radioField_pq067njt6_value",
+                  "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "dataType": "STRING",
+                  "format": {
+                    "type": "NONE"
+                  },
+                  "link": [
+                    {
+                      "type": "NONE"
+                    }
+                  ],
+                  "drillList": [],
+                  "orderBy": {
+                    "reference": "field_mmyufujq",
+                    "type": "NONE"
+                  },
+                  "isVisible": "y",
+                  "title": {
+                    "zh_CN": "设备状态_值",
+                    "type": "i18n"
+                  },
+                  "aggregateType": "NONE",
+                  "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                  "beUsedTimes": 1,
+                  "id": "radioField_pq067njt6_value",
+                  "text": "设备状态_值",
+                  "measureType": "MEASURE_ATTRIBUTE"
+                },
+                "filterType": "relate"
+              }
+            ],
+            "fieldList": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_xzm3zrdd",
+                "fieldCode": "dateField_pq066npit",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DATE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_xzm3zrdd",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检日期",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "timeGranularityType": "DAY",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "timeFormat": "yyyy-MM-dd",
+                "id": "dateField_pq066npit5",
+                "text": "巡检日期"
+              },
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_5svdkrr5",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_5svdkrr5",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ],
+            "youshuDataType": "real"
+          }
+        },
+        "titleTip": false,
+        "copyAsImg": false,
+        "titleTipIconName": "help",
+        "exportData": {
+          "ignoreSwitch": true,
+          "passType": "NO_PASS",
+          "exportType": "BROWSER",
+          "supportExport": false
+        },
+        "componentTitleTextAlign": "LEFT",
+        "headerSize": "medium",
+        "datasetModel": {
+          "filterList": []
+        },
+        "hasFullscreen": false,
+        "mockData": [
+          {
+            "data": {
+              "data": [
+                {
+                  "xField": "2020",
+                  "yField": 3
+                },
+                {
+                  "xField": "2021",
+                  "yField": 4
+                },
+                {
+                  "xField": "2022",
+                  "yField": 3.5
+                },
+                {
+                  "xField": "2023",
+                  "yField": 5
+                },
+                {
+                  "xField": "2024",
+                  "yField": 4.9
+                }
+              ],
+              "meta": [
+                {
+                  "aliasName": "横轴",
+                  "dataType": "STRING",
+                  "alias": "xField",
+                  "category": "xField"
+                },
+                {
+                  "aliasName": "纵轴",
+                  "dataType": "NUMBER",
+                  "alias": "yField",
+                  "category": "yField"
+                }
+              ],
+              "currentPage": 1,
+              "totalCount": 5
+            },
+            "name": "chartData"
+          }
+        ],
+        "componentTitle": {
+          "en_US": "",
+          "zh_CN": "巡检日期趋势",
+          "type": "i18n"
+        },
+        "afterFetch": {
+          "type": "JSFunction",
+          "value": "function afterFetch(data, extraInfo) {\n  return data;\n}"
+        },
+        "isHeightAuto": false,
+        "enabledCache": true,
+        "titleTipContent": {
+          "en_US": "",
+          "zh_CN": "",
+          "type": "i18n"
+        },
+        "userConfig": {
+          "chartType": "line",
+          "dataConfig": {
+            "groupField": [],
+            "annotationField": [],
+            "xField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_xzm3zrdd",
+                "fieldCode": "dateField_pq066npit",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DATE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_xzm3zrdd",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检日期",
+                  "type": "i18n"
+                },
+                "aggregateType": "NONE",
+                "timeGranularityType": "DAY",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "timeFormat": "yyyy-MM-dd",
+                "id": "dateField_pq066npit5",
+                "text": "巡检日期"
+              }
+            ],
+            "yField": [
+              {
+                "visible": true,
+                "isDimension": "false",
+                "fieldKey": "field_5svdkrr5",
+                "fieldCode": "textField_pq063xees",
+                "classifiedCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "dataType": "DOUBLE",
+                "format": {
+                  "type": "NONE"
+                },
+                "link": [
+                  {
+                    "type": "NONE"
+                  }
+                ],
+                "drillList": [],
+                "orderBy": {
+                  "reference": "field_5svdkrr5",
+                  "type": "NONE"
+                },
+                "isVisible": "y",
+                "title": {
+                  "zh_CN": "巡检次数",
+                  "type": "i18n"
+                },
+                "aggregateType": "COUNT",
+                "cubeCode": "FORM_F696F9ECD173453AAEC806BBEB3F496CYOBR",
+                "beUsedTimes": 1,
+                "id": "textField_pq063xees",
+                "text": "巡检次数",
+                "measureType": "MEASURE_ATTRIBUTE"
+              }
+            ]
+          }
+        },
+        "__style__": {},
+        "fieldId": "YoushuLineChart_3n9rk8fj",
+        "cid": "node_ocmmyuejftm"
+      }
+    }
+  ],
+  "prdId": null,
+  "dataSource": {
+    "offline": [],
+    "globalConfig": {
+      "fit": {
+        "compiled": "'use strict';\n\nvar __preParser__ = function fit(response) {\n  var content = response.content !== undefined ? response.content : response;\n  var error = {\n    message: response.errorMsg || response.errors && response.errors[0] && response.errors[0].msg || response.content || '远程数据源请求出错，success is false'\n  };\n  var success = true;\n  if (response.success !== undefined) {\n    success = response.success;\n  } else if (response.hasError !== undefined) {\n    success = !response.hasError;\n  }\n  return {\n    content: content,\n    success: success,\n    error: error\n  };\n};",
+        "source": "function fit(response) {\r\n  const content = (response.content !== undefined) ? response.content : response;\r\n  const error = {\r\n    message: response.errorMsg ||\r\n      (response.errors && response.errors[0] && response.errors[0].msg) ||\r\n      response.content || '远程数据源请求出错，success is false',\r\n  };\r\n  let success = true;\r\n  if (response.success !== undefined) {\r\n    success = response.success;\r\n  } else if (response.hasError !== undefined) {\r\n    success = !response.hasError;\r\n  }\r\n  return {\r\n    content,\r\n    success,\r\n    error,\r\n  };\r\n}",
+        "type": "js",
+        "error": {}
+      }
+    },
+    "online": [],
+    "list": [],
+    "sync": true
+  },
+  "pageHeader": {
+    "id": "node_ocmmyuejft3",
+    "componentName": "YoushuPageHeader",
+    "props": {
+      "tab": false,
+      "showTitle": true,
+      "titleContent": {
+        "en_US": "专题名称",
+        "zh_CN": "专题名称",
+        "type": "i18n"
+      },
+      "titleTip": {
+        "en_US": "",
+        "zh_CN": "",
+        "type": "i18n"
+      },
+      "status": "normal",
+      "cid": "node_ocmmyuejft3"
+    }
+  }
+}

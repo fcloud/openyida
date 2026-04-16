@@ -1,0 +1,153 @@
+{
+  "sourceFormUuid": "FORM-F696F9ECD173453AAEC806BBEB3F496CYOBR",
+  "filters": [
+    {
+      "type": "select",
+      "label": "设备名称",
+      "fieldId": "selectField_pq062vhhm",
+      "fieldType": "SelectField",
+      "dataType": "STRING"
+    },
+    {
+      "type": "select",
+      "label": "巡检区域",
+      "fieldId": "selectField_pq0647gqt",
+      "fieldType": "SelectField",
+      "dataType": "STRING"
+    },
+    {
+      "type": "select",
+      "label": "设备状态",
+      "fieldId": "radioField_pq067njt6",
+      "fieldType": "RadioField",
+      "dataType": "STRING"
+    },
+    {
+      "type": "time",
+      "label": "巡检日期",
+      "fieldId": "dateField_pq066npit",
+      "fieldType": "DateField",
+      "dataType": "DATE"
+    }
+  ],
+  "indicators": [
+    {
+      "kpis": [
+        {
+          "label": "巡检总次数",
+          "aggregation": "COUNT",
+          "fieldId": "serialNumberField_pq061hs9t",
+          "dataType": "STRING"
+        },
+        {
+          "label": "平均巡检评分",
+          "aggregation": "AVG",
+          "fieldId": "rateField_pq06a9x8n",
+          "dataType": "DOUBLE"
+        }
+      ],
+      "settings": {
+        "bgColorType": "multiple",
+        "themeType": "dark",
+        "showSideStyle": "BGTC",
+        "sideBarColor": "#0089FF",
+        "columnCount": 2,
+        "customColor": "#0089FF,#11AB4F"
+      }
+    }
+  ],
+  "charts": [
+    {
+      "type": "pie",
+      "title": "设备状态分布",
+      "dimension": {
+        "fieldId": "radioField_pq067njt6",
+        "label": "设备状态",
+        "fieldType": "RadioField"
+      },
+      "measure": {
+        "fieldId": "serialNumberField_pq061hs9t",
+        "label": "巡检次数",
+        "aggregation": "COUNT"
+      }
+    },
+    {
+      "type": "bar",
+      "title": "各区域巡检统计",
+      "dimension": {
+        "fieldId": "selectField_pq0647gqt",
+        "label": "巡检区域",
+        "fieldType": "SelectField"
+      },
+      "measure": {
+        "fieldId": "serialNumberField_pq061hs9t",
+        "label": "巡检次数",
+        "aggregation": "COUNT"
+      }
+    },
+    {
+      "type": "line",
+      "title": "巡检趋势",
+      "dimension": {
+        "fieldId": "dateField_pq066npit",
+        "label": "巡检日期",
+        "fieldType": "DateField"
+      },
+      "measure": {
+        "fieldId": "serialNumberField_pq061hs9t",
+        "label": "巡检次数",
+        "aggregation": "COUNT"
+      },
+      "settings": {
+        "smooth": true
+      }
+    },
+    {
+      "type": "bar",
+      "title": "各设备巡检次数",
+      "dimension": {
+        "fieldId": "selectField_pq062vhhm",
+        "label": "设备名称",
+        "fieldType": "SelectField"
+      },
+      "measure": {
+        "fieldId": "serialNumberField_pq061hs9t",
+        "label": "巡检次数",
+        "aggregation": "COUNT"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "title": "设备状态统计明细",
+      "dimensions": [
+        {
+          "fieldId": "radioField_pq067njt6",
+          "label": "设备状态",
+          "fieldType": "RadioField",
+          "dataType": "STRING"
+        },
+        {
+          "fieldId": "selectField_pq0647gqt",
+          "label": "巡检区域",
+          "fieldType": "SelectField",
+          "dataType": "STRING"
+        }
+      ],
+      "measures": [
+        {
+          "fieldId": "serialNumberField_pq061hs9t",
+          "label": "巡检次数",
+          "aggregation": "COUNT",
+          "dataType": "STRING"
+        },
+        {
+          "fieldId": "rateField_pq06a9x8n",
+          "label": "平均评分",
+          "aggregation": "AVG",
+          "dataType": "DOUBLE"
+        }
+      ]
+    }
+  ]
+}

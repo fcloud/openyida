@@ -1,0 +1,99 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  validate:
+    name: Pre-publish Validation
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install --ignore-scripts
+
+    - name: Check JavaScript syntax
+      run: |
+        node --check bin/yida.js
+        for f in lib/*.js; do node --check "$f"; done
+        echo "All JS files passed syntax check"
+
+    - name: Run tests
+      run: npm test
+
+  publish:
+    name: Publish to npm & Create Release
+    runs-on: ubuntu-latest
+    needs: validate
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        registry-url: 'https://registry.npmjs.org'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install --ignore-scripts
+
+    - name: Determine npm tag
+      id: npm-tag
+      run: |
+        VERSION="${{ github.ref_name }}"
+        if [[ "$VERSION" == *"-beta"* ]] || [[ "$VERSION" == *"-alpha"* ]] || [[ "$VERSION" == *"-rc"* ]]; then
+          echo "tag=beta" >> $GITHUB_OUTPUT
+        else
+          echo "tag=latest" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Publish to npm
+      run: npm publish --access public --tag ${{ steps.npm-tag.outputs.tag }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Package yida-skills.zip
+      run: |
+        zip -r yida-skills.zip yida-skills/
+        echo "Packaged yida-skills.zip ($(du -sh yida-skills.zip | cut -f1))"
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.ref_name }}
+        name: ${{ github.ref_name }}
+        files: yida-skills.zip
+        prerelease: ${{ contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') || contains(github.ref_name, '-rc') }}
+        body: |
+          ## 安装 / 更新
+
+          ```bash
+          npm install -g openyida
+          ```
+
+          安装后即可在 Claude Code / OpenCode / Aone Copilot / Cursor / Qoder / 悟空 中直接使用，零配置。
+
+          ## yida-skills 技能包
+
+          下载 `yida-skills.zip` 可手动解压到项目目录使用，或通过以下命令自动安装：
+
+          ```bash
+          openyida copy
+          ```
+
+        generate_release_notes: true

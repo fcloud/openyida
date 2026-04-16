@@ -1,0 +1,37 @@
+质检记录报表创建结果
+=====================
+
+任务状态：已完成
+
+报表 Schema 配置已生成，文件位置：.cache/qc-report-schema.json
+
+报表配置详情：
+-------------
+- 报表标题：质检记录分析报表
+- 数据源表单：FORM-47E70941290244F7ACE131C11BBF51ABF836
+- 应用类型：APP_RZ2V1W2GKM2NMHLYEDWN
+
+包含的组件：
+-----------
+1. 筛选器：按检验结果筛选（radioField_c9lucyagc）
+2. 指标卡：总质检数
+3. 饼图：检验结果分布（按 radioField_c9lucyagc 分组）
+4. 柱状图：各产品质检次数（按 textField_c9ls302nk 分组）
+5. 折线图：质检日期趋势（按 dateField_c9lt6m1ju 分组）
+
+下一步操作：
+-----------
+由于 openyida 命令行工具不支持 create-report 命令，原生报表需要通过宜搭平台手动创建。
+
+请按照以下步骤在宜搭平台创建报表：
+1. 登录宜搭平台
+2. 进入应用 APP_RZ2V1W2GKM2NMHLYEDWN
+3. 创建新的报表页面
+4. 使用 .cache/qc-report-schema.json 中的配置进行报表设计
+5. 创建完成后，系统会自动生成报表 formUuid（格式：REPORT-xxx）
+
+注意：
+------
+- 原生报表创建后，可以在自定义页面中通过报表 API 获取数据
+- 报表 API 路径：/alibaba/web/{appType}/visual/visualizationDataRpc/getDataAsync.json
+- 需要获取报表的 prdId 和各组件的 cid 才能调用报表 API

@@ -1,0 +1,80 @@
+{
+  "filters": [
+    {
+      "type": "select",
+      "label": "任务状态",
+      "fieldId": "selectField_jr2g93k9",
+      "dataType": "STRING"
+    },
+    {
+      "type": "select",
+      "label": "优先级",
+      "fieldId": "selectField_jr2hz8wp",
+      "dataType": "STRING"
+    },
+    {
+      "type": "time",
+      "label": "截止日期",
+      "fieldId": "dateField_jr2gjkqm",
+      "dataType": "DATE"
+    }
+  ],
+  "indicators": [
+    {
+      "label": "总任务数",
+      "aggregation": "COUNT",
+      "fieldId": "textField_jr2gbmkf",
+      "dataType": "STRING"
+    },
+    {
+      "label": "总项目数",
+      "aggregation": "COUNT_DISTINCT",
+      "fieldId": "textField_jr2gsc5g",
+      "dataType": "STRING"
+    }
+  ],
+  "charts": [
+    {
+      "type": "pie",
+      "title": "任务状态分布",
+      "dimension": {
+        "fieldId": "selectField_jr2g93k9",
+        "label": "任务状态",
+        "fieldType": "SelectField"
+      },
+      "measure": {
+        "fieldId": "textField_jr2gbmkf",
+        "label": "任务数量",
+        "aggregation": "COUNT"
+      }
+    },
+    {
+      "type": "bar",
+      "title": "优先级分布",
+      "dimension": {
+        "fieldId": "selectField_jr2hz8wp",
+        "label": "优先级",
+        "fieldType": "SelectField"
+      },
+      "measure": {
+        "fieldId": "textField_jr2gbmkf",
+        "label": "任务数量",
+        "aggregation": "COUNT"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "title": "任务明细",
+      "dimensions": [
+        { "fieldId": "textField_jr2gbmkf", "label": "任务名称", "fieldType": "TextField" },
+        { "fieldId": "textField_jr2gsc5g", "label": "所属项目", "fieldType": "TextField" },
+        { "fieldId": "selectField_jr2g93k9", "label": "任务状态", "fieldType": "SelectField" },
+        { "fieldId": "selectField_jr2hz8wp", "label": "优先级", "fieldType": "SelectField" },
+        { "fieldId": "employeeField_jr2gcklo", "label": "负责人", "fieldType": "EmployeeField" },
+        { "fieldId": "dateField_jr2gufqh", "label": "开始日期", "fieldType": "DateField" },
+        { "fieldId": "dateField_jr2gjkqm", "label": "截止日期", "fieldType": "DateField" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "filters": [
+    { "type": "select", "label": "任务状态", "fieldId": "selectField_jow0ygoc" },
+    { "type": "select", "label": "优先级", "fieldId": "selectField_jow0ucy9" },
+    { "type": "time", "label": "创建时间", "fieldId": "gmtCreate" }
+  ],
+  "indicators": [
+    {
+      "label": "总任务数",
+      "aggregation": "count",
+      "fieldId": "textField_jow0goih"
+    },
+    {
+      "label": "待处理",
+      "aggregation": "count",
+      "fieldId": "textField_jow0goih",
+      "filterFieldId": "selectField_jow0ygoc",
+      "filterValue": "待处理"
+    },
+    {
+      "label": "进行中",
+      "aggregation": "count",
+      "fieldId": "textField_jow0goih",
+      "filterFieldId": "selectField_jow0ygoc",
+      "filterValue": "进行中"
+    },
+    {
+      "label": "已完成",
+      "aggregation": "count",
+      "fieldId": "textField_jow0goih",
+      "filterFieldId": "selectField_jow0ygoc",
+      "filterValue": "已完成",
+      "fontColor": "#00B853"
+    }
+  ]
+}

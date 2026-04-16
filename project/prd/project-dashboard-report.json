@@ -1,0 +1,142 @@
+{
+  "filters": [
+    {
+      "type": "select",
+      "label": "任务状态",
+      "fieldId": "selectField_lxwjhvhz",
+      "dataType": "STRING",
+      "mode": "single"
+    },
+    {
+      "type": "select",
+      "label": "任务优先级",
+      "fieldId": "selectField_lxwjhvhy",
+      "dataType": "STRING",
+      "mode": "single"
+    }
+  ],
+  "indicators": [
+    {
+      "label": "总任务数",
+      "aggregation": "COUNT",
+      "fieldId": "pid",
+      "dataType": "STRING"
+    },
+    {
+      "label": "进行中任务",
+      "aggregation": "COUNT",
+      "fieldId": "pid",
+      "dataType": "STRING",
+      "internalFilters": [
+        {
+          "fieldId": "selectField_lxwjhvhz",
+          "fieldType": "SelectField",
+          "conditionType": "EqualTo",
+          "value": "进行中"
+        }
+      ]
+    },
+    {
+      "label": "已完成任务",
+      "aggregation": "COUNT",
+      "fieldId": "pid",
+      "dataType": "STRING",
+      "internalFilters": [
+        {
+          "fieldId": "selectField_lxwjhvhz",
+          "fieldType": "SelectField",
+          "conditionType": "EqualTo",
+          "value": "已完成"
+        }
+      ]
+    },
+    {
+      "label": "待处理任务",
+      "aggregation": "COUNT",
+      "fieldId": "pid",
+      "dataType": "STRING",
+      "internalFilters": [
+        {
+          "fieldId": "selectField_lxwjhvhz",
+          "fieldType": "SelectField",
+          "conditionType": "EqualTo",
+          "value": "待处理"
+        }
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "title": "按状态统计任务数",
+      "dimensions": [
+        {
+          "fieldId": "selectField_lxwjhvhz",
+          "fieldType": "SelectField",
+          "label": "任务状态",
+          "dataType": "STRING"
+        }
+      ],
+      "aggregations": [
+        {
+          "fieldId": "pid",
+          "label": "任务数量",
+          "aggregation": "COUNT_DISTINCT",
+          "dataType": "STRING"
+        }
+      ],
+      "height": 200,
+      "pageSize": 10,
+      "pagination": true
+    },
+    {
+      "title": "按优先级统计任务数",
+      "dimensions": [
+        {
+          "fieldId": "selectField_lxwjhvhy",
+          "fieldType": "SelectField",
+          "label": "任务优先级",
+          "dataType": "STRING"
+        }
+      ],
+      "aggregations": [
+        {
+          "fieldId": "pid",
+          "label": "任务数量",
+          "aggregation": "COUNT_DISTINCT",
+          "dataType": "STRING"
+        }
+      ],
+      "height": 200,
+      "pageSize": 10,
+      "pagination": true
+    },
+    {
+      "title": "按状态和优先级交叉统计",
+      "dimensions": [
+        {
+          "fieldId": "selectField_lxwjhvhz",
+          "fieldType": "SelectField",
+          "label": "任务状态",
+          "dataType": "STRING"
+        },
+        {
+          "fieldId": "selectField_lxwjhvhy",
+          "fieldType": "SelectField",
+          "label": "任务优先级",
+          "dataType": "STRING"
+        }
+      ],
+      "aggregations": [
+        {
+          "fieldId": "pid",
+          "label": "任务数量",
+          "aggregation": "COUNT_DISTINCT",
+          "dataType": "STRING"
+        }
+      ],
+      "height": 264,
+      "pageSize": 20,
+      "pagination": true
+    }
+  ]
+}

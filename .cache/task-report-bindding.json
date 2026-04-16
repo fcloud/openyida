@@ -1,0 +1,49 @@
+{
+  "binddings": [
+    {
+      "echartsPageUuid": "FORM-85FF0A1B49034703AC541DAA2DCC7910FFRB",
+      "echartsPageName": "项目任务管理报表",
+      "nativeReportUuid": "REPORT-QA666SC1J3U3TFO9GM9MJ5400RIW3W83SUYMM5",
+      "nativeReportName": "项目任务管理报表（数据源）",
+      "bindingTime": "2026-03-21T11:22:00Z",
+      "components": [
+        {
+          "echartsChartId": "chart-status-pie",
+          "nativeComponentCid": "YoushuPieChart_mmyus3hbz",
+          "nativeComponentName": "饼图_任务状态分布",
+          "nativeComponentType": "YoushuPieChart"
+        },
+        {
+          "echartsChartId": "chart-priority-bar",
+          "nativeComponentCid": "YoushuGroupedBarChart_mmyus3hb12",
+          "nativeComponentName": "柱状图_优先级分布",
+          "nativeComponentType": "YoushuGroupedBarChart"
+        },
+        {
+          "echartsChartId": "chart-trend-line",
+          "nativeComponentCid": "YoushuLineChart_mmyus3hb15",
+          "nativeComponentName": "折线图_截止日期趋势",
+          "nativeComponentType": "YoushuLineChart"
+        },
+        {
+          "echartsChartId": "chart-project-bar",
+          "nativeComponentCid": "YoushuGroupedBarChart_mmyus3hb18",
+          "nativeComponentName": "柱状图_所属项目分布",
+          "nativeComponentType": "YoushuGroupedBarChart"
+        },
+        {
+          "echartsChartId": "kpi-cards",
+          "nativeComponentCid": "YoushuSimpleIndicatorCard_mmyus3h9l",
+          "nativeComponentName": "指标卡_任务总数",
+          "nativeComponentType": "YoushuSimpleIndicatorCard"
+        },
+        {
+          "echartsChartId": "data-table",
+          "nativeComponentCid": "YoushuTable_mmyus3hao",
+          "nativeComponentName": "表格_任务明细",
+          "nativeComponentType": "YoushuTable"
+        }
+      ]
+    }
+  ]
+}

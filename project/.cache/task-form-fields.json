@@ -1,0 +1,8 @@
+[
+  { "type": "TextField", "label": "任务名称", "required": true, "placeholder": "请输入任务名称" },
+  { "type": "SelectField", "label": "任务状态", "required": true, "options": ["待处理", "进行中", "已完成", "已取消"] },
+  { "type": "SelectField", "label": "优先级", "required": true, "options": ["紧急", "高", "中", "低"] },
+  { "type": "EmployeeField", "label": "负责人", "required": true, "multiple": false },
+  { "type": "DateField", "label": "截止日期", "format": "YYYY-MM-DD" },
+  { "type": "TextareaField", "label": "任务描述", "placeholder": "请输入任务详细描述" }
+]

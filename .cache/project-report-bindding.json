@@ -1,0 +1,43 @@
+{
+  "binddings": [
+    {
+      "echartsPageUuid": "FORM-C709F5CB1ED8499E9EEBCB5B10FE14841NA4",
+      "echartsPageName": "项目信息高级报表",
+      "nativeReportUuid": "REPORT-TX966ZA14I540SN3JAYSL57UV6WA3TJ8ESYMM5",
+      "nativeReportName": "项目信息分析报表（数据源）",
+      "bindingTime": "2026-03-20T19:05:00Z",
+      "components": [
+        {
+          "echartsChartId": "chart-pie",
+          "nativeComponentCid": "YoushuPieChart_mmyse8sz11",
+          "nativeComponentName": "饼图_项目状态分布",
+          "nativeComponentType": "YoushuPieChart"
+        },
+        {
+          "echartsChartId": "chart-bar",
+          "nativeComponentCid": "YoushuGroupedBarChart_mmyse8sz14",
+          "nativeComponentName": "条形图_各优先级预算对比",
+          "nativeComponentType": "YoushuGroupedBarChart"
+        },
+        {
+          "echartsChartId": "chart-line",
+          "nativeComponentCid": "YoushuLineChart_mmyse8t017",
+          "nativeComponentName": "折线图_项目创建趋势",
+          "nativeComponentType": "YoushuLineChart"
+        },
+        {
+          "echartsChartId": "kpi-indicators",
+          "nativeComponentCid": "YoushuSimpleIndicatorCard_mmyse8sxl",
+          "nativeComponentName": "指标卡_项目总数_总预算",
+          "nativeComponentType": "YoushuSimpleIndicatorCard"
+        },
+        {
+          "echartsChartId": "detail-table",
+          "nativeComponentCid": "YoushuTable_mmyse8syp",
+          "nativeComponentName": "明细表格_项目明细",
+          "nativeComponentType": "YoushuTable"
+        }
+      ]
+    }
+  ]
+}
