@@ -1,4 +1,3 @@
-import { Component } from 'react';
 
 var _customState = {
   currentSlide: 1,
