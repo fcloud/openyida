@@ -1,11 +1,8 @@
 ---
 name: yida-ppt
 description: >
-  宜搭自定义页面 PPT / 演示文稿开发技能。
-  设计体系：深色科技风 + Canvas粒子 + 电影级转场 + 玻璃态卡片。
-  适用于企业培训、产品发布、战略汇报等场景的全屏幻灯片应用。
-  【重要】当用户提到"PPT"、"幻灯片"、"演示文稿"、"培训课件"、"演讲稿"等关键词时，
-  必须先向用户展示两种方案供选择，再执行对应技能，不要直接开始生成。
+  【已废弃】此技能已合并到 yida-ppt-slider。
+  请使用 yida-ppt-slider 技能，并选择 dark-tech 主题。
 license: MIT
 compatibility:
   - opencode
@@ -25,7 +22,12 @@ metadata:
     - animation
 ---
 
-# 宜搭 PPT / 演示文稿开发技能
+> ⚠️ **此技能已废弃（Deprecated）**
+> `dark-tech` 主题已合并到 `yida-ppt-slider` 技能中。
+> 请使用 `yida-ppt-slider` 技能，并在生成时选择 `dark-tech` 主题。
+> 详见：`skills/yida-ppt-slider/SKILL.md` → `## 主题选择（Theme）`
+
+# 宜搭 PPT / 演示文稿开发技能（已废弃）
 
 ## ⚡ 首要步骤：先询问用户选择方案
 
