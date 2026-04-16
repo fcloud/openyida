@@ -75,7 +75,7 @@ export function getCustomState(key) {
 }
 
 export function setCustomState(newState) {
-  Object.keys(newState).forEach(function(key) { _customState[key] = newState[key]; });
+  var stateKeys = Object.keys(newState); for (var ki = 0; ki < stateKeys.length; ki++) { _customState[stateKeys[ki]] = newState[stateKeys[ki]]; }
   this.forceUpdate();
 }
 
@@ -643,16 +643,16 @@ export function renderJsx() {
       </div>
       <div
         style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 102, opacity: 0.3, transition: 'opacity .3s ease', cursor: 'pointer', width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(0,0,0,.5)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-        onClick={function() { self.toggleFullscreen(); }}
-        onMouseEnter={function(e) { e.currentTarget.style.opacity = '1'; }}
-        onMouseLeave={function(e) { e.currentTarget.style.opacity = '0.3'; }}
+        onClick={() => { self.toggleFullscreen(); }}
+        onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.3'; }}
         title={isFull ? '退出全屏 (F)' : '全屏 (F)'}
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d={isFull ? 'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z' : 'M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z'} /></svg>
       </div>
       <div style={{ position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)', zIndex: 100, display: 'flex', alignItems: 'center', gap: '15px', background: 'rgba(0,0,0,.7)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: '50px', padding: '10px 25px' }}>
         <button
-          onClick={function() { self.changeSlide(-1); }}
+          onClick={() => { self.changeSlide(-1); }}
           style={{ background: 'none', border: 'none', color: cur > 1 ? '#fff' : 'rgba(255,255,255,.2)', cursor: cur > 1 ? 'pointer' : 'default', fontSize: '18px', padding: '0 5px', transition: 'color .2s' }}
         >◀</button>
         <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
@@ -662,14 +662,14 @@ export function renderJsx() {
             return (
               <div
                 key={i}
-                onClick={function() { self.goToSlide(i + 1); }}
+                onClick={() => { self.goToSlide(i + 1); }}
                 style={{ width: isActive ? '24px' : (isChapter ? '8px' : '6px'), height: isActive ? '8px' : (isChapter ? '8px' : '6px'), borderRadius: '4px', background: isActive ? '#3b82f6' : (isChapter ? 'rgba(59,130,246,.5)' : 'rgba(255,255,255,.2)'), transition: 'all .3s ease', cursor: 'pointer' }}
               />
             );
           })}
         </div>
         <button
-          onClick={function() { self.changeSlide(1); }}
+          onClick={() => { self.changeSlide(1); }}
           style={{ background: 'none', border: 'none', color: cur < total ? '#fff' : 'rgba(255,255,255,.2)', cursor: cur < total ? 'pointer' : 'default', fontSize: '18px', padding: '0 5px', transition: 'color .2s' }}
         >▶</button>
         <div style={{ fontSize: '13px', color: 'rgba(255,255,255,.4)', marginLeft: '5px', minWidth: '40px', textAlign: 'center' }}>{cur}/{total}</div>
