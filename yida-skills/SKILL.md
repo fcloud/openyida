@@ -173,6 +173,7 @@ openyida copy
 | `yida-page-config` | `skills/yida-page-config/SKILL.md` | 页面公开访问/组织内分享配置 | `openyida verify-short-url <appType> <formUuid> <url>` |
 | `yida-chart` | `skills/yida-chart/SKILL.md` | 报表可视化（ECharts 图表 + 数据聚合） | 详见 SKILL.md |
 | `yida-report` | `skills/yida-report/SKILL.md` | 宜搭原生报表创建（标准报表） | `openyida create-report <appType> "<名称>" <配置>` |
+| `yida-ppt` | `skills/yida-ppt/SKILL.md` | PPT/演示文稿开发（深色科技风+Canvas粒子+电影级转场+玻璃态卡片） | 详见 SKILL.md |
 
 ---
 
