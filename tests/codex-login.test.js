@@ -13,14 +13,20 @@ jest.mock('../lib/core/chalk', () => ({
   label: jest.fn(),
 }));
 
+jest.mock('../lib/auth/cdp-login', () => ({
+  cdpLogin: jest.fn(),
+}));
+
 const { codexLogin } = require('../lib/auth/codex-login');
 const chalk = require('../lib/core/chalk');
+const { cdpLogin } = require('../lib/auth/cdp-login');
 
 describe('codexLogin', () => {
   const originalEnv = { ...process.env };
 
   beforeEach(() => {
     jest.clearAllMocks();
+    cdpLogin.mockReset();
     delete process.env.CLAUDE_CODE;
     delete process.env.OPENCODE;
     delete process.env.QODER_IDE;
@@ -32,8 +38,10 @@ describe('codexLogin', () => {
     delete process.env.CODEX_CI;
     delete process.env.CODEX_THREAD_ID;
     delete process.env.CODEX_HOME;
+    delete process.env.OPENYIDA_DISABLE_CDP_LOGIN;
     delete process.env.__CFBundleIdentifier;
     process.env.CODEX_SHELL = '1';
+    process.env.OPENYIDA_DISABLE_CDP_LOGIN = '1';
   });
 
   afterEach(() => {
@@ -55,6 +63,30 @@ describe('codexLogin', () => {
     expect(chalk.info).toHaveBeenCalledWith(expect.stringContaining('Playwright'));
     expect(chalk.warn).not.toHaveBeenCalled();
     expect(chalk.label).toHaveBeenCalledWith('URL', 'https://www.aliwork.com/workPlatform');
+    expect(cdpLogin).not.toHaveBeenCalled();
+  });
+
+  test('CDP 登录成功时优先返回 Cookie 结果，不进入 handoff', async () => {
+    delete process.env.OPENYIDA_DISABLE_CDP_LOGIN;
+    cdpLogin.mockReturnValue({
+      csrf_token: 'csrf-token-from-cdp',
+      corp_id: 'corp',
+      user_id: 'user1',
+      base_url: 'https://www.aliwork.com',
+      cookies: [{ name: 'tianshu_csrf_token', value: 'csrf-token-from-cdp' }],
+    });
+
+    const result = await codexLogin();
+
+    expect(result).toMatchObject({
+      csrf_token: 'csrf-token-from-cdp',
+      base_url: 'https://www.aliwork.com',
+    });
+    expect(cdpLogin).toHaveBeenCalledWith({
+      loginUrl: 'https://www.aliwork.com/workPlatform',
+      timeoutMs: undefined,
+    });
+    expect(chalk.label).not.toHaveBeenCalledWith('URL', 'https://www.aliwork.com/workPlatform');
   });
 
   test('非 Codex 环境下给出提示后仍返回浏览器登录 handoff', async () => {

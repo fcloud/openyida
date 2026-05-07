@@ -175,6 +175,8 @@ openyida publish pages/src/home.jsx APP_XXX FORM_XXX
 
 `generate-page` turns a structured spec into a Page IR, renders a curated React 16-compatible template, writes a `.openyida-page.json` manifest, and optionally compiles the result. The manifest makes follow-up AI edits safer because agents can update known blocks instead of rewriting a large JSX file by hand.
 
+Pages named like dashboards, cockpits, or data boards are created with navigation hidden by default and an organization-internal `/s/` short link when the URL is available.
+
 ### Workflow, Data, and Permissions
 
 ```bash
@@ -230,7 +232,7 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 | `openyida create-form update <appType> <formUuid> <changes.json>` | Update a form page |
 | `openyida list-forms <appType> [--keyword <text>]` | List forms in an application |
 | `openyida get-schema <appType> <formUuid\|--all>` | Fetch one form schema or batch export all schemas |
-| `openyida create-page <appType> "<name>"` | Create a custom display page |
+| `openyida create-page <appType> "<name>"` | Create a custom display page; dashboard-like names default to hidden navigation and an internal `/s/` short link |
 | `openyida generate-page <template> [--spec file]` | Generate custom page source from templates |
 | `openyida check-page <sourceFile> [--json]` | Check page compatibility with Yida runtime rules |
 | `openyida compile <sourceFile>` | Compile a custom page locally |
