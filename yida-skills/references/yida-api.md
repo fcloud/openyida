@@ -63,6 +63,8 @@
 
 **formDataJson 示例**：
 
+> 日期组件写入值必须是 13 位毫秒时间戳，例如 `1516636800000`；不要传 `"2024-01-30"` 这类日期字符串。日期区间组件传毫秒时间戳数组。
+
 ```json
 {
   "textField_jcr0069m": "danhang",
@@ -344,6 +346,8 @@ this.utils.yida.getFormDataById({
 | dynamicOrder | String | 否 | 指定排序字段 | `'{"numberField_1ac":"+"}'` |
 
 **searchFieldJson 示例**：
+
+> 日期查询也使用毫秒时间戳。`DateField` 区间查询传 `[开始毫秒时间戳, 结束毫秒时间戳]`。
 
 ```json
 {

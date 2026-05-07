@@ -31,7 +31,7 @@ const SKILLS_DIR = path.join(PACKAGE_ROOT, 'yida-skills');
 const HOME_DIR = os.homedir();
 const CODEX_MARKETPLACE_NAME = 'openyida';
 const CODEX_PLUGIN_NAME = 'openyida';
-const CODEX_PLUGIN_LOGO_SVG = '<svg height="200" viewBox="0 0 1024 1024" width="200" xmlns="http://www.w3.org/2000/svg"><g fill="#0089ff"><path d="M966.743 0H57.498A57.197 57.197 0 0 0 .06 57.077v218.07a61.772 61.772 0 0 1 12.042 4.936L348.538 473.83l336.196-193.987a64.421 64.421 0 0 1 87.902 23.36l34.92 60.208a63.94 63.94 0 0 1-23.24 87.54L449.084 643.613v379.905h517.78a57.197 57.197 0 0 0 56.714-56.594V57.077A57.197 57.197 0 0 0 966.743 0z"/><path d="M.663 501.163v465.76a56.715 56.715 0 0 0 16.255 40.34 57.558 57.558 0 0 0 40.58 16.255H252.93V646.141z"/></g></svg>\n';
+const CODEX_PLUGIN_LOGO_SVG = '<svg height="200" viewBox="0 0 1024 1024" width="200" xmlns="http://www.w3.org/2000/svg"><g fill="#0089FF"><path d="M966.743 0H57.498A57.197 57.197 0 0 0 .06 57.077v218.07a61.772 61.772 0 0 1 12.042 4.936L348.538 473.83l336.196-193.987a64.421 64.421 0 0 1 87.902 23.36l34.92 60.208a63.94 63.94 0 0 1-23.24 87.54L449.084 643.613v379.905h517.78a57.197 57.197 0 0 0 56.714-56.594V57.077A57.197 57.197 0 0 0 966.743 0z"/><path d="M.663 501.163v465.76a56.715 56.715 0 0 0 16.255 40.34 57.558 57.558 0 0 0 40.58 16.255H252.93V646.141z"/></g></svg>\n';
 
 /**
  * Run fn silently — never throws.
@@ -156,9 +156,28 @@ function createCodexPluginManifest() {
         '帮我创建一个宜搭应用和表单',
         '帮我发布一个宜搭自定义页面',
       ],
-      brandColor: '#FF6A00',
+      brandColor: '#0089FF',
       composerIcon: './assets/logo.svg',
       logo: './assets/logo.svg',
+    },
+    mcpServers: './.mcp.json',
+  };
+}
+
+/**
+ * 构建 Codex 插件 MCP 配置。
+ */
+function createCodexMcpConfig() {
+  return {
+    mcpServers: {
+      openyida: {
+        command: process.execPath,
+        args: [
+          path.join(PACKAGE_ROOT, 'bin', 'yida.js'),
+          'mcp',
+        ],
+        cwd: '.',
+      },
     },
   };
 }
@@ -198,10 +217,28 @@ npm install -g openyida@latest
 若登录态无效，执行：
 
 \`\`\`bash
-openyida login
+openyida login --browser
 \`\`\`
 
 登录完成后再次运行 \`openyida login --check-only --json\` 验证缓存写入，再继续真实资源操作。
+
+## Codex Browser 边界
+
+Codex App 的 in-app browser / \`@Browser\` 适合打开本地开发服务器、file-backed preview 和无需登录的公开页面，用于截图、点击和检查渲染状态。
+
+不要把 Codex in-app browser 用作宜搭登录 Cookie 来源：它不支持认证流程、登录态页面、普通浏览器 profile 或 Cookie 导出。
+
+需要登录并获得 CLI Cookie 时，优先运行：
+
+\`\`\`bash
+openyida login --browser
+\`\`\`
+
+\`--browser\` 会打开常规本地浏览器并在登录成功后将 Cookie 写入 OpenYida 缓存。只有在需要纯浏览器预览或检查公开页面时才使用 \`@Browser\`。
+
+在 Codex 中如果 \`openyida login --codex-poll\` 返回 \`need_corp_selection\`，优先调用 OpenYida MCP 工具
+\`select_yida_login_organization\`，传入返回值里的 \`session_file\`。该工具会通过 MCP \`elicitation/create\`
+展示 Codex 原生组织单选控件，并在用户选择后完成 \`openyida login --codex-select\`。
 
 ## 工作目录
 
@@ -325,6 +362,10 @@ function installCodexPlugin() {
   writeJsonFile(
     path.join(pluginRoot, '.codex-plugin', 'plugin.json'),
     createCodexPluginManifest(),
+  );
+  writeJsonFile(
+    path.join(pluginRoot, '.mcp.json'),
+    createCodexMcpConfig(),
   );
 
   fs.mkdirSync(path.join(pluginRoot, 'assets'), { recursive: true });

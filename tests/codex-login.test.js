@@ -49,6 +49,9 @@ describe('codexLogin', () => {
     expect(result).toMatchObject({
       status: 'need_codex_browser_login',
       browser: 'codex',
+      agent_action: 'open_in_app_browser',
+      browser_open_strategy: 'browser_use_iab',
+      browser_use_local_redirect_fallback: true,
       login_url: 'https://www.aliwork.com/workPlatform',
       can_auto_use: false,
     });

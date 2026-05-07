@@ -101,7 +101,7 @@ openyida login --check-only --json
 | 当前生效环境 | 显示项目根目录路径 |
 | 登录态检测 | 显示是否已登录、域名、组织 ID |
 
-> **若显示"未登录"，先执行 `openyida login` 获取 browser handoff 登录 URL；完成浏览器登录后，必须再次执行 `openyida login --check-only --json` 验证缓存写入。不要在只读验证通过前执行真实资源创建。**
+> **若显示"未登录"，先执行 `openyida login`。Codex 中默认返回内置浏览器 handoff：用 Browser Use 打开 `login_url`，让钉钉/宜搭页面承接扫码和组织选择。若 Browser Use 不能直接打开外部 URL，先打开临时本地 redirect 页面再跳转到 `login_url`。页面登录完成后必须再次执行 `openyida login --check-only --json` 验证缓存写入。不要在只读验证通过前执行真实资源创建。**
 
 ---
 

@@ -69,14 +69,23 @@ OpenYida detects the active agent environment, workspace path, login state, and 
 openyida login
 ```
 
-In Codex, Qoder, and Wukong, OpenYida uses the built-in browser handoff when no valid cached login exists. For terminal QR login, use:
+In Codex, OpenYida returns a browser handoff when no valid cached login exists. The Codex agent should open `login_url` in the in-app browser, let DingTalk/Yida handle QR scan and organization selection in the real login page, then re-run `openyida login --check-only --json` to verify whether a CLI Cookie bridge has written credentials. If the current Browser Use runtime cannot navigate directly to an external URL, open a temporary local redirect page in the in-app browser and let that page redirect to `login_url`.
+
+The older Codex QR polling flow remains available as an explicit fallback:
+
+```bash
+openyida login --codex-qr
+```
+
+For terminal QR login, use:
 
 ```bash
 openyida login --qr
 openyida login --qr --corp-id dingxxxxxxxx
+openyida login --check-only --json
 ```
 
-OpenYida does not install Playwright by default. The default login paths are cached Cookie reuse, terminal QR login, and AI-tool browser handoff.
+Qoder and Wukong keep using the built-in browser handoff. OpenYida does not install Playwright by default.
 
 ### 4. Build With an AI Agent
 
@@ -88,7 +97,7 @@ Build an IPD workflow for chip production, including approval nodes and dashboar
 Generate a public landing page and publish it to my Yida app.
 ```
 
-The agent can then call OpenYida commands to create the application, generate source files, publish pages, and return the final Yida URLs.
+The agent can then call OpenYida commands to create the application, generate source files, publish pages, and return the final Yida URLs. In Codex, Qoder, and Wukong environments, successful creation and publish commands also include a browser handoff so the agent can open the resulting Yida page in the in-app browser. Use `--open` to force this handoff or `--no-open` to suppress it.
 
 ## Wukong Installation
 
@@ -156,6 +165,7 @@ openyida/
 
 ```bash
 openyida create-app "CRM"
+openyida create-app --name "CRM" --desc "Customer management" --theme deepBlue
 openyida app-list --size 20
 openyida create-form create APP_XXX "Customer" fields.json
 openyida create-form update APP_XXX FORM_XXX changes.json
@@ -185,6 +195,8 @@ openyida data query form APP_XXX FORM_XXX --page 1 --size 20
 openyida get-permission APP_XXX FORM_XXX
 ```
 
+When creating or updating test data with `openyida data`, Yida date fields must use 13-digit millisecond timestamps, for example `"dateField_xxx": 1719705600000`. Do not submit `YYYY-MM-DD` strings for `DateField` or `CascadeDateField` values.
+
 ### Connectors, Integrations, and Reports
 
 ```bash
@@ -206,7 +218,7 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 | `openyida env [--json]` | Detect the active AI tool environment and login state |
 | `openyida env <list\|show\|switch\|add\|remove>` | Manage public/private Yida environment profiles |
 | `openyida commands [--json]` | Emit the machine-readable command manifest |
-| `openyida login [--qr\|--browser] [--corp-id <corpId>]` | Log in to Yida |
+| `openyida login [--qr\|--codex\|--codex-qr\|--browser] [--corp-id <corpId>]` | Log in to Yida |
 | `openyida logout` | Log out or switch account |
 | `openyida auth <status\|login\|refresh\|logout>` | Manage login status |
 | `openyida org list` | List accessible organizations |
@@ -217,7 +229,7 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 | Command | Description |
 |---------|-------------|
 | `openyida app-list [--size N]` | List Yida applications |
-| `openyida create-app "<name>" [options]` | Create an application and output `appType` |
+| `openyida create-app "<name>"\|--name <name> [options] [--open\|--no-open]` | Create an application and output `appType` |
 | `openyida update-app <appType> --name "..."` | Update application metadata |
 | `openyida export <appType> [output]` | Export an application migration package |
 | `openyida import <file> [name]` | Import a migration package into a target environment |
@@ -226,15 +238,15 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 
 | Command | Description |
 |---------|-------------|
-| `openyida create-form create <appType> "<name>" <fields.json>` | Create a form page |
-| `openyida create-form update <appType> <formUuid> <changes.json>` | Update a form page |
+| `openyida create-form create <appType> "<name>" <fields.json> [--open\|--no-open]` | Create a form page |
+| `openyida create-form update <appType> <formUuid> <changes.json> [--open\|--no-open]` | Update a form page |
 | `openyida list-forms <appType> [--keyword <text>]` | List forms in an application |
 | `openyida get-schema <appType> <formUuid\|--all>` | Fetch one form schema or batch export all schemas |
-| `openyida create-page <appType> "<name>"` | Create a custom display page |
+| `openyida create-page <appType> "<name>" [--open\|--no-open]` | Create a custom display page |
 | `openyida generate-page <template> [--spec file]` | Generate custom page source from templates |
 | `openyida check-page <sourceFile> [--json]` | Check page compatibility with Yida runtime rules |
 | `openyida compile <sourceFile>` | Compile a custom page locally |
-| `openyida publish <sourceFile> <appType> <formUuid>` | Compile and publish a custom page |
+| `openyida publish <sourceFile> <appType> <formUuid> [--open\|--no-open]` | Compile and publish a custom page |
 | `openyida update-form-config <appType> <formUuid> <isRenderNav> <title>` | Update page/form display configuration |
 
 ### Data, Permissions, and Sharing
@@ -257,8 +269,8 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 | `openyida create-process <appType> ...` | Create a process form and configure workflow |
 | `openyida configure-process <appType> ...` | Configure and publish process rules |
 | `openyida process preview <appType> <processInstanceId> [--output <path>]` | Generate a visual process preview |
-| `openyida create-report <appType> "<name>" <charts.json>` | Create a Yida report |
-| `openyida append-chart <appType> <reportId> <charts.json>` | Append a chart to an existing report |
+| `openyida create-report <appType> "<name>" <charts.json> [--open\|--no-open]` | Create a Yida report |
+| `openyida append-chart <appType> <reportId> <charts.json> [--open\|--no-open]` | Append a chart to an existing report |
 | `openyida connector <sub-command>` | Manage HTTP connectors, actions, tests, and auth accounts |
 | `openyida integration create <appType> <formUuid> <flowName> [options]` | Create an integration automation flow |
 | `openyida dws <command> [args]` | Access DingTalk CLI capabilities such as contacts, calendar, todo, and approval |

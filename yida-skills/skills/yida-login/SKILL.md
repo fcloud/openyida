@@ -47,9 +47,32 @@ openyida login
 
 默认登录路径不需要 Playwright：优先复用缓存；Codex、Qoder、悟空使用内置浏览器 handoff；其他终端环境使用二维码登录。
 
+### Codex 内置浏览器登录模式
+
+在 Codex 中没有有效缓存时，`openyida login` 或 `openyida login --codex` 会返回 `need_codex_browser_login` JSON，包含 `agent_action: "open_in_app_browser"`、`login_url`、`required_agent_tool: "browser-use:browser"` 和 `post_login_check_command`。
+
+收到 `need_codex_browser_login` 后：
+
+1. 使用 Browser Use 的 in-app browser 打开 `login_url`，让钉钉/宜搭页面自己承接扫码、组织选择和跳转
+2. 若 Browser Use 直接打开外部 URL 失败，先启动一个临时 `127.0.0.1` 本地 redirect 页面，再用 in-app browser 打开本地 URL，由页面跳转到 `login_url`
+3. 用户扫码并完成页面内组织选择后，执行 `post_login_check_command`
+4. 若 `post_login_check_command` 仍显示未登录，说明当前 Codex 浏览器缺少 Cookie 导出到 CLI 缓存的桥接能力；不要手动编造或写入 Cookie
+
+不要把组织列表塞进普通聊天选择控件；多组织选择应发生在钉钉/宜搭真实登录页面内。
+
+### Codex 二维码兜底模式
+
+只有用户明确要求二维码兜底，或内置浏览器完全不可用时，才使用：
+
+```bash
+openyida login --codex-qr
+```
+
+该命令返回 `need_qr_scan` JSON，包含 `qr_image_file`、`qr_url`、`poll_command`、`session_file`。扫码后执行 `poll_command`；如返回 `need_corp_selection`，优先调用 OpenYida MCP 工具 `select_yida_login_organization`，传入 `session_file`，由 MCP `elicitation/create` 展示原生组织单选并完成登录。
+
 ### 内置浏览器登录模式
 
-在 Codex、Qoder、悟空中不要安装 Playwright，也不要降级成终端二维码接口。没有有效缓存时，登录应使用宿主自带的内置浏览器：
+在 Codex、Qoder、悟空中不要安装 Playwright。没有有效缓存时，登录应使用宿主自带的内置浏览器：
 
 ```bash
 openyida login --browser

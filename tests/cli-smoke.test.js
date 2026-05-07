@@ -89,7 +89,7 @@ describe('CLI offline smoke', () => {
     const output = runOk(['--help']);
     expect(output).toContain('OpenYida');
     expect(output).toContain('env [--json]');
-    expect(output).toContain('login [--qr|--browser] [--corp-id <corpId>]');
+    expect(output).toContain('login [--qr|--codex|--codex-qr|--browser] [--corp-id <corpId>]');
     expect(output).toContain('create-form');
     expect(output).toContain('list-forms');
     expect(output).toContain('connector');
@@ -99,6 +99,16 @@ describe('CLI offline smoke', () => {
     expect(output).toContain('generate-page <template>');
     expect(output).toContain('check-page <src>');
     expect(output).toContain('compile <src>');
+  });
+
+  test('create-app --help renders usage without requiring login', () => {
+    const result = runAny(['create-app', '--help']);
+    const output = result.output;
+    expect(result.status).toBe(0);
+    expect(output).toContain('create-app');
+    expect(output).toContain('--name');
+    expect(output).toContain('--theme');
+    expect(output).not.toContain('读取登录态');
   });
 
   test('commands --json renders machine-readable command manifest', () => {
@@ -173,10 +183,17 @@ describe('CLI offline smoke', () => {
       const parsed = JSON.parse(output.trim());
       expect(parsed).toMatchObject({
         status: 'need_codex_browser_login',
+        handoff_type: 'browser',
+        agent_action: 'open_in_app_browser',
+        browser_open_strategy: 'browser_use_iab',
+        browser_use_local_redirect_fallback: true,
+        required_agent_tool: 'browser-use:browser',
+        required_runtime_tool: 'mcp__node_repl__js',
         browser: 'codex',
         login_url: 'https://example.test/workPlatform',
         can_auto_use: false,
       });
+      expect(parsed.fallback_command).toBe('openyida login --browser');
     } finally {
       fs.rmSync(workspace, { recursive: true, force: true });
     }
@@ -223,10 +240,49 @@ describe('CLI offline smoke', () => {
       const parsed = JSON.parse(output.trim());
       expect(parsed).toMatchObject({
         status: 'need_codex_browser_login',
+        handoff_type: 'browser',
         browser: 'codex',
         login_url: 'https://example.test/workPlatform',
         can_auto_use: false,
       });
+    } finally {
+      fs.rmSync(workspace, { recursive: true, force: true });
+    }
+  });
+
+  test('login --codex-qr returns QR handoff', () => {
+    const workspace = createCodexWorkspace();
+    try {
+      const output = runOkWithEnv(['login', '--codex-qr'], {
+        CODEX_SHELL: '1',
+        OPENYIDA_LOGIN_URL: 'https://example.test/workPlatform',
+        OPENYIDA_CODEX_QR_FAKE: '1',
+      }, workspace);
+      const parsed = JSON.parse(output.trim());
+      expect(parsed).toMatchObject({
+        status: 'need_qr_scan',
+        handoff_type: 'qr',
+        can_auto_use: false,
+      });
+      expect(parsed.qr_url).toContain('https://login.example.test/qr');
+      expect(parsed.qr_image_file).toContain('test-session.png');
+      expect(parsed.poll_command).toContain('openyida login --codex-poll');
+    } finally {
+      fs.rmSync(workspace, { recursive: true, force: true });
+    }
+  });
+
+  test('login --codex-qr keeps explicit corpId in QR poll command', () => {
+    const workspace = createCodexWorkspace();
+    try {
+      const output = runOkWithEnv(['login', '--codex-qr', '--corp-id', 'ding-main'], {
+        CODEX_SHELL: '1',
+        OPENYIDA_LOGIN_URL: 'https://example.test/workPlatform',
+        OPENYIDA_CODEX_QR_FAKE: '1',
+      }, workspace);
+      const parsed = JSON.parse(output.trim());
+      expect(parsed.poll_command).toContain('openyida login --codex-poll');
+      expect(parsed.poll_command).toContain("--corp-id 'ding-main'");
     } finally {
       fs.rmSync(workspace, { recursive: true, force: true });
     }

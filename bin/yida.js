@@ -48,7 +48,7 @@ function shouldRunUpdateCheck() {
   if (!command || command === '--help' || command === '-h' || command === '--version' || command === '-v') {
     return false;
   }
-  if (command === 'commands') {
+  if (command === 'commands' || command === 'mcp') {
     return false;
   }
   if (args.includes('--json') || args.includes('--check-only')) {
@@ -203,15 +203,34 @@ function handleFirstRunGuide() {
 }
 
 function printLoginResult(result) {
+  if (result && (result.status === 'need_qr_scan' || result.status === 'need_corp_selection')) {
+    console.log(JSON.stringify(result));
+    return;
+  }
+
   if (result && result.status === 'need_codex_browser_login') {
-    console.log(JSON.stringify({
+    const handoff = {
       status: result.status,
       handoff_type: result.handoff_type || 'browser',
       can_auto_use: false,
       browser: result.browser,
       login_url: result.login_url,
       message: result.message,
-    }));
+    };
+    [
+      'agent_action',
+      'browser_open_strategy',
+      'browser_use_local_redirect_fallback',
+      'required_agent_tool',
+      'required_runtime_tool',
+      'cookie_export_file',
+      'cookie_file',
+      'post_login_check_command',
+      'fallback_command',
+    ].forEach((key) => {
+      if (result[key]) {handoff[key] = result[key];}
+    });
+    console.log(JSON.stringify(handoff));
     return;
   }
 
@@ -233,9 +252,14 @@ function isBrowserHandoffEnvironment() {
 }
 
 function shouldUseBrowserHandoffLogin(cliArgs) {
-  if (cliArgs.includes('--qr')) {return false;}
+  if (cliArgs.includes('--qr') || cliArgs.includes('--codex-qr')) {return false;}
   if (cliArgs.includes('--browser') || cliArgs.includes('--codex') || cliArgs.includes('--qoder') || cliArgs.includes('--wukong')) {return true;}
   return isBrowserHandoffEnvironment();
+}
+
+function shouldUseCodexQrLogin(cliArgs) {
+  if (cliArgs.includes('--codex-qr')) {return true;}
+  return false;
 }
 
 function getArgValue(cliArgs, name) {
@@ -265,6 +289,12 @@ async function main() {
       break;
     }
 
+    case 'mcp': {
+      const { runStdioServer } = require('../lib/mcp/server');
+      runStdioServer();
+      break;
+    }
+
     case 'env': {
       if (shouldUseEnvManagement(args)) {
         const { run } = require('../lib/core/env-cmd');
@@ -290,10 +320,40 @@ async function main() {
 
     case 'login': {
       const { checkLoginOnly } = require('../lib/auth/login');
-      if (args[0] === '--check-only') {
+      if (args.includes('--codex-poll')) {
+        const { pollCodexQrLogin } = require('../lib/auth/qr-login');
+        const result = await pollCodexQrLogin(getArgValue(args, '--codex-poll'), {
+          corpId: getArgValue(args, '--corp-id'),
+        });
+        printLoginResult(result);
+      } else if (args.includes('--codex-select')) {
+        const { selectCodexQrCorp } = require('../lib/auth/qr-login');
+        const result = await selectCodexQrCorp(getArgValue(args, '--codex-select'), {
+          corpId: getArgValue(args, '--corp-id'),
+        });
+        printLoginResult(result);
+      } else if (args[0] === '--check-only') {
         const result = checkLoginOnly({ includeSecrets: args.includes('--with-cookies') });
         console.log(JSON.stringify(result, null, 2));
-      } else if (args.includes('--browser') || args.includes('--codex') || args.includes('--qoder') || args.includes('--wukong')) {
+      } else if (shouldUseCodexQrLogin(args)) {
+        const cachedResult = checkLoginOnly({ includeSecrets: true });
+        if (cachedResult.status === 'ok') {
+          printLoginResult(cachedResult);
+        } else {
+          const { startCodexQrLogin } = require('../lib/auth/qr-login');
+          const result = await startCodexQrLogin({ corpId: getArgValue(args, '--corp-id') });
+          printLoginResult(result);
+        }
+      } else if (args.includes('--browser')) {
+        const cachedResult = checkLoginOnly({ includeSecrets: true });
+        if (cachedResult.status === 'ok') {
+          printLoginResult(cachedResult);
+        } else {
+          const { interactiveLogin } = require('../lib/auth/login');
+          const result = interactiveLogin();
+          printLoginResult(result);
+        }
+      } else if (args.includes('--qoder') || args.includes('--wukong')) {
         const { codexLogin } = require('../lib/auth/codex-login');
         const result = await codexLogin();
         printLoginResult(result);

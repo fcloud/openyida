@@ -15,8 +15,6 @@ jest.mock('../lib/core/i18n', () => ({
 const {
   extractInfoFromCookies,
   loadCookieData,
-  findProjectRoot,
-  detectActiveTool,
 } = require('../lib/core/utils');
 
 //─ extractInfoFromCookies─────────────────────────
@@ -207,6 +205,50 @@ describe('saveCookieCache 文件写入', () => {
     expect(result).not.toBeNull();
     expect(result.csrf_token).toBe('token123');
     expect(result.base_url).toBe(baseUrl);
+  });
+});
+
+//─ cdp-browser-login 工具函数─────────────────────────
+
+describe('cdp-browser-login 工具函数', () => {
+  const { deriveBaseUrl, findBrowserExecutable } = require('../lib/auth/cdp-browser-login');
+  const originalChromePath = process.env.OPENYIDA_CHROME_PATH;
+
+  afterEach(() => {
+    if (originalChromePath === undefined) {
+      delete process.env.OPENYIDA_CHROME_PATH;
+    } else {
+      process.env.OPENYIDA_CHROME_PATH = originalChromePath;
+    }
+  });
+
+  test('deriveBaseUrl 优先使用 yida_user_cookie 的 aliwork 域名', () => {
+    const result = deriveBaseUrl([
+      { name: 'tianshu_csrf_token', domain: '.aliwork.com' },
+      { name: 'yida_user_cookie', domain: '.custom.aliwork.com' },
+    ], 'https://www.aliwork.com/workPlatform');
+
+    expect(result).toBe('https://custom.aliwork.com');
+  });
+
+  test('deriveBaseUrl 在无专属域名时回退到登录 URL origin', () => {
+    const result = deriveBaseUrl([
+      { name: 'tianshu_csrf_token', domain: '.aliwork.com' },
+    ], 'https://example.aliwork.com/workPlatform');
+
+    expect(result).toBe('https://example.aliwork.com');
+  });
+
+  test('findBrowserExecutable 支持 OPENYIDA_CHROME_PATH 覆盖', () => {
+    const browserPath = path.join(os.tmpdir(), `openyida-fake-chrome-${Date.now()}`);
+    fs.writeFileSync(browserPath, '', 'utf-8');
+    process.env.OPENYIDA_CHROME_PATH = browserPath;
+
+    try {
+      expect(findBrowserExecutable()).toBe(browserPath);
+    } finally {
+      fs.rmSync(browserPath, { force: true });
+    }
   });
 });
 

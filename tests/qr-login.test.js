@@ -73,6 +73,38 @@ describe('terminal QR code rendering', () => {
     expect(warnFn).toHaveBeenCalledWith('  https://login.example/qr?code=abc');
   });
 
+  test('writes QR image for Codex handoff when qrcode supports toFile', async () => {
+    const toFile = jest.fn(async () => {});
+
+    const result = await __test__.writeQrCodeImage('https://login.example/qr?code=abc', '/tmp/qr.png', {
+      qrcode: { toFile },
+    });
+
+    expect(result).toBe(true);
+    expect(toFile).toHaveBeenCalledWith('/tmp/qr.png', 'https://login.example/qr?code=abc', {
+      type: 'png',
+      margin: 2,
+      width: 360,
+      errorCorrectionLevel: 'M',
+    });
+  });
+
+  test('builds Codex native single-select interaction for organizations', () => {
+    const interaction = __test__.buildCodexCorpInteraction([
+      { corpId: 'ding-main', corpName: 'Main Org', mainOrg: true },
+      { corpId: 'ding-alt', corpName: 'Alt Org' },
+    ]);
+
+    expect(interaction).toEqual({
+      type: 'single_select',
+      title: '选择宜搭组织',
+      options: [
+        { label: 'Main Org（主组织）', value: 'ding-main', description: 'ding-main' },
+        { label: 'Alt Org', value: 'ding-alt', description: 'ding-alt' },
+      ],
+    });
+  });
+
   test('resolveQrcodeModule tries package name before adjacent install paths', () => {
     const qrcode = { toString: jest.fn() };
     const requireFn = jest.fn((request) => {
@@ -232,6 +264,88 @@ describe('DingTalk OAuth organization selection', () => {
       corpId: 'ding-main',
       corpName: 'Main Org',
       mainOrg: false,
+    });
+  });
+
+  test('uses explicit corpId on the first OAuth polling request', async () => {
+    const context = {
+      loginPageUrl: 'https://login.dingtalk.com/oauth2/challenge?client_id=abc',
+      origin: 'https://login.dingtalk.com',
+      code: 'qr-code',
+    };
+    const postLoginWithQr = jest.fn(async () => ({
+      cookieHeader: 'sid=next',
+      parsed: {
+        success: true,
+        result: 'https://www.aliwork.com/oauth/callback?ticket=ok',
+      },
+    }));
+
+    const result = await __test__.pollDingtalkQrCodeStatus(
+      'qr-code',
+      'sid=old',
+      null,
+      context,
+      {
+        corpId: 'ding-main',
+        maxAttempts: 1,
+        pollIntervalMs: 0,
+        postLoginWithQr,
+      }
+    );
+
+    expect(postLoginWithQr).toHaveBeenCalledWith(context, 'sid=old', {
+      code: 'qr-code',
+      exclusiveCorpId: 'ding-main',
+      stayLogin: false,
+    });
+    expect(result).toEqual({
+      loginResult: 'https://www.aliwork.com/oauth/callback?ticket=ok',
+      cookieHeader: 'sid=next',
+    });
+  });
+
+  test('keeps polling when explicit corpId is waiting for matching organization scan', async () => {
+    const context = {
+      loginPageUrl: 'https://login.dingtalk.com/oauth2/challenge?client_id=abc',
+      origin: 'https://login.dingtalk.com',
+      code: 'qr-code',
+    };
+    const postLoginWithQr = jest.fn()
+      .mockResolvedValueOnce({
+        cookieHeader: 'sid=waiting',
+        parsed: {
+          success: false,
+          errorMsg: '请以对应组织的企业账号进行扫码认证',
+        },
+      })
+      .mockResolvedValueOnce({
+        cookieHeader: 'sid=next',
+        parsed: {
+          success: true,
+          result: 'https://www.aliwork.com/oauth/callback?ticket=ok',
+        },
+      });
+    const onWaiting = jest.fn();
+
+    const result = await __test__.pollDingtalkQrCodeStatus(
+      'qr-code',
+      'sid=old',
+      onWaiting,
+      context,
+      {
+        corpId: 'ding-main',
+        maxAttempts: 2,
+        pollIntervalMs: 0,
+        postLoginWithQr,
+      }
+    );
+
+    expect(onWaiting).toHaveBeenCalledWith('scanned');
+    expect(postLoginWithQr).toHaveBeenCalledTimes(2);
+    expect(result).toEqual({
+      loginResult: 'https://www.aliwork.com/oauth/callback?ticket=ok',
+      cookieHeader: 'sid=next',
     });
   });
 });
