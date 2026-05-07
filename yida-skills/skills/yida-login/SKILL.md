@@ -58,7 +58,24 @@ openyida login --qoder
 openyida login --wukong
 ```
 
-这些命令返回 `login_url` handoff。收到 handoff 后，用当前宿主的 in-app browser 打开 `login_url`，让用户用钉钉扫码并等待跳转到宜搭工作台。若后续 CLI 仍缺少 `.cache/cookies*.json`，说明当前环境缺少浏览器 Cookie 导出桥接能力，不要手动编造或写入 Cookie。
+这些命令返回 `login_url` handoff，并包含 `cookie_import_command`、`cookie_file`、`post_login_check_command` 等字段。收到 handoff 后：
+
+1. 用当前宿主的 in-app browser 打开 `login_url`
+2. 让用户用钉钉扫码并等待跳转到宜搭工作台
+3. 使用宿主浏览器能力导出当前 browser context cookies 为 JSON 文件（格式为 cookies 数组，或 `{ "cookies": [...] }`）
+4. 执行 handoff 返回的 `cookie_import_command`，将 cookies 写入 `.cache/cookies*.json`
+5. 执行 `post_login_check_command`，确认 `can_auto_use: true`
+
+如果当前宿主没有任何浏览器 Cookie 导出能力，不要手动编造或写入 Cookie；改用 `openyida login --qr` 完成登录。
+
+### 导入浏览器 Cookie
+
+```bash
+openyida login --import-cookies /path/to/cookies.json --base-url https://www.aliwork.com
+openyida login --check-only --json
+```
+
+`--import-cookies` 只接受真实浏览器导出的 Cookie JSON，必须包含 `tianshu_csrf_token`。导入成功后 CLI 会写入当前环境对应的 `.cache/cookies*.json`。
 
 ## 输出
 

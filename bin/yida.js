@@ -207,9 +207,16 @@ function printLoginResult(result) {
     console.log(JSON.stringify({
       status: result.status,
       handoff_type: result.handoff_type || 'browser',
+      handoff_version: result.handoff_version,
       can_auto_use: false,
       browser: result.browser,
       login_url: result.login_url,
+      cookie_file: result.cookie_file,
+      cookie_import_command: result.cookie_import_command,
+      post_login_check_command: result.post_login_check_command,
+      cookie_domains: result.cookie_domains,
+      required_cookie_names: result.required_cookie_names,
+      cookie_export_format: result.cookie_export_format,
       message: result.message,
     }));
     return;
@@ -222,6 +229,7 @@ function printLoginResult(result) {
     user_id: result && result.user_id,
     csrf_token: result && result.csrf_token ? `${result.csrf_token.slice(0, 16)}...` : undefined,
     cookies_count: Array.isArray(result && result.cookies) ? result.cookies.length : 0,
+    cookie_file: result && result.cookie_file,
   };
   console.log(JSON.stringify(summary));
 }
@@ -289,10 +297,21 @@ async function main() {
     }
 
     case 'login': {
-      const { checkLoginOnly } = require('../lib/auth/login');
+      const { checkLoginOnly, importCookieCache } = require('../lib/auth/login');
       if (args[0] === '--check-only') {
         const result = checkLoginOnly({ includeSecrets: args.includes('--with-cookies') });
         console.log(JSON.stringify(result, null, 2));
+      } else if (args.includes('--import-cookies')) {
+        const cookieJsonPath = getArgValue(args, '--import-cookies');
+        if (!cookieJsonPath) {
+          throw new Error('Usage: openyida login --import-cookies <cookies.json> [--base-url <url>]');
+        }
+        const fs = require('fs');
+        const path = require('path');
+        const resolvedPath = path.resolve(process.cwd(), cookieJsonPath);
+        const payload = JSON.parse(fs.readFileSync(resolvedPath, 'utf8'));
+        const result = importCookieCache(payload, { baseUrl: getArgValue(args, '--base-url') });
+        printLoginResult(result);
       } else if (args.includes('--browser') || args.includes('--codex') || args.includes('--qoder') || args.includes('--wukong')) {
         const { codexLogin } = require('../lib/auth/codex-login');
         const result = await codexLogin();

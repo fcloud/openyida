@@ -89,7 +89,7 @@ describe('CLI offline smoke', () => {
     const output = runOk(['--help']);
     expect(output).toContain('OpenYida');
     expect(output).toContain('env [--json]');
-    expect(output).toContain('login [--qr|--browser] [--corp-id <corpId>]');
+    expect(output).toContain('login [--qr|--browser|--import-cookies <file>] [--corp-id <corpId>]');
     expect(output).toContain('create-form');
     expect(output).toContain('list-forms');
     expect(output).toContain('connector');
@@ -176,7 +176,12 @@ describe('CLI offline smoke', () => {
         browser: 'codex',
         login_url: 'https://example.test/workPlatform',
         can_auto_use: false,
+        handoff_version: 2,
+        cookie_import_command: 'openyida login --import-cookies <cookies.json> --base-url https://example.test',
+        post_login_check_command: 'openyida login --check-only --json',
+        required_cookie_names: ['tianshu_csrf_token'],
       });
+      expect(parsed.cookie_file).toContain('cookies-public.json');
     } finally {
       fs.rmSync(workspace, { recursive: true, force: true });
     }
@@ -226,6 +231,48 @@ describe('CLI offline smoke', () => {
         browser: 'codex',
         login_url: 'https://example.test/workPlatform',
         can_auto_use: false,
+        handoff_version: 2,
+        cookie_import_command: 'openyida login --import-cookies <cookies.json> --base-url https://example.test',
+      });
+    } finally {
+      fs.rmSync(workspace, { recursive: true, force: true });
+    }
+  });
+
+  test('login --import-cookies persists browser cookies for subsequent CLI use', () => {
+    const workspace = createCodexWorkspace();
+    const cookieJsonPath = path.join(workspace, 'browser-cookies.json');
+    fs.writeFileSync(cookieJsonPath, JSON.stringify({
+      cookies: [
+        { name: 'tianshu_csrf_token', value: 'imported-cli-token-1234567890', domain: '.aliwork.com' },
+        { name: 'tianshu_corp_user', value: 'corp_importedUser', domain: '.aliwork.com' },
+      ],
+    }), 'utf8');
+
+    try {
+      const output = runOkWithEnv(['login', '--import-cookies', cookieJsonPath, '--base-url', 'https://tenant.aliwork.com/workPlatform'], {
+        OPENYIDA_ENV: 'public',
+      }, workspace);
+      const parsed = JSON.parse(output.trim());
+      expect(parsed).toMatchObject({
+        ok: true,
+        base_url: 'https://tenant.aliwork.com',
+        corp_id: 'corp',
+        user_id: 'importedUser',
+        cookies_count: 2,
+      });
+      expect(parsed.cookie_file).toContain('cookies-public.json');
+
+      const checkOutput = runOkWithEnv(['login', '--check-only'], {
+        OPENYIDA_ENV: 'public',
+      }, workspace);
+      const checkParsed = JSON.parse(checkOutput.trim());
+      expect(checkParsed).toMatchObject({
+        status: 'ok',
+        can_auto_use: true,
+        corp_id: 'corp',
+        user_id: 'importedUser',
+        base_url: 'https://tenant.aliwork.com',
       });
     } finally {
       fs.rmSync(workspace, { recursive: true, force: true });
@@ -247,6 +294,8 @@ describe('CLI offline smoke', () => {
         browser: 'wukong',
         login_url: 'https://example.test/workPlatform',
         can_auto_use: false,
+        handoff_version: 2,
+        cookie_import_command: 'openyida login --import-cookies <cookies.json> --base-url https://example.test',
       });
     } finally {
       fs.rmSync(wukong.base, { recursive: true, force: true });
@@ -298,6 +347,8 @@ describe('CLI offline smoke', () => {
         browser: 'wukong',
         login_url: 'https://example.test/workPlatform',
         can_auto_use: false,
+        handoff_version: 2,
+        cookie_import_command: 'openyida login --import-cookies <cookies.json> --base-url https://example.test',
       });
     } finally {
       fs.rmSync(wukong.base, { recursive: true, force: true });

@@ -15,8 +15,6 @@ jest.mock('../lib/core/i18n', () => ({
 const {
   extractInfoFromCookies,
   loadCookieData,
-  findProjectRoot,
-  detectActiveTool,
 } = require('../lib/core/utils');
 
 //─ extractInfoFromCookies─────────────────────────
@@ -207,6 +205,81 @@ describe('saveCookieCache 文件写入', () => {
     expect(result).not.toBeNull();
     expect(result.csrf_token).toBe('token123');
     expect(result.base_url).toBe(baseUrl);
+  });
+});
+
+//─ browser cookie import──────────────────────────
+
+describe('browser Cookie 导入', () => {
+  let testDir;
+  let originalCwd;
+
+  beforeEach(() => {
+    originalCwd = process.cwd();
+    testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'import-cookie-cache-'));
+    const projectDir = path.join(testDir, 'project');
+    fs.mkdirSync(projectDir, { recursive: true });
+    fs.writeFileSync(path.join(projectDir, 'config.json'), '{}', 'utf-8');
+    process.chdir(testDir);
+  });
+
+  afterEach(() => {
+    process.chdir(originalCwd);
+    fs.rmSync(testDir, { recursive: true, force: true });
+  });
+
+  test('inferBaseUrlFromCookies 优先识别专属域名，公有云根域回退到 www', () => {
+    const { inferBaseUrlFromCookies } = require('../lib/auth/login');
+
+    expect(inferBaseUrlFromCookies([
+      { name: 'yida_user_cookie', value: 'x', domain: '.tenant.aliwork.com' },
+    ])).toBe('https://tenant.aliwork.com');
+
+    expect(inferBaseUrlFromCookies([
+      { name: 'tianshu_csrf_token', value: 'x', domain: '.aliwork.com' },
+    ])).toBe('https://www.aliwork.com');
+  });
+
+  test('normalizeBrowserCookiePayload 支持 cookies 对象和 storageState 对象', () => {
+    const { normalizeBrowserCookiePayload } = require('../lib/auth/login');
+    const cookies = [{ name: 'tianshu_csrf_token', value: 'token', domain: '.aliwork.com' }];
+
+    expect(normalizeBrowserCookiePayload({ cookies }).cookies).toEqual(cookies);
+    expect(normalizeBrowserCookiePayload({ storageState: { cookies } }).cookies).toEqual(cookies);
+  });
+
+  test('importCookieCache 写入当前环境 Cookie 文件并返回诊断信息', () => {
+    const { importCookieCache } = require('../lib/auth/login');
+    const cookies = [
+      { name: 'tianshu_csrf_token', value: 'imported-token-1234567890', domain: '.aliwork.com' },
+      { name: 'tianshu_corp_user', value: 'dingCorp_user42', domain: '.aliwork.com' },
+    ];
+
+    const result = importCookieCache({ cookies }, { baseUrl: 'https://tenant.aliwork.com/workPlatform' });
+    const cookieFile = path.join(testDir, 'project', '.cache', 'cookies-public.json');
+    const realCookieFile = fs.realpathSync(cookieFile);
+    const written = JSON.parse(fs.readFileSync(cookieFile, 'utf-8'));
+
+    expect(result).toMatchObject({
+      ok: true,
+      csrf_token: 'imported-token-1234567890',
+      corp_id: 'dingCorp',
+      user_id: 'user42',
+      base_url: 'https://tenant.aliwork.com',
+      cookies_count: 2,
+      cookie_file: realCookieFile,
+    });
+    expect(written).toMatchObject({
+      cookies,
+      base_url: 'https://tenant.aliwork.com',
+    });
+  });
+
+  test('importCookieCache 拒绝缺少 tianshu_csrf_token 的导出文件', () => {
+    const { importCookieCache } = require('../lib/auth/login');
+    expect(() => importCookieCache({
+      cookies: [{ name: 'tianshu_corp_user', value: 'corp_user' }],
+    })).toThrow('No tianshu_csrf_token');
   });
 });
 

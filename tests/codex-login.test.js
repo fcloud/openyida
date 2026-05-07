@@ -2,6 +2,7 @@
 
 jest.mock('../lib/core/env-manager', () => ({
   resolveLoginUrl: jest.fn(() => 'https://www.aliwork.com/workPlatform'),
+  getCookieFilePath: jest.fn(() => '/tmp/openyida/project/.cache/cookies-public.json'),
 }));
 
 jest.mock('../lib/core/chalk', () => ({
@@ -51,6 +52,12 @@ describe('codexLogin', () => {
       browser: 'codex',
       login_url: 'https://www.aliwork.com/workPlatform',
       can_auto_use: false,
+      handoff_version: 2,
+      cookie_file: '/tmp/openyida/project/.cache/cookies-public.json',
+      cookie_import_command: 'openyida login --import-cookies <cookies.json> --base-url https://www.aliwork.com',
+      post_login_check_command: 'openyida login --check-only --json',
+      cookie_domains: ['.aliwork.com', 'www.aliwork.com'],
+      required_cookie_names: ['tianshu_csrf_token'],
     });
     expect(chalk.info).toHaveBeenCalledWith(expect.stringContaining('Playwright'));
     expect(chalk.warn).not.toHaveBeenCalled();
