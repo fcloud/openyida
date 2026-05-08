@@ -3,7 +3,7 @@ name: Yida
 description: >
   宜搭 AI 应用开发总入口技能。通过有 AI Coding 能力的智能体（悟空/Claude/Open Code 等）+ 宜搭低代码平台，实现一句话生成完整应用。
   包含应用创建、表单设计、自定义页面开发、页面发布、登录态管理等完整开发流程。
-  当用户提到"宜搭"、"yida"、"低代码"、"创建应用"、"创建表单"、"发布页面"、"搭建"、"系统"、等关键词时，使用此技能。
+  当用户提到"宜搭"、"yida"、"低代码"、"创建应用"、"创建表单"、"发布页面"、"搭建"、"系统"、"看板"、"驾驶舱"、"数据大屏"等关键词时，使用此技能。
 license: MIT
 compatibility:
   - opencode
@@ -144,6 +144,7 @@ openyida copy
 - 配置页面公开访问/组织内分享
 - 查询表单 Schema 或字段 ID
 - 管理宜搭登录态（登录/退出）
+- 创建经营看板、业务看板、管理驾驶舱、数据大屏
 
 ---
 
@@ -192,7 +193,8 @@ openyida copy
 | `yida-process-rule` | `skills/yida-process-rule/SKILL.md` | 配置流程规则、审批节点和字段权限 | `openyida configure-process <appType> <formUuid> <流程JSON>` |
 | `yida-integration` | `skills/yida-integration/SKILL.md` | 集成自动化逻辑流 | `openyida integration create <appType> <配置JSON>` |
 | `yida-connector` | `skills/yida-connector/SKILL.md` | HTTP 连接器创建、测试与动作管理 | `openyida connector smart-create <配置>` |
-| `yida-chart` | `skills/yida-chart/SKILL.md` | 报表可视化（ECharts 图表 + 数据聚合） | 详见 SKILL.md |
+| `yida-dashboard` | `skills/yida-dashboard/SKILL.md` | Dashboard 看板 / 经营驾驶舱 / 数据大屏产品化交付 | 详见 SKILL.md |
+| `yida-chart` | `skills/yida-chart/SKILL.md` | ECharts 图表 / 高级报表可视化组件 | 详见 SKILL.md |
 | `yida-report` | `skills/yida-report/SKILL.md` | 宜搭原生报表创建（标准报表） | `openyida create-report <appType> "<名称>" <配置>` |
 | `yida-density` | `skills/yida-density/SKILL.md` | 列表/表格页面信息密度选择 | 详见 SKILL.md |
 | `yida-formula` | `skills/yida-formula/SKILL.md` | 公式字段和赋值规则配置 | 详见 SKILL.md |
