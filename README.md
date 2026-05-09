@@ -260,6 +260,7 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 | `openyida data <action> <resource> [args]` | Unified data management for forms, processes, tasks, and subforms |
 | `openyida data check <appType> <formUuid> <rules.json>` | Detect anomalous process-form records |
 | `openyida task-center <type> [options]` | Query todo, created, processed, CC, or proxy-submitted tasks |
+| `openyida basic-info <overview\|commodity\|grant\|capacity\|quota\|abs-path\|dataflow\|i18n\|domain>` | Query organization basic info, capacity, quotas, fixed-domain records, and domain settings |
 | `openyida get-permission <appType> <formUuid>` | Query form permission configuration |
 | `openyida save-permission <appType> <formUuid> [options]` | Save form permission configuration |
 | `openyida verify-short-url <appType> <formUuid> <url>` | Verify a short URL |
