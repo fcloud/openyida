@@ -410,6 +410,8 @@ Thanks to everyone who has contributed to OpenYida. Read the [Contributing Guide
 <a href="https://github.com/sunliz-xiuli"><img align="left" src="https://avatars.githubusercontent.com/u/76982855?v=4&s=40" width="40" height="40" alt="sunliz-xiuli" title="sunliz-xiuli"/></a>
 <a href="https://github.com/M12REDX"><img align="left" src="https://avatars.githubusercontent.com/u/22703542?v=4&s=40" width="40" height="40" alt="M12REDX" title="M12REDX"/></a>
 <a href="https://github.com/key-668"><img align="left" src="https://avatars.githubusercontent.com/u/270536058?v=4&s=40" width="40" height="40" alt="再不喝汽水" title="再不喝汽水"/></a>
+<a href="https://github.com/dongbeixiaohuo"><img align="left" src="https://avatars.githubusercontent.com/u/73542526?v=4&s=40" width="40" height="40" alt="dongbeixiaohuo" title="dongbeixiaohuo"/></a>
+<a href="https://github.com/nandanadileep"><img align="left" src="https://avatars.githubusercontent.com/u/110280757?v=4&s=40" width="40" height="40" alt="nandanadileep" title="nandanadileep"/></a>
 <br clear="left" />
 </p>
 
