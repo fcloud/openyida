@@ -107,6 +107,7 @@ describe('CLI offline smoke', () => {
     expect(output).toContain('corp-manager');
     expect(output).toContain('dws');
     expect(output).toContain('commands [--json]');
+    expect(output).toContain('a2a <serve|agent-card> [options]');
     expect(output).toContain('sample [--list]');
     expect(output).toContain('generate-page <template>');
     expect(output).toContain('build-page <sourceFile>');
@@ -140,11 +141,32 @@ describe('CLI offline smoke', () => {
     expect(commands).toContain('connector.smart-create');
     expect(commands).toContain('corp-manager');
     expect(commands).toContain('commands');
+    expect(commands).toContain('a2a');
+    expect(parsed.commands.find(entry => entry.id === 'a2a')).toMatchObject({
+      usage: 'openyida a2a <serve|agent-card> [options]',
+      output: 'text|json',
+      requires_login: false,
+    });
     expect(parsed.commands.find(entry => entry.id === 'commands')).toMatchObject({
       usage: 'openyida commands [--json]',
       output: 'json',
       requires_login: false,
     });
+  });
+
+  test('a2a agent-card renders a valid Agent Card without requiring login', () => {
+    const output = runOk(['a2a', 'agent-card']);
+    const parsed = JSON.parse(output);
+
+    expect(parsed).toMatchObject({
+      protocolVersion: '1.0',
+      name: 'OpenYida Local Adapter',
+      capabilities: {
+        streaming: false,
+        pushNotifications: false,
+      },
+    });
+    expect(parsed.skills.map(skill => skill.id)).toContain('openyida.command_manifest');
   });
 
   test('sample --list renders available templates without network access', () => {

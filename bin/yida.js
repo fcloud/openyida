@@ -312,6 +312,12 @@ async function main() {
       break;
     }
 
+    case 'a2a': {
+      const { run } = require('../lib/a2a/cmd');
+      await run(args);
+      break;
+    }
+
     case 'env': {
       if (shouldUseEnvManagement(args)) {
         const { run } = require('../lib/core/env-cmd');
