@@ -106,6 +106,7 @@ describe('CLI offline smoke', () => {
     expect(output).toContain('connector');
     expect(output).toContain('corp-manager');
     expect(output).toContain('dws');
+    expect(output).toContain('dingtalk-link');
     expect(output).toContain('commands [--json]');
     expect(output).toContain('a2a <serve|agent-card> [options]');
     expect(output).toContain('sample [--list]');
@@ -140,6 +141,7 @@ describe('CLI offline smoke', () => {
     expect(commands).toContain('build-page');
     expect(commands).toContain('connector.smart-create');
     expect(commands).toContain('corp-manager');
+    expect(commands).toContain('dingtalk-link');
     expect(commands).toContain('commands');
     expect(commands).toContain('a2a');
     expect(parsed.commands.find(entry => entry.id === 'a2a')).toMatchObject({
@@ -150,6 +152,11 @@ describe('CLI offline smoke', () => {
     expect(parsed.commands.find(entry => entry.id === 'commands')).toMatchObject({
       usage: 'openyida commands [--json]',
       output: 'json',
+      requires_login: false,
+    });
+    expect(parsed.commands.find(entry => entry.id === 'dingtalk-link')).toMatchObject({
+      usage: 'openyida dingtalk-link <url> [--target fullScreen] [--legacy-scheme] [--json]',
+      output: 'text|json',
       requires_login: false,
     });
   });

@@ -885,6 +885,13 @@ async function main() {
       await runDws(args);
       break;
     }
+
+    case 'dingtalk-link': {
+      const { run: runDingTalkLink } = require('../lib/dingtalk/dingtalk-link');
+      await runDingTalkLink(args);
+      break;
+    }
+
     case 'export-conversation': {
       const { exportConversation } = require('../lib/conversation/export-conversation');
       // 解析选项
