@@ -1,6 +1,6 @@
 {
   "name": "openyida",
-  "version": "2026.5.12",
+  "version": "2026.5.13-beta.1",
   "description": "OpenYida CLI - 宜搭低代码 AI 开发工具（安装即用，零配置）",
   "bin": {
     "openyida": "bin/yida.js",
@@ -29,6 +29,7 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint bin/ lib/ scripts/ tests/ --ext .js",
     "lint:fix": "eslint bin/ lib/ scripts/ tests/ --ext .js --fix",
+    "solution:runner": "node scripts/solution-center-runner.js",
     "build:skills": "node scripts/build-skills-package.js",
     "check:structure": "node scripts/validate-structure.js",
     "check:skills": "node scripts/validate-skills.js",

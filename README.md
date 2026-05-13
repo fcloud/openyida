@@ -167,8 +167,8 @@ openyida/
 openyida create-app "CRM"
 openyida create-app --name "CRM" --desc "Customer management" --theme deepBlue
 openyida app-list --size 20
-openyida create-form create APP_XXX "Customer" fields.json
-openyida create-form update APP_XXX FORM_XXX changes.json
+openyida create-form create APP_XXX "Customer" .cache/openyida/forms/customer-fields.json
+openyida create-form update APP_XXX FORM_XXX .cache/openyida/forms/customer-changes.json
 openyida get-schema APP_XXX FORM_XXX
 openyida get-schema APP_XXX --all --output-dir .cache/schemas
 ```
@@ -177,7 +177,7 @@ openyida get-schema APP_XXX --all --output-dir .cache/schemas
 
 ```bash
 openyida create-page APP_XXX "Dashboard" --mode dashboard
-openyida generate-page product-homepage --spec page.json --output pages/src/home.oyd.jsx --compile
+openyida generate-page product-homepage --spec .cache/openyida/page-specs/home.json --output pages/src/home.oyd.jsx --compile
 openyida generate-page todo-mvc --output pages/src/todo-mvc.oyd.jsx --compile
 openyida check-page pages/src/home.oyd.jsx
 openyida compile pages/src/home.oyd.jsx
@@ -190,14 +190,16 @@ Built-in templates currently include `product-homepage` for product/portal pages
 ### Workflow, Data, and Permissions
 
 ```bash
-openyida create-process APP_XXX "Purchase Request" fields.json process.json
-openyida configure-process APP_XXX FORM_XXX process.json
-openyida process preview APP_XXX PROC_INST_XXX --output process.html
+openyida create-process APP_XXX "Purchase Request" .cache/openyida/process/fields.json .cache/openyida/process/process.json
+openyida configure-process APP_XXX FORM_XXX .cache/openyida/process/process.json
+openyida process preview APP_XXX PROC_INST_XXX --output .cache/openyida/process/process.html
 openyida data query form APP_XXX FORM_XXX --page 1 --size 20
+openyida data create form APP_XXX FORM_XXX --data-file .cache/openyida/data-import/record.json
 openyida get-permission APP_XXX FORM_XXX
 ```
 
 When creating or updating test data with `openyida data`, Yida date fields must use 13-digit millisecond timestamps, for example `"dateField_xxx": 1719705600000`. Do not submit `YYYY-MM-DD` strings for `DateField` or `CascadeDateField` values.
+Temporary JSON, CSV, and one-off import scripts should live under `.cache/openyida/` so generated run artifacts do not clutter the repository root.
 
 ### Real Environment E2E
 
@@ -239,8 +241,8 @@ Use `npm run test:e2e:real:cleanup` to list recorded disposable resources. OpenY
 openyida connector smart-create --curl "curl https://api.example.com/users"
 openyida connector list
 openyida integration create APP_XXX FORM_XXX "Sync customer data"
-openyida create-report APP_XXX "Sales Dashboard" charts.json
-openyida append-chart APP_XXX REPORT_XXX chart.json
+openyida create-report APP_XXX "Sales Dashboard" .cache/openyida/reports/charts.json
+openyida append-chart APP_XXX REPORT_XXX .cache/openyida/reports/chart.json
 ```
 
 ## CLI Reference
@@ -330,6 +332,8 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 | `openyida update` | Update OpenYida through npm |
 | `openyida export-conversation [options]` | Export AI conversation history |
 | `openyida flash-to-prd --file <path> --name "<project>"` | Convert flash notes or meeting notes into a PRD prompt |
+| `openyida ai text --prompt "..."` | Call Yida's text generation AI API |
+| `openyida ai image --file <image> --app-type APP_XXX` | Upload an image and call the image recognition connector |
 | `openyida cdn-config` | Configure image upload to Aliyun OSS/CDN |
 | `openyida cdn-upload <image-path>` | Upload an image to CDN |
 | `openyida cdn-refresh [options]` | Refresh CDN cache |
