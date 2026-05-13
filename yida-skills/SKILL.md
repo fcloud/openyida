@@ -188,6 +188,7 @@ openyida copy
 | `yida-db-seq-fix` | `skills/yida-db-seq-fix/SKILL.md` | PostgreSQL sequence 漂移修复 | `openyida db-seq-fix <配置>` |
 | `yida-export-conversation` | `skills/yida-export-conversation/SKILL.md` | 导出 AI 对话记录 | `openyida export-conversation` |
 | `yida-flash-note-to-prd` | `skills/yida-flash-note-to-prd/SKILL.md` | 闪记/会议纪要转 PRD prompt | `openyida flash-to-prd <文件>` |
+| `yida-ai` | — | 宜搭 AI 文生文与识图接口调用 | `openyida ai text --prompt "..."` / `openyida ai image --file <图片> --app-type APP_XXX` |
 | `yida-ppt-slider` | `skills/yida-ppt-slider/SKILL.md` | 宜搭全屏幻灯片页面 | 详见 SKILL.md |
 | `yida-ppt` | `skills/yida-ppt/SKILL.md` | 已废弃，改用 `yida-ppt-slider` | 详见 SKILL.md |
 | `yida-batch` | — | 批量命令编排（一次登录，多命令顺序执行） | `openyida batch <file> --json` 或 `openyida batch --commands "cmd1;cmd2"` |
@@ -228,7 +229,18 @@ openyida copy
 
 ### 5. 临时文件规范
 
-所有临时文件（cookies、schema 缓存等）**必须写在项目根目录的 `.cache/` 文件夹中**，不要写在系统其他位置。
+所有临时文件（cookies、schema 缓存、字段配置、报表配置、流程配置、导入数据、一次性脚本等）**必须写在项目根目录的 `.cache/` 文件夹中**，不要写到仓库根目录，也不要写在系统其他位置。
+
+推荐路径：
+
+| 工件类型 | 推荐位置 |
+|---------|---------|
+| Schema / ID 映射 | `.cache/<项目名>-schema.json` |
+| 表单字段 / 报表 / 流程配置 | `.cache/openyida/<项目名>/` |
+| 批量导入数据 JSON / JSONL / CSV | `.cache/openyida/data-import/` |
+| 一次性 Python / JS 执行脚本 | `.cache/openyida/scripts/` |
+
+> 若只是为了调用 `openyida` 命令临时生成的 `*.json`、`*.js`、`*.py`、`*.csv` 文件，一律放入 `.cache/openyida/` 子目录；只有需要长期维护的 PRD、页面源码或示例资源才写入 `prd/`、`pages/src/`、`project/` 等正式目录。
 
 ### 6. 报表优化/美化提示规则（必须遵守）
 

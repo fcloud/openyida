@@ -144,6 +144,7 @@ describe('CLI offline smoke', () => {
     expect(commands).toContain('dingtalk-link');
     expect(commands).toContain('commands');
     expect(commands).toContain('a2a');
+    expect(commands).toContain('ai');
     expect(parsed.commands.find(entry => entry.id === 'a2a')).toMatchObject({
       usage: 'openyida a2a <serve|agent-card> [options]',
       output: 'text|json',
@@ -158,6 +159,11 @@ describe('CLI offline smoke', () => {
       usage: 'openyida dingtalk-link <url> [--target fullScreen] [--legacy-scheme] [--json]',
       output: 'text|json',
       requires_login: false,
+    });
+    expect(parsed.commands.find(entry => entry.id === 'ai')).toMatchObject({
+      usage: 'openyida ai <text|image> [options]',
+      output: 'text|json',
+      requires_login: true,
     });
   });
 
@@ -209,6 +215,8 @@ describe('CLI offline smoke', () => {
     const output = runOk(['env', 'list']);
     expect(output).toContain('public');
     expect(output).toContain('https://www.aliwork.com');
+    expect(output).toContain('alibaba');
+    expect(output).toContain('https://yida-group.alibaba-inc.com');
   });
 
   test('env unknown subcommand fails instead of rendering detection output', () => {
@@ -409,6 +417,36 @@ describe('CLI offline smoke', () => {
     }
   });
 
+  test('login --agent-qr bypasses cached credentials for forced re-login', () => {
+    const workspace = createCodexWorkspace();
+    const cacheDir = path.join(workspace, 'project', '.cache');
+    fs.mkdirSync(cacheDir, { recursive: true });
+    fs.writeFileSync(path.join(cacheDir, 'cookies-public.json'), JSON.stringify({
+      cookies: [
+        { name: 'tianshu_csrf_token', value: 'cached-token-1234567890' },
+        { name: 'tianshu_corp_user', value: 'corp_cachedUser' },
+      ],
+      base_url: 'https://www.aliwork.com',
+    }), 'utf8');
+
+    try {
+      const output = runOkWithEnv(['login', '--agent-qr'], {
+        CODEX_SHELL: '1',
+        OPENYIDA_LOGIN_URL: 'https://example.test/workPlatform',
+        OPENYIDA_CODEX_QR_FAKE: '1',
+      }, workspace);
+      const parsed = JSON.parse(output.trim());
+      expect(parsed).toMatchObject({
+        status: 'need_qr_scan',
+        handoff_type: 'qr',
+        can_auto_use: false,
+      });
+      expect(parsed.qr_url).toContain('https://login.example.test/qr');
+    } finally {
+      fs.rmSync(workspace, { recursive: true, force: true });
+    }
+  });
+
   test('login falls back to QR handoff in Wukong environment when CDP is unavailable', () => {
     const wukong = createWukongWorkRoot();
     try {
@@ -417,6 +455,7 @@ describe('CLI offline smoke', () => {
         OPENYIDA_ENV: 'public',
         OPENYIDA_LOGIN_URL: 'https://example.test/workPlatform',
         OPENYIDA_DISABLE_CDP_LOGIN: '1',
+        OPENYIDA_DISABLE_PLAYWRIGHT_LOGIN: '1',
         OPENYIDA_CODEX_QR_FAKE: '1',
       }, wukong.projectDir);
       const parsed = JSON.parse(output.trim());
