@@ -316,6 +316,7 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 | `openyida integration enable <appType> <formUuid> <processCode>` | Enable an automation flow |
 | `openyida integration disable <appType> <formUuid> <processCode>` | Disable an automation flow |
 | `openyida dws <command> [args]` | Access DingTalk CLI capabilities such as contacts, calendar, todo, and approval |
+| `openyida dingtalk-link <url> [--target fullScreen] [--legacy-scheme] [--json]` | Generate DingTalk AppLink URLs for opening pages in DingTalk; use `--legacy-scheme` only when old `dingtalk://` links are required |
 
 ### Utilities
 
