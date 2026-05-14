@@ -371,7 +371,10 @@ async function main() {
         console.log(JSON.stringify(result, null, 2));
       } else if (shouldUseCodexQrLogin(args)) {
         const { startCodexQrLogin } = require('../lib/auth/qr-login');
-        const result = await startCodexQrLogin({ corpId: getArgValue(args, '--corp-id') });
+        const result = await startCodexQrLogin({
+          corpId: getArgValue(args, '--corp-id'),
+          baseUrl: getArgValue(args, '--base-url') || undefined,
+        });
         printLoginResult(result);
       } else if (args.includes('--browser')) {
         const { interactiveLogin } = require('../lib/auth/login');
@@ -383,7 +386,10 @@ async function main() {
         printLoginResult(result);
       } else if (args.includes('--qr')) {
         const { qrLogin } = require('../lib/auth/qr-login');
-        const result = await qrLogin({ corpId: getArgValue(args, '--corp-id') });
+        const result = await qrLogin({
+          corpId: getArgValue(args, '--corp-id'),
+          baseUrl: getArgValue(args, '--base-url') || undefined,
+        });
         console.log(JSON.stringify(result));
       } else if (shouldUseAgentLogin(args)) {
         const cachedResult = checkLoginOnly({ includeSecrets: true });
@@ -398,7 +404,10 @@ async function main() {
             printLoginResult(browserResult);
           } else {
             const { startCodexQrLogin } = require('../lib/auth/qr-login');
-            const result = await startCodexQrLogin({ corpId: getArgValue(args, '--corp-id') });
+            const result = await startCodexQrLogin({
+              corpId: getArgValue(args, '--corp-id'),
+              baseUrl: getArgValue(args, '--base-url') || undefined,
+            });
             printLoginResult(result);
           }
         }
@@ -418,7 +427,10 @@ async function main() {
           break;
         }
         const { qrLogin } = require('../lib/auth/qr-login');
-        const result = await qrLogin({ corpId: getArgValue(args, '--corp-id') });
+        const result = await qrLogin({
+          corpId: getArgValue(args, '--corp-id'),
+          baseUrl: getArgValue(args, '--base-url') || undefined,
+        });
         console.log(JSON.stringify(result));
       }
       break;
