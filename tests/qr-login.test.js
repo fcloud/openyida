@@ -494,3 +494,53 @@ describe('isDingtalkOAuthChallengeUrl — dingtalk.io (Global YiDA)', () => {
     expect(__test__.isDingtalkOAuthChallengeUrl('not-a-url')).toBe(false);
   });
 });
+
+// ── patchGlobalDingtalkDomain ─────────────────────────────────────────
+
+describe('patchGlobalDingtalkDomain — Global YiDA domain patching', () => {
+  test('patches login.dingtalk.com → login.dingtalk.io for yidaapps.com base', () => {
+    const result = __test__.patchGlobalDingtalkDomain(
+      'https://login.dingtalk.com/oauth2/challenge?client_id=abc',
+      'https://www.yidaapps.com'
+    );
+    expect(result).toBe('https://login.dingtalk.io/oauth2/challenge?client_id=abc');
+  });
+
+  test('patches subdomain.dingtalk.com → subdomain.dingtalk.io for yidaapps.com base', () => {
+    const result = __test__.patchGlobalDingtalkDomain(
+      'https://auth.dingtalk.com/oauth2/qr_confirm.htm?code=XYZ',
+      'https://www.yidaapps.com'
+    );
+    expect(result).toBe('https://auth.dingtalk.io/oauth2/qr_confirm.htm?code=XYZ');
+  });
+
+  test('does NOT patch when baseUrl is aliwork.com (China env)', () => {
+    const url = 'https://login.dingtalk.com/oauth2/challenge?client_id=abc';
+    const result = __test__.patchGlobalDingtalkDomain(url, 'https://www.aliwork.com');
+    expect(result).toBe(url);
+  });
+
+  test('does NOT patch when baseUrl is private deployment', () => {
+    const url = 'https://login.dingtalk.com/oauth2/challenge?client_id=abc';
+    const result = __test__.patchGlobalDingtalkDomain(url, 'https://yida.company.com');
+    expect(result).toBe(url);
+  });
+
+  test('returns url unchanged when url is already on dingtalk.io', () => {
+    const url = 'https://login.dingtalk.io/oauth2/challenge?client_id=abc';
+    const result = __test__.patchGlobalDingtalkDomain(url, 'https://www.yidaapps.com');
+    expect(result).toBe(url);
+  });
+
+  test('returns url unchanged when url is not a dingtalk URL', () => {
+    const url = 'https://www.yidaapps.com/workPlatform';
+    const result = __test__.patchGlobalDingtalkDomain(url, 'https://www.yidaapps.com');
+    expect(result).toBe(url);
+  });
+
+  test('handles null/empty inputs gracefully', () => {
+    expect(__test__.patchGlobalDingtalkDomain(null, 'https://www.yidaapps.com')).toBe(null);
+    expect(__test__.patchGlobalDingtalkDomain('https://login.dingtalk.com/oauth2/', null)).toBe('https://login.dingtalk.com/oauth2/');
+    expect(__test__.patchGlobalDingtalkDomain('', '')).toBe('');
+  });
+});
