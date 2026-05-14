@@ -9,25 +9,28 @@ description: 宜搭登录态管理。扫码登录，Cookie 持久化到 .cache/c
 
 - 不要在代码中硬编码 Cookie 或凭证，Cookie 必须通过 `openyida login` 命令获取并缓存到 `.cache/cookies.json`
 - 不要在 Cookie 失效时手动修改 `.cache/cookies.json`，必须重新执行登录流程
+- **不要在海外宜搭（yidaapps.com）登录时省略 `--base-url` 参数**，否则会生成国内钉钉（dingtalk.com）二维码，海外钉钉账号无法扫码
 
 ## 严格要求 (MUST DO)
 
 - 执行任何宜搭操作前，必须先运行 `openyida env` 确认环境和登录态
 - Cookie 失效时，重新登录后必须验证新 Cookie 可用（运行任意查询命令确认）
 - **本技能不读写 memory**：登录态通过 `.cache/cookies.json` 持久化，不依赖跨会话的 memory 状态
+- **海外宜搭登录时，必须传 `--base-url https://www.yidaapps.com`**（见下方“海外宜搭登录”章节）
 
 ## 适用场景
 
 | 用户意图 | 触发条件 |
-|---------|---------|
+|---------|----------|
 | 首次使用或 Cookie 失效 | 其他命令报 401/未登录错误时自动触发 |
 | 切换账号/组织 | 先 `openyida logout` 再重新登录 |
+| 海外宜搭登录 | 用户提及“海外”、“global”、“yidaapps.com”、“国际版” |
 
 ## 触发条件
 
 **正向触发**：
 - 其他命令返回 401 / 未登录 / Cookie 失效错误时自动触发
-- 用户明确说"登录"、"重新登录"、"扫码登录"
+- 用户明确说“登录”、“重新登录”、“扫码登录”
 - 首次使用 openyida，尚无 `.cache/cookies.json`
 
 **不适用场景（不要触发）**：
@@ -45,7 +48,7 @@ description: 宜搭登录态管理。扫码登录，Cookie 持久化到 .cache/c
 openyida login
 ```
 
-默认登录路径不需要 Playwright：优先复用缓存；Codex、Qoder、悟空、Claude Code、OpenCode、Cursor 等可检测到的 AI 工具先尝试本地 Chrome/Edge/Chromium CDP 登录，CDP 不可用时再使用二维码 handoff；其他终端环境使用二维码登录。`openyida login --browser` 优先使用本地 Chrome/Edge/Chromium CDP，CDP 不可用时才用 Playwright 兜底。
+默认登录路径不需要 Playwright：优先复用缓存；Codex、Qoder、惟安、Claude Code、OpenCode、Cursor 等可检测到的 AI 工具先尝试本地 Chrome/Edge/Chromium CDP 登录，CDP 不可用时再使用二维码 handoff；其他终端环境使用二维码登录。`openyida login --browser` 优先使用本地 Chrome / Edge / Chromium CDP，CDP 不可用时才用 Playwright 兜底。
 
 ### AI 工具二维码登录模式
 
@@ -90,6 +93,23 @@ openyida login --agent-qr
 
 该命令返回 `need_qr_scan` JSON，包含可直接渲染的 `qr_image_markdown` 和 `agent_response_markdown`。扫码后执行 `poll_command`。兼容旧命令 `openyida login --codex-qr`。
 
+## 海外宜搭登录（Global YiDA / yidaapps.com）
+
+用户说“海外宜搭”、“Global YiDA”、“yidaapps.com”、“国际版”、“海外钉钉”时，**必须**加 `--base-url https://www.yidaapps.com`，否则生成的是国内钉钉二维码（dingtalk.com），海外钉钉账号无法扫码。
+
+```bash
+# AI 工具二维码模式（推荐）
+openyida login --agent-qr --base-url https://www.yidaapps.com
+
+# 终端交互模式
+openyida login --qr --base-url https://www.yidaapps.com
+```
+
+原理：`yidaapps.com` 服务端会把 OAuth 重定向错误地指向 `login.dingtalk.com`（国内），
+CLI 在收到 `--base-url https://www.yidaapps.com` 时会自动将其修正为 `login.dingtalk.io`（国际）并追加 `FEForceLogin=true`，确保海外钉钉 App 能识别二维码。
+
+> 不传 `--base-url` 时默认走国内（`aliwork.com`），两套环境的 Cookie 互不兼容，请勿混用。
+
 ## 输出
 
 ```json
@@ -103,7 +123,7 @@ openyida login --agent-qr
 各命令通过响应体 `errorCode` 自动处理登录态异常：
 
 | errorCode | 含义 | 处理方式 |
-|-----------|------|---------|
+|-----------|------|----------|
 | `TIANSHU_000030` | CSRF Token 过期 | 自动无头刷新 |
 | `307` | Cookie 失效 | 自动重新登录 |
 
@@ -113,6 +133,6 @@ openyida login --agent-qr
 |---------|----------|
 | 扫码超时 | 重新执行 `openyida login`，二维码有时效限制 |
 | 登录后 Cookie 仍无效 | 检查 `.cache/cookies.json` 是否正确写入，执行 `openyida env` 验证 |
-| 反复登录失败 | 停止重试，提示用户联系开发同学 @天晟，不要自主尝试其他登录方案 |
+| 反复登录失败 | 停止重试，提示用户联系开发同学 @天晩，不要自主尝试其他登录方案 |
 | CSRF Token 过期（TIANSHU_000030） | 自动无头刷新，无需手动干预 |
 | Cookie 失效（307） | 自动重新登录，无需手动干预 |
