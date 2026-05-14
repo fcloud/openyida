@@ -458,3 +458,39 @@ describe('DingTalk OAuth organization selection', () => {
     )).toBe('https://yida.company.example');
   });
 });
+
+describe('isDingtalkOAuthChallengeUrl — dingtalk.io (Global YiDA)', () => {
+  test('recognizes dingtalk.io oauth2 challenge URL', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.dingtalk.io/oauth2/challenge?client_id=abc'
+    )).toBe(true);
+  });
+
+  test('recognizes dingtalk.io oauth2 confirm_auth URL', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.dingtalk.io/oauth2/confirm_auth'
+    )).toBe(true);
+  });
+
+  test('still recognizes dingtalk.com oauth2 challenge URL (China)', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.dingtalk.com/oauth2/challenge?client_id=abc'
+    )).toBe(true);
+  });
+
+  test('rejects dingtalk.io URL without /oauth2/ path', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.dingtalk.io/login'
+    )).toBe(false);
+  });
+
+  test('rejects non-dingtalk URL', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://www.yidaapps.com/workPlatform'
+    )).toBe(false);
+  });
+
+  test('rejects invalid URL gracefully', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl('not-a-url')).toBe(false);
+  });
+});
