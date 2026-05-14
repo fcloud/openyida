@@ -498,20 +498,36 @@ describe('isDingtalkOAuthChallengeUrl — dingtalk.io (Global YiDA)', () => {
 // ── patchGlobalDingtalkDomain ─────────────────────────────────────────
 
 describe('patchGlobalDingtalkDomain — Global YiDA domain patching', () => {
-  test('patches login.dingtalk.com → login.dingtalk.io for yidaapps.com base', () => {
+  test('patches login.dingtalk.com → login.dingtalk.io and adds FEForceLogin=true', () => {
     const result = __test__.patchGlobalDingtalkDomain(
-      'https://login.dingtalk.com/oauth2/challenge?client_id=abc',
+      'https://login.dingtalk.com/oauth2/challenge.htm?client_id=abc&scope=openid+corpid&lang=en_US',
       'https://www.yidaapps.com'
     );
-    expect(result).toBe('https://login.dingtalk.io/oauth2/challenge?client_id=abc');
+    const parsed = new URL(result);
+    expect(parsed.hostname).toBe('login.dingtalk.io');
+    expect(parsed.searchParams.get('client_id')).toBe('abc');
+    expect(parsed.searchParams.get('FEForceLogin')).toBe('true');
   });
 
-  test('patches subdomain.dingtalk.com → subdomain.dingtalk.io for yidaapps.com base', () => {
+  test('patches subdomain.dingtalk.com → subdomain.dingtalk.io and adds FEForceLogin=true', () => {
     const result = __test__.patchGlobalDingtalkDomain(
       'https://auth.dingtalk.com/oauth2/qr_confirm.htm?code=XYZ',
       'https://www.yidaapps.com'
     );
-    expect(result).toBe('https://auth.dingtalk.io/oauth2/qr_confirm.htm?code=XYZ');
+    const parsed = new URL(result);
+    expect(parsed.hostname).toBe('auth.dingtalk.io');
+    expect(parsed.searchParams.get('FEForceLogin')).toBe('true');
+  });
+
+  test('does not duplicate FEForceLogin when already present', () => {
+    const result = __test__.patchGlobalDingtalkDomain(
+      'https://login.dingtalk.com/oauth2/challenge.htm?client_id=abc&FEForceLogin=true',
+      'https://www.yidaapps.com'
+    );
+    const parsed = new URL(result);
+    expect(parsed.hostname).toBe('login.dingtalk.io');
+    // searchParams.getAll ensures it's not duplicated
+    expect(parsed.searchParams.getAll('FEForceLogin')).toEqual(['true']);
   });
 
   test('does NOT patch when baseUrl is aliwork.com (China env)', () => {
