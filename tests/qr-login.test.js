@@ -458,3 +458,39 @@ describe('DingTalk OAuth organization selection', () => {
     )).toBe('https://yida.company.example');
   });
 });
+
+describe('isDingtalkOAuthChallengeUrl', () => {
+  test('recognizes dingtalk.com OAuth URLs', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.dingtalk.com/oauth2/challenge'
+    )).toBe(true);
+  });
+
+  test('recognizes dingtalk.io OAuth challenge URL', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.dingtalk.io/oauth2/challenge'
+    )).toBe(true);
+  });
+
+  test('recognizes dingtalk.io OAuth auth URL with redirect_uri', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.dingtalk.io/oauth2/auth?redirect_uri=xxx'
+    )).toBe(true);
+  });
+
+  test('rejects dingtalk.io URL with non-oauth2 path', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.dingtalk.io/other-path'
+    )).toBe(false);
+  });
+
+  test('rejects non-dingtalk domains', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl(
+      'https://login.example.com/oauth2/challenge'
+    )).toBe(false);
+  });
+
+  test('returns false for invalid URLs', () => {
+    expect(__test__.isDingtalkOAuthChallengeUrl('not-a-url')).toBe(false);
+  });
+});
