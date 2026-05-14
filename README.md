@@ -85,6 +85,13 @@ openyida login --qr --corp-id dingxxxxxxxx
 openyida login --check-only --json
 ```
 
+For Global YiDA (`yidaapps.com`), pass `--base-url` so QR login routes through Global DingTalk (`dingtalk.io`):
+
+```bash
+openyida login --qr --base-url https://www.yidaapps.com
+openyida login --agent-qr --base-url https://www.yidaapps.com
+```
+
 OpenYida does not install Playwright by default.
 
 ### 4. Build With an AI Agent
@@ -257,7 +264,7 @@ Run `openyida --help` or `openyida <command> --help` for detailed usage.
 | `openyida env [--json]` | Detect the active AI tool environment and login state |
 | `openyida env <list\|show\|switch\|add\|remove>` | Manage public/private Yida environment profiles |
 | `openyida commands [--json]` | Emit the machine-readable command manifest |
-| `openyida login [--qr\|--agent-qr\|--codex\|--browser] [--corp-id <corpId>]` | Log in to Yida |
+| `openyida login [--qr\|--agent-qr\|--codex\|--browser] [--corp-id <corpId>] [--base-url <url>]` | Log in to Yida (use `--base-url https://www.yidaapps.com` for Global YiDA) |
 | `openyida logout` | Log out or switch account |
 | `openyida auth <status\|login\|refresh\|logout>` | Manage login status |
 | `openyida org list` | List accessible organizations |
