@@ -180,6 +180,7 @@ openyida copy
 | `yida-process-rule` | `skills/yida-process-rule/SKILL.md` | 配置流程规则、审批节点和字段权限 | `openyida configure-process <appType> <formUuid> <流程JSON>` |
 | `yida-integration` | `skills/yida-integration/SKILL.md` | 集成自动化逻辑流（创建/列表/启停） | `openyida integration <create\|list\|enable\|disable> ...` |
 | `yida-connector` | `skills/yida-connector/SKILL.md` | HTTP 连接器创建、测试与动作管理 | `openyida connector smart-create <配置>` |
+| `sls-log-workbench` | `skills/sls-log-workbench/SKILL.md` | SLS 日志查询工作台排查（内部技术支持） | 详见 SKILL.md |
 | `yida-dashboard` | `skills/yida-dashboard/SKILL.md` | 经营看板/驾驶舱/数据大屏完整产品化交付（单屏控制塔+宜搭待办连接器真实钉钉待办闭环+卡片截图+组织内短链） | 详见 SKILL.md |
 | `yida-chart` | `skills/yida-chart/SKILL.md` | 报表可视化（ECharts 图表 + 数据聚合） | 详见 SKILL.md |
 | `yida-report` | `skills/yida-report/SKILL.md` | 宜搭原生报表创建（标准报表） | `openyida create-report <appType> "<名称>" <配置>` |
